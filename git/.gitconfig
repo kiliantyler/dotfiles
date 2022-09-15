@@ -1,0 +1,13 @@
+[user]
+	email = kilian@ktyler.me
+	name = Kilian Tyler
+	signingKey = 01F077C160B4618AD49BE3D10995BA5F62E19E84
+[commit]
+	gpgSign = true
+[tag]
+	forceSignAnnotated = true
+[credential]
+	helper = store
+[init]
+	defaultBranch = main
+	templateDir = /Users/kilian/.git-template
