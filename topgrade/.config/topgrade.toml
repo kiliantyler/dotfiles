@@ -32,10 +32,10 @@ no_retry = true
 #set_title = false
 
 # Display the time in step titles
-# display_time = true
+display_time = true
 
 # Cleanup temporary or old files
-#cleanup = true
+cleanup = true
 
 [git]
 #max_concurrency = 5
@@ -92,7 +92,7 @@ autoremove = true
 
 [npm]
 # Use sudo if the NPM directory isn't owned by the current user
-#use_sudo = true
+use_sudo = true
 
 [firmware]
 # Offer to update firmware; if false just check for and display available updates
