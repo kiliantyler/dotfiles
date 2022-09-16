@@ -32,3 +32,9 @@ alias hdb='h dependency build'
 
 # Misc
 alias path='echo -e ${PATH//:/\\n}'
+alias myip="curl http://ipecho.net/plain; echo"
+
+# just a better Docker printout
+alias dps='docker ps --format "table {{.Names}}\t{{.RunningFor}}\t{{.Status}}"'
+
+alias lsblk='lsblk -o NAME,SIZE,FSTYPE,TYPE,MOUNTPOINT'

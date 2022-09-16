@@ -10,4 +10,13 @@
 	helper = store
 [init]
 	defaultBranch = main
-	templateDir = /Users/kilian/.git-template
+	templateDir = ${HOME}/.git-template
+[color]
+	ui = true
+[format]
+	pretty = oneline
+[core]
+	autocrl = input
+	fileMode = true
+[alias]
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit

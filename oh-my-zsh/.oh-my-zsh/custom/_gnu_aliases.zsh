@@ -1,3 +1,5 @@
+# We want this to load first so it starts with an underscore (_)
+
 alias awk='gawk'
 alias b2sum='gb2sum'
 alias base32='gbase32'
