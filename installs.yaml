@@ -49,7 +49,6 @@ brew:
         - openssl
         - pre-commit
         - pulumi
-        - rancher-compose
         - rustup
         - shellcheck
         - shfmt
