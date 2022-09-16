@@ -32,7 +32,8 @@ alias hdb='h dependency build'
 
 # Misc
 alias path='echo -e ${PATH//:/\\n}'
-alias myip="curl http://ipecho.net/plain; echo"
+alias myip='curl http://ipecho.net/plain; echo'
+alias upgrade='topgrade'
 
 # just a better Docker printout
 alias dps='docker ps --format "table {{.Names}}\t{{.RunningFor}}\t{{.Status}}"'

@@ -164,12 +164,7 @@ nothingYet:
 code:
     extensions:
         - fake
-aliases:
-    - upgrade: topgrade
 
-Notes:
-    - alias-tips: https://github.com/djui/alias-tips
-    - direnv: https://github.com/asdf-community/asdf-direnv#setup
 Manual:
     Setapp:
         - Boom3D
