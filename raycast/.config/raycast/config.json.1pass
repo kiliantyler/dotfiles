@@ -1,0 +1,4 @@
+{
+  "accesstoken" : "op://Secrets/raycast-config.json/token",
+  "token" : "op://Secrets/raycast-config.json/token"
+}

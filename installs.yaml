@@ -31,10 +31,13 @@ brew:
         - docker
         - fasd
         - fd
+        - findutils
         - gawk
         - git
         - git-extras
+        - gnu-indent
         - gnu-sed
+        - gnu-tar
         - gnu-which
         - gpg
         - grep
@@ -132,10 +135,6 @@ asdf:
 # or just the URL
 # Or it can be the name + URL (for human clarity)
 mas:
-    - 1601913905
-    - https://apps.apple.com/us/app/pullbar/id1601913905?mt=12
-    - PullBar: https://apps.apple.com/us/app/pullbar/id1601913905?mt=12
-nothingYet:
     - PullBar: https://apps.apple.com/us/app/pullbar/id1601913905?mt=12
     - Velja: https://apps.apple.com/us/app/velja/id1607635845?mt=12
     - Recipe Keeper: https://apps.apple.com/us/app/recipe-keeper/id1315583175?mt=12
@@ -159,7 +158,6 @@ nothingYet:
     - MacTracker: https://apps.apple.com/us/app/mactracker/id430255202?mt=12
     - Final Cut Pro: https://apps.apple.com/us/app/final-cut-pro/id424389933?mt=12
     - Xcode: https://apps.apple.com/us/app/xcode/id497799835?mt=12
-
 
 code:
     extensions:
