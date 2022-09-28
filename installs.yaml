@@ -56,6 +56,7 @@ brew:
         - shellcheck
         - shfmt
         - ssh-copy-id
+        - terraform_landscape
         - terraform-docs
         - terrascan
         - tfenv
