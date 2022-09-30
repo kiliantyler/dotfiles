@@ -7,7 +7,6 @@ zsh:
             spaceship: https://github.com/spaceship-prompt/spaceship-prompt.git
         plugins:
             alias-tips: https://github.com/djui/alias-tips.git
-            autoupdate: https://github.com/TamCore/autoupdate-oh-my-zsh-plugins
             fzf-tab: https://github.com/Aloxaf/fzf-tab.git
             zsh-autocompletion: https://github.com/marlonrichert/zsh-autocomplete.git
             zsh-autosuggestions: https://github.com/zsh-users/zsh-autosuggestions.git
@@ -45,6 +44,7 @@ brew:
         - httpie
         - imageoptim-cli
         - infracost
+        - k3sup
         - mackup
         - mr
         - nano
@@ -94,6 +94,7 @@ brew:
         - google-drive
         - imageoptim
         - insomnia
+        - lens
         - orion
         - powershell
         - rancher
@@ -109,6 +110,8 @@ brew:
 pip:
     - gmail-yaml-filters
     - md-toc
+    - pygments
+    - chroma
 
 # Programs that plugin name doesn't match the executable can be put in
 # with a <plugin>:<executable> format so that it doesn't attempt install every time

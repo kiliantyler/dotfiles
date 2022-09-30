@@ -18,7 +18,6 @@ ENABLE_CORRECTION="false"
 
 plugins=(
 alias-tips
-autoupdate
 colorize
 copybuffer
 copyfile
