@@ -1,5 +1,4 @@
 #!/usr/bin/env/zsh
-eval "$(/opt/homebrew/bin/brew shellenv)"
 
 paths=(
   "$(brew --prefix)/opt/coreutils/libexec/gnubin"
