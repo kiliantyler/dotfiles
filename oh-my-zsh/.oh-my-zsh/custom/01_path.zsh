@@ -6,8 +6,9 @@ paths=(
   "$(brew --prefix)/opt/gnu-sed/libexec/gnubin"
   "$(brew --prefix)/opt/findutils/libexec/gnubin"
   "$(brew --prefix)/unzip/bin"
-  "/Users/kilian/.rd/bin"
-  "/Users/kilian/.local/bin"
+  "${HOME}/.rd/bin"
+  "${HOME}/.local/bin"
+  "${HOME}/.dotnet/tools"
 )
 
 EXPORT_PATH="${PATH}"
