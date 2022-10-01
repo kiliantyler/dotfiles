@@ -1,2 +1,12 @@
+#!/usr/bin/env zsh
 
-eval "$($(brew --prefix)/bin/brew shellenv)"
+brewDir=(
+  "/opt/homebrew"
+  "/usr/local"
+)
+
+for dir in ${brewDir[@]}; do
+  if [ -f "${dir}/bin/brew" ]; then
+    eval "$(${dir}/bin/brew shellenv)"
+  fi
+done
