@@ -111,7 +111,6 @@ pip:
     - gmail-yaml-filters
     - md-toc
     - pygments
-    - chroma
 
 # Programs that plugin name doesn't match the executable can be put in
 # with a <plugin>:<executable> format so that it doesn't attempt install every time
