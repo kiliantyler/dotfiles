@@ -26,10 +26,19 @@ fi
 
 if [ -z "$CMD" ]; then
   echo "No git, curl or wget available. Aborting."
+  exit 1
 else
   echo "Installing dotfiles..."
   mkdir -p "$DOTFILES_TARGET"
   mkdir -p "$SETUP_TARGET"
   eval "$CMD"
   eval "$CMD2"
+fi
+
+if is_executable "make"; then
+  cd "${SETUP_TARGET}" || exit
+  make V=5
+else
+  echo "No 'make' available, please install then run 'make' in ${SETUP_TARGET}"
+  exit 1
 fi
