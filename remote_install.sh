@@ -40,13 +40,16 @@ else
   eval "$CMD2"
 fi
 
-if ! is_executable "make"; then
-  packageNeeded='make'
-  if [ -x "$(command -v apk)" ];       then sudo apk add --no-cache $packageNeeded
-  elif [ -x "$(command -v apt-get)" ]; then sudo apt-get install $packageNeeded
-  elif [ -x "$(command -v dnf)" ];     then sudo dnf install $packageNeeded
-  elif [ -x "$(command -v zypper)" ];  then sudo zypper install $packageNeeded
-  else echo "No 'make' available, please install then run 'make' in ${SETUP_TARGET}">&2; exit 1; fi
+packagesNeeded='build-essential procps curl file git make'
+if [ -x "$(command -v apt-get)" ]; then
+  sudo apt-get install "${packagesNeeded}"
+elif [ -x "$(command -v yum)" ]; then
+  sudo yum groupinstall 'Development Tools'
+  sudo yum install procps-ng curl file git
+  sudo yum install libxcrypt-compat
+else
+  echo "Cannot install required packages, distrobution probably not supported">&2
+  exit 1
 fi
 
 cd "${SETUP_TARGET}" || exit
