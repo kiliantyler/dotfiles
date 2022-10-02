@@ -56,4 +56,4 @@ else
 fi
 
 cd "${SETUP_TARGET}" || exit
-if make V=5; then exec zsh; fi
+if ! make V=5; then echo "There was an error"; exit 1; fi
