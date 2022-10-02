@@ -40,9 +40,10 @@ else
   eval "$CMD2"
 fi
 
-packagesNeeded='build-essential procps curl file git make'
+packagesNeeded='build-essential procps curl file git make zsh'
 if [ -x "$(command -v apt-get)" ]; then
-  sudo apt-get install "${packagesNeeded}"
+  sudo apt-get update
+  sudo DEBIAN_FRONTEND=noninteractive apt-get install -y ${packagesNeeded}
 elif [ -x "$(command -v yum)" ]; then
   sudo yum groupinstall 'Development Tools'
   sudo yum install procps-ng curl file git
