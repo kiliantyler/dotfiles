@@ -31,5 +31,5 @@ else
   mkdir -p "$DOTFILES_TARGET"
   mkdir -p "$SETUP_TARGET"
   eval "$CMD"
-  ecal "$CMD2"
+  eval "$CMD2"
 fi
