@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# curl -L https://raw.githubusercontent.com/kiliantyler/dotfiles/main/remote_install.sh | bash
+# bash <( wget -qO- https://raw.githubusercontent.com/kiliantyler/dotfiles/main/remote_install.sh)
 
 if [ "$EUID" -eq 0 ]; then
   echo "Do not run this as root"
