@@ -3,6 +3,7 @@
 brewDir=(
   "/opt/homebrew"
   "/usr/local"
+  "/home/linuxbrew/.linuxbrew"
 )
 
 for dir in ${brewDir[@]}; do
