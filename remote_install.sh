@@ -35,10 +35,14 @@ else
   eval "$CMD2"
 fi
 
-if is_executable "make"; then
-  cd "${SETUP_TARGET}" || exit
-  make V=5
-else
-  echo "No 'make' available, please install then run 'make' in ${SETUP_TARGET}"
-  exit 1
+if ! is_executable "make"; then
+  packageNeeded='make'
+  if [ -x "$(command -v apk)" ];       then sudo apk add --no-cache $packageNeeded
+  elif [ -x "$(command -v apt-get)" ]; then sudo apt-get install $packageNeeded
+  elif [ -x "$(command -v dnf)" ];     then sudo dnf install $packageNeeded
+  elif [ -x "$(command -v zypper)" ];  then sudo zypper install $packageNeeded
+  else echo "No 'make' available, please install then run 'make' in ${SETUP_TARGET}">&2; exit 1; fi
 fi
+
+cd "${SETUP_TARGET}" || exit
+make V=5
