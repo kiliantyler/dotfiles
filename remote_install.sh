@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+if [ "$EUID" -eq 0 ]; then
+  echo "Do not run this as root"
+  exit 1
+fi
+
 DOTFILES_SOURCE="https://github.com/kiliantyler/dotfiles"
 DOTFILES_TARBALL="$DOTFILES_SOURCE/tarball/master"
 DOTFILES_TARGET="$HOME/dotfiles"
