@@ -1,16 +1,5 @@
 #!/usr/bin/env zsh
 
-brewDir=(
-  "/opt/homebrew"
-  "/usr/local"
-)
-
-for dir in ${brewDir[@]}; do
-  if [ -f "${dir}/bin/brew" ]; then
-    eval "$(${dir}/bin/brew shellenv)"
-  fi
-done
-
 paths=(
   "$(brew --prefix)/opt/coreutils/libexec/gnubin"
   "$(brew --prefix)/opt/gnu-sed/libexec/gnubin"
