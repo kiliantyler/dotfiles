@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# curl -L https://raw.githubusercontent.com/kiliantyler/dotfiles/main/remote_install.sh | bash
+
 if [ "$EUID" -eq 0 ]; then
   echo "Do not run this as root"
   exit 1
@@ -54,4 +56,4 @@ else
 fi
 
 cd "${SETUP_TARGET}" || exit
-make V=5
+if make V=5; then exec zsh; fi
