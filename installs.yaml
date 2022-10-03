@@ -15,7 +15,6 @@ zsh:
 
 brew:
     formulas:
-        - asdf
         - autojump
         - awscli
         - bat
