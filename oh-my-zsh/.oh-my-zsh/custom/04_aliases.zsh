@@ -65,3 +65,5 @@ alias brew_lock="rm -rf $(brew --prefix)/var/homebrew/locks"
 alias dps='docker ps --format "table {{.Names}}\t{{.RunningFor}}\t{{.Status}}"'
 
 alias lsblk='lsblk -o NAME,SIZE,FSTYPE,TYPE,MOUNTPOINT'
+
+alias brew='.brew'

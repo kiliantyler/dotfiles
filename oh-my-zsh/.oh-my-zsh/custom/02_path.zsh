@@ -8,6 +8,7 @@ paths=(
   "${HOME}/.rd/bin"
   "${HOME}/.local/bin"
   "${HOME}/.dotnet/tools"
+  "${HOME}/Documents/Github/mac-setup/bin"
 )
 
 EXPORT_PATH="${PATH}"
