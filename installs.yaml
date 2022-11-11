@@ -12,6 +12,7 @@ zsh:
             zsh-autosuggestions: https://github.com/zsh-users/zsh-autosuggestions.git
             zsh-fzf-history-search: https://github.com/joshskidmore/zsh-fzf-history-search
             zsh-syntax-highlighting: https://github.com/zsh-users/zsh-syntax-highlighting.git
+            autoswitch_virtualenv: https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv.git
 brew:
     formulas:
         - autojump
@@ -67,6 +68,16 @@ brew:
         - unzip
         - webp
         - wget
+        - wakeonlan
+        - 1password-cli
+        - 1password
+        - venv
+        - powershell
+        - mosh
+        - pyenv
+        - pip
+        - poetry
+        - pdm
     taps:
         - homebrew/bundle
         - homebrew/cask
@@ -95,6 +106,7 @@ brew:
         - insomnia
         - latest
         - lens
+        - mimestream
         - orion
         - powershell
         - rancher
@@ -110,6 +122,7 @@ pip:
     - gmail-yaml-filters
     - md-toc
     - pygments
+    - pip_chill
 # Programs that plugin name doesn't match the executable can be put in
 # with a <plugin>:<executable> format so that it doesn't attempt install every time
 asdf:
@@ -130,7 +143,6 @@ asdf:
     - kubectx
     - kubespy
     - nodejs: npm
-    - python
     - terraform-validator
 # Can be just the ID of the app in the app store
 # or just the URL
