@@ -67,3 +67,7 @@ alias dps='docker ps --format "table {{.Names}}\t{{.RunningFor}}\t{{.Status}}"'
 alias lsblk='lsblk -o NAME,SIZE,FSTYPE,TYPE,MOUNTPOINT'
 
 alias brew='.brew'
+
+alias wakepc='wakeonlan 70:CD:0D:00:3C:5A'
+
+alias kubecombine="kubectl config view --flatten > ${HOME}/.kube/config"

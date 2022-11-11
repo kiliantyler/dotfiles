@@ -1,6 +1,7 @@
 #!/usr/bin/env zsh
 
 paths=(
+  "${HOME}/.pyenv/shims"
   "$(brew --prefix)/opt/coreutils/libexec/gnubin"
   "$(brew --prefix)/opt/gnu-sed/libexec/gnubin"
   "$(brew --prefix)/opt/findutils/libexec/gnubin"

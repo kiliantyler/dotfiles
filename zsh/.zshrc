@@ -30,6 +30,9 @@ kubectl
 zsh-autosuggestions
 zsh-fzf-history-search
 zsh-syntax-highlighting
+pipenv
+pdm
+autoswitch_virtualenv
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -47,3 +50,6 @@ source $ZSH/oh-my-zsh.sh
 
 # Plugin Options
 ZSH_CUSTOM_AUTOUPDATE_QUIET=true
+
+fpath+=~/.zfunc
+autoload -Uz compinit && compinit
