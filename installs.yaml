@@ -78,6 +78,7 @@ brew:
         - pip
         - poetry
         - pdm
+        - heroku
     taps:
         - homebrew/bundle
         - homebrew/cask
@@ -88,6 +89,7 @@ brew:
         - hpedrorodrigues/tools
         - liamg/tfsec
         - pulumi/tap
+        - heroku/brew
     casks:
         - 1password
         - 1password-cli
