@@ -5,6 +5,7 @@ sourceFiles=(
   "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
   "${HOME}/.cargo/env"
   "$(brew --prefix)/opt/asdf/libexec/asdf.sh"
+  "${HOME}/.config/op/plugins.sh"
 )
 
 for source in ${sourceFiles[@]}; do

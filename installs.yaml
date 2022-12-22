@@ -10,23 +10,28 @@ zsh:
             fzf-tab: https://github.com/Aloxaf/fzf-tab.git
             zsh-autocompletion: https://github.com/marlonrichert/zsh-autocomplete.git
             zsh-autosuggestions: https://github.com/zsh-users/zsh-autosuggestions.git
-            zsh-fzf-history-search: https://github.com/joshskidmore/zsh-fzf-history-search
+            zsh-fzf-history-search: https://github.com/joshskidmore/zsh-fzf-history-search.git
             zsh-syntax-highlighting: https://github.com/zsh-users/zsh-syntax-highlighting.git
             autoswitch_virtualenv: https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv.git
 brew:
     formulas:
+        - 1password
+        - 1password-cli
         - autojump
         - awscli
         - bat
         - bats-core
         - blackbox
         - checkov
+        - cloudflared
         - coreutils
         - croc
         - diff-so-fancy
         - difftastic
+        - digitalocean
         - dnscontrol
         - docker
+        - doctl
         - fasd
         - fd
         - findutils
@@ -39,24 +44,32 @@ brew:
         - gnu-which
         - gpg
         - grep
+        - heroku
         - htop
         - httpie
         - imageoptim-cli
         - infracost
         - k3sup
         - mackup
+        - mosh
         - mr
         - nano
         - openssl
+        - pdm
+        - pip
+        - poetry
+        - powershell
         - pre-commit
         - pulumi
+        - pyenv
         - rclone
         - rustup
         - shellcheck
         - shfmt
         - ssh-copy-id
-        - terraform_landscape
+        - teleport
         - terraform-docs
+        - terraform_landscape
         - terrascan
         - tfenv
         - tflint
@@ -66,19 +79,10 @@ brew:
         - topgrade
         - tree
         - unzip
+        - venv
+        - wakeonlan
         - webp
         - wget
-        - wakeonlan
-        - 1password-cli
-        - 1password
-        - venv
-        - powershell
-        - mosh
-        - pyenv
-        - pip
-        - poetry
-        - pdm
-        - heroku
     taps:
         - homebrew/bundle
         - homebrew/cask
@@ -96,6 +100,7 @@ brew:
         - alt-tab
         - cakebrew
         - dockutil
+        - drawio
         - firefox
         - font-code-new-roman-nerd-font
         - font-fira-code-nerd-font
@@ -113,6 +118,8 @@ brew:
         - powershell
         - rancher
         - raycast
+        - rclone-browser
+        - rclonebrowser
         - reminders-menubar
         - setapp
         - shottr

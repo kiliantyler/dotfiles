@@ -1,6 +1,22 @@
 #!/usr/bin/env bash
 
-# bash <( wget -qO- https://raw.githubusercontent.com/kiliantyler/dotfiles/main/remote_install.sh)
+# # bash <( curl -L https://raw.githubusercontent.com/kiliantyler/dotfiles/main/remote_install.sh)
+
+source /dev/stdin <<< "$(curl -sL https://gist.github.com/kiliantyler/18622c8002bcc30386021f22eff5ba08/raw/test.sh)"
+
+# shellcheck disable=SC2016
+if [[ -z "${NONINTERACTIVE-}" ]]; then
+  if [[ ! -t 0 ]]; then
+    if [[ -z "${INTERACTIVE-}" ]]; then
+      .log -l 4 'Running in non-interactive mode because `stdin` is not a TTY.'
+      NONINTERACTIVE=1
+    else
+      .log -l 4 'Running in interactive mode despite `stdin` not being a TTY because `$INTERACTIVE` is set.'
+    fi
+  fi
+else
+  ohai 'Running in non-interactive mode because `$NONINTERACTIVE` is set.'
+fi
 
 if [ "$EUID" -eq 0 ]; then
   echo "Do not run this as root"
@@ -19,6 +35,15 @@ SETUP_TAR_CMD="tar -xzv -C \"${SETUP_TARGET}\" --strip-components=1 --exclude='{
 is_executable() {
   type "$1" > /dev/null 2>&1
 }
+if [ -x "$(command -v xcode-select)" ]; then
+  check=$( (xcode-select --install) 2>&1)
+  echo $check
+  str="xcode-select: note: install requested for command line developer tools"
+  while [[ "$check" == "$str" ]]; do
+    # echo "Installing xcode tools" 
+    sleep 1
+  done
+fi
 
 if is_executable "git"; then
   CMD="git clone $DOTFILES_SOURCE $DOTFILES_TARGET"
@@ -42,18 +67,16 @@ else
   eval "$CMD2"
 fi
 
-packagesNeeded='build-essential procps curl file git make zsh'
 if [ -x "$(command -v apt-get)" ]; then
   sudo apt-get update
-  sudo DEBIAN_FRONTEND=noninteractive apt-get install -y ${packagesNeeded}
+  sudo DEBIAN_FRONTEND=noninteractive apt-get install -y build-essential procps curl file git make zsh
 elif [ -x "$(command -v yum)" ]; then
   sudo yum groupinstall 'Development Tools'
   sudo yum install procps-ng curl file git
   sudo yum install libxcrypt-compat
-else
   echo "Cannot install required packages, distrobution probably not supported">&2
   exit 1
 fi
 
 cd "${SETUP_TARGET}" || exit
-if ! make V=5; then echo "There was an error"; exit 1; fi
+# if ! make V=5; then echo "There was an error"; exit 1; fi

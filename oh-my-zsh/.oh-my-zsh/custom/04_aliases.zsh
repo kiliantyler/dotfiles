@@ -71,3 +71,4 @@ alias brew='.brew'
 alias wakepc='wakeonlan 70:CD:0D:00:3C:5A'
 
 alias kubecombine="kubectl config view --flatten > ${HOME}/.kube/config"
+alias kctx='kubectx'

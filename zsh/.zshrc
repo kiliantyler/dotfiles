@@ -28,11 +28,11 @@ git
 history-substring-search
 kubectl
 zsh-autosuggestions
-zsh-fzf-history-search
 zsh-syntax-highlighting
 pipenv
 pdm
 autoswitch_virtualenv
+zsh-fzf-history-search
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -53,3 +53,4 @@ ZSH_CUSTOM_AUTOUPDATE_QUIET=true
 
 fpath+=~/.zfunc
 autoload -Uz compinit && compinit
+enable_autoswitch_virtualenv
