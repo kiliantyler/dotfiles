@@ -10,7 +10,7 @@
 	helper = store
 [init]
 	defaultBranch = main
-	templateDir = ${HOME}/.git-template
+#	templateDir = ${HOME}/.git-template
 [color]
 	ui = true
 [format]
