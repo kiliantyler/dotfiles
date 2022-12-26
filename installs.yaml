@@ -17,11 +17,13 @@ brew:
     formulas:
         - 1password
         - 1password-cli
+        - ansible
         - autojump
         - awscli
         - bat
         - bats-core
         - blackbox
+        - buildkit
         - checkov
         - cloudflared
         - coreutils
@@ -43,6 +45,7 @@ brew:
         - gnu-sed
         - gnu-tar
         - gnu-which
+        - go-task
         - gpg
         - grep
         - heroku
