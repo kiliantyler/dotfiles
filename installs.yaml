@@ -17,6 +17,7 @@ brew:
     formulas:
         - 1password
         - 1password-cli
+        - age
         - ansible
         - autojump
         - awscli
@@ -41,6 +42,7 @@ brew:
         - gawk
         - git
         - git-extras
+        - gitops
         - gnu-indent
         - gnu-sed
         - gnu-tar
@@ -53,7 +55,9 @@ brew:
         - httpie
         - imageoptim-cli
         - infracost
+        - ipcalc
         - k3sup
+        - kustomize
         - mackup
         - mosh
         - mr
@@ -64,13 +68,16 @@ brew:
         - poetry
         - powershell
         - pre-commit
+        - prettier
         - pulumi
         - pyenv
         - rclone
         - rustup
         - shellcheck
         - shfmt
+        - sops
         - ssh-copy-id
+        - stern
         - teleport
         - terraform-docs
         - terraform_landscape
@@ -87,18 +94,20 @@ brew:
         - wakeonlan
         - webp
         - wget
+        - yamllint
     taps:
+        - 1password/tap
+        - DamascenoRafael/tap
+        - fluxcd/tap
+        - heroku/brew
         - homebrew/bundle
         - homebrew/cask
         - homebrew/cask-fonts
         - homebrew/core
-        - 1password/tap
-        - DamascenoRafael/tap
         - hpedrorodrigues/tools
         - liamg/tfsec
         - pulumi/tap
-        - heroku/brew
-        - fluxcd/tap
+        - weaveworks/tap
     casks:
         - 1password
         - 1password-cli
