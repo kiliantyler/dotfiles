@@ -44,7 +44,14 @@ alias tree='tree -Csuh'    #  Nice alternative to 'recursive ls' ...
 
 # Kubernetes
 alias k='kubectl'
+alias kg='kubectl get'
 alias kctx='kubectx'
+alias kggr='kubectl get gitrepositories'
+alias kggra='kggr --all-namespaces'
+alias kgk='kg kustomizations'
+alias kgka='kgk --all-namespaces'
+alias kghr='kg helmrepositories'
+alias kghra='kghr --all-namespaces'
 
 # Bat
 alias cat='bat --paging=never'

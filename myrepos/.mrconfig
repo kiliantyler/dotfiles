@@ -2,10 +2,10 @@
 [Documents/GitHub/mac-setup]
 checkout = git clone 'https://github.com/kiliantyler/mac-setup.git' 'mac-setup'
 update = 
-  branch=$(git symbolic-ref --short -q HEAD)
-  if [ "${branch}" == "main" ]; then
-    git pull
-  fi
+	 branch=$(git symbolic-ref --short -q HEAD)
+	 if [ "${branch}" == "main" ]; then
+	   git pull
+	 fi
 
 [dotfiles]
 checkout = git clone 'git@github.com:kiliantyler/dotfiles.git' 'dotfiles'
