@@ -42,16 +42,7 @@ alias lr='ll -R'           #  Recursive ls.
 alias la='ll -A'           #  Show hidden files.
 alias tree='tree -Csuh'    #  Nice alternative to 'recursive ls' ...
 
-# Kubernetes
-alias k='kubectl'
-alias kg='kubectl get'
-alias kctx='kubectx'
-alias kggr='kubectl get gitrepositories'
-alias kggra='kggr --all-namespaces'
-alias kgk='kg kustomizations'
-alias kgka='kgk --all-namespaces'
-alias kghr='kg helmrepositories'
-alias kghra='kghr --all-namespaces'
+# Kubernetes has its own file
 
 # Bat
 alias cat='bat --paging=never'
@@ -78,9 +69,6 @@ alias lsblk='lsblk -o NAME,SIZE,FSTYPE,TYPE,MOUNTPOINT'
 alias brew='.brew'
 
 alias wakepc='wakeonlan 70:CD:0D:00:3C:5A'
-
-alias kubecombine="kubectl config view --flatten > ${HOME}/.kube/config"
-alias kctx='kubectx'
 
 alias kubeclean="for file in `ls ~/.kube/config-files`; do yq 'del(.clusters[0].cluster.certificate-authority-data)' ~/.kube/config-files/${file} --inplace; done"
 
