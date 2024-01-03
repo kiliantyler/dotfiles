@@ -5,12 +5,19 @@
 [[ ! -o 'no_brace_expand' ]] || p10k_config_opts+=('no_brace_expand')
 'builtin' 'setopt' 'no_aliases' 'no_sh_glob' 'brace_expand'
 
+# Switch colors for dark mode or light mode
 function isDark() {
-  interfaceStyle="$(defaults read -g AppleInterfaceStyle 2>/dev/null)"
-  if [ "${interfaceStyle}" = "Dark" ]; then
-    true
+  # Verify we are on a Mac
+  if [ "$(uname)" = "Darwin" ]; then
+    interfaceStyle="$(defaults read -g AppleInterfaceStyle 2>/dev/null)"
+    if [ "${interfaceStyle}" = "Dark" ]; then
+      true
+    else
+      false
+    fi
   else
-    false
+    # Default to Darkmode
+    true
   fi
 }
 

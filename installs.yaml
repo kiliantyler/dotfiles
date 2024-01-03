@@ -103,7 +103,6 @@ brew:
         - homebrew/bundle
         - homebrew/cask
         - homebrew/cask-fonts
-        - homebrew/core
         - hpedrorodrigues/tools
         - liamg/tfsec
         - pulumi/tap

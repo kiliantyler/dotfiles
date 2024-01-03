@@ -1,3 +1,5 @@
+alias python='python3'
+
 alias zshconfig="code ~/.zshrc"
 alias ohmyzsh="code ~/.oh-my-zsh"
 alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
@@ -79,3 +81,11 @@ alias tf12up='tf12 && terraform 0.12upgrade -yes'
 alias tf13='tfenv use 0.13.7'
 alias tf13up='tf13 && terraform 0.13upgrade -yes'
 alias tf15='tfenv use 0.15.5'
+
+
+## WSL ##
+VIRT_TYPE=$(systemd-detect-virt)
+
+if [ $VIRT_TYPE = "wsl" ]; then
+alias ssh='ssh.exe'
+fi
