@@ -82,9 +82,4 @@ alias tf13up='tf13 && terraform 0.13upgrade -yes'
 alias tf15='tfenv use 0.15.5'
 
 
-## WSL ##
-VIRT_TYPE=$(systemd-detect-virt)
-
-if [ $VIRT_TYPE = "wsl" ]; then
-alias ssh='ssh.exe'
-fi
+## WSL has its own file ##
