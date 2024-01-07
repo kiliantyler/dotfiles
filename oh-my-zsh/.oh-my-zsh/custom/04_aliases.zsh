@@ -1,3 +1,5 @@
+##  Kubernetes has its own file ##
+
 alias python='python3'
 
 alias zshconfig="code ~/.zshrc"
@@ -30,50 +32,47 @@ alias chmod='chmod --preserve-root'
 alias chgrp='chgrp --preserve-root'
 alias wget='wget -c'
 
-# `ls` aliases
+## ls ##
+# The ubiquitous 'll': directories first, with alphanumeric sorting:
+alias ll='ls -lathv --group-directories-first'
 alias lx='ls -lXB'         #  Sort by extension.
 alias lk='ls -lSr'         #  Sort by size, biggest last.
 alias lt='ls -ltr'         #  Sort by date, most recent last.
 alias lc='ls -ltcr'        #  Sort by/show change time,most recent last.
 alias lu='ls -ltur'        #  Sort by/show access time,most recent last.
-
-# The ubiquitous 'll': directories first, with alphanumeric sorting:
-alias ll='ls -lathv --group-directories-first'
-alias lm='ll | more'        #  Pipe through 'more'
+alias lm='ll | more'       #  Pipe through 'more'
 alias lr='ll -R'           #  Recursive ls.
 alias la='ll -A'           #  Show hidden files.
 alias tree='tree -Csuh'    #  Nice alternative to 'recursive ls' ...
 
-# Kubernetes has its own file
-
-# Bat
+## Bat ##
 alias cat='bat --paging=never'
 alias catc='bat -pp'
 
-# Helm
+## Helm ##
 alias h='helm'
 alias hui='h upgrade --install'
 alias hru='h repo update'
 alias hdb='h dependency build'
 alias hra='h repo add'
 
-# Misc
+## Misc ##
 alias path='echo -e ${PATH//:/\\n}'
 alias myip='curl http://ipecho.net/plain; echo'
 alias upgrade='topgrade'
 alias brew_lock="rm -rf $(brew --prefix)/var/homebrew/locks"
-
+alias cls='clear'
 # just a better Docker printout
 alias dps='docker ps --format "table {{.Names}}\t{{.RunningFor}}\t{{.Status}}"'
-
 alias lsblk='lsblk -o NAME,SIZE,FSTYPE,TYPE,MOUNTPOINT'
-
-alias brew='.brew'
-
-alias wakepc='wakeonlan 70:CD:0D:00:3C:5A'
-
 alias kubeclean="for file in `ls ~/.kube/config-files`; do yq 'del(.clusters[0].cluster.certificate-authority-data)' ~/.kube/config-files/${file} --inplace; done"
+# .brew is used in the mac-setup repo
+if [ -e .brew ]; then
+  alias brew='.brew'
+fi
 
+
+## Terraform ##
 alias tfinit='terraform init'
 alias tf11='tfenv use 0.11.15'
 alias tf12='tfenv use 0.12.31'
