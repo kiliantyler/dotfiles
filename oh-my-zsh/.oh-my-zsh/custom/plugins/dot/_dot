@@ -1,0 +1,262 @@
+#compdef dot
+
+typeset -g _dot_cmds _dot_projects _dot_tags _dot_config _dot_modifiers
+_dot_projects=(${(f)"$(dot _projects)"})
+_dot_tags=($(dot _tags))
+_dot_zshids=( ${(f)"$(dot _zshids)"} )
+_dot_config=($(dot _config))
+_dot_columns=($(dot _columns))
+_dot_modifiers=(
+  'before' \
+  'after' \
+  'none' \
+  'any' \
+  'is' \
+  'isnt' \
+  'has' \
+  'hasnt' \
+  'startswith' \
+  'endswith' \
+  'word' \
+  'noword'
+)
+_dot_conjunctions=(
+  'and' \
+  'or' \
+  'xor' \
+  '\)' \
+  '\(' \
+  '<' \
+  '<=' \
+  '=' \
+  '!=' \
+  '>=' \
+  '>'
+)
+_dot_cmds=($(dot _commands; dot _aliases))
+_dot_zshcmds=( ${(f)"$(dot _zshcommands)"} sentinel:sentinel:sentinel )
+
+_dot_aliases=($(dot _aliases))
+
+_dot() {
+    _arguments -s -S \
+        "*::dot default:_dot_default"
+    return 0
+}
+
+local -a reply args word
+word=$'[^\0]#\0'
+
+# priorities
+local -a dot_priorities
+_regex_words values 'dot priorities' \
+  'H:High' \
+  'M:Middle' \
+  'L:Low'
+dot_priorities=("$reply[@]")
+
+# projects
+local -a dot_projects
+dot_projects=(
+  /"$word"/
+  ":values:dot projects:compadd -a _dot_projects"
+)
+
+local -a _dot_dates
+_regex_words values 'dot dates' \
+  'tod*ay:Today' \
+  'yes*terday:Yesterday' \
+  'tom*orrow:Tomorrow' \
+  'sow:Start of week' \
+  'soww:Start of work week' \
+  'socw:Start of calendar week' \
+  'som:Start of month' \
+  'soq:Start of quarter' \
+  'soy:Start of year' \
+  'eow:End of week' \
+  'eoww:End of work week' \
+  'eocw:End of calendar week' \
+  'eom:End of month' \
+  'eoq:End of quarter' \
+  'eoy:End of year' \
+  'mon:Monday' \
+  'tue:Tuesday'\
+  'wed:Wednesday' \
+  'thu:Thursday' \
+  'fri:Friday' \
+  'sat:Saturday' \
+  'sun:Sunday' \
+  'good*friday:Good Friday' \
+  'easter:Easter' \
+  'eastermonday:Easter Monday' \
+  'ascension:Ascension' \
+  'pentecost:Pentecost' \
+  'midsommar:Midsommar' \
+  'midsommarafton:Midsommarafton' \
+  'later:Later' \
+  'someday:Some Day'
+_dot_dates=("$reply[@]")
+
+local -a _dot_reldates
+_regex_words values 'dot reldates' \
+  'hrs:n hours' \
+  'day:n days' \
+  '1st:first' \
+  '2nd:second' \
+  '3rd:third' \
+  'th:4th, 5th, etc.' \
+  'wks:weeks'
+_dot_reldates=("$reply[@]")
+
+dot_dates=(
+  \( "$_dot_dates[@]" \|
+    \( /$'[0-9][0-9]#'/- \( "$_dot_reldates[@]" \) \)
+  \)
+)
+
+local -a dot_zshids
+if (( $#_dot_zshids )); then
+  _regex_words values 'dot IDs' $_dot_zshids
+  dot_zshids=("$reply[@]")
+fi
+
+_regex_words values 'dot frequencies' \
+  'daily:Every day' \
+  'day:Every day' \
+  'weekdays:Every day skipping weekend days' \
+  'weekly:Every week' \
+  'biweekly:Every two weeks' \
+  'fortnight:Every two weeks' \
+  'monthly:Every month' \
+  'quarterly:Every three months' \
+  'semiannual:Every six months' \
+  'annual:Every year' \
+  'yearly:Every year' \
+  'biannual:Every two years' \
+  'biyearly:Every two years'
+_dot_freqs=("$reply[@]")
+
+local -a _dot_frequencies
+_regex_words values 'dot frequencies' \
+  'd:days' \
+  'w:weeks' \
+  'q:quarters' \
+  'y:years'
+_dot_frequencies=("$reply[@]")
+
+dot_freqs=(
+  \( "$_dot_freqs[@]" \|
+     \( /$'[0-9][0-9]#'/- \( "$_dot_frequencies[@]" \) \)
+  \)
+)
+
+# attributes
+local -a dot_attributes
+_regex_words -t ':' default 'dot attributes' \
+  'des*cription:dot description text' \
+  'status:Status of dot - pending, completed, deleted, waiting' \
+  'pro*ject:Project name:$dot_projects' \
+  'pri*ority:priority:$dot_priorities' \
+  'du*e:Due date:$dot_dates' \
+  're*cur:Recurrence frequency:$dot_freqs' \
+  'un*til:Expiration date:$dot_dates' \
+  'li*mit:Desired number of rows in report' \
+  'wa*it:Date until dot becomes pending:$dot_dates' \
+  'ent*ry:Date dot was created:$dot_dates' \
+  'end:Date dot was completed/deleted:$dot_dates' \
+  'st*art:Date dot was started:$dot_dates' \
+  'sc*heduled:Date dot is scheduled to start:$dot_dates' \
+  'dep*ends:Other dots that this dot depends upon:$dot_zshids'
+dot_attributes=("$reply[@]")
+
+args=(
+  \( "$dot_attributes[@]" \|
+  \( /'(project|description|status|entry|end|start|scheduled|depends|due|wait|recur|priority|until|limit).'/- \( /$'[^:]#:'/ ":default:modifiers:compadd -S ':' -a _dot_modifiers" \) \) \|
+  \( /'(rc).'/- \( /$'[^:]#:'/ ":arguments:config:compadd -S ':' -a _dot_config" \) \) \|
+  \( /'(+|-)'/- \( /"$word"/ ":values:remove tag:compadd -a _dot_tags" \) \) \|
+  \( /"$word"/ \)
+  \) \#
+)
+_regex_arguments _dot_attributes "${args[@]}"
+
+## dot commands
+
+# filter completion
+(( $+functions[_dot_filter] )) ||
+_dot_filter() {
+  _dot_attributes "$@"
+
+  # TODO complete conjunctions only if the previous word is a filter expression, i.e. attribute, ID, any non-command
+  _describe -t default 'dot conjunctions' _dot_conjunctions
+}
+
+# execute completion
+(( $+functions[_dot_execute] )) ||
+_dot_execute() {
+  _files
+}
+
+# id-only completion
+(( $+functions[_dot_id] )) ||
+_dot_id() {
+  _describe -t values 'dot IDs' _dot_zshids
+}
+
+# subcommand-only function
+(( $+functions[_dot_subcommands] )) ||
+_dot_subcommands() {
+  local -a subcommands
+  local _zshcmd
+  local cmd category desc
+  local lastcategory=''
+  # The list is sorted by category, in the right order.
+  for _zshcmd in "$_dot_zshcmds[@]"; do
+    # Parse out the three fields
+    cmd=${_zshcmd%%:*}
+    category=${${_zshcmd#*:}%%:*}
+    desc=${_zshcmd#*:*:}
+
+    # Present each category as soon as the first entry in the *next* category
+    # is seen.
+    if [[ $category != $lastcategory && -n $lastcategory ]]; then
+      _describe -t ${lastcategory}-commands "dot ${lastcategory} command" subcommands
+      subcommands=()
+    fi
+
+    # Log the subcommand; we will process it in some future iteration.
+    subcommands+=( "$cmd:$desc" )
+
+    lastcategory=$category
+  done
+}
+
+## first level completion => dot sub-command completion
+(( $+functions[_dot_default] )) ||
+_dot_default() {
+    local cmd ret=1
+
+  integer i=1
+  while (( i < $#words ))
+  do
+    cmd="${_dot_cmds[(r)$words[$i]]}"
+    if (( $#cmd )); then
+      _call_function ret _dot_${cmd} ||
+        _call_function ret _dot_filter ||
+          _message "No command remaining."
+      return ret
+    fi
+    (( i++ ))
+  done
+
+  # update IDs
+  _dot_zshids=( ${(f)"$(dot _zshids)"} )
+
+  _dot_subcommands
+  _describe -t dots 'dot IDs' _dot_zshids
+  _describe -t aliases 'dot aliases' _dot_aliases
+  _call_function ret _dot_filter
+
+  return ret
+}
+
+_dot "$@"

@@ -1,7 +1,9 @@
 autoload -Uz compinit; compinit
 source <(kubectl completion zsh)
-alias k=kubecolor
-compdef kubecolor=kubectl
+
+alias k='kubectl'
+
+# command -v kubecolor >/dev/null 2>&1 && alias kubectl="kubecolor" && compdef kubecolor=kubectl
 
 # kubectl apply
 alias kaf='k apply -f'
@@ -448,3 +450,45 @@ alias ksss='k scale statefulset'
 
 # This doesn't work with kubecolor
 alias kw='kubectl watch'
+
+
+function kgpscn() {
+kubectl get pods -n $1 $2 -o go-template \
+    --template='{{range .items}}{{"pod: "}}{{.metadata.name}}
+{{if .spec.securityContext}}
+  PodSecurityContext:
+    {{"runAsGroup: "}}{{.spec.securityContext.runAsGroup}}                               
+    {{"runAsNonRoot: "}}{{.spec.securityContext.runAsNonRoot}}                           
+    {{"runAsUser: "}}{{.spec.securityContext.runAsUser}}                                 {{if .spec.securityContext.seLinuxOptions}}
+    {{"seLinuxOptions: "}}{{.spec.securityContext.seLinuxOptions}}                       {{end}}
+{{else}}PodSecurity Context is not set
+{{end}}{{range .spec.containers}}
+{{"container name: "}}{{.name}}
+{{"image: "}}{{.image}}{{if .securityContext}}                                      
+    {{"allowPrivilegeEscalation: "}}{{.securityContext.allowPrivilegeEscalation}}   {{if .securityContext.capabilities}}
+    {{"capabilities: "}}{{.securityContext.capabilities}}                           {{end}}
+    {{"privileged: "}}{{.securityContext.privileged}}                               {{if .securityContext.procMount}}
+    {{"procMount: "}}{{.securityContext.procMount}}                                 {{end}}
+    {{"readOnlyRootFilesystem: "}}{{.securityContext.readOnlyRootFilesystem}}       
+    {{"runAsGroup: "}}{{.securityContext.runAsGroup}}                               
+    {{"runAsNonRoot: "}}{{.securityContext.runAsNonRoot}}                           
+    {{"runAsUser: "}}{{.securityContext.runAsUser}}                                 {{if .securityContext.seLinuxOptions}}
+    {{"seLinuxOptions: "}}{{.securityContext.seLinuxOptions}}                       {{end}}{{if .securityContext.windowsOptions}}
+    {{"windowsOptions: "}}{{.securityContext.windowsOptions}}                       {{end}}
+{{else}}
+    SecurityContext is not set
+{{end}}
+{{end}}{{end}}'
+}
+
+## Kubernetes Functions
+
+# Kubectl decrypt secret
+function kdecsn() {
+  k get secret -n $1 $2 -o json | jq -r '.data | map_values(@base64d)'
+}
+
+# Kubectl decrypt secret path
+function kdecspn() {
+  k get secret -n $1 $2 -o json | jq -r '.data | map_values(@base64d) | .["'$3'"]'
+}

@@ -1,2 +1,17 @@
 .ignore
 .DS_STORE
+brew_install.sh
+
+dotfiles_extention/scripts/1passwordInject.sh
+
+dotfiles_extention/tests/gnu_programs
+
+dotfiles_extention/tests/gnu_programs.sh
+
+install_library.sh
+
+myrepos/.mrconfig
+
+script.sh
+
+

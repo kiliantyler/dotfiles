@@ -50,6 +50,7 @@ source $ZSH/oh-my-zsh.sh
 
 # Plugin Options
 ZSH_CUSTOM_AUTOUPDATE_QUIET=true
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
 fpath+=~/.zfunc
 autoload -Uz compinit && compinit
@@ -59,3 +60,10 @@ enable_autoswitch_virtualenv
 export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+export GOPATH="$HOME/go"; export GOROOT="$HOME/.go"; export PATH="$GOPATH/bin:$PATH"; # g-install: do NOT edit, see https://github.com/stefanmaric/g
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

@@ -45,3 +45,19 @@ function maketar() { tar cvzf "${1%%/}.tar.gz"  "${1%%/}/"; }
 
 # Create a ZIP archive of a file or folder.
 function makezip() { zip -r "${1%%/}.zip" "$1" ; }
+
+function tree() {
+  local level=1
+  if [ -n "$1" ]; then
+    # validate that the argument is a number
+    if [[ "$1" =~ ^[0-9]+$ ]]; then
+      level=$1
+      shift
+    fi
+  fi
+  ls --tree -L $level $@
+}
+
+# function grep() {
+#   rg --color=always --hidden --smart-case --no-ignore --no-ignore-parent --json -C 2 "$@" | delta
+# }

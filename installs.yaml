@@ -1,4 +1,3 @@
----
 # yamllint disable rule:line-length
 zsh:
     oh-my-zsh:
@@ -15,69 +14,113 @@ zsh:
             autoswitch_virtualenv: https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv.git
 brew:
     formulas:
-        - 1password
-        - 1password-cli
         - age
         - ansible
+        - ansible-lint
         - autojump
         - awscli
         - bat
+        - bat-extras
         - bats-core
         - blackbox
+        - blender
+        - brew
+        - brew-cask-completion
+        - btop
+        - buildah
         - buildkit
+        - cheat
+        - check-jsonschema
         - checkov
+        - cilium-cli
         - cloudflared
         - coreutils
         - croc
+        - cue-lang/tap/cue
         - diff-so-fancy
         - difftastic
-        - digitalocean
         - dnscontrol
         - docker
         - doctl
+        - dog
+        - dragonlayout/sshpass/sshpass
+        - duf
+        - dust
+        - duti
+        - exa
+        - eza
         - fasd
         - fd
         - findutils
         - flux
+        - flux-local
+        - fluxcd/tap/flux
+        - font-fira-code-nerd-font
+        - fuse3
+        - fzf
         - gawk
+        - gh
         - git
+        - git-delta
         - git-extras
-        - gitops
+        - git-lfs
+        - gitkraken
         - gnu-indent
         - gnu-sed
         - gnu-tar
         - gnu-which
+        - gnupg
         - go-task
-        - gpg
+        - goreleaser/tap/goreleaser
+        - govm
+        - gping
         - grep
+        - helm
+        - helmify
         - heroku
+        - hidetatz/tap/kubecolor
         - htop
         - httpie
-        - imageoptim-cli
         - infracost
         - ipcalc
         - k3sup
+        - krew
+        - kubecolor/tap/kubecolor
+        - kubectl
+        - kubectx
+        - kubernetes-cli
         - kustomize
         - mackup
+        - micro
+        - minio/stable/mc
         - mosh
+        - most
         - mr
         - nano
+        - navi
+        - ncdu
+        - ntfy
+        - nvm
         - openssl
+        - openssl@3
         - pdm
-        - pip
         - poetry
-        - powershell
         - pre-commit
         - prettier
+        - procs
         - pulumi
         - pyenv
-        - rclone
-        - rustup
+        - ripgrep
+        - rmlint
+        - rustup-init
         - shellcheck
         - shfmt
         - sops
+        - sponge
         - ssh-copy-id
+        - sshpass
         - stern
+        - stow
         - teleport
         - terraform-docs
         - terraform_landscape
@@ -87,23 +130,25 @@ brew:
         - tfsec
         - tfupdate
         - thefuck
+        - tio
+        - tlrc
         - topgrade
+        - tox
         - tree
         - unzip
-        - venv
         - wakeonlan
         - webp
         - wget
         - yamllint
+        - yq
+        - zoxide
     taps:
         - 1password/tap
         - DamascenoRafael/tap
         - fluxcd/tap
         - heroku/brew
         - homebrew/bundle
-        - homebrew/cask
         - homebrew/cask-fonts
-        - homebrew/core
         - hpedrorodrigues/tools
         - liamg/tfsec
         - pulumi/tap
@@ -112,9 +157,12 @@ brew:
         - 1password
         - 1password-cli
         - alt-tab
+        - amethyst
+        - brewlet
         - cakebrew
         - dockutil
         - drawio
+        - fig
         - firefox
         - font-code-new-roman-nerd-font
         - font-fira-code-nerd-font
@@ -122,18 +170,20 @@ brew:
         - gitkraken
         - google-chrome
         - google-drive
+        - ha-menu
         - iina
         - imageoptim
         - insomnia
+        - iterm2
         - latest
         - lens
+        - macfuse
         - mimestream
         - orion
         - powershell
         - rancher
         - raycast
         - rclone-browser
-        - rclonebrowser
         - reminders-menubar
         - setapp
         - shottr
@@ -141,6 +191,7 @@ brew:
         - spotify
         - visual-studio-code
         - vivaldi
+        - warp
 pip:
     - gmail-yaml-filters
     - md-toc

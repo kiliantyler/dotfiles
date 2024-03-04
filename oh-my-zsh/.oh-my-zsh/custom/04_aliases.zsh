@@ -4,18 +4,13 @@ alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {
 alias reload='exec zsh'
 
 # Colors
-alias ls='ls --color=auto'
 alias dir='dir --color=auto'
 alias vdir='vdir --color=auto'
 
 # Grep
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
+# Lives in function file
 
-# Pretty readouts
-alias du='du -kh'
-alias df='df -kTh'
+# Pretty readouts'
 alias free='free -m -l -t -h'
 
 # Prevents accidentally clobbering files.
@@ -28,19 +23,21 @@ alias chmod='chmod --preserve-root'
 alias chgrp='chgrp --preserve-root'
 alias wget='wget -c'
 
-# `ls` aliases
-alias lx='ls -lXB'         #  Sort by extension.
-alias lk='ls -lSr'         #  Sort by size, biggest last.
-alias lt='ls -ltr'         #  Sort by date, most recent last.
-alias lc='ls -ltcr'        #  Sort by/show change time,most recent last.
-alias lu='ls -ltur'        #  Sort by/show access time,most recent last.
+# less is more and more is most
+alias less='most'
+alias more='most'
 
-# The ubiquitous 'll': directories first, with alphanumeric sorting:
-alias ll='ls -lathv --group-directories-first'
-alias lm='ll | more'        #  Pipe through 'more'
-alias lr='ll -R'           #  Recursive ls.
-alias la='ll -A'           #  Show hidden files.
-alias tree='tree -Csuh'    #  Nice alternative to 'recursive ls' ...
+# Replace ls with eza
+alias ls='eza --no-quotes --icons=always --color=always --group-directories-first -w120'
+alias ll='ls -1'
+alias la='ll -a'
+alias lll='ls -lga --smart-group --time-style="+%Y-%m-%d %H:%M:%S" --sort name'
+alias lt='tree'
+alias lm='lll | most'
+alias lf='ll -f'
+alias ld='ll -D'
+alias lls='lll --total-size'
+alias lg='ls -l --no-permissions --no-user --git --git-repos --git-ignore -a'
 
 # Kubernetes has its own file
 
@@ -70,7 +67,7 @@ alias brew='.brew'
 
 alias wakepc='wakeonlan 70:CD:0D:00:3C:5A'
 
-alias kubeclean="for file in `ls ~/.kube/config-files`; do yq 'del(.clusters[0].cluster.certificate-authority-data)' ~/.kube/config-files/${file} --inplace; done"
+alias kubeclean="for file in `\ls ~/.kube/config-files`; do yq 'del(.clusters[0].cluster.certificate-authority-data)' ~/.kube/config-files/${file} --inplace; done"
 
 alias tfinit='terraform init'
 alias tf11='tfenv use 0.11.15'
@@ -79,3 +76,15 @@ alias tf12up='tf12 && terraform 0.12upgrade -yes'
 alias tf13='tfenv use 0.13.7'
 alias tf13up='tf13 && terraform 0.13upgrade -yes'
 alias tf15='tfenv use 0.15.5'
+
+alias apt='brew'
+
+alias du='dust -w 120'
+
+alias ps='procs'
+
+alias dig='dog'
+
+alias top='btop'
+
+alias gitignore='curl -L -s https://www.gitignore.io/api/$@'
