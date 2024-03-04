@@ -1,3 +1,7 @@
+##  Kubernetes has its own file ##
+
+alias python='python3'
+
 alias zshconfig="code ~/.zshrc"
 alias ohmyzsh="code ~/.oh-my-zsh"
 alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
@@ -39,36 +43,38 @@ alias ld='ll -D'
 alias lls='lll --total-size'
 alias lg='ls -l --no-permissions --no-user --git --git-repos --git-ignore -a'
 
-# Kubernetes has its own file
-
-# Bat
+## Bat ##
 alias cat='bat --paging=never'
 alias catc='bat -pp'
 
-# Helm
+## Helm ##
 alias h='helm'
 alias hui='h upgrade --install'
 alias hru='h repo update'
 alias hdb='h dependency build'
 alias hra='h repo add'
 
-# Misc
+## Misc ##
 alias path='echo -e ${PATH//:/\\n}'
 alias myip='curl http://ipecho.net/plain; echo'
 alias upgrade='topgrade'
 alias brew_lock="rm -rf $(brew --prefix)/var/homebrew/locks"
-
+alias cls='clear'
 # just a better Docker printout
 alias dps='docker ps --format "table {{.Names}}\t{{.RunningFor}}\t{{.Status}}"'
-
 alias lsblk='lsblk -o NAME,SIZE,FSTYPE,TYPE,MOUNTPOINT'
+alias kubeclean="for file in `ls ~/.kube/config-files`; do yq 'del(.clusters[0].cluster.certificate-authority-data)' ~/.kube/config-files/${file} --inplace; done"
+# .brew is used in the mac-setup repo
+if [ -e .brew ]; then
+  alias brew='.brew'
+fi
 
-alias brew='.brew'
 
 alias wakepc='wakeonlan 70:CD:0D:00:3C:5A'
 
 alias kubeclean="for file in `\ls ~/.kube/config-files`; do yq 'del(.clusters[0].cluster.certificate-authority-data)' ~/.kube/config-files/${file} --inplace; done"
 
+## Terraform ##
 alias tfinit='terraform init'
 alias tf11='tfenv use 0.11.15'
 alias tf12='tfenv use 0.12.31'
@@ -77,6 +83,8 @@ alias tf13='tfenv use 0.13.7'
 alias tf13up='tf13 && terraform 0.13upgrade -yes'
 alias tf15='tfenv use 0.15.5'
 
+
+## WSL has its own file ##
 alias apt='brew'
 
 alias du='dust -w 120'
