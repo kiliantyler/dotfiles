@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 # check if command exists before running it
 if command -v systemd-detect-virt &> /dev/null
 then

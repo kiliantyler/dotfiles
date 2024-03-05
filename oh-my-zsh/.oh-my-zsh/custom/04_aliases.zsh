@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 ##  Kubernetes has its own file ##
 
 alias python='python3'
@@ -64,6 +66,7 @@ alias cls='clear'
 alias dps='docker ps --format "table {{.Names}}\t{{.RunningFor}}\t{{.Status}}"'
 alias lsblk='lsblk -o NAME,SIZE,FSTYPE,TYPE,MOUNTPOINT'
 alias kubeclean="for file in `ls ~/.kube/config-files`; do yq 'del(.clusters[0].cluster.certificate-authority-data)' ~/.kube/config-files/${file} --inplace; done"
+
 # .brew is used in the mac-setup repo
 if [ -e .brew ]; then
   alias brew='.brew'
