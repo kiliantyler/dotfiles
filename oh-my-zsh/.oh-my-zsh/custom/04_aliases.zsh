@@ -32,7 +32,7 @@ alias less='most'
 alias more='most'
 
 # Replace ls with eza
-alias ls='eza --no-quotes --icons=always --color=always --group-directories-first -w120'
+alias ls='eza --no-quotes --group-directories-first -w120'
 alias ll='ls -1'
 alias la='ll -a'
 alias lll='ls -lga --smart-group --time-style="+%Y-%m-%d %H:%M:%S" --sort name'

@@ -14,3 +14,4 @@ done
 
 . <(flux completion zsh)
 eval "$(zoxide init zsh --cmd cd)"
+source <(cod init $$ zsh)

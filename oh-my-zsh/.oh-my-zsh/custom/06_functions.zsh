@@ -58,6 +58,13 @@ function tree() {
   ls --tree -L $level $@
 }
 
+# function defaults() {
+#   git pull ~/Github/defaults
+#   for i in `\ls ~/Github/defaults`; do
+#   # Prompt for each thing
+#   done
+# }
+
 # function grep() {
 #   rg --color=always --hidden --smart-case --no-ignore --no-ignore-parent --json -C 2 "$@" | delta
 # }
