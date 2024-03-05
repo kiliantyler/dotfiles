@@ -101,3 +101,5 @@ alias gitignore='curl -L -s https://www.gitignore.io/api/$@'
 alias yq='yq -P -e -I 2'
 
 alias c='clear'
+
+alias header='python ~/Github/make-hash/hash.py'
