@@ -5,8 +5,8 @@ sourceFiles=(
   "${HOME}/.cargo/env"
   "${HOME}/.config/op/plugins.sh"
   "${XDG_CONFIG_HOME}/fzf/fzf.zsh"
-  "$(brew --prefix)/opt/homebrew/opt/nvm/nvm.sh"
-  "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+  "$(brew --prefix)/opt/nvm/nvm.sh"
+  "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm"
   "${HOME}/.iterm2_shell_integration.zsh"
 )
 
