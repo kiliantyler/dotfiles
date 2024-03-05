@@ -10,7 +10,10 @@ paths=(
   "${HOME}/.local/bin"
   "${HOME}/.dotnet/tools"
   "${HOME}/Github/mac-setup/bin"
+  "${HOME}/mac-setup/bin"
+  "${HOME}/.cargo/bin"
   "${GOPATH}/bin"
+  "${HOME}/bin"
 )
 
 EXPORT_PATH="${PATH}"
