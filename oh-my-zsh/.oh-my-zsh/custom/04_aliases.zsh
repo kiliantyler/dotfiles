@@ -85,6 +85,7 @@ alias tf15='tfenv use 0.15.5'
 
 
 ## WSL has its own file ##
+
 alias apt='brew'
 
 alias du='dust -w 120'
@@ -96,3 +97,7 @@ alias dig='dog'
 alias top='btop'
 
 alias gitignore='curl -L -s https://www.gitignore.io/api/$@'
+
+alias yq='yq -P -e -I 2'
+
+alias c='clear'

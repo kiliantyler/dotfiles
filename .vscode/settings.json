@@ -1,0 +1,22 @@
+{
+  "files.associations": {
+      "*.json5": "jsonc"
+  },
+  "material-icon-theme.folders.associations": {
+      ".taskfiles": "utils"
+  },
+  "yaml.schemaStore.enable": true,
+  "editor.fontFamily": "FiraCode Nerd Font",
+  "editor.fontLigatures": true,
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": true,
+  "editor.guides.bracketPairsHorizontal": true,
+  "editor.guides.highlightActiveBracketPair": true,
+  "editor.hover.delay": 1500,
+  "editor.stickyScroll.enabled": false,
+  "editor.rulers": [
+    100
+  ],
+  "explorer.autoReveal": false,
+  "files.trimTrailingWhitespace": true
+}

@@ -58,6 +58,10 @@ function tree() {
   ls --tree -L $level $@
 }
 
+# Generate a gitignore file from gitignore.io
+# https://docs.gitignore.io
+function gi() { curl -sLw "\n" https://www.toptal.com/developers/gitignore/api/$@ ;}
+
 # function defaults() {
 #   git pull ~/Github/defaults
 #   for i in `\ls ~/Github/defaults`; do
@@ -68,3 +72,6 @@ function tree() {
 # function grep() {
 #   rg --color=always --hidden --smart-case --no-ignore --no-ignore-parent --json -C 2 "$@" | delta
 # }
+
+# turn this into a function
+# alias aider="aider --openai-api-key "$(op read 'op://Personal/auth0.openai.com/API Keys/aider-chat')" --35turbo --no-auto-commits"
