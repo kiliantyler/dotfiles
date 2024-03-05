@@ -1,7 +1,5 @@
-[user]
-	email = github@ktyler.me
-	name = Kilian Tyler
-	signingKey = D5E44E6A3F92E6229AC687C03534BBD6D3C9E137
+[include]
+  path = ~/.config/.gitconfig/personal.gitconfig
 
 [commit]
 	gpgSign = false
@@ -100,3 +98,6 @@
 
 [includeIf "gitdir:/Users/k.tyler/"]
   path = ~/.config/.gitconfig/work.gitconfig
+
+[includeIf "hasconfig:remote.*.url:https://github.com/**"]
+  path = ~/.config/.gitconfig/personal.gitconfig
