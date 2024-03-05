@@ -33,8 +33,8 @@ alias more='most'
 
 # Replace ls with eza
 alias ls='eza --no-quotes --group-directories-first -w120'
-alias ll='ls -1'
-alias la='ll -a'
+alias ll='ls -1a'
+alias la='ls -a'
 alias lll='ls -lga --smart-group --time-style="+%Y-%m-%d %H:%M:%S" --sort name'
 alias lt='tree'
 alias lm='lll | most'
@@ -103,3 +103,6 @@ alias yq='yq -P -e -I 2'
 alias c='clear'
 
 alias header='python ~/Github/make-hash/hash.py'
+
+# allows me to use `g` while keeping git alias
+alias govm='\g'
