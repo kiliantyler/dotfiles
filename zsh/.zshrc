@@ -6,7 +6,8 @@ fi
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-
+# TODO: this sucks
+export PATH="${HOME}/.pyenv/shims:${PATH}"
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Uncomment the following line to use hyphen-insensitive completion.
@@ -36,7 +37,7 @@ pdm
 autoswitch_virtualenv
 zsh-fzf-history-search
 )
-
+fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 source $ZSH/oh-my-zsh.sh
 
 
@@ -57,7 +58,7 @@ typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 fpath+=~/.zfunc
 autoload -Uz compinit && compinit
 enable_autoswitch_virtualenv
-eval $(thefuck --alias)
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
