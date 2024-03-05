@@ -1,9 +1,10 @@
 autoload -Uz compinit; compinit
 source <(kubectl completion zsh)
 
-alias k='kubectl'
 
-# command -v kubecolor >/dev/null 2>&1 && alias kubectl="kubecolor" && compdef kubecolor=kubectl
+command -v kubecolor >/dev/null 2>&1 && alias kubectl="kubecolor" && compdef kubecolor=kubectl
+
+alias k='kubectl'
 
 # kubectl apply
 alias kaf='k apply -f'
@@ -457,21 +458,21 @@ kubectl get pods -n $1 $2 -o go-template \
     --template='{{range .items}}{{"pod: "}}{{.metadata.name}}
 {{if .spec.securityContext}}
   PodSecurityContext:
-    {{"runAsGroup: "}}{{.spec.securityContext.runAsGroup}}                               
-    {{"runAsNonRoot: "}}{{.spec.securityContext.runAsNonRoot}}                           
+    {{"runAsGroup: "}}{{.spec.securityContext.runAsGroup}}
+    {{"runAsNonRoot: "}}{{.spec.securityContext.runAsNonRoot}}
     {{"runAsUser: "}}{{.spec.securityContext.runAsUser}}                                 {{if .spec.securityContext.seLinuxOptions}}
     {{"seLinuxOptions: "}}{{.spec.securityContext.seLinuxOptions}}                       {{end}}
 {{else}}PodSecurity Context is not set
 {{end}}{{range .spec.containers}}
 {{"container name: "}}{{.name}}
-{{"image: "}}{{.image}}{{if .securityContext}}                                      
+{{"image: "}}{{.image}}{{if .securityContext}}
     {{"allowPrivilegeEscalation: "}}{{.securityContext.allowPrivilegeEscalation}}   {{if .securityContext.capabilities}}
     {{"capabilities: "}}{{.securityContext.capabilities}}                           {{end}}
     {{"privileged: "}}{{.securityContext.privileged}}                               {{if .securityContext.procMount}}
     {{"procMount: "}}{{.securityContext.procMount}}                                 {{end}}
-    {{"readOnlyRootFilesystem: "}}{{.securityContext.readOnlyRootFilesystem}}       
-    {{"runAsGroup: "}}{{.securityContext.runAsGroup}}                               
-    {{"runAsNonRoot: "}}{{.securityContext.runAsNonRoot}}                           
+    {{"readOnlyRootFilesystem: "}}{{.securityContext.readOnlyRootFilesystem}}
+    {{"runAsGroup: "}}{{.securityContext.runAsGroup}}
+    {{"runAsNonRoot: "}}{{.securityContext.runAsNonRoot}}
     {{"runAsUser: "}}{{.securityContext.runAsUser}}                                 {{if .securityContext.seLinuxOptions}}
     {{"seLinuxOptions: "}}{{.securityContext.seLinuxOptions}}                       {{end}}{{if .securityContext.windowsOptions}}
     {{"windowsOptions: "}}{{.securityContext.windowsOptions}}                       {{end}}
