@@ -6,18 +6,13 @@ fi
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-# TODO: this sucks
-export PATH="${HOME}/.pyenv/shims:${PATH}"
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
 HYPHEN_INSENSITIVE="true"
-
-zstyle ':omz:update' mode auto      # update automatically without asking
-zstyle ':omz:update' frequency 2
-
 ENABLE_CORRECTION="false"
+
+zstyle ':omz:update' mode auto
+zstyle ':omz:update' frequency 2
 
 plugins=(
 alias-tips
@@ -38,6 +33,7 @@ autoswitch_virtualenv
 zsh-fzf-history-search
 )
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
+fpath+=~/.zfunc
 source $ZSH/oh-my-zsh.sh
 
 
@@ -55,18 +51,5 @@ source $ZSH/oh-my-zsh.sh
 ZSH_CUSTOM_AUTOUPDATE_QUIET=true
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
-fpath+=~/.zfunc
 autoload -Uz compinit && compinit
 enable_autoswitch_virtualenv
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-
-export GOPATH="$HOME/go"; export GOROOT="$HOME/.go"; export PATH="$GOPATH/bin:$PATH"; # g-install: do NOT edit, see https://github.com/stefanmaric/g
-
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

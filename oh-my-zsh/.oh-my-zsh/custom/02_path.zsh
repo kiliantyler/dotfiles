@@ -10,10 +10,10 @@ paths=(
   "${HOME}/.local/bin"
   "${HOME}/.dotnet/tools"
   "${HOME}/Github/mac-setup/bin"
+  "${GOPATH}/bin"
 )
 
 EXPORT_PATH="${PATH}"
-export ORG_PATH=${PATH}
 
 for path in ${(Oa)paths[@]}; do
   if [[ ${EXPORT_PATH} = *"${path}"* ]]; then continue; fi
