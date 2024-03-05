@@ -1,6 +1,7 @@
 {
   "files.associations": {
-      "*.json5": "jsonc"
+      "*.json5": "jsonc",
+      "*.ssh": "ssh_config"
   },
   "material-icon-theme.folders.associations": {
       ".taskfiles": "utils"
