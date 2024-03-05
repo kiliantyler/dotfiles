@@ -1,10 +1,10 @@
 #!/usr/bin/env zsh
 
-autoload -Uz compinit; compinit
-source <(kubectl completion zsh)
-
-
-command -v kubecolor >/dev/null 2>&1 && alias kubectl="kubecolor" && compdef kubecolor=kubectl
+if command -v kubecolor >/dev/null 2>&1; then
+  alias kubectl="kubecolor"
+  compdef kubecolor=kubectl
+  compdef k=kubectl
+fi
 
 alias k='kubectl'
 
