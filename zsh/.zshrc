@@ -53,3 +53,5 @@ typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
 autoload -Uz compinit && compinit
 enable_autoswitch_virtualenv
+
+zstyle ':completion:*' menu select
