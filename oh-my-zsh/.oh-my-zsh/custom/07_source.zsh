@@ -13,6 +13,7 @@ sourceFiles=(
 evalSourcePrograms=(
   "flux completion zsh"
   "cod init $$ zsh"
+  "chezmoi completion zsh"
 )
 
 evalCommands=(
