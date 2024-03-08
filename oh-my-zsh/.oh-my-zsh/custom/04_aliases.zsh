@@ -111,3 +111,5 @@ alias header='python ~/Github/make-hash/hash.py'
 alias govm='\g'
 
 alias which="type -a"
+
+alias git='bit'

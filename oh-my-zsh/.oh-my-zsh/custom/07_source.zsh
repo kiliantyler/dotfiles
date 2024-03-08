@@ -18,6 +18,7 @@ evalSourcePrograms=(
 
 evalCommands=(
   "zoxide init zsh --cmd cd"
+  "atuin init zsh"
 )
 
 for source in ${sourceFiles[@]}; do

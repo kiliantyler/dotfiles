@@ -55,3 +55,5 @@ autoload -Uz compinit && compinit
 enable_autoswitch_virtualenv
 
 zstyle ':completion:*' menu select
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /opt/homebrew/bin/bit bit

@@ -62,6 +62,14 @@ function tree() {
 # https://docs.gitignore.io
 function gi() { curl -sLw "\n" https://www.toptal.com/developers/gitignore/api/$@ ;}
 
+pbfile() {
+  osascript \
+  -e 'on run args' \
+  -e 'set the clipboard to POSIX file (first item of args)' \
+  -e end \
+  "$@"
+}
+
 # function defaults() {
 #   git pull ~/Github/defaults
 #   for i in `\ls ~/Github/defaults`; do
