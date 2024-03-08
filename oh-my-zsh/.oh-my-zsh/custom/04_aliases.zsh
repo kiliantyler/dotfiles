@@ -109,3 +109,5 @@ alias header='python ~/Github/make-hash/hash.py'
 
 # allows me to use `g` while keeping git alias
 alias govm='\g'
+
+alias which="type -a"

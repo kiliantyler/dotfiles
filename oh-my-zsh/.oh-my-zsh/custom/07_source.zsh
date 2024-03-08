@@ -31,9 +31,6 @@ for evalSource in "${evalSourcePrograms[@]}"; do
   if command -v $command &> /dev/null
   then
     . <(eval "${evalSource}")
-    ## TODO: Make a zsh logging output to check for startup errors that I am not seeing
-    # else
-    # echo "Command not found: ${command}"
   fi
 done
 
