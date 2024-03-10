@@ -509,4 +509,3 @@
     merge-conflict-ours-diff-header-decoration-style = "#5E81AC" box
     merge-conflict-theirs-diff-header-style = yellow bold
     merge-conflict-theirs-diff-header-decoration-style = "#5E81AC" box
-    

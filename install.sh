@@ -40,7 +40,7 @@ if [ -x "$(command -v xcode-select)" ]; then
   echo $check
   str="xcode-select: note: install requested for command line developer tools"
   while [[ "$check" == "$str" ]]; do
-    # echo "Installing xcode tools" 
+    # echo "Installing xcode tools"
     sleep 1
   done
 fi

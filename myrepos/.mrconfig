@@ -1,7 +1,7 @@
 
 [Documents/GitHub/mac-setup]
 checkout = git clone 'https://github.com/kiliantyler/mac-setup.git' 'mac-setup'
-update = 
+update =
 	 branch=$(git symbolic-ref --short -q HEAD)
 	 if [ "${branch}" == "main" ]; then
 	   git pull

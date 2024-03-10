@@ -16,7 +16,7 @@
     dir                     # current directory
     # prompt_char           # prompt symbol
   )
-  
+
   typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
     status                  # exit code of the last command
     command_execution_time  # duration of the last command
@@ -214,7 +214,7 @@
   typeset -g POWERLEVEL9K_ASDF_GOLANG_FOREGROUND=37
   typeset -g POWERLEVEL9K_ASDF_NODEJS_FOREGROUND=70
   typeset -g POWERLEVEL9K_ASDF_RUST_FOREGROUND=37
-  typeset -g POWERLEVEL9K_ASDF_DOTNET_CORE_FOREGROUND=134  
+  typeset -g POWERLEVEL9K_ASDF_DOTNET_CORE_FOREGROUND=134
   typeset -g POWERLEVEL9K_ASDF_FLUTTER_FOREGROUND=38
   typeset -g POWERLEVEL9K_ASDF_LUA_FOREGROUND=32
   typeset -g POWERLEVEL9K_ASDF_JAVA_FOREGROUND=32

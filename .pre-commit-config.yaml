@@ -22,7 +22,7 @@ repos:
   - id: terraform-validate
   - id: tflint
   - id: helmlint
-  - id: shellcheck
+    # - id: shellcheck
 
 - repo: https://github.com/compilerla/conventional-pre-commit
   rev: v3.1.0

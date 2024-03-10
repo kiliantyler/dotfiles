@@ -494,4 +494,3 @@ _pdm_pip_packages() {
 }
 
 _pdm "$@"
-
