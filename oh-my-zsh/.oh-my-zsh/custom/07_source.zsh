@@ -13,12 +13,11 @@ sourceFiles=(
 evalSourcePrograms=(
   "flux completion zsh"
   "cod init $$ zsh"
-  "chezmoi completion zsh"
 )
 
 evalCommands=(
-  "zoxide init zsh --cmd cd"
-  "atuin init zsh"
+  "zoxide init zsh"
+  "atuin init zsh --disable-up-arrow --disable-ctrl-r"
 )
 
 for source in ${sourceFiles[@]}; do
@@ -29,17 +28,15 @@ done
 
 for evalSource in "${evalSourcePrograms[@]}"; do
   command=$(echo $evalSource | awk '{print $1}')
-  if command -v $command &> /dev/null
-  then
+  if command -v $command &>/dev/null; then
     . <(eval "${evalSource}")
   fi
 done
 
 for evalCommand in "${evalCommands[@]}"; do
   command=$(echo $evalCommand | awk '{print $1}')
-  if command -v $command &> /dev/null
-  then
-    evalString=`eval ${evalCommand}`
+  if command -v $command &>/dev/null; then
+    evalString=$(eval ${evalCommand})
     eval "${evalString}"
   fi
 done
