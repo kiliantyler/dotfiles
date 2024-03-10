@@ -10,6 +10,8 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 
 HYPHEN_INSENSITIVE="true"
 ENABLE_CORRECTION="false"
+ZSH_TMUX_AUTOSTART=true
+ZSH_TMUX_AUTOCONNECT=false
 
 zstyle ':omz:update' mode auto
 zstyle ':omz:update' frequency 2
@@ -31,6 +33,7 @@ pipenv
 pdm
 autoswitch_virtualenv
 zsh-fzf-history-search
+tmux
 )
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 fpath+=~/.zfunc
@@ -55,5 +58,4 @@ autoload -Uz compinit && compinit
 enable_autoswitch_virtualenv
 
 zstyle ':completion:*' menu select
-autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/bit bit
