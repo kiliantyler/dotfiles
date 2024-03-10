@@ -68,8 +68,11 @@ alias lsblk='lsblk -o NAME,SIZE,FSTYPE,TYPE,MOUNTPOINT'
 alias kubeclean="for file in $(ls ~/.kube/config-files); do yq 'del(.clusters[0].cluster.certificate-authority-data)' ~/.kube/config-files/${file} --inplace; done"
 
 # .brew is used in the mac-setup repo
-if [ -e .brew ]; then
+if command -v .brew &>/dev/null; then
   alias brew='.brew'
+else
+  echo "no .brew"
+  path
 fi
 
 alias kubeclean="for file in $(\ls ~/.kube/config-files); do yq 'del(.clusters[0].cluster.certificate-authority-data)' ~/.kube/config-files/${file} --inplace; done"
