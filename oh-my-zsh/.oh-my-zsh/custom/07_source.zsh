@@ -16,7 +16,7 @@ evalSourcePrograms=(
 )
 
 evalCommands=(
-  "zoxide init zsh"
+  # "zoxide init zsh"
   "atuin init zsh --disable-up-arrow --disable-ctrl-r"
 )
 
