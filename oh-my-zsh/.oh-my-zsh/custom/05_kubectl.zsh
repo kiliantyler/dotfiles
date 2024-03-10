@@ -29,7 +29,6 @@ alias kcs='k config set'
 alias kcu='k config unset'
 alias kcv='k config view'
 
-
 # kubectl copy
 alias kcp='k cp'
 
@@ -454,9 +453,8 @@ alias ksss='k scale statefulset'
 # This doesn't work with kubecolor
 alias kw='kubectl watch'
 
-
 function kgpscn() {
-kubectl get pods -n $1 $2 -o go-template \
+  kubectl get pods -n $1 $2 -o go-template \
     --template='{{range .items}}{{"pod: "}}{{.metadata.name}}
 {{if .spec.securityContext}}
   PodSecurityContext:

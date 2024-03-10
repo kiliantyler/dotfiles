@@ -65,17 +65,14 @@ alias cls='clear'
 # just a better Docker printout
 alias dps='docker ps --format "table {{.Names}}\t{{.RunningFor}}\t{{.Status}}"'
 alias lsblk='lsblk -o NAME,SIZE,FSTYPE,TYPE,MOUNTPOINT'
-alias kubeclean="for file in `ls ~/.kube/config-files`; do yq 'del(.clusters[0].cluster.certificate-authority-data)' ~/.kube/config-files/${file} --inplace; done"
+alias kubeclean="for file in $(ls ~/.kube/config-files); do yq 'del(.clusters[0].cluster.certificate-authority-data)' ~/.kube/config-files/${file} --inplace; done"
 
 # .brew is used in the mac-setup repo
 if [ -e .brew ]; then
   alias brew='.brew'
 fi
 
-
-alias wakepc='wakeonlan 70:CD:0D:00:3C:5A'
-
-alias kubeclean="for file in `\ls ~/.kube/config-files`; do yq 'del(.clusters[0].cluster.certificate-authority-data)' ~/.kube/config-files/${file} --inplace; done"
+alias kubeclean="for file in $(\ls ~/.kube/config-files); do yq 'del(.clusters[0].cluster.certificate-authority-data)' ~/.kube/config-files/${file} --inplace; done"
 
 ## Terraform ##
 alias tfinit='terraform init'
@@ -85,7 +82,6 @@ alias tf12up='tf12 && terraform 0.12upgrade -yes'
 alias tf13='tfenv use 0.13.7'
 alias tf13up='tf13 && terraform 0.13upgrade -yes'
 alias tf15='tfenv use 0.15.5'
-
 
 ## WSL has its own file ##
 
