@@ -105,10 +105,6 @@ if [[ -o zle ]]; then
             fi
             # Get the list of directories in the current directory.
             __ls_results="$(\command eza -1adD --color=always --icons -- ${__word}*/)"
-            # if the result is one directory and its the same as the word typed in the terminal add a * to the end and rerun
-            if [[ "$(echo "${__ls_results}" | wc -l)" -eq 1 ]]; then
-              __ls_results="$(\command eza -1adD --color=always --icons -- ${__word}*/*/)"
-            fi
             if [[ $nocaseglob_was_set = false ]]; then
               unsetopt nocaseglob
             fi
@@ -207,7 +203,7 @@ if [[ -o zle ]]; then
       # Check if a selection was made
       if [[ -n "$selection" ]]; then
           # Assuming you want to append the selection to BUFFER and move the cursor
-          BUFFER="cd $selection"
+          BUFFER="cd $selection/"
           CURSOR=$#BUFFER
           \builtin zle reset-prompt
           # Accept the line
