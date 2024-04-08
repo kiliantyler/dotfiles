@@ -1,0 +1,5 @@
+
+auto_sync = true
+update_check = true
+sync_address = "https://atuin.kflix.tv"
+sync_frequency = 0

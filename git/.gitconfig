@@ -2,45 +2,44 @@
   path = ~/.config/.gitconfig/personal.gitconfig
 
 [commit]
-	gpgSign = false
+  gpgSign = false
 
 [tag]
-	forceSignAnnotated = true
+  forceSignAnnotated = true
 
 [credential]
-	helper = store
+  helper = store
 
 [init]
-	defaultBranch = main
+  defaultBranch = main
 #	templateDir = ${HOME}/.git-template
 
 [color]
-	ui = true
+  ui = true
 
 [format]
-	pretty = oneline
+  pretty = oneline
 
 [core]
-	autocrl = input
-	fileMode = true
-	editor = code --wait
+  autocrl = input
+  fileMode = true
+  editor = code --wait
   pager = delta
 
 [alias]
-	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-	ignore = "!gi() { curl -sL https://www.toptal.com/developers/gitignore/api/$@ ;}; gi"
+  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 [gpg]
-	program = gpg
-	format = openpgp
+  program = gpg
+  format = openpgp
 
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
 
 [push]
-	autoSetupRemote = true
+  autoSetupRemote = true
 
 [interactive]
   diffFilter = delta --color-only --features=interactive
@@ -58,7 +57,7 @@
   cmd = code --wait --diff $LOCAL $REMOTE
 
 [include]
-    path = ${HOME}/.config/.gitconfig/themes.gitconfig
+  path = ${HOME}/.config/.gitconfig/themes.gitconfig
 
 [delta]
   pager = less
@@ -90,11 +89,11 @@
   hunk-header-decoration-style = cyan box ul
 
 [gpg]
-	program = /opt/homebrew/bin/gpg
+  program = /opt/homebrew/bin/gpg
 
 [gpg "ssh"]
-	program = ssh-keygen
-	allowedSignersFile = ""
+  program = ssh-keygen
+  allowedSignersFile = ""
 
 [includeIf "gitdir:/Users/k.tyler/"]
   path = ~/.config/.gitconfig/work.gitconfig

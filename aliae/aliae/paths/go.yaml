@@ -1,0 +1,4 @@
+- force: true
+  value: |
+    {{ .Home }}/.g/go
+    {{ .Home }}/.g/go/bin

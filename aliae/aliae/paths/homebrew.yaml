@@ -1,0 +1,7 @@
+- force: true
+  value: |
+    /opt/homebrew/opt/coreutils/libexec/gnubin
+    /opt/homebrew/opt/gnu-sed/libexec/gnubin
+    /opt/homebrew/opt/findutils/libexec/gnubin
+    /opt/homebrew/unzip/bin
+# Would love to get Variables working

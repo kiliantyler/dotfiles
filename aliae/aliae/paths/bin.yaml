@@ -1,0 +1,5 @@
+- force: true
+  value: |
+    {{ .Home }}/.local/bin
+    {{ .Home }}/bin
+    {{ .Home }}/.bin

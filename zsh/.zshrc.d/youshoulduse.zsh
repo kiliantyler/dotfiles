@@ -1,5 +1,6 @@
 #!/usr/bin/env zsh
 
+## Aliases that I don't want to see tips for
 aliasesToIgnore=(
   "_"
   "apt"

@@ -1,15 +1,46 @@
 {
   "files.associations": {
-      "*.json5": "jsonc",
-      "*.json": "jsonc",
-      "*.ssh": "ssh_config",
-      "*.gitconfig": "gitconfig",
-      "*.delta": "gitconfig"
+    "*.json5": "jsonc",
+    "*.json": "jsonc",
+    "*.ssh": "ssh_config",
+    "*.gitconfig": "gitconfig",
+    "*.delta": "gitconfig",
+    ".zshrc": "shellscript"
   },
   "material-icon-theme.folders.associations": {
-      ".taskfiles": "utils"
+    ".taskfiles": "utils",
+    "git": "git",
+    "pypoetry": "python",
+    "1password": "keys",
+    "zsh": "scripts",
   },
   "files.trimTrailingWhitespace": true,
   "files.insertFinalNewline": true,
   "editor.formatOnSave": true,
+  "shellcheck.useWorkspaceRootAsCwd": true,
+  "yaml.customTags": [
+    "!include scalar",
+    "!include_dir scalar"
+  ],
+  "[shellscript]": {
+    "editor.foldingStrategy": "auto",
+    "editor.semanticHighlighting.enabled": true,
+    "editor.defaultFoldingRangeProvider": "zokugun.explicit-folding",
+    "explicitFolding.rules": [
+      {
+        "beginRegex": "^### (?!END).* ###$",
+        "endRegex": "^### (END).* ###$",
+        "autoFold": false,
+        "kind": "region",
+        "foldLastLine": true
+      },
+      {
+        "beginRegex": "^##(?!#).*[^#]$",
+        "endRegex": "^[^#].*$",
+        "autoFold": false,
+        "kind": "comment",
+        "foldLastLine": false
+      }
+    ]
+  }
 }
