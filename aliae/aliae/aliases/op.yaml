@@ -1,0 +1,4 @@
+- name: doctl
+  calue: op plugin run -- doctl
+- name: gh
+  value: op plugin run -- gh

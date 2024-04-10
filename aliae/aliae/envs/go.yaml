@@ -1,0 +1,4 @@
+- name: GOROOT
+  value: "{{ .Home }}/.g/go"
+- name: G_MIRROR
+  value: https://golang.google.cn/dl/

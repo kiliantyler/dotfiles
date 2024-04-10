@@ -1,0 +1,55 @@
+- name: dotfiles
+  type: function
+  value: |
+    case "$1" in
+      edit) .dotfiles_edit && return 0 ;;
+      link) .dotfiles_link && return 0 ;;
+      clean) .dotfiles_clean && return 0 ;;
+      *) .dotfiles_help && return 1 ;;
+    esac
+- name: .dotfiles_help
+  type: function
+  value: |
+    echo "Usage: dotfiles [edit|link|clean]"
+    echo "  edit: Opens the dotfiles folder in VS Code"
+    echo "  link: Links the dotfiles to the home directory"
+    echo "  clean: Removes broken symlinks pointing to the dotfiles"
+- name: .dotfiles_edit
+  type: function
+  value: |
+    code ~/dotfiles || exit 1
+- name: .dotfiles_link
+  type: function
+  value: |
+    (
+    if [ -z $1 ]; then
+      V=5
+    else
+      V=$1
+    fi
+    cd ~/mac-setup/scripts || exit 1
+    V=${V} ./dotfiles.sh || exit 1
+    )
+- name: .dotfiles_clean
+  type: function
+  value: |
+    local target_folder=~/dotfiles
+    # Convert to absolute path to ensure proper string matching
+    local absolute_target_folder=$(realpath "$target_folder")
+
+    # Find all symlinks in the home directory
+    fd -uat symlink -j 100 -E Library --full-path ~ | while read -r symlink; do
+        # Check if the symlink is broken
+        if [ ! -e "$symlink" ]; then
+          # Get the absolute path of the symlink target
+          symlink_target=$(readlink "$symlink")
+          symlink_dir=$(dirname "$symlink")
+          absolute_symlink_target=$(realpath -m "$symlink_dir/$symlink_target")
+          # echo "Broken symlink: $symlink"
+          # echo "Target: $absolute_symlink_target"
+          if [[ $absolute_symlink_target == $absolute_target_folder* ]]; then
+            echo "Removing broken symlink: $symlink"
+            command rm -rf "$symlink"
+          fi
+        fi
+    done

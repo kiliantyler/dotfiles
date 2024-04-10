@@ -1,0 +1,2 @@
+- name: SOPS_AGE_KEY_FILE
+  value: "${HOME}/.config/sops/age/keys.txt"

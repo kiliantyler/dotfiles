@@ -1,0 +1,14 @@
+- name: YSU_IGNORED_ALIASES
+  type: array
+  value: |
+    _
+    ..
+    ...
+    ....
+    .....
+    ......
+    zi
+    apt
+    zpl
+    zplg
+    zini
