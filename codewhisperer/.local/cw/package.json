@@ -1,0 +1,91 @@
+{
+  "name": "@kiliantyler/autocomplete",
+  "version": "1.0",
+  "description": "kiliantyler Fig/CW Autocomplete Specs",
+  "schemaVersion": "v7",
+  "main": "./build/index",
+  "types": "./build/index.d.ts",
+  "type": "module",
+  "packageManager": "pnpm@8.14.0",
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=8.14.0"
+  },
+  "browserslist": [
+    "safari >=12",
+    "edge >=79"
+  ],
+  "scripts": {
+    "dev": "npx @withfig/autocomplete-tools dev",
+    "create-spec": "npx @withfig/autocomplete-tools create-spec",
+    "build": "npx @withfig/autocomplete-tools compile",
+    "lint": "eslint '**/*.ts' && npx prettier --check '**/*.ts' --parser typescript",
+    "lint:fix": "eslint '**/*.ts' --fix && npx prettier --write '**/*.ts' --parser typescript",
+    "test": "tsc --noEmit && echo 'All specs passed validation. You are ready to push!'",
+    "prepare": "husky install"
+  },
+  "fig": {
+    "dev": {
+      "description": "Watching and compile .ts files in ./src",
+      "icon": "fig://template?badge=🛠",
+      "priority": 100
+    },
+    "create-spec": {
+      "description": "Create a new completion spec"
+    },
+    "build": {
+      "description": "Compile all files in /src"
+    },
+    "lint": {
+      "description": "Check for linting issues"
+    },
+    "lint:fix": {
+      "description": "Fix linting issues"
+    },
+    "test": {
+      "description": "Typecheck all .ts files in /src"
+    },
+    "prepare": {
+      "description": "Install husky"
+    }
+  },
+  "prettier": {
+    "trailingComma": "es5",
+    "printWidth": 80
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix"
+    ]
+  },
+  "files": [
+    "build/**/*.js",
+    "build/**/*.css",
+    "build/**/*.json"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@fig/eslint-config-autocomplete": "^1.2.1",
+    "@typescript-eslint/eslint-plugin": "^7.3.1",
+    "@typescript-eslint/parser": "^7.3.1",
+    "@withfig/autocomplete-tools": "^2.9.2",
+    "@withfig/autocomplete-types": "^1.30.0",
+    "danger": "^11.3.1",
+    "eslint": "^8.57.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.1.1",
+    "typescript": "~5.3.3"
+  },
+  "dependencies": {
+    "@fig/autocomplete-generators": "^2.4.0",
+    "@fig/autocomplete-helpers": "^1.0.7",
+    "semver": "^7.6.0",
+    "strip-json-comments": "^5.0.1",
+    "yaml": "^2.4.1"
+  },
+  "resolutions": {
+    "word-wrap": "1.2.4"
+  }
+}

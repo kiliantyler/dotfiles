@@ -38,7 +38,7 @@
     local absolute_target_folder=$(realpath "$target_folder")
 
     # Find all symlinks in the home directory
-    fd -uat symlink -j 100 -E Library --full-path ~ | while read -r symlink; do
+    fd -uat symlink -j 100 -E Library/Containers -E Library/CloudStorage --full-path ~ | while read -r symlink; do
         # Check if the symlink is broken
         if [ ! -e "$symlink" ]; then
           # Get the absolute path of the symlink target

@@ -51,6 +51,8 @@
   value: 'lsblk -o NAME,SIZE,FSTYPE,TYPE,MOUNTPOINT'
 - name: 'du'
   value: 'dust -w 120'
+- name: 'df'
+  value: 'duf'
 - name: 'ps'
   value: 'procs'
 - name: 'dig'

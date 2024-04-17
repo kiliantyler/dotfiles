@@ -1,0 +1,19 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint",
+    "@stylistic/eslint-plugin",
+    "prettier"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "@fig/autocomplete"
+  ],
+  "rules": {
+    "prettier/prettier": 2,
+    "object-curly-newline": 0,
+  }
+}

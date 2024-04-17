@@ -2,3 +2,9 @@
   value: "{{ .Home }}/.g/go"
 - name: G_MIRROR
   value: https://golang.google.cn/dl/
+- name: GOBIN
+  value: "{{ .Home }}/.g/go/bin"
+- name: GOMODCACHE
+  value: "{{ .Home }}/.g/go/pkg/mod"
+- name: GOCACHE
+  value: "{{ .Home }}/.g/go/cache"

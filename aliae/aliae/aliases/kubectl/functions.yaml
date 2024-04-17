@@ -1,0 +1,43 @@
+- name: kgpscn
+  type: function
+  value: |
+    kubectl get pods -n $1 $2 -o go-template \
+      --template='{{range .items}}{{"pod: "}}{{.metadata.name}}
+    {{if .spec.securityContext}}
+      PodSecurityContext:
+        {{"runAsGroup: "}}{{.spec.securityContext.runAsGroup}}
+        {{"runAsNonRoot: "}}{{.spec.securityContext.runAsNonRoot}}
+        {{"runAsUser: "}}{{.spec.securityContext.runAsUser}}                                 {{if .spec.securityContext.seLinuxOptions}}
+        {{"seLinuxOptions: "}}{{.spec.securityContext.seLinuxOptions}}                       {{end}}
+    {{else}}PodSecurity Context is not set
+    {{end}}{{range .spec.containers}}
+    {{"container name: "}}{{.name}}
+    {{"image: "}}{{.image}}{{if .securityContext}}
+        {{"allowPrivilegeEscalation: "}}{{.securityContext.allowPrivilegeEscalation}}   {{if .securityContext.capabilities}}
+        {{"capabilities: "}}{{.securityContext.capabilities}}                           {{end}}
+        {{"privileged: "}}{{.securityContext.privileged}}                               {{if .securityContext.procMount}}
+        {{"procMount: "}}{{.securityContext.procMount}}                                 {{end}}
+        {{"readOnlyRootFilesystem: "}}{{.securityContext.readOnlyRootFilesystem}}
+        {{"runAsGroup: "}}{{.securityContext.runAsGroup}}
+        {{"runAsNonRoot: "}}{{.securityContext.runAsNonRoot}}
+        {{"runAsUser: "}}{{.securityContext.runAsUser}}                                 {{if .securityContext.seLinuxOptions}}
+        {{"seLinuxOptions: "}}{{.securityContext.seLinuxOptions}}                       {{end}}{{if .securityContext.windowsOptions}}
+        {{"windowsOptions: "}}{{.securityContext.windowsOptions}}                       {{end}}
+    {{else}}
+        SecurityContext is not set
+    {{end}}
+    {{end}}{{end}}'
+- name: kdecsn
+  type: function
+  value: |
+    k get secret -n $1 $2 -o json | jq -r '.data | map_values(@base64d)'
+- name: kdecspn
+  type: function
+  value: |
+    k get secret -n $1 $2 -o json | jq -r '.data | map_values(@base64d) | .["'$3'"]'
+- name: 'kubeclean'
+  type: function
+  value: |
+    for kfile in $(ls ~/.kube/config-files); do
+      yq "del(.clusters[0].cluster.certificate-authority-data)" ~/.kube/config-files/${kfile} --inplace
+    done

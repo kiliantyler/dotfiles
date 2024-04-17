@@ -2,7 +2,6 @@
 # Don't ask for confirmations
 #assume_yes = true
 
-# Disable specific steps - same options as the command line flag
 disable = ["gem", "mas", "containers"]
 
 # Ignore failures for these steps
@@ -29,8 +28,8 @@ no_retry = true
 # Arguments to pass tmux when pulling Repositories
 #tmux_arguments = "-S /var/tmux.sock"
 
-# Do not set the terminal title
-#set_title = false
+# Set the terminal title
+set_title = true
 
 # Display the time in step titles
 display_time = true
@@ -39,6 +38,7 @@ display_time = true
 cleanup = true
 
 [git]
+# Disable specific steps - same options as the command line flag
 #max_concurrency = 5
 # Additional git repositories to pull
 #repos = [

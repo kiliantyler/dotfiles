@@ -1,0 +1,13 @@
+hotKeys:
+  q:
+    shortCut: q
+    description: Quit
+    command: quit
+  ctrl-n:
+    shortCut: Ctrl-n
+    description: Select namespace
+    command: ns
+  x:
+    shortCut: x
+    description: Xray
+    command: xray deploy

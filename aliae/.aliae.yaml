@@ -1,5 +1,4 @@
 # TODO: Yaml language server
-# Using a custom version of aliae currently -- this doesn't work with the latest version of aliae
 alias: !include_dir "{{ .Home }}/aliae/aliases"
 env: !include_dir "{{ .Home }}/aliae/envs"
 path: !include_dir "{{ .Home }}/aliae/paths"

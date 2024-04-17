@@ -53,9 +53,14 @@ zinit ice id-as'theme/p10k' \
 zinit light romkatv/powerlevel10k
 ### END Theme ###
 
+## CodeWhisperer pre block. Keep at the top of this file.
+[[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.pre.zsh" ]] && \
+zinit snippet "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.pre.zsh"
+
+
 ### Programs ###
 
-## System completions (
+## System completions #TODO: Unsure if this is working a expected
 zinit id-as'system-completions' wait as'completion' lucid \
   atclone'print Installing system completions...; \
     mkdir -p $ZPFX/funs; \
@@ -131,21 +136,20 @@ zinit \
 ## Atuin -- history manager (https://atuin.sh)
 # The first part of this block installs atuin then sets up completion
 zinit as'null' from"gh-r" sbin'**/atuin' \
-  atclone'local atuinCommand=$(command find . -name atuin); \
-  $atuinCommand gen-completions --shell zsh > comp.zsh;' \
-  src'comp.zsh' for \
+  eval'atuin gen-completions --shell zsh' for \
   atuinsh/atuin
 # This loads a plugin that allows for atuin to be used in ZSH
 zinit wait lucid load as'atuin-plugin' for atuinsh/atuin
 
-## pyenv (https://github.com/pyenv/pyenv)
-zinit as'null' lucid  atinit'export PYENV_ROOT="$PWD"' \
-    atclone'PYENV_ROOT="$PWD" ./libexec/pyenv init - > zpyenv.zsh' \
-    atpull"%atclone" src"zpyenv.zsh" nocompile'!' sbin"bin/pyenv" for \
-  pyenv/pyenv
+## Direnv - Load environment variables per directory (https://github.com/direnv/direnv)
+zinit from"gh-r" id-as'app/direnv' sbin'direnv* -> direnv' \
+  eval'direnv hook zsh' for \
+    direnv/direnv
 
-## Stops nvm from being loaded in vscode
-# VSCode breaks on startup if nvm is loaded for some reason
+## pyenv (https://github.com/pyenv/pyenv)
+zinit lucid wait as'null' id-as'app/pyenv' atinit'export PYENV_ROOT="$PWD"' \
+  nocompile'!' sbin"bin/pyenv" eval'pyenv init -' for \
+  pyenv/pyenv
 
 ## nvm (https://github.com/nvm-sh/nvm)
 zinit lucid as'null' atinit'export NVM_DIR="$PWD";' \
@@ -156,6 +160,7 @@ zinit lucid has'nvm' as'null' id-as'app/nvmlts' \
   atclone'nvm install --lts' atpull'%atclone' \
   for zdharma-continuum/null
 
+## Yeoman generator (https://yeoman.io)
 zinit lucid has'nvm' as'null' \
   id-as'node/yo' node'yo <- !yo -> yo' \
   for zdharma-continuum/null
@@ -180,22 +185,33 @@ zinit lucid has'nvm' as'null' \
 ## g -- the go version manager (https://github.com/voidint/g) ##
 # Related g exports handled outside of .zshrc
 zinit wait as'null' lucid from:gh-r for \
-  id-as'app/fd'      sbin"**/fd" alias'find' @sharkdp/fd \
-  id-as'app/bat'     sbin"**/bat" alias'cat' @sharkdp/bat \
-  id-as'app/eza'     sbin'**/eza -> eza' alias'ls' kiliantyler/eza-releaser \
-  id-as'app/delta'   sbin'**/delta -> delta' dandavison/delta \
-  id-as'app/jq'      sbin'* -> jq' nocompile @jqlang/jq \
-  id-as'app/yq'      sbin'* -> yq' nocompile mikefarah/yq \
-  id-as'app/kubectx' sbin'kubectx;kubens' bpick'kubectx;kubens' ahmetb/kubectx \
+  id-as'app/fd'        sbin"**/fd" alias'find' @sharkdp/fd \
+  id-as'app/bat'       sbin"**/bat" alias'cat' @sharkdp/bat \
+  id-as'app/eza'       sbin'**/eza -> eza' alias'ls' kiliantyler/eza-releaser \
+  id-as'app/delta'     sbin'**/delta -> delta' dandavison/delta \
+  id-as'app/jq'        sbin'* -> jq' nocompile @jqlang/jq \
+  id-as'app/yq'        sbin'* -> yq' nocompile mikefarah/yq \
+  id-as'app/kubectx'   sbin'kubectx;kubens' bpick'kubectx;kubens' ahmetb/kubectx \
   id-as'app/kubecolor' sbin'kubecolor' alias'kubectl' kubecolor/kubecolor \
-  id-as'app/rg'      sbin'**/rg -> rg' BurntSushi/ripgrep \
-  id-as'app/zoxide'  sbin ajeetdsouza/zoxide \
-  id-as'app/g'       sbin'g' nocompile voidint/g \
-  id-as'app/gh'      sbin'gh' cli/cli \
-  id-as'app/helm'    sbin'helm' kiliantyler/helm-releaser
+  id-as'app/rg'        sbin'**/rg -> rg' BurntSushi/ripgrep \
+  id-as'app/zoxide'    sbin ajeetdsouza/zoxide \
+  id-as'app/g'         sbin'g' nocompile voidint/g \
+  id-as'app/gh'        sbin'gh' cli/cli \
+  id-as'app/helm'      sbin'helm' kiliantyler/helm-releaser \
+  id-as'app/k9s'       sbin'k9s' derailed/k9s \
+  id-as'kubectl/blame' sbin'kubectl-blame' knight42/kubectl-blame \
+  id-as'app/popeye'    sbin'popeye' derailed/popeye
 
 ## TODO:
 # kubectl - go build sadly
+# tfenv
+# doge https://github.com/Dj-Codeman/doge
+# bit
+# go-task
+# pre-commit
+# rbenv
+# rust + rustup
+# sops
 
 
 ## Bat Extras (https://github.com/eth-p/bat-extras)
@@ -230,8 +246,6 @@ zinit lucid wait from'gh-r' for \
 ## Aliae -- alias manager (https://aliae.dev)
 # This allows for the easy management of aliases, paths, and functions
 zinit lucid wait from'gh-r' id-as'app/aliae' as'null' for \
-  atclone'./aliae* completion zsh > init.zsh' \
-  src'init.zsh' \
   eval'aliae init zsh' \
   sbin'aliae* -> aliae' jandedobbeleer/aliae
 
@@ -241,24 +255,21 @@ zinit lucid wait from'gh-r' id-as'app/aliae' as'null' for \
 zinit ice wait"0" lucid
 zinit light MichaelAquilina/zsh-you-should-use
 
-## True autocomplete (https://github.com/marlonrichert/zsh-autocomplete)
-# This needs some heavy configuration before I'm willing to use it
-# TODO: Configure this
-# zinit wait lucid light-mode for marlonrichert/zsh-autocomplete
-
 ### END Plguins ###
 
 ### Snippets ###
 
 # Load snippets from the .zshrc.d folder
-# for file in ~/.zshrc.d/*; do
-#   zinit ice wait"0" lucid
-#   zinit snippet $file
-# done
+[[ -d "${HOME}/.zshrc.d" ]] && for file in "${HOME}/.zshrc.d"/*; do
+  zinit ice wait"0" lucid
+  zinit snippet $file
+done
 
-# Load 1password plugins
-zinit ice wait lucid
-zinit snippet "${HOME}/.config/op/plugins.sh"
+## Load 1password plugins
+if [[ -f "${HOME}/.config/op/plugins.sh" ]]; then
+  zinit ice wait lucid
+  zinit snippet "${HOME}/.config/op/plugins.sh"
+fi
 
 ### END Snippets ###
 
@@ -267,26 +278,24 @@ zinit snippet "${HOME}/.config/op/plugins.sh"
 ## This loads zicompinit and zicdreplay at the end of .zshrc
 # These allow zinit to take over completions and significantly speed up shell startup
 # It also requires fzf-tab plugin to be at the end of the completions list
-# ZSH Autosuggestions as you type (https://github.com/zsh-users/zsh-autosuggestions)
 # Syntax highlighting for the shell (https://github.com/zdharma-continuum/fast-syntax-highlighting)
 # This is a plugin that highlights commands as you type them
 # Needs to be at the towards the end of the .zshrc file
 zinit wait lucid for \
  atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
     zdharma-continuum/fast-syntax-highlighting \
- blockf \
-    zsh-users/zsh-completions \
- atload"!_zsh_autosuggest_start" \
-    zsh-users/zsh-autosuggestions \
-  Aloxaf/fzf-tab
+      blockf \
+    zsh-users/zsh-completions
+    # TODO: fzf-tab
 
+## CodeWhisperer post block. Keep at the bottom of this file.
+[[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.post.zsh" ]] && \
+zinit snippet "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.post.zsh" || \
+(+zi-log "{w}Codewhisper not found. Please install it from homebrew.{rst}" && +zi-log "{ice}brew install --cask codewhisperer{rst}")
 
-# only run this on the first shell startup
-if [[ ! -f "${ZINIT_HOME}/.firstrun" ]]; then
-  # Create the first file
-  touch "${ZINIT_HOME}/.firstrun"
-  # Run the setup script
-  +zi-log "{ice}Zinit{happy} is ready to go!{rst}"
-fi
+## Only run this on the first shell startup
+[[ ! -f "${ZINIT_HOME}/.firstrun" ]] && \
+(touch "${ZINIT_HOME}/.firstrun" &&  \
++zi-log "{ice}Zinit{happy} is ready to go!{rst}") || true
 
 ### END Finale ###
