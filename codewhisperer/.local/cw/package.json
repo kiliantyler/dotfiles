@@ -16,6 +16,7 @@
     "edge >=79"
   ],
   "scripts": {
+    "watch": "watch 'pnpm build' ./src",
     "dev": "npx @withfig/autocomplete-tools dev",
     "create-spec": "npx @withfig/autocomplete-tools create-spec",
     "build": "npx @withfig/autocomplete-tools compile",
@@ -81,8 +82,10 @@
   "dependencies": {
     "@fig/autocomplete-generators": "^2.4.0",
     "@fig/autocomplete-helpers": "^1.0.7",
+    "@types/node": "^20.12.7",
     "semver": "^7.6.0",
     "strip-json-comments": "^5.0.1",
+    "watch": "^1.0.2",
     "yaml": "^2.4.1"
   },
   "resolutions": {

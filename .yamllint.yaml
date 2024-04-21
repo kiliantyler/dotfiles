@@ -48,3 +48,6 @@ rules:
   truthy:
     level: warning
     allowed-values: ["true", "false", "on"]
+
+ignore:
+- pnpm-lock.yaml
