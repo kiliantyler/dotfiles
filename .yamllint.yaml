@@ -49,5 +49,4 @@ rules:
     level: warning
     allowed-values: ["true", "false", "on"]
 
-ignore:
-- pnpm-lock.yaml
+ignore-from-file: [.yamlignore]
