@@ -206,12 +206,20 @@ zinit wait as'null' lucid from:gh-r for \
 # kubectl - go build sadly
 # tfenv
 # doge https://github.com/Dj-Codeman/doge
-# bit
+# bit-git
 # go-task
 # pre-commit
 # rbenv
 # rust + rustup
 # sops
+# topgrade
+#
+# Things:
+# Raycast plugins
+# VSCode extensions
+# VSCode Project Manager plugin
+#
+
 
 
 ## Bat Extras (https://github.com/eth-p/bat-extras)
@@ -238,10 +246,10 @@ zinit lucid wait from'gh-r' for \
 
 ## iTerm2 shell integration (https://iterm2.com)
 # https://github.com/gnachman/iTerm2-shell-integration
-# zinit lucid wait as'null' for \
-#   sbin"utilities/*" \
-#   src"shell_integration/zsh" \
-#   gnachman/iTerm2-shell-integration
+zinit lucid wait as'null' for \
+  sbin"utilities/*" \
+  src"shell_integration/zsh" \
+  gnachman/iTerm2-shell-integration
 
 ## Aliae -- alias manager (https://aliae.dev)
 # This allows for the easy management of aliases, paths, and functions
