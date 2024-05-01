@@ -40,6 +40,10 @@ const scripts = {
   },
 };
 
+const getPods: Fig.Generator = {
+
+}
+
 const sharedPostProcessChecks = {
   connectedToCluster: (out) => {
     return out.includes("The connection to the server");
@@ -381,286 +385,375 @@ const completionSpec: Fig.Spec = {
   name: "kubectl",
   description: "",
   subcommands: [
-    { name: ["alpha"], // Done
+    {
+      name: ["alpha"], // Done
       description:
         "These commands correspond to alpha features that are not enabled in Kubernetes clusters by default",
-        priority: 51
     },
-    { name: ["get"], // TODO:
+    {
+      name: ["get"], // TODO:
       description: "Display one or many resources",
-      priority: 51
+      subcommands: [
+        {
+          name: "pods",
+          args: [
+            {
+              name: "POD",
+              isOptional: true,
+              generators: {
+                script: [
+                  scripts.typeWithoutName("pods", "default"),
+                ],
+                postProcess: sharedPostProcess,
+              }
+            }
+          ],
+        }
+      ]
     },
-    { name: ["help"], // TODO: Missing `get`
+    {
+      name: ["help"], // TODO: Missing `get`
       description: "Help about any command",
-      priority: 51,
       subcommands: [
         { name: ["alpha"], description: "Commands for features in alpha" },
-        { name: ["annotate"],
+        {
+          name: ["annotate"],
           description: "Update the annotations on a resource",
         },
-        { name: ["api-resources"],
+        {
+          name: ["api-resources"],
           description: "Print the supported API resources on the server",
         },
-        { name: ["api-versions"],
+        {
+          name: ["api-versions"],
           description:
             'Print the supported API versions on the server, in the form of "group/version"',
         },
-        { name: ["apply"],
+        {
+          name: ["apply"],
           description:
             "Apply a configuration to a resource by file name or stdin",
           subcommands: [
-            { name: ["edit-last-applied"],
+            {
+              name: ["edit-last-applied"],
               description:
                 "Edit latest last-applied-configuration annotations of a resource/object",
             },
-            { name: ["set-last-applied"],
+            {
+              name: ["set-last-applied"],
               description:
                 "Set the last-applied-configuration annotation on a live object to match the contents of a file",
             },
-            { name: ["view-last-applied"],
+            {
+              name: ["view-last-applied"],
               description:
                 "View the latest last-applied-configuration annotations of a resource/object",
             },
           ],
         },
         { name: ["attach"], description: "Attach to a running container" },
-        { name: ["auth"],
+        {
+          name: ["auth"],
           description: "Inspect authorization",
           subcommands: [
-            { name: ["can-i"],
+            {
+              name: ["can-i"],
               description: "Check whether an action is allowed",
             },
-            { name: ["reconcile"],
+            {
+              name: ["reconcile"],
               description:
                 "Reconciles rules for RBAC role, role binding, cluster role, and cluster role binding objects",
             },
-            { name: ["whoami"],
+            {
+              name: ["whoami"],
               description: "Experimental: Check self subject attributes",
             },
           ],
         },
-        { name: ["autoscale"],
+        {
+          name: ["autoscale"],
           description:
             "Auto-scale a deployment, replica set, stateful set, or replication controller",
         },
-        { name: ["certificate"],
+        {
+          name: ["certificate"],
           description: "Modify certificate resources",
           subcommands: [
-            { name: ["approve"],
+            {
+              name: ["approve"],
               description: "Approve a certificate signing request",
             },
-            { name: ["deny"],
+            {
+              name: ["deny"],
               description: "Deny a certificate signing request",
             },
           ],
         },
-        { name: ["cluster-info"],
+        {
+          name: ["cluster-info"],
           description: "Display cluster information",
           subcommands: [
-            { name: ["dump"],
+            {
+              name: ["dump"],
               description:
                 "Dump relevant information for debugging and diagnosis",
             },
           ],
         },
-        { name: ["completion"],
+        {
+          name: ["completion"],
           description:
             "Output shell completion code for the specified shell (bash, zsh, fish, or powershell)",
         },
-        { name: ["config"],
+        {
+          name: ["config"],
           description: "Modify kubeconfig files",
           subcommands: [
-            { name: ["current-context"],
+            {
+              name: ["current-context"],
               description: "Display the current-context",
             },
-            { name: ["delete-cluster"],
+            {
+              name: ["delete-cluster"],
               description: "Delete the specified cluster from the kubeconfig",
             },
-            { name: ["delete-context"],
+            {
+              name: ["delete-context"],
               description: "Delete the specified context from the kubeconfig",
             },
-            { name: ["delete-user"],
+            {
+              name: ["delete-user"],
               description: "Delete the specified user from the kubeconfig",
             },
-            { name: ["get-clusters"],
+            {
+              name: ["get-clusters"],
               description: "Display clusters defined in the kubeconfig",
             },
-            { name: ["get-contexts"],
+            {
+              name: ["get-contexts"],
               description: "Describe one or many contexts",
             },
-            { name: ["get-users"],
+            {
+              name: ["get-users"],
               description: "Display users defined in the kubeconfig",
             },
-            { name: ["rename-context"],
+            {
+              name: ["rename-context"],
               description: "Rename a context from the kubeconfig file",
             },
-            { name: ["set"],
+            {
+              name: ["set"],
               description: "Set an individual value in a kubeconfig file",
             },
-            { name: ["set-cluster"],
+            {
+              name: ["set-cluster"],
               description: "Set a cluster entry in kubeconfig",
             },
-            { name: ["set-context"],
+            {
+              name: ["set-context"],
               description: "Set a context entry in kubeconfig",
             },
-            { name: ["set-credentials"],
+            {
+              name: ["set-credentials"],
               description: "Set a user entry in kubeconfig",
             },
-            { name: ["unset"],
+            {
+              name: ["unset"],
               description: "Unset an individual value in a kubeconfig file",
             },
-            { name: ["use", "use-context"],
+            {
+              name: ["use", "use-context"],
               description: "Set the current-context in a kubeconfig file",
             },
-            { name: ["view"],
+            {
+              name: ["view"],
               description:
                 "Display merged kubeconfig settings or a specified kubeconfig file",
             },
           ],
         },
         { name: ["cordon"], description: "Mark node as unschedulable" },
-        { name: ["cp"],
+        {
+          name: ["cp"],
           description: "Copy files and directories to and from containers",
         },
-        { name: ["create"],
+        {
+          name: ["create"],
           description: "Create a resource from a file or from stdin",
           subcommands: [
             { name: ["clusterrole"], description: "Create a cluster role" },
-            { name: ["clusterrolebinding"],
+            {
+              name: ["clusterrolebinding"],
               description:
                 "Create a cluster role binding for a particular cluster role",
             },
-            { name: ["cm", "configmap"],
+            {
+              name: ["cm", "configmap"],
               description:
                 "Create a config map from a local file, directory or literal value",
             },
-            { name: ["cj", "cronjob"],
+            {
+              name: ["cj", "cronjob"],
               description: "Create a cron job with the specified name",
             },
-            { name: ["deploy", "deployment"],
+            {
+              name: ["deploy", "deployment"],
               description: "Create a deployment with the specified name",
             },
-            { name: ["ing", "ingress"],
+            {
+              name: ["ing", "ingress"],
               description: "Create an ingress with the specified name",
             },
-            { name: ["job"],
+            {
+              name: ["job"],
               description: "Create a job with the specified name",
             },
-            { name: ["ns", "namespace"],
+            {
+              name: ["ns", "namespace"],
               description: "Create a namespace with the specified name",
             },
-            { name: ["pdb", "poddisruptionbudget"],
+            {
+              name: ["pdb", "poddisruptionbudget"],
               description:
                 "Create a pod disruption budget with the specified name",
             },
-            { name: ["pc", "priorityclass"],
+            {
+              name: ["pc", "priorityclass"],
               description: "Create a priority class with the specified name",
             },
-            { name: ["resourcequota", "quota"],
+            {
+              name: ["resourcequota", "quota"],
               description: "Create a quota with the specified name",
             },
             { name: ["role"], description: "Create a role with single rule" },
-            { name: ["rolebinding"],
+            {
+              name: ["rolebinding"],
               description:
                 "Create a role binding for a particular role or cluster role",
             },
-            { name: ["secret"],
+            {
+              name: ["secret"],
               description: "Create a secret using a specified subcommand",
               subcommands: [
-                { name: ["docker-registry"],
+                {
+                  name: ["docker-registry"],
                   description: "Create a secret for use with a Docker registry",
                 },
-                { name: ["generic"],
+                {
+                  name: ["generic"],
                   description:
                     "Create a secret from a local file, directory, or literal value",
                 },
                 { name: ["tls"], description: "Create a TLS secret" },
               ],
             },
-            { name: ["svc", "service"],
+            {
+              name: ["svc", "service"],
               description: "Create a service using a specified subcommand",
               subcommands: [
-                { name: ["clusterip"],
+                {
+                  name: ["clusterip"],
                   description: "Create a ClusterIP service",
                 },
-                { name: ["externalname"],
+                {
+                  name: ["externalname"],
                   description: "Create an ExternalName service",
                 },
-                { name: ["loadbalancer"],
+                {
+                  name: ["loadbalancer"],
                   description: "Create a LoadBalancer service",
                 },
-                { name: ["nodeport"],
+                {
+                  name: ["nodeport"],
                   description: "Create a NodePort service",
                 },
               ],
             },
-            { name: ["sa", "serviceaccount"],
+            {
+              name: ["sa", "serviceaccount"],
               description: "Create a service account with the specified name",
             },
             { name: ["token"], description: "Request a service account token" },
           ],
         },
-        { name: ["debug"],
+        {
+          name: ["debug"],
           description:
             "Create debugging sessions for troubleshooting workloads and nodes",
         },
-        { name: ["delete"],
+        {
+          name: ["delete"],
           description:
             "Delete resources by file names, stdin, resources and names, or by resources and label selector",
         },
-        { name: ["describe"],
+        {
+          name: ["describe"],
           description:
             "Show details of a specific resource or group of resources",
         },
-        { name: ["diff"],
+        {
+          name: ["diff"],
           description:
             "Diff the live version against a would-be applied version",
         },
-        { name: ["drain"],
+        {
+          name: ["drain"],
           description: "Drain node in preparation for maintenance",
         },
         { name: ["edit"], description: "Edit a resource on the server" },
         { name: ["events"], description: "List events" },
         { name: ["exec"], description: "Execute a command in a container" },
         { name: ["explain"], description: "Get documentation for a resource" },
-        { name: ["expose"],
+        {
+          name: ["expose"],
           description:
             "Take a replication controller, service, deployment or pod and expose it as a new Kubernetes service",
         },
-        { name: ["kustomize"],
+        {
+          name: ["kustomize"],
           description: "Build a kustomization target from a directory or URL",
         },
         { name: ["label"], description: "Update the labels on a resource" },
-        { name: ["logs"],
+        {
+          name: ["logs"],
           description: "Print the logs for a container in a pod",
         },
-        { name: ["options"],
+        {
+          name: ["options"],
           description: "Print the list of flags inherited by all commands",
         },
         { name: ["patch"], description: "Update fields of a resource" },
-        { name: ["plugin"],
+        {
+          name: ["plugin"],
           description: "Provides utilities for interacting with plugins",
           subcommands: [
-            { name: ["list"],
+            {
+              name: ["list"],
               description:
                 "List all visible plugin executables on a user's PATH",
             },
           ],
         },
-        { name: ["port-forward"],
+        {
+          name: ["port-forward"],
           description: "Forward one or more local ports to a pod",
         },
-        { name: ["proxy"],
+        {
+          name: ["proxy"],
           description: "Run a proxy to the Kubernetes API server",
         },
-        { name: ["replace"],
+        {
+          name: ["replace"],
           description: "Replace a resource by file name or stdin",
         },
-        { name: ["rollout"],
+        {
+          name: ["rollout"],
           description: "Manage the rollout of a resource",
           subcommands: [
             { name: ["history"], description: "View rollout history" },
-            { name: ["pause"],
+            {
+              name: ["pause"],
               description: "Mark the provided resource as paused",
             },
             { name: ["restart"], description: "Restart a resource" },
@@ -670,92 +763,113 @@ const completionSpec: Fig.Spec = {
           ],
         },
         { name: ["run"], description: "Run a particular image on the cluster" },
-        { name: ["scale"],
+        {
+          name: ["scale"],
           description:
             "Set a new size for a deployment, replica set, or replication controller",
         },
-        { name: ["set"],
+        {
+          name: ["set"],
           description: "Set specific features on objects",
           subcommands: [
-            { name: ["env"],
+            {
+              name: ["env"],
               description: "Update environment variables on a pod template",
             },
-            { name: ["image"],
+            {
+              name: ["image"],
               description: "Update the image of a pod template",
             },
-            { name: ["resources"],
+            {
+              name: ["resources"],
               description:
                 "Update resource requests/limits on objects with pod templates",
             },
-            { name: ["selector"],
+            {
+              name: ["selector"],
               description: "Set the selector on a resource",
             },
-            { name: ["sa", "serviceaccount"],
+            {
+              name: ["sa", "serviceaccount"],
               description: "Update the service account of a resource",
             },
-            { name: ["subject"],
+            {
+              name: ["subject"],
               description:
                 "Update the user, group, or service account in a role binding or cluster role binding",
             },
           ],
         },
-        { name: ["taint"],
+        {
+          name: ["taint"],
           description: "Update the taints on one or more nodes",
         },
-        { name: ["top"],
+        {
+          name: ["top"],
           description: "Display resource (CPU/memory) usage",
           subcommands: [
-            { name: ["nodes", "no", "node"],
+            {
+              name: ["nodes", "no", "node"],
               description: "Display resource (CPU/memory) usage of nodes",
             },
-            { name: ["pods", "po", "pod"],
+            {
+              name: ["pods", "po", "pod"],
               description: "Display resource (CPU/memory) usage of pods",
             },
           ],
         },
         { name: ["uncordon"], description: "Mark node as schedulable" },
-        { name: ["version"],
+        {
+          name: ["version"],
           description: "Print the client and server version information",
         },
-        { name: ["wait"],
+        {
+          name: ["wait"],
           description:
             "Experimental: Wait for a specific condition on one or many resources",
         },
       ],
     },
-    { name: ["options"],
+    {
+      name: ["options"],
       description: "Print the list of flags inherited by all commands",
       priority: 51
     },
-    { name: ["version"],
+    {
+      name: ["version"],
       description: "Print the client and server version information",
       options: [
-        { name: ["--client"],
+        {
+          name: ["--client"],
           description:
             "If true, shows client version only (no server required).",
           priority: 51
         },
-        { name: ["--output", "-o"],
+        {
+          name: ["--output", "-o"],
           description: "One of 'yaml' or 'json'.",
-          args: [ { name: "output",
-              suggestions: ["yaml", "json"],
-            }
+          args: [{
+            name: "output",
+            suggestions: ["yaml", "json"],
+          }
           ],
           priority: 51
         },
       ],
       priority: 51
-  },
+    },
   ],
   options: [
-    { name: ["--as"],
+    {
+      name: ["--as"],
       description:
         "Username to impersonate for the operation. User could be a regular user or a service account in a namespace.",
       isPersistent: true,
       args: [{ name: "as" }],
       priority: 1
     },
-    { name: ["--as-group"],
+    {
+      name: ["--as-group"],
       description:
         "Group to impersonate for the operation, this flag can be repeated to specify multiple groups.",
       isPersistent: true,
@@ -763,160 +877,186 @@ const completionSpec: Fig.Spec = {
       args: [{ name: "as-group" }],
       priority: 1
     },
-    { name: ["--as-uid"],
+    {
+      name: ["--as-uid"],
       description: "UID to impersonate for the operation.",
       isPersistent: true,
       args: [{ name: "as-uid" }],
       priority: 1
     },
-    { name: ["--cache-dir"],
+    {
+      name: ["--cache-dir"],
       description: "Default cache directory",
       isPersistent: true,
       args: [{ name: "cache-dir", default: "~/.kube/cache" }],
       priority: 1
     },
-    { name: ["--certificate-authority"],
+    {
+      name: ["--certificate-authority"],
       description: "Path to a cert file for the certificate authority",
       isPersistent: true,
       args: [{ name: "certificate-authority" }],
       priority: 1
     },
-    { name: ["--client-certificate"],
+    {
+      name: ["--client-certificate"],
       description: "Path to a client certificate file for TLS",
       isPersistent: true,
       args: [{ name: "client-certificate" }],
       priority: 1
     },
-    { name: ["--client-key"],
+    {
+      name: ["--client-key"],
       description: "Path to a client key file for TLS",
       isPersistent: true,
       args: [{ name: "client-key" }],
       priority: 1
     },
-    { name: ["--cluster"],
+    {
+      name: ["--cluster"],
       description: "The name of the kubeconfig cluster to use",
       isPersistent: true,
       args: [{ name: "cluster" }],
       priority: 1
     },
-    { name: ["--context"],
+    {
+      name: ["--context"],
       description: "The name of the kubeconfig context to use",
       isPersistent: true,
       args: [{ name: "context" }],
       priority: 49
     },
-    { name: ["--disable-compression"],
+    {
+      name: ["--disable-compression"],
       description:
         "If true, opt-out of response compression for all requests to the server",
       isPersistent: true,
       priority: 1
     },
-    { name: ["--insecure-skip-tls-verify"],
+    {
+      name: ["--insecure-skip-tls-verify"],
       description:
         "If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure",
       isPersistent: true,
       priority: 1
     },
-    { name: ["--kubeconfig"],
+    {
+      name: ["--kubeconfig"],
       description: "Path to the kubeconfig file to use for CLI requests.",
       isPersistent: true,
       args: [{ name: "kubeconfig" }],
       priority: 49
     },
-    { name: ["--log-flush-frequency"],
+    {
+      name: ["--log-flush-frequency"],
       description: "Maximum number of seconds between log flushes",
       isPersistent: true,
       args: [{ name: "log-flush-frequency", default: "5s" }],
       priority: 1
     },
-    { name: ["--match-server-version"],
+    {
+      name: ["--match-server-version"],
       description: "Require server version to match client version",
       isPersistent: true,
       priority: 1
     },
-    { name: ["--namespace", "-n"],
+    {
+      name: ["--namespace", "-n"],
       description: "If present, the namespace scope for this CLI request",
       isPersistent: true,
       args: sharedArgs.namespaces,
       priority: 49
     },
-    { name: ["--password"],
+    {
+      name: ["--password"],
       description: "Password for basic authentication to the API server",
       isPersistent: true,
       args: [{ name: "password" }],
       priority: 1
     },
-    { name: ["--profile"],
+    {
+      name: ["--profile"],
       description:
         "Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)",
       isPersistent: true,
       args: [{ name: "profile", default: "none" }],
       priority: 1
     },
-    { name: ["--profile-output"],
+    {
+      name: ["--profile-output"],
       description: "Name of the file to write the profile to",
       isPersistent: true,
       args: [{ name: "profile-output", default: "profile.pprof" }],
       priority: 1
     },
-    { name: ["--request-timeout"],
+    {
+      name: ["--request-timeout"],
       description:
         "The length of time to wait before giving up on a single server request. Non-zero values should contain a corresponding time unit (e.g. 1s, 2m, 3h). A value of zero means don't timeout requests.",
       isPersistent: true,
       args: [{ name: "request-timeout", default: "0" }],
       priority: 1
     },
-    { name: ["--server", "-s"],
+    {
+      name: ["--server", "-s"],
       description: "The address and port of the Kubernetes API server",
       isPersistent: true,
       args: [{ name: "server" }],
       priority: 1
     },
-    { name: ["--tls-server-name"],
+    {
+      name: ["--tls-server-name"],
       description:
         "Server name to use for server certificate validation. If it is not provided, the hostname used to contact the server is used",
       isPersistent: true,
       args: [{ name: "tls-server-name" }],
       priority: 1
     },
-    { name: ["--token"],
+    {
+      name: ["--token"],
       description: "Bearer token for authentication to the API server",
       isPersistent: true,
       args: [{ name: "token" }],
       priority: 1
     },
-    { name: ["--user"],
+    {
+      name: ["--user"],
       description: "The name of the kubeconfig user to use",
       isPersistent: true,
       args: [{ name: "user" }],
       priority: 1
     },
-    { name: ["--username"],
+    {
+      name: ["--username"],
       description: "Username for basic authentication to the API server",
       isPersistent: true,
       args: [{ name: "username" }],
       priority: 1
     },
-    { name: ["--v", "-v"],
+    {
+      name: ["--v", "-v"],
       description: "number for the log level verbosity",
       isPersistent: true,
       args: [{ name: "v", default: "0" }],
       priority: 20
     },
-    { name: ["--vmodule"],
+    {
+      name: ["--vmodule"],
       description:
         "comma-separated list of pattern=N settings for file-filtered logging (only works for the default text log format)",
       isPersistent: true,
       args: [{ name: "vmodule" }],
       priority: 1
     },
-    { name: ["--warnings-as-errors"],
+    {
+      name: ["--warnings-as-errors"],
       description:
         "Treat warnings received from the server as errors and exit with a non-zero exit code",
       isPersistent: true,
       priority: 1
     },
-    { name: ["--help", "-h"],
+    {
+      name: ["--help", "-h"],
       description: "Display help",
       isPersistent: true,
       priority: 49

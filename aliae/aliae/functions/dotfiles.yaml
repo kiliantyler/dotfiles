@@ -1,11 +1,14 @@
+- name: dt
+  value: dotfiles
 - name: dotfiles
   type: function
   value: |
     case "$1" in
       edit) .dotfiles_edit && return 0 ;;
-      link) .dotfiles_link && return 0 ;;
+      link) .dotfiles_link "$@" && return 0 ;;
       clean) .dotfiles_clean && return 0 ;;
-      *) .dotfiles_help && return 1 ;;
+      help) .dotfiles_help && return 0 ;;
+      *) .dotfiles_link && .dotfiles_clean && return 0 ;;
     esac
 - name: .dotfiles_help
   type: function
@@ -13,7 +16,11 @@
     echo "Usage: dotfiles [edit|link|clean]"
     echo "  edit: Opens the dotfiles folder in VS Code"
     echo "  link: Links the dotfiles to the home directory"
+    echo "        -d | --dir : <folder> | Link a single folder"
+    echo "        -v | --verbosity : <verbosity> | Verbosity level (1-7)"
+    echo "  help: Prints this message"
     echo "  clean: Removes broken symlinks pointing to the dotfiles"
+    echo "  default: Runs link and clean"
 - name: .dotfiles_edit
   type: function
   value: |
@@ -22,13 +29,29 @@
   type: function
   value: |
     (
-    if [ -z $1 ]; then
-      V=5
-    else
-      V=$1
-    fi
+    V=5
+    while [[ $# -gt 1 ]]; do
+      key="$1"
+      case ${key} in
+      -v | --verbosity)
+        V="${2}"
+        shift
+        ;;
+      -d | --dir)
+        stowDir="${2}"
+        shift
+        ;;
+      *) ;;
+      esac
+      shift
+    done
     cd ~/mac-setup/scripts || exit 1
-    V=${V} ./dotfiles.sh || exit 1
+    if [[ -n "${stowDir}" ]]; then
+      stowDir="${stowDir%/}"
+      V=${V} ./dotfiles.sh -d "${stowDir}" || exit 1
+    else
+      V=${V} ./dotfiles.sh || exit 1
+    fi
     )
 - name: .dotfiles_clean
   type: function

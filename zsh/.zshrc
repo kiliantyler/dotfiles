@@ -54,8 +54,8 @@ zinit light romkatv/powerlevel10k
 ### END Theme ###
 
 ## CodeWhisperer pre block. Keep at the top of this file.
-[[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.pre.zsh" ]] && \
-zinit snippet "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.pre.zsh"
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && \
+zinit snippet "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
 
 
 ### Programs ###
@@ -113,6 +113,18 @@ zinit wait lucid for \
   zdharma-continuum/zinit-crasis \
   zdharma-continuum/zbrowse
 
+## Install Rust and Cargo
+zi for \
+    atload='
+      [[ ! -f ${ZINIT[COMPLETIONS_DIR]}/_cargo ]] && zi creinstall rust
+      export CARGO_HOME=\$PWD RUSTUP_HOME=$PWD/rustup' \
+    as=null \
+    id-as=rust \
+    lucid \
+    rustup \
+    sbin="bin/*" \
+    wait=1 \
+  zdharma-continuum/null
 
 ## FZF - fuzzy finder (https://github.com/junegunn/fzf)
 # Sets up fzf as well as the completions and keybindings
@@ -184,7 +196,7 @@ zinit lucid has'nvm' as'null' \
 ## Zoxide -- cd replacement (https://github.com/ajeetdsouza/zoxide) ##
 ## g -- the go version manager (https://github.com/voidint/g) ##
 # Related g exports handled outside of .zshrc
-zinit wait as'null' lucid from:gh-r for \
+zinit wait as'null' completions lucid from:gh-r for \
   id-as'app/fd'        sbin"**/fd" alias'find' @sharkdp/fd \
   id-as'app/bat'       sbin"**/bat" alias'cat' @sharkdp/bat \
   id-as'app/eza'       sbin'**/eza -> eza' alias'ls' kiliantyler/eza-releaser \
@@ -297,8 +309,8 @@ zinit wait lucid for \
     # TODO: fzf-tab
 
 ## CodeWhisperer post block. Keep at the bottom of this file.
-[[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.post.zsh" ]] && \
-zinit snippet "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.post.zsh" || \
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && \
+zinit snippet "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" || \
 (+zi-log "{w}Codewhisper not found. Please install it from homebrew.{rst}" && +zi-log "{ice}brew install --cask codewhisperer{rst}")
 
 ## Only run this on the first shell startup

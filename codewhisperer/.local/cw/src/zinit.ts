@@ -1,109 +1,277 @@
-const pluginList: Fig.Generator = {
-  custom: async (_tokens, executeCommand, context) => {
+type Data = {
+  name: string;
+}
+
+const fetchAnnexSubcommands = () => {
+  let annexCommandsCache: Data[] | undefined = undefined;
+
+  return async (
+    executeShellCommand: Fig.ExecuteCommandFunction
+  ): Promise<Data[] | undefined> => {
+    // Return the cached commands if they've already been fetched
+    if (annexCommandsCache) {
+      return annexCommandsCache;
+    }
+
     try {
-      const { stdout } = await executeCommand({
-        command: "command",
+      const { stdout } = await executeShellCommand({
+        command: "zsh",
         args: [
-          "ls",
-          "-1", `${context.environmentVariables["HOME"]}/.local/share/zinit/plugins`
+          "-ic",
+          `echo \${ZINIT_EXTS[@]}`
         ],
       });
-      const out = stdout.split("\n");
-      // Loop through the Out and replace '--' with '/'
-      for (let i = 0; i < out.length; i++) {
-        // if the string starts with '_local' remove the entry from the list
-        if (out[i].startsWith("_local")) {
-          out.splice(i, 1);
+      const outCommands = stdout.split(' ');
+      const annexCommands: Data[] = [];
+
+      for (const command of outCommands) {
+        if (command.includes("subcommand:")) {
+          const subcommand = command.split(":")[1];
+          annexCommands.push({ name: `${subcommand}` });
         }
-        out[i] = out[i].replace("---", "/");
       }
-      if (out.length == 0) {
-        return [];
-      }
-      return out.map((plugin) => ({
-        name: plugin,
-        icon: "fig://icon?type=package",
-      }));
+      annexCommandsCache = annexCommands;
+      return annexCommandsCache;
     } catch (error) {
-      return [{ name: "Error loading plugins" }];
+      console.error("Failed to fetch annex subcommands", error);
+      return undefined;
     }
+  };
+};
+
+// Create the memoized function
+const getAnnexCommands = fetchAnnexSubcommands();
+
+const fetchPluginsList = () => {
+  let pluginListCache: Data[] | undefined = undefined;
+
+  return async (
+    executeShellCommand: Fig.ExecuteCommandFunction
+  ): Promise<Data[] | undefined> => {
+    // Return the cached commands if they've already been fetched
+    if (pluginListCache) {
+      return pluginListCache;
+    }
+    try {
+      const { stdout } = await executeShellCommand({
+        command: "zsh",
+        args: [
+          "-ic",
+          `ls -1 \${ZINIT_HOME}/../plugins`
+        ],
+      });
+      const outList = stdout.substring(19).split('\n');
+      const pluginList: Data[] = [];
+      for (const plugin of outList) {
+        if (plugin == "" || plugin.startsWith('_local')) {
+          continue;
+        }
+        pluginList.push({ name: plugin.replace('---', '/') });
+      }
+      pluginListCache = pluginList;
+      return pluginListCache;
+    } catch (error) {
+      console.error("Failed to fetch plugin list", error);
+      return undefined;
+    }
+  };
+};
+
+// Create the memoized function
+const getPluginList = fetchPluginsList();
+
+const pluginList: Fig.Generator = {
+  custom: async (_tokens, executeCommand) => {
+    const data = await getPluginList(executeCommand);
+    if (!data) {
+      return [];
+    }
+    return data.map((plugin) => ({
+      name: `${plugin.name}`,
+      icon: "fig://icon?type=package",
+    }));
   },
 };
 
-// const snippetList: Fig.Generator = {
-//   custom: async (_tokens, executeCommand, context) => {
-//     try {
-//       const { stdout } = await executeCommand({
-//         command: "command",
-//         args: [
-//           "ls",
-//           "-1", `${context.environmentVariables["HOME"]}/.local/share/zinit/snippets`
-//         ],
-//       });
-//       const folders = stdout.split("\n");
-//       if (folders.length == 0) {
-//         return [];
-//       }
-//       var snippets = []
-//       for (let i = 0; i < folders.length; i++) {
-//         const { stdout } = await executeCommand({
-//           command: "command",
-//           args: [
-//             "ls",
-//             "-1", `${context.environmentVariables["HOME"]}/.local/share/zinit/snippets/${folders[i]}`
-//           ]
-//         });
-//         const out = stdout.split("\n");
-//         for (let n = 0; n < out.length; n++) {
-//           snippets.push(folders[i].split('--').pop() + "/" + out[n])
-//         }
-//       }
-//       return snippets.map((snippet) => ({
-//         name: snippet,
-//         icon: "fig://icon?type=package",
-//       }));
-//     } catch (error) {
-//       return [{ name: "Error loading snippets" }];
-//     }
-//   },
-// };
+const fetchSnippetsList = () => {
+  let snippetsListCache: Data[] | undefined = undefined;
+
+  return async (
+    executeShellCommand: Fig.ExecuteCommandFunction
+  ): Promise<Data[] | undefined> => {
+    // Return the cached commands if they've already been fetched
+    if (snippetsListCache) {
+      return snippetsListCache;
+    }
+    try {
+      const { stdout } = await executeShellCommand({
+        command: "zsh",
+        args: [
+          "-ic",
+          `ls -1 \${ZINIT_HOME}/../snippets`
+        ],
+      });
+      const outList = stdout.substring(19).split('\n');
+      const snippetsList: Data[] = [];
+      for (const snippet of outList) {
+        if (snippet == "" || snippet.startsWith('_local')) {
+          continue;
+        }
+        snippetsList.push({ name: snippet.replace('---', '/') });
+      }
+      snippetsListCache = snippetsList;
+      return snippetsListCache;
+    } catch (error) {
+      console.error("Failed to fetch plugin list", error);
+      return undefined;
+    }
+  };
+};
+
+// Create the memoized function
+const getSnippetsList = fetchSnippetsList();
+
+const snippetsList: Fig.Generator = {
+  custom: async (_tokens, executeCommand) => {
+    const data = await getSnippetsList(executeCommand);
+    if (!data) {
+      return [];
+    }
+    return data.map((snippet) => ({
+      name: `${snippet.name}`,
+      icon: "fig://icon?type=package",
+    }));
+  },
+};
+
+const fetchCompletionList = () => {
+  let completionListCache: Data[] | undefined = undefined;
+
+  return async (
+    executeShellCommand: Fig.ExecuteCommandFunction
+  ): Promise<Data[] | undefined> => {
+    // Return the cached commands if they've already been fetched
+    if (completionListCache) {
+      return completionListCache;
+    }
+    try {
+      const { stdout } = await executeShellCommand({
+        command: "zsh",
+        args: [
+          "-ic",
+          `ls -1 \${ZINIT_HOME}/../completions`
+        ],
+      });
+      const outList = stdout.substring(19).split('\n');
+      const completionList: Data[] = [];
+      for (const completion of outList) {
+        if (completion == "" || completion.startsWith('_local')) {
+          continue;
+        }
+        completionList.push({ name: completion.replace('_', '') });
+      }
+      completionListCache = completionList;
+      return completionListCache;
+    } catch (error) {
+      console.error("Failed to fetch plugin list", error);
+      return undefined;
+    }
+  };
+};
+
+// Create the memoized function
+const getCompletionList = fetchCompletionList();
 
 const completionList: Fig.Generator = {
-  custom: async (_tokens, executeCommand, context) => {
-    try {
-      const { stdout } = await executeCommand({
-        command: "command",
-        args: [
-          "ls",
-          "-1", `${context.environmentVariables["HOME"]}/.local/share/zinit/completions`
-        ],
-      });
-      const out = stdout.split("\n");
-      // Loop through the Out and remove the leading '_'
-      for (let i = 0; i < out.length; i++) {
-        out[i] = out[i].replace("_", "");
-      }
-      return out.map((completion) => ({
-        name: completion,
-        icon: "fig://template?color=2ecc71&badge=_",
-      }));
-    } catch (error) {
-      return [{ name: "Error loading plugins", priority: 1 }];
+  custom: async (_tokens, executeCommand) => {
+    const data = await getCompletionList(executeCommand);
+    if (!data) {
+      return [];
     }
+    return data.map((completion) => ({
+      name: `${completion.name}`,
+      icon: "fig://icon?type=package",
+    }));
   },
 };
 
+const fetchCommandsList = () => {
+  let combinedListCache: Data[] | undefined = undefined;
+
+  return async (
+    executeShellCommand: Fig.ExecuteCommandFunction
+  ): Promise<Data[] | undefined> => {
+    // Return the cached commands if they've already been fetched
+    if (combinedListCache) {
+      return combinedListCache;
+    }
+    try {
+      const { stdout: commands } = await executeShellCommand({
+        command: "zsh",
+        args: [
+          "-ic",
+          `print -rC1 -- \${(ko)commands}`
+        ],
+      });
+      const outCommandList = commands.substring(19).split('\n');
+      const commandList: Data[] = [];
+      for (const command of outCommandList) {
+        commandList.push({ name: command });
+      }
+
+      const { stdout: functions } = await executeShellCommand({
+        command: "zsh",
+        args: [
+          "-ic",
+          `print -l -- \${(ok)functions}`
+        ],
+      });
+      const outFunctionList = functions.substring(19).split('\n');
+      const functionList: Data[] = [];
+      for (const func of outFunctionList) {
+        if (func == "" || /^[^a-zA-Z0-9]/.test(func)) {
+          continue;
+        }
+        functionList.push({ name: func });
+      }
+
+      const { stdout: aliases } = await executeShellCommand({
+        command: "zsh",
+        args: [
+          "-ic",
+          `print -rl -- \${(k)aliases}`
+        ],
+      });
+      const outAliasList = aliases.substring(19).split('\n');
+      const aliasList: Data[] = [];
+      for (const alias of outAliasList) {
+        aliasList.push({ name: alias });
+      }
+
+      combinedListCache = commandList;
+      return combinedListCache;
+    } catch (error) {
+      console.error("Failed to fetch plugin list", error);
+      return undefined;
+    }
+  };
+};
+
+// Create the memoized function
+const getCommandList = fetchCommandsList();
+
 const commandList: Fig.Generator = {
-  script: [
-    "bash",
-    "-c",
-    `for i in $(echo $PATH | tr ":" "\n"); do find $i -maxdepth 1 -perm -111 -type f; done`,
-  ],
-  postProcess: (out) =>
-    out
-      .split("\n")
-      .map((path) => path.split("/")[path.split("/").length - 1])
-      .map((pr) => ({ name: pr, description: "Executable file", type: "arg" })),
+  custom: async (_tokens, executeCommand) => {
+    const data = await getCommandList(executeCommand);
+    if (!data) {
+      return [];
+    }
+    return data.map((command) => ({
+      name: `${command.name}`,
+      description: "Executable command",
+      type: "arg",
+    }));
+  },
 };
 
 const optsList: Record<string, Fig.Option> = {
@@ -185,7 +353,7 @@ const optsList: Record<string, Fig.Option> = {
 const sharedArgs: Record<string, Fig.Arg> = {
   commands: {
     name: "command",
-    description: "arbitrary command",
+    description: "Execute Command",
     generators: commandList
   },
   completions: {
@@ -196,24 +364,24 @@ const sharedArgs: Record<string, Fig.Arg> = {
   plugins: {
     name: "plugin",
     description: "Zinit plugin",
-    generators: pluginList
+    generators: pluginList,
+    filterStrategy: "fuzzy"
   },
-  // snippets: {
-  //   name: "snippet",
-  //   description: "Zinit snippet",
-  //   generators: snippetList
-  // },
-  // pluginsAndSnippets: {
-  //   name: "plugin or snippet",
-  //   description: "Zinit plugin or snippet",
-  //   generators: [
-  //     snippetList, pluginList
-  //   ]
-  // }
+  snippets: {
+    name: "snippet",
+    description: "Zinit snippet",
+    generators: snippetsList
+  },
+  pluginsAndSnippets: {
+    name: "plugin or snippet",
+    description: "Zinit plugin or snippet",
+    generators: [
+      snippetsList, pluginList
+    ]
+  }
 }
 
 const subCommands: Record<string, Fig.Subcommand> = {
-  // TODO: Annexes
   help: {
     name: "help",
     description: "Print help information"
@@ -530,11 +698,11 @@ const subCommands: Record<string, Fig.Subcommand> = {
   zstatus: {
     name: "zstatus",
     description: "Show zinit status",
-  }
+  },
 }
 
 const completionSpec: Fig.Spec = {
-  name: "zinit",
+  name: ["zinit", "zi"],
   description: "Zinit is a tool for managing zsh plugins",
   options: [
     optsList.quiet,
@@ -543,6 +711,16 @@ const completionSpec: Fig.Spec = {
     optsList.reset,
     optsList.help
   ],
+  generateSpec: async (_, executeShellCommand) => {
+    const data = await getAnnexCommands(executeShellCommand);
+    if (!data) {
+      return { name: "" };
+    }
+    return {
+      name: "zinit",
+      subcommands: data,
+    }
+  },
   subcommands: [
     ...Object.values(subCommands),
   ],
