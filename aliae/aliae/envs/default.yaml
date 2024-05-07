@@ -1,2 +1,7 @@
 - name: XDG_CONFIG_HOME
   value: "${HOME}/.config"
+- name: EDITOR
+  value: "micro"
+- name: TMPDIR
+  value: "/tmp"
+# TODO: Set pager and other shit
