@@ -11,7 +11,6 @@ atuin-setup() {
   bindkey '^T' _atuin_search_widget
 
   export ATUIN_NOBIND="true"
-  eval "$(atuin init "$(basename $(echo $SHELL))")"
   fzf-atuin-history-widget() {
     local selected num
     setopt localoptions noglobsubst noposixbuiltins pipefail no_aliases 2>/dev/null
@@ -19,7 +18,7 @@ atuin-setup() {
     # local atuin_opts="--cmd-only --limit ${ATUIN_LIMIT:-5000}"
     local atuin_opts="--cmd-only"
     local fzf_opts=(
-      -p 90%,75%
+      --height=${FZF_TMUX_HEIGHT:-80%}
       --tac
       "-n2..,.."
       --tiebreak=index
@@ -30,7 +29,7 @@ atuin-setup() {
 
     selected=$(
       eval "atuin search ${atuin_opts}" |
-        fzf-tmux "${fzf_opts[@]}"
+        fzf "${fzf_opts[@]}"
     )
     local ret=$?
     if [ -n "$selected" ]; then
