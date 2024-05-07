@@ -537,6 +537,13 @@ const subCommands: Record<string, Fig.Subcommand> = {
       optsList.yes,
     ]
   },
+  edit: {
+    name: "edit",
+    description: "Edit a plugin using $EDITOR",
+    args: [
+      sharedArgs.plugins
+    ]
+  },
   envwhitelist: {
     name: "env-whitelist",
     description: "Allows to specify names (also patterns) of variables left unchanged during an unload",
