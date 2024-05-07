@@ -309,9 +309,10 @@ zinit wait lucid for \
     # TODO: fzf-tab
 
 ## CodeWhisperer post block. Keep at the bottom of this file.
+[[ $(uname) == "Darwin" ]] && (
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && \
 zinit snippet "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" || \
-(+zi-log "{w}Codewhisper not found. Please install it from homebrew.{rst}" && +zi-log "{ice}brew install --cask codewhisperer{rst}")
+(+zi-log "{w}Codewhisper not found. Please install it from homebrew.{rst}" && +zi-log "{ice}brew install --cask codewhisperer{rst}"))
 
 ## Only run this on the first shell startup
 [[ ! -f "${ZINIT_HOME}/.firstrun" ]] && \
