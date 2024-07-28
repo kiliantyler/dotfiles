@@ -1,0 +1,24 @@
+{
+  "files.associations": {
+    "*.json5": "jsonc",
+    "*.json": "jsonc",
+    "*.ssh": "ssh_config",
+    "*.gitconfig": "gitconfig",
+    "*.delta": "gitconfig",
+    ".zshrc": "shellscript"
+  },
+  "material-icon-theme.folders.associations": {
+    ".taskfiles": "utils",
+    "git": "git",
+    "pypoetry": "python",
+    "1password": "keys",
+    "zsh": "scripts",
+  },
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "editor.formatOnSave": true,
+  "yaml.customTags": [
+    "!include scalar",
+    "!include_dir scalar"
+  ],
+}
