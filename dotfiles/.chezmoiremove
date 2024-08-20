@@ -1,0 +1,6 @@
+# Remove old zsh files
+.zshrc
+.zprofile
+.zsh_plugins.txt
+.zstyles
+.zsh_plugins.zsh

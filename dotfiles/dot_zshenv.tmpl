@@ -1,0 +1,52 @@
+#!/usr/bin/env zsh
+{{/*
+                        $$\
+                        $$ |
+    $$$$$$$$\  $$$$$$$\ $$$$$$$\   $$$$$$\  $$$$$$$\ $$\    $$\
+    \____$$  |$$  _____|$$  __$$\ $$  __$$\ $$  __$$\\$$\  $$  |
+      $$$$ _/ \$$$$$$\  $$ |  $$ |$$$$$$$$ |$$ |  $$ |\$$\$$  /
+     $$  _/    \____$$\ $$ |  $$ |$$   ____|$$ |  $$ | \$$$  /
+$$\ $$$$$$$$\ $$$$$$$  |$$ |  $$ |\$$$$$$$\ $$ |  $$ |  \$  /
+\__|\________|\_______/ \__|  \__| \_______|\__|  \__|   \_/
+
+##? .zshenv - Zsh environment file, loaded always.
+## This file is sourced on all invocations of the shell
+## Scope: All shells
+## Location: ~/.zshenv
+*/}}
+
+# -----------------------------------------------------------
+# XDG Base Directory Specification
+# https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
+# https://wiki.archlinux.org/title/XDG_Base_Directory
+# -----------------------------------------------------------
+export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
+export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
+export XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
+
+export XDG_DATA_DIRS=$(tr ':' '\n' <<< "${XDG_DATA_HOME}:/usr/local/share/:/usr/share/" | awk NF | tr '\n' ':')
+export XDG_CONFIG_DIRS=$(tr ':' '\n' <<< "${XDG_CONFIG_HOME}:/etc/xdg" | awk NF | tr '\n' ':')
+
+export XDG_DESKTOP_DIR=${XDG_DESKTOP_DIR:-$HOME/Desktop}
+export XDG_DOCUMENTS_DIR=${XDG_DOCUMENTS_DIR:-$HOME/Documents}
+export XDG_DOWNLOAD_DIR=${XDG_DOWNLOAD_DIR:-$HOME/Downloads}
+export XDG_MUSIC_DIR=${XDG_MUSIC_DIR:-$HOME/Music}
+export XDG_PICTURES_DIR=${XDG_PICTURES_DIR:-$HOME/Pictures}
+export XDG_PUBLICSHARE_DIR=${XDG_PUBLICSHARE_DIR:-$HOME/Public}
+export XDG_TEMPLATES_DIR=${XDG_TEMPLATES_DIR:-$HOME/Templates}
+export XDG_VIDEOS_DIR=${XDG_VIDEOS_DIR:-$HOME/Videos}
+
+# -----------------------------------------------------------
+# ZSH Configuration
+# https://zsh.sourceforge.io/Doc/Release/Files.html
+# -----------------------------------------------------------
+
+# Rehome ZDOTDIR to $XDG_CONFIG_HOME/zsh
+export ZDOTDIR=${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}
+
+export ZPFX=${ZPFX:-$HOME/.zpfx}
+
+if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprofile"
+fi

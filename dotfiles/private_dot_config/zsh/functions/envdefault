@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+##? Set an environment variable to a default value if it is not already set.
+# function envdefault() {
+    [[ ${parameters[$1]} = *-export* ]] && return 0
+    export "$1=$2" && return 3
+# }

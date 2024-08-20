@@ -1,0 +1,16 @@
+{{ if eq .chezmoi.os "darwin" -}}
+#!/usr/bin/env bash
+
+if ! command -v asdf &> /dev/null; then
+  source ~/.asdf/asdf.sh
+fi
+
+pluginList=$(asdf plugin list)
+{{ range .packages.asdf -}}
+if ! echo $pluginList | grep -q {{ .name | quote }}; then
+  asdf plugin add {{ .name | quote }} {{ .url | quote }}
+  asdf install {{ .name | quote }} {{ .version | quote }}
+  asdf global {{ .name | quote }} {{ .version | quote }}
+fi
+{{ end -}}
+{{ end -}}

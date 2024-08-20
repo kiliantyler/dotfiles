@@ -1,0 +1,27 @@
+# trunk-ignore-all(trunk-yls/no-yls)
+packages:
+  asdf:
+  - name: nodejs
+    url: https://github.com/asdf-vm/asdf-nodejs.git
+    version: latest
+  - name: 1password-cli
+    url: https://github.com/NeoHsu/asdf-1password-cli.git
+    version: latest
+  - name: fzf
+    url: https://github.com/kompiro/asdf-fzf.git
+    version: latest
+  - name: kubectl
+    url: https://github.com/asdf-community/asdf-kubectl.gitcz
+    version: latest
+  - name: janet
+    url: https://github.com/Jakski/asdf-janet.git
+    version: latest
+  - name: jq
+    url: https://github.com/lsanwick/asdf-jq.git
+    version: latest
+  - name: python
+    url: https://github.com/danhper/asdf-python.git
+    version: 3.12.4
+  - name: zoxide
+    url: https://github.com/nyrst/asdf-zoxide.git
+    version: latest

@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+USER=$1
+
+if [ -z "$USER" ]; then
+  echo "Usage: am-i <username>"
+  exit 1
+fi
+
+# check if whoami is the same as the user
+if [ "$USER" != "$(whoami)" ]; then
+  exit 1
+fi
+
+exit 0

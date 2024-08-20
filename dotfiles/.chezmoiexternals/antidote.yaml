@@ -1,0 +1,5 @@
+# trunk-ignore-all(trunk-yls/no-yls)
+.antidote:
+  type: "git-repo"
+  url: "https://github.com/mattmc3/antidote.git"
+  refreshPeriod: "168h"

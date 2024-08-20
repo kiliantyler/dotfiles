@@ -1,0 +1,69 @@
+#!/usr/bin/env zsh
+# -*- mode: zsh; sh-indentation: 2; indent-tabs-mode: nil; sh-basic-offset: 2; -*-
+# vim: ft=zsh sw=2 ts=2 et
+{{- /*
+                                             $$$$$$\  $$\ $$\
+                                            $$  __$$\ \__|$$ |
+    $$$$$$$$\  $$$$$$\   $$$$$$\   $$$$$$\  $$ /  \__|$$\ $$ | $$$$$$\
+    \____$$  |$$  __$$\ $$  __$$\ $$  __$$\ $$$$\     $$ |$$ |$$  __$$\
+      $$$$ _/ $$ /  $$ |$$ |  \__|$$ /  $$ |$$  _|    $$ |$$ |$$$$$$$$ |
+     $$  _/   $$ |  $$ |$$ |      $$ |  $$ |$$ |      $$ |$$ |$$   ____|
+$$\ $$$$$$$$\ $$$$$$$  |$$ |      \$$$$$$  |$$ |      $$ |$$ |\$$$$$$$\
+\__|\________|$$  ____/ \__|       \______/ \__|      \__|\__| \_______|
+              $$ |
+              $$ |
+              \__|
+
+.zprofile - Environment configuration for the Z-Shell
+# This file is sourced on login shells, before .zshrc
+Scope:
+Location: $ZDOTDIR/.zprofile
+Reference: https://zsh.sourceforge.io/Doc/Release/Files.html#Startup_002fShutdown-Files
+Description:
+> This file is loaded in all login shells. If the shell is also interactive,
+> this file is loaded *before* zshrc.
+>
+> The primary purpose of this file is to set environment variables for the
+> benefit of any application launched as a child of this shell.
+*/}}
+
+# -----------------------------------------------------------
+# Default Environment Variables
+# -----------------------------------------------------------
+
+if [[ "$OSTYPE" == darwin* ]]; then
+  export BROWSER="${BROWSER:-open}"
+fi
+
+export EDITOR="${EDITOR:-nano}"
+export VISUAL="${VISUAL:-code}"
+export PAGER="${PAGER:-less}"
+
+# Ensure path arrays do not contain duplicates.
+typeset -gU path fpath
+
+# Add default paths to the path array
+path=(
+  $HOME/{,s}bin(N)
+  /opt/{homebrew,local}/{,s}bin(N)
+  /usr/local/{,s}bin(N)
+  /Users/{{.chezmoi.username}}/{,.local/}{,.}{,s}bin(N)
+  /Users/{{.chezmoi.username}}/.local/share/dude/bin(N)
+  $HOME/.local/share/zsh-bench
+  $path
+)
+
+
+# https://github.com/sykloid/etc/blob/master/zsh/zprofile
+# export FPATH=${HOME}/.zfunc:${FPATH}
+
+# export EDITOR=emacs
+
+# export LESS_TERMCAP_so=$(echo -e '\e[1;7m')
+# export LESS_TERMCAP_se=$(echo -e '\e[0m')
+# export MANROFFOPT="-c"
+# export MANPAGER="sh -c 'col -bx | bat -plman'"
+# export MANWIDTH=80
+
+# export PATH=${HOME}/.cargo/bin:${HOME}/.rye/bin:${HOME}/.ghcup/bin:${HOME}/.local/bin:${PATH}
+# export LD_LIBRARY_PATH=${HOME}/.local/lib:${LD_LIBRARY_PATH}
