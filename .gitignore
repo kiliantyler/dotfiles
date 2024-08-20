@@ -913,15 +913,9 @@ cython_debug/
 ##                                              ##
 ##################################################
 
-trunk/*out
-trunk/*logs
-trunk/*actions
-trunk/*notifications
-trunk/*tools
-trunk/plugins
-trunk/user_trunk.yaml
-trunk/user.yaml
-trunk/tmp
+trunk/*
+!trunk/config/*
+!trunk/trunk.yaml
 
 ##################################################
 ##                                              ##
@@ -929,7 +923,11 @@ trunk/tmp
 ##                                              ##
 ##################################################
 
-.TODO*
+# Ignore TODO folder
+.TODO/
+
+# Ignore TODO files
+*.TODO
 
 
 ##################################################
