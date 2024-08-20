@@ -1,0 +1,35 @@
+#!/bin/bash
+
+{{ if eq .chezmoi.os "linux" }}
+
+[[ "$(command -v unzip)" ]] || {
+    echo "We cannot find the unzip command. First, install the unzip command."
+    return 1
+}
+
+font_name="FiraCode"
+
+echo "Starting download of $font_name nerd font"
+
+url="https://github.com/ryanoasis/nerd-fonts/releases/latest/download/$font_name.zip"
+
+if [ "$(command -v curl)" ]; then
+    curl -OL "$url"
+elif [ "$(command -v wget)" ]; then
+    wget "$url"
+else
+    echo "We cannot find the curl or wget command. First, install the curl or wget command."
+    return 1
+fi
+
+echo "creating fonts folder: ${HOME}/.fonts"
+mkdir -p  "$HOME/.fonts"
+echo "unzipping $font_name.zip"
+unzip "$font_name.zip" -d "$HOME/.fonts/$font_name/"
+[[ -f "$font_name.zip" ]] && rm "$font_name.zip"
+echo "updating font cache"
+[[ "$(command -v fc-cache)" ]] && \
+  fc-cache -fv
+
+echo "Finished installing $font_name nerd font"
+{{ end }}

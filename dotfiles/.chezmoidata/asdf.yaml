@@ -11,7 +11,7 @@ packages:
     url: https://github.com/kompiro/asdf-fzf.git
     version: latest
   - name: kubectl
-    url: https://github.com/asdf-community/asdf-kubectl.gitcz
+    url: https://github.com/asdf-community/asdf-kubectl.git
     version: latest
   - name: janet
     url: https://github.com/Jakski/asdf-janet.git

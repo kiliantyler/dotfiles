@@ -1,0 +1,24 @@
+# trunk-ignore-all(trunk-yls/no-yls)
+packages:
+  apt:
+    repos:
+    - name: google-chrome
+      url: http://dl.google.com/linux/chrome/deb/
+      key: https://dl-ssl.google.com/linux/linux_signing_key.pub
+      distribution: stable
+      components: main
+    - name: vscode
+      url: https://packages.microsoft.com/repos/code
+      key: https://packages.microsoft.com/keys/microsoft.asc
+      distribution: stable
+      components: main
+    apps:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - gnupg
+    - lsb-release
+    - software-properties-common
+    - wget
+    - build-essential
+    - git

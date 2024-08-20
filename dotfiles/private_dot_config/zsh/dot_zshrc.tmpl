@@ -73,23 +73,19 @@ POWERLEVEL9K_CONFIG_FILE=${POWERLEVEL9K_CONFIG_FILE:-$XDG_CONFIG_HOME/powerlevel
 autoload -Uz compinit && compinit -C
 
 # -----------------------------------------------------------
-# zidote
+# antidote
 # -----------------------------------------------------------
-typeset -gAH ZGO
-ZGO=(
-  [LOG_LEVEL]=3
-)
 
-# # ZDO[USE_OMZSH]=true
+export ANTIDOTE_HOME=${ZDOTDIR}/.antidote
 
+[[ -d ${ANTIDOTE_HOME} ]] || \
+  git clone --depth=1 https://github.com/mattmc3/antidote.git ${ANTIDOTE_HOME}
 
-[[ -e {{ .dirs.zigote }}/zigote.zsh ]] && \
-  source {{ .dirs.zigote }}/zigote.zsh
+[[ -f ${ANTIDOTE_HOME}/antidote.zsh ]] && \
+  source ${ANTIDOTE_HOME}/antidote.zsh
 
-.zgo-load
-
-# ( command -v antidote &>/dev/null  ) && \
-#   antidote load
+( command -v antidote &>/dev/null  ) && \
+  antidote load
 
 
 # -----------------------------------------------------------

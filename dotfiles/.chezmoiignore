@@ -1,5 +1,26 @@
-# MacOS Defaults
+# Ignore MacOS Specific Files
+{{ if ne .chezmoi.os "darwin" }}
+
+# Anything in ~/Library is going to be MacOS specific
+Library/
+
+# Hammerspoon is MacOS specific
+.hammerspoon/
+
+{{ end }}
+
+# Ignore Linux Specific Files
+{{ if ne .chezmoi.os "linux" }}
+
+# VSCode settings
+.config/Code/User/
+
+{{ end }}
+
+
+# MacOS Trash
 .DS_Store
 .Trash
 
+# Ignore .TODO files in the dotfiles directory
 .TODO

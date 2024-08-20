@@ -227,5 +227,6 @@
   "trunk.addToolsToPath": true,
   "trunk.inlineDecoratorsForAllExtensions": true,
   "trunk.repoScanViewEnabled": true,
-  "trunk.repoScanViewVisible": true
+  "trunk.repoScanViewVisible": true,
+  "git.suggestSmartCommit": false
 }
