@@ -30,8 +30,6 @@ age:
   suffix: .age
 completion:
   custom: false
-data:
-  symlinkDir: {{ .chezmoi.sourceDir }}/.chezmoisymlinks
 diff: # https://www.chezmoi.io/user-guide/tools/diff/
   args: []
   command: ""
@@ -87,3 +85,20 @@ verify:
   exclude: []
 warnings: # https://www.chezmoi.io/reference/configuration-file/warnings/
  configFileTemplateHasChanged: true
+
+
+{{/* Setting up data that needs to be templated */}}
+
+{{- $osid := .chezmoi.os -}}
+{{- if hasKey .chezmoi.osRelease "id" -}}
+  {{- /* If osRelease is "pop" change it to "debian" */ -}}
+  {{- if eq .chezmoi.osRelease.id "pop" -}}
+    {{- $osid = printf "%s-%s" .chezmoi.os "debian" -}}
+  {{- else -}}
+    {{-   $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
+  {{- end -}}
+{{- end }}
+
+data:
+  osid: {{ $osid | quote }}
+  symlinkDir: {{ .chezmoi.sourceDir }}/.chezmoisymlinks

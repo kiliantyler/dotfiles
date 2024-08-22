@@ -14,3 +14,15 @@ if ! echo $pluginList | grep -q {{ .name | quote }}; then
 fi
 {{ end -}}
 {{ end -}}
+
+
+{{/*
+1password-cli for linux does not inherit the correct group to access the op session
+
+These commands need to be run to fix the permissions:
+```
+sudo chgrp onepassword-cli $(asdf which op)
+sudo chmod g+s $(asdf which op)
+```
+
+ */}}

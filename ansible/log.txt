@@ -1,0 +1,1441 @@
+2024-08-21 17:23:59,089 p=1089041 u=ktyler n=ansible | Starting galaxy collection install process
+2024-08-21 17:23:59,104 p=1089041 u=ktyler n=ansible | Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+2024-08-21 17:23:59,648 p=1089056 u=ktyler n=ansible | PLAY [Set up local development environment] *************************************************************************************************************************************************************************************************************
+2024-08-21 17:23:59,687 p=1089056 u=ktyler n=ansible | TASK [Gathering Facts] **********************************************************************************************************************************************************************************************************************************
+2024-08-21 17:24:01,092 p=1089056 u=ktyler n=ansible | [WARNING]: Platform linux on host localhost is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-
+core/2.15/reference_appendices/interpreter_discovery.html for more information.
+
+2024-08-21 17:24:01,092 p=1089056 u=ktyler n=ansible | ok: [localhost]
+2024-08-21 17:24:01,117 p=1089056 u=ktyler n=ansible | TASK [os : Run Debian specific tasks] *******************************************************************************************************************************************************************************************************************
+2024-08-21 17:24:01,140 p=1089056 u=ktyler n=ansible | ERROR! no module/action detected in task.
+
+The error appears to be in '/home/ktyler/.local/share/chezmoi/ansible/roles/os/tasks/Debian.yaml': line 1, column 31, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+# yaml-language-server $schema=https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json
+                              ^ here
+
+There appears to be both 'k=v' shorthand syntax and YAML in this task. Only one syntax may be used.
+
+2024-08-21 17:28:38,146 p=1097212 u=ktyler n=ansible | Starting galaxy collection install process
+2024-08-21 17:28:38,160 p=1097212 u=ktyler n=ansible | Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+2024-08-21 17:28:38,695 p=1097215 u=ktyler n=ansible | PLAY [Set up local development environment] *************************************************************************************************************************************************************************************************************
+2024-08-21 17:28:38,733 p=1097215 u=ktyler n=ansible | TASK [Gathering Facts] **********************************************************************************************************************************************************************************************************************************
+2024-08-21 17:28:40,154 p=1097215 u=ktyler n=ansible | [WARNING]: Platform linux on host localhost is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-
+core/2.15/reference_appendices/interpreter_discovery.html for more information.
+
+2024-08-21 17:28:40,155 p=1097215 u=ktyler n=ansible | ok: [localhost]
+2024-08-21 17:28:40,180 p=1097215 u=ktyler n=ansible | TASK [os : Run Debian specific tasks] *******************************************************************************************************************************************************************************************************************
+2024-08-21 17:28:40,207 p=1097215 u=ktyler n=ansible | included: /home/ktyler/.local/share/chezmoi/ansible/roles/os/tasks/Debian.yaml for localhost
+2024-08-21 17:28:40,215 p=1097215 u=ktyler n=ansible | TASK [os : Enable universe repository] ******************************************************************************************************************************************************************************************************************
+2024-08-21 17:28:40,229 p=1097215 u=ktyler n=ansible | fatal: [localhost]: FAILED! => {"msg": "'distribution_release' is undefined. 'distribution_release' is undefined"}
+2024-08-21 17:28:40,231 p=1097215 u=ktyler n=ansible | PLAY RECAP **********************************************************************************************************************************************************************************************************************************************
+2024-08-21 17:28:40,231 p=1097215 u=ktyler n=ansible | localhost                  : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2024-08-21 17:29:07,586 p=1098606 u=ktyler n=ansible | Starting galaxy collection install process
+2024-08-21 17:29:07,600 p=1098606 u=ktyler n=ansible | Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+2024-08-21 17:29:08,145 p=1098610 u=ktyler n=ansible | PLAY [Set up local development environment] *************************************************************************************************************************************************************************************************************
+2024-08-21 17:29:08,182 p=1098610 u=ktyler n=ansible | TASK [Gathering Facts] **********************************************************************************************************************************************************************************************************************************
+2024-08-21 17:29:09,576 p=1098610 u=ktyler n=ansible | [WARNING]: Platform linux on host localhost is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-
+core/2.15/reference_appendices/interpreter_discovery.html for more information.
+
+2024-08-21 17:29:09,576 p=1098610 u=ktyler n=ansible | ok: [localhost]
+2024-08-21 17:29:09,603 p=1098610 u=ktyler n=ansible | TASK [os : Run Debian specific tasks] *******************************************************************************************************************************************************************************************************************
+2024-08-21 17:29:09,631 p=1098610 u=ktyler n=ansible | included: /home/ktyler/.local/share/chezmoi/ansible/roles/os/tasks/Debian.yaml for localhost
+2024-08-21 17:29:09,640 p=1098610 u=ktyler n=ansible | TASK [os : Print all available facts] *******************************************************************************************************************************************************************************************************************
+2024-08-21 17:29:09,702 p=1098610 u=ktyler n=ansible | ok: [localhost] => {
+    "ansible_facts": {
+        "all_ipv4_addresses": [
+            "172.17.0.1",
+            "100.125.6.58",
+            "10.0.10.211"
+        ],
+        "all_ipv6_addresses": [
+            "fd7a:115c:a1e0::e01:63a",
+            "fe80::f8f9:ebb3:84a:cc35",
+            "fe80::f08c:4cff:7d8e:409c"
+        ],
+        "ansible_local": {},
+        "apparmor": {
+            "status": "enabled"
+        },
+        "architecture": "x86_64",
+        "bios_date": "07/18/2024",
+        "bios_vendor": "LENOVO",
+        "bios_version": "N48ET19W (1.06 )",
+        "board_asset_tag": "Not Available",
+        "board_name": "21KV0014US",
+        "board_serial": "NA",
+        "board_vendor": "LENOVO",
+        "board_version": "SDK0T76530 WIN",
+        "chassis_asset_tag": "No Asset Tag",
+        "chassis_serial": "NA",
+        "chassis_vendor": "LENOVO",
+        "chassis_version": "None",
+        "cmdline": {
+            "initrd": "\\EFI\\Pop_OS-7a7d54a4-e888-421b-99b0-86041ceef8fc\\initrd.img",
+            "loglevel": "0",
+            "quiet": true,
+            "ro": true,
+            "root": "UUID=7a7d54a4-e888-421b-99b0-86041ceef8fc",
+            "splash": true,
+            "systemd.show_status": "false"
+        },
+        "date_time": {
+            "date": "2024-08-21",
+            "day": "21",
+            "epoch": "1724275748",
+            "epoch_int": "1724275748",
+            "hour": "17",
+            "iso8601": "2024-08-21T21:29:08Z",
+            "iso8601_basic": "20240821T172908859912",
+            "iso8601_basic_short": "20240821T172908",
+            "iso8601_micro": "2024-08-21T21:29:08.859912Z",
+            "minute": "29",
+            "month": "08",
+            "second": "08",
+            "time": "17:29:08",
+            "tz": "EDT",
+            "tz_dst": "EDT",
+            "tz_offset": "-0400",
+            "weekday": "Wednesday",
+            "weekday_number": "3",
+            "weeknumber": "34",
+            "year": "2024"
+        },
+        "default_ipv4": {
+            "address": "10.0.10.211",
+            "alias": "wlp9s0f0",
+            "broadcast": "10.0.10.255",
+            "gateway": "10.0.10.1",
+            "interface": "wlp9s0f0",
+            "macaddress": "dc:97:ba:a3:cc:8a",
+            "mtu": 1500,
+            "netmask": "255.255.255.0",
+            "network": "10.0.10.0",
+            "prefix": "24",
+            "type": "ether"
+        },
+        "default_ipv6": {},
+        "device_links": {
+            "ids": {
+                "dm-0": [
+                    "dm-name-cryptdata",
+                    "dm-uuid-CRYPT-LUKS2-bd0640234b664dec861a9e10aef19982-cryptdata",
+                    "lvm-pv-uuid-3pM7GH-OxA9-zdgW-nkC5-WnKy-bnUv-bATmrv"
+                ],
+                "dm-1": [
+                    "dm-name-data-root",
+                    "dm-uuid-LVM-2IZ5fZqbYqfyqMevbEe0WbNJ98FP9BfkSPwyEVLTtszPYGp1uQfqXVFDHe0sLz4p"
+                ],
+                "dm-2": [
+                    "dm-name-cryptswap",
+                    "dm-uuid-CRYPT-PLAIN-cryptswap"
+                ],
+                "nvme0n1": [
+                    "nvme-KXG8AZNV1T02_LA_KIOXIA_X3HFC0XIFS9U",
+                    "nvme-KXG8AZNV1T02_LA_KIOXIA_X3HFC0XIFS9U_1",
+                    "nvme-eui.8ce38e0500fa9102"
+                ],
+                "nvme0n1p1": [
+                    "nvme-KXG8AZNV1T02_LA_KIOXIA_X3HFC0XIFS9U-part1",
+                    "nvme-KXG8AZNV1T02_LA_KIOXIA_X3HFC0XIFS9U_1-part1",
+                    "nvme-eui.8ce38e0500fa9102-part1"
+                ],
+                "nvme0n1p2": [
+                    "nvme-KXG8AZNV1T02_LA_KIOXIA_X3HFC0XIFS9U-part2",
+                    "nvme-KXG8AZNV1T02_LA_KIOXIA_X3HFC0XIFS9U_1-part2",
+                    "nvme-eui.8ce38e0500fa9102-part2"
+                ],
+                "nvme0n1p3": [
+                    "nvme-KXG8AZNV1T02_LA_KIOXIA_X3HFC0XIFS9U-part3",
+                    "nvme-KXG8AZNV1T02_LA_KIOXIA_X3HFC0XIFS9U_1-part3",
+                    "nvme-eui.8ce38e0500fa9102-part3"
+                ],
+                "nvme0n1p4": [
+                    "nvme-KXG8AZNV1T02_LA_KIOXIA_X3HFC0XIFS9U-part4",
+                    "nvme-KXG8AZNV1T02_LA_KIOXIA_X3HFC0XIFS9U_1-part4",
+                    "nvme-eui.8ce38e0500fa9102-part4"
+                ]
+            },
+            "labels": {
+                "dm-2": [
+                    "cryptswap"
+                ]
+            },
+            "masters": {
+                "dm-0": [
+                    "dm-1"
+                ],
+                "nvme0n1p3": [
+                    "dm-0"
+                ],
+                "nvme0n1p4": [
+                    "dm-2"
+                ]
+            },
+            "uuids": {
+                "dm-1": [
+                    "7a7d54a4-e888-421b-99b0-86041ceef8fc"
+                ],
+                "dm-2": [
+                    "be4e9504-2086-4ecb-8be0-fcf963eb23f2"
+                ],
+                "nvme0n1p1": [
+                    "AA12-024F"
+                ],
+                "nvme0n1p2": [
+                    "AA12-0159"
+                ],
+                "nvme0n1p3": [
+                    "bd064023-4b66-4dec-861a-9e10aef19982"
+                ],
+                "nvme0n1p4": [
+                    "afad877c-24f9-4845-b87d-17162b3f159b"
+                ]
+            }
+        },
+        "devices": {
+            "dm-0": {
+                "holders": [
+                    "data-root"
+                ],
+                "host": "",
+                "links": {
+                    "ids": [
+                        "dm-name-cryptdata",
+                        "dm-uuid-CRYPT-LUKS2-bd0640234b664dec861a9e10aef19982-cryptdata",
+                        "lvm-pv-uuid-3pM7GH-OxA9-zdgW-nkC5-WnKy-bnUv-bATmrv"
+                    ],
+                    "labels": [],
+                    "masters": [
+                        "dm-1"
+                    ],
+                    "uuids": []
+                },
+                "model": null,
+                "partitions": {},
+                "removable": "0",
+                "rotational": "0",
+                "sas_address": null,
+                "sas_device_handle": null,
+                "scheduler_mode": "",
+                "sectors": "1981498031",
+                "sectorsize": "512",
+                "size": "944.85 GB",
+                "support_discard": "0",
+                "vendor": null,
+                "virtual": 1
+            },
+            "dm-1": {
+                "holders": [],
+                "host": "",
+                "links": {
+                    "ids": [
+                        "dm-name-data-root",
+                        "dm-uuid-LVM-2IZ5fZqbYqfyqMevbEe0WbNJ98FP9BfkSPwyEVLTtszPYGp1uQfqXVFDHe0sLz4p"
+                    ],
+                    "labels": [],
+                    "masters": [],
+                    "uuids": [
+                        "7a7d54a4-e888-421b-99b0-86041ceef8fc"
+                    ]
+                },
+                "model": null,
+                "partitions": {},
+                "removable": "0",
+                "rotational": "0",
+                "sas_address": null,
+                "sas_device_handle": null,
+                "scheduler_mode": "",
+                "sectors": "1981489152",
+                "sectorsize": "512",
+                "size": "944.85 GB",
+                "support_discard": "0",
+                "vendor": null,
+                "virtual": 1
+            },
+            "dm-2": {
+                "holders": [],
+                "host": "",
+                "links": {
+                    "ids": [
+                        "dm-name-cryptswap",
+                        "dm-uuid-CRYPT-PLAIN-cryptswap"
+                    ],
+                    "labels": [
+                        "cryptswap"
+                    ],
+                    "masters": [],
+                    "uuids": [
+                        "be4e9504-2086-4ecb-8be0-fcf963eb23f2"
+                    ]
+                },
+                "model": null,
+                "partitions": {},
+                "removable": "0",
+                "rotational": "0",
+                "sas_address": null,
+                "sas_device_handle": null,
+                "scheduler_mode": "",
+                "sectors": "8387583",
+                "sectorsize": "512",
+                "size": "4.00 GB",
+                "support_discard": "0",
+                "vendor": null,
+                "virtual": 1
+            },
+            "loop0": {
+                "holders": [],
+                "host": "",
+                "links": {
+                    "ids": [],
+                    "labels": [],
+                    "masters": [],
+                    "uuids": []
+                },
+                "model": null,
+                "partitions": {},
+                "removable": "0",
+                "rotational": "0",
+                "sas_address": null,
+                "sas_device_handle": null,
+                "scheduler_mode": "none",
+                "sectors": "79520",
+                "sectorsize": "512",
+                "size": "38.83 MB",
+                "support_discard": "4096",
+                "vendor": null,
+                "virtual": 1
+            },
+            "loop1": {
+                "holders": [],
+                "host": "",
+                "links": {
+                    "ids": [],
+                    "labels": [],
+                    "masters": [],
+                    "uuids": []
+                },
+                "model": null,
+                "partitions": {},
+                "removable": "0",
+                "rotational": "0",
+                "sas_address": null,
+                "sas_device_handle": null,
+                "scheduler_mode": "none",
+                "sectors": "113992",
+                "sectorsize": "512",
+                "size": "55.66 MB",
+                "support_discard": "4096",
+                "vendor": null,
+                "virtual": 1
+            },
+            "loop10": {
+                "holders": [],
+                "host": "",
+                "links": {
+                    "ids": [],
+                    "labels": [],
+                    "masters": [],
+                    "uuids": []
+                },
+                "model": null,
+                "partitions": {},
+                "removable": "0",
+                "rotational": "0",
+                "sas_address": null,
+                "sas_device_handle": null,
+                "scheduler_mode": "none",
+                "sectors": "0",
+                "sectorsize": "512",
+                "size": "0.00 Bytes",
+                "support_discard": "4096",
+                "vendor": null,
+                "virtual": 1
+            },
+            "loop11": {
+                "holders": [],
+                "host": "",
+                "links": {
+                    "ids": [],
+                    "labels": [],
+                    "masters": [],
+                    "uuids": []
+                },
+                "model": null,
+                "partitions": {},
+                "removable": "0",
+                "rotational": "0",
+                "sas_address": null,
+                "sas_device_handle": null,
+                "scheduler_mode": "none",
+                "sectors": "0",
+                "sectorsize": "512",
+                "size": "0.00 Bytes",
+                "support_discard": "4096",
+                "vendor": null,
+                "virtual": 1
+            },
+            "loop12": {
+                "holders": [],
+                "host": "",
+                "links": {
+                    "ids": [],
+                    "labels": [],
+                    "masters": [],
+                    "uuids": []
+                },
+                "model": null,
+                "partitions": {},
+                "removable": "0",
+                "rotational": "0",
+                "sas_address": null,
+                "sas_device_handle": null,
+                "scheduler_mode": "none",
+                "sectors": "0",
+                "sectorsize": "512",
+                "size": "0.00 Bytes",
+                "support_discard": "4096",
+                "vendor": null,
+                "virtual": 1
+            },
+            "loop13": {
+                "holders": [],
+                "host": "",
+                "links": {
+                    "ids": [],
+                    "labels": [],
+                    "masters": [],
+                    "uuids": []
+                },
+                "model": null,
+                "partitions": {},
+                "removable": "0",
+                "rotational": "0",
+                "sas_address": null,
+                "sas_device_handle": null,
+                "scheduler_mode": "none",
+                "sectors": "0",
+                "sectorsize": "512",
+                "size": "0.00 Bytes",
+                "support_discard": "4096",
+                "vendor": null,
+                "virtual": 1
+            },
+            "loop14": {
+                "holders": [],
+                "host": "",
+                "links": {
+                    "ids": [],
+                    "labels": [],
+                    "masters": [],
+                    "uuids": []
+                },
+                "model": null,
+                "partitions": {},
+                "removable": "0",
+                "rotational": "0",
+                "sas_address": null,
+                "sas_device_handle": null,
+                "scheduler_mode": "none",
+                "sectors": "0",
+                "sectorsize": "512",
+                "size": "0.00 Bytes",
+                "support_discard": "4096",
+                "vendor": null,
+                "virtual": 1
+            },
+            "loop2": {
+                "holders": [],
+                "host": "",
+                "links": {
+                    "ids": [],
+                    "labels": [],
+                    "masters": [],
+                    "uuids": []
+                },
+                "model": null,
+                "partitions": {},
+                "removable": "0",
+                "rotational": "0",
+                "sas_address": null,
+                "sas_device_handle": null,
+                "scheduler_mode": "none",
+                "sectors": "130960",
+                "sectorsize": "512",
+                "size": "63.95 MB",
+                "support_discard": "4096",
+                "vendor": null,
+                "virtual": 1
+            },
+            "loop3": {
+                "holders": [],
+                "host": "",
+                "links": {
+                    "ids": [],
+                    "labels": [],
+                    "masters": [],
+                    "uuids": []
+                },
+                "model": null,
+                "partitions": {},
+                "removable": "0",
+                "rotational": "0",
+                "sas_address": null,
+                "sas_device_handle": null,
+                "scheduler_mode": "none",
+                "sectors": "8",
+                "sectorsize": "512",
+                "size": "4.00 KB",
+                "support_discard": "4096",
+                "vendor": null,
+                "virtual": 1
+            },
+            "loop4": {
+                "holders": [],
+                "host": "",
+                "links": {
+                    "ids": [],
+                    "labels": [],
+                    "masters": [],
+                    "uuids": []
+                },
+                "model": null,
+                "partitions": {},
+                "removable": "0",
+                "rotational": "0",
+                "sas_address": null,
+                "sas_device_handle": null,
+                "scheduler_mode": "none",
+                "sectors": "187776",
+                "sectorsize": "512",
+                "size": "91.69 MB",
+                "support_discard": "4096",
+                "vendor": null,
+                "virtual": 1
+            },
+            "loop5": {
+                "holders": [],
+                "host": "",
+                "links": {
+                    "ids": [],
+                    "labels": [],
+                    "masters": [],
+                    "uuids": []
+                },
+                "model": null,
+                "partitions": {},
+                "removable": "0",
+                "rotational": "0",
+                "sas_address": null,
+                "sas_device_handle": null,
+                "scheduler_mode": "none",
+                "sectors": "0",
+                "sectorsize": "512",
+                "size": "0.00 Bytes",
+                "support_discard": "4096",
+                "vendor": null,
+                "virtual": 1
+            },
+            "loop6": {
+                "holders": [],
+                "host": "",
+                "links": {
+                    "ids": [],
+                    "labels": [],
+                    "masters": [],
+                    "uuids": []
+                },
+                "model": null,
+                "partitions": {},
+                "removable": "0",
+                "rotational": "0",
+                "sas_address": null,
+                "sas_device_handle": null,
+                "scheduler_mode": "none",
+                "sectors": "641088",
+                "sectorsize": "512",
+                "size": "313.03 MB",
+                "support_discard": "4096",
+                "vendor": null,
+                "virtual": 1
+            },
+            "loop7": {
+                "holders": [],
+                "host": "",
+                "links": {
+                    "ids": [],
+                    "labels": [],
+                    "masters": [],
+                    "uuids": []
+                },
+                "model": null,
+                "partitions": {},
+                "removable": "0",
+                "rotational": "0",
+                "sas_address": null,
+                "sas_device_handle": null,
+                "scheduler_mode": "none",
+                "sectors": "447264",
+                "sectorsize": "512",
+                "size": "218.39 MB",
+                "support_discard": "4096",
+                "vendor": null,
+                "virtual": 1
+            },
+            "loop8": {
+                "holders": [],
+                "host": "",
+                "links": {
+                    "ids": [],
+                    "labels": [],
+                    "masters": [],
+                    "uuids": []
+                },
+                "model": null,
+                "partitions": {},
+                "removable": "0",
+                "rotational": "0",
+                "sas_address": null,
+                "sas_device_handle": null,
+                "scheduler_mode": "none",
+                "sectors": "0",
+                "sectorsize": "512",
+                "size": "0.00 Bytes",
+                "support_discard": "4096",
+                "vendor": null,
+                "virtual": 1
+            },
+            "loop9": {
+                "holders": [],
+                "host": "",
+                "links": {
+                    "ids": [],
+                    "labels": [],
+                    "masters": [],
+                    "uuids": []
+                },
+                "model": null,
+                "partitions": {},
+                "removable": "0",
+                "rotational": "0",
+                "sas_address": null,
+                "sas_device_handle": null,
+                "scheduler_mode": "none",
+                "sectors": "0",
+                "sectorsize": "512",
+                "size": "0.00 Bytes",
+                "support_discard": "4096",
+                "vendor": null,
+                "virtual": 1
+            },
+            "nvme0n1": {
+                "holders": [],
+                "host": "Non-Volatile memory controller: KIOXIA Corporation Device 0010 (rev 01)",
+                "links": {
+                    "ids": [
+                        "nvme-KXG8AZNV1T02_LA_KIOXIA_X3HFC0XIFS9U",
+                        "nvme-KXG8AZNV1T02_LA_KIOXIA_X3HFC0XIFS9U_1",
+                        "nvme-eui.8ce38e0500fa9102"
+                    ],
+                    "labels": [],
+                    "masters": [],
+                    "uuids": []
+                },
+                "model": "KXG8AZNV1T02 LA KIOXIA",
+                "partitions": {
+                    "nvme0n1p1": {
+                        "holders": [],
+                        "links": {
+                            "ids": [
+                                "nvme-KXG8AZNV1T02_LA_KIOXIA_X3HFC0XIFS9U-part1",
+                                "nvme-KXG8AZNV1T02_LA_KIOXIA_X3HFC0XIFS9U_1-part1",
+                                "nvme-eui.8ce38e0500fa9102-part1"
+                            ],
+                            "labels": [],
+                            "masters": [],
+                            "uuids": [
+                                "AA12-024F"
+                            ]
+                        },
+                        "sectors": "2093055",
+                        "sectorsize": 512,
+                        "size": "1022.00 MB",
+                        "start": "4096",
+                        "uuid": "AA12-024F"
+                    },
+                    "nvme0n1p2": {
+                        "holders": [],
+                        "links": {
+                            "ids": [
+                                "nvme-KXG8AZNV1T02_LA_KIOXIA_X3HFC0XIFS9U-part2",
+                                "nvme-KXG8AZNV1T02_LA_KIOXIA_X3HFC0XIFS9U_1-part2",
+                                "nvme-eui.8ce38e0500fa9102-part2"
+                            ],
+                            "labels": [],
+                            "masters": [],
+                            "uuids": [
+                                "AA12-0159"
+                            ]
+                        },
+                        "sectors": "8388607",
+                        "sectorsize": 512,
+                        "size": "4.00 GB",
+                        "start": "2097152",
+                        "uuid": "AA12-0159"
+                    },
+                    "nvme0n1p3": {
+                        "holders": [
+                            "cryptdata"
+                        ],
+                        "links": {
+                            "ids": [
+                                "nvme-KXG8AZNV1T02_LA_KIOXIA_X3HFC0XIFS9U-part3",
+                                "nvme-KXG8AZNV1T02_LA_KIOXIA_X3HFC0XIFS9U_1-part3",
+                                "nvme-eui.8ce38e0500fa9102-part3"
+                            ],
+                            "labels": [],
+                            "masters": [
+                                "dm-0"
+                            ],
+                            "uuids": [
+                                "bd064023-4b66-4dec-861a-9e10aef19982"
+                            ]
+                        },
+                        "sectors": "1981530799",
+                        "sectorsize": 512,
+                        "size": "944.87 GB",
+                        "start": "10485760",
+                        "uuid": "bd064023-4b66-4dec-861a-9e10aef19982"
+                    },
+                    "nvme0n1p4": {
+                        "holders": [
+                            "cryptswap"
+                        ],
+                        "links": {
+                            "ids": [
+                                "nvme-KXG8AZNV1T02_LA_KIOXIA_X3HFC0XIFS9U-part4",
+                                "nvme-KXG8AZNV1T02_LA_KIOXIA_X3HFC0XIFS9U_1-part4",
+                                "nvme-eui.8ce38e0500fa9102-part4"
+                            ],
+                            "labels": [],
+                            "masters": [
+                                "dm-2"
+                            ],
+                            "uuids": [
+                                "afad877c-24f9-4845-b87d-17162b3f159b"
+                            ]
+                        },
+                        "sectors": "8388607",
+                        "sectorsize": 512,
+                        "size": "4.00 GB",
+                        "start": "1992016560",
+                        "uuid": "afad877c-24f9-4845-b87d-17162b3f159b"
+                    }
+                },
+                "removable": "0",
+                "rotational": "0",
+                "sas_address": null,
+                "sas_device_handle": null,
+                "scheduler_mode": "kyber",
+                "sectors": "2000409264",
+                "sectorsize": "512",
+                "serial": "X3HFC0XIFS9U",
+                "size": "953.87 GB",
+                "support_discard": "512",
+                "vendor": null,
+                "virtual": 1
+            },
+            "zram0": {
+                "holders": [],
+                "host": "",
+                "links": {
+                    "ids": [],
+                    "labels": [],
+                    "masters": [],
+                    "uuids": []
+                },
+                "model": null,
+                "partitions": {},
+                "removable": "0",
+                "rotational": "0",
+                "sas_address": null,
+                "sas_device_handle": null,
+                "scheduler_mode": "",
+                "sectors": "33554432",
+                "sectorsize": "4096",
+                "size": "16.00 GB",
+                "support_discard": "4096",
+                "vendor": null,
+                "virtual": 1
+            }
+        },
+        "discovered_interpreter_python": "/usr/bin/python3.10",
+        "distribution": "Pop!_OS",
+        "distribution_file_parsed": true,
+        "distribution_file_path": "/etc/os-release",
+        "distribution_file_variety": "NA",
+        "distribution_major_version": "22",
+        "distribution_release": "jammy",
+        "distribution_version": "22.04",
+        "dns": {
+            "nameservers": [
+                "127.0.0.53"
+            ],
+            "options": {
+                "edns0": true,
+                "trust-ad": true
+            },
+            "search": [
+                "tail28c9a.ts.net",
+                "thezoo.house"
+            ]
+        },
+        "docker0": {
+            "active": false,
+            "device": "docker0",
+            "id": "8000.02420b67df3a",
+            "interfaces": [],
+            "ipv4": {
+                "address": "172.17.0.1",
+                "broadcast": "172.17.255.255",
+                "netmask": "255.255.0.0",
+                "network": "172.17.0.0",
+                "prefix": "16"
+            },
+            "macaddress": "02:42:0b:67:df:3a",
+            "mtu": 1500,
+            "promisc": false,
+            "speed": -1,
+            "stp": false,
+            "type": "bridge"
+        },
+        "domain": "local",
+        "effective_group_id": 1000,
+        "effective_user_id": 1000,
+        "env": {
+            "ANSIBLE_CONFIG": "/home/ktyler/.local/share/chezmoi/ansible/ansible.cfg",
+            "ANTIDOTE_HOME": "/home/ktyler/.config/zsh/.antidote",
+            "ASDF_CONFIG_FILE": "/home/ktyler/.asdfrc",
+            "ASDF_DATA_DIR": "/home/ktyler/.asdf",
+            "ASDF_DEFAULT_TOOL_VERSIONS_FILENAME": ".tool-versions",
+            "ASDF_DIR": "/home/ktyler/.asdf",
+            "COLORTERM": "truecolor",
+            "DBUS_SESSION_BUS_ADDRESS": "unix:path=/run/user/1000/bus",
+            "DESKTOP_SESSION": "gnome",
+            "DIRENV_DIFF": "eJzsk99yqjwUxd8l1yp__CrVmV5EiBUrBhGDeMNEDGCB0BKkSqfv_o3tOT3tlJ7pA5w79mL_kszeaz2DBzB6BjZ0p2AEpKTImZRW54yVUi8seHSIpUYkUo_y6rAvKiaVRZ7Sqr6o3R3jYTL6DFGxjySRHHLR9mN34J_lL0IvK0KavelHUUqtpfgOEwkt2ce3XRjxTr9-vJXvWkxzJj4e_ksQnD5cusBLB_DLjAzTQQsSGKYDRqD7_e1hwpq8OIDOb2JiztGX4bYQUo_xugz_gB509SlagRFgs3PYpArWDGhBrGtbQ6UqGoRc0bLBqh-eJqiUE6psvTEM-8wTt_r4aOlcG3anbLttrAKfZI0WkVvWm81e08jR2RXD2b4kmVzvs7yrEGVYscZaC6_pcydUYeqezttHfS7voisMrxtuH-f2YRD4-Hg96D82cl2rtPLcQk7wFMHx8PFWJejuwezf1xOjya_u47WfTBU0VjfWMlb_m5TmbLuKSMWHESFKTarz_N6PqIhJuiye7gwjV2E8QZNZquir03ph-t4GI24xxxNLz8eubC9JlJ13Q9mKguYJQmgHgSn2Kl3e3IBOu41bJ_13A7231YzXLR79l4zXZHSA7btTvDDwwvUc00Vj30U6Ni5uV0AHrLC9CuAtCu6Q__MU0Jj1UnYGHUBMx13DeYAW5GdbvawLvLz8HwAA__-W_aoy",
+            "DIRENV_DIR": "-/home/ktyler/.local/share/chezmoi",
+            "DIRENV_FILE": "/home/ktyler/.local/share/chezmoi/.envrc",
+            "DIRENV_WATCHES": "eJyczk1O7DAMAOC7ZD2a2E6cn17l6S3cxFEr0ha1ZWBAc3eWsGCBuMCn79-HeZZzMoOx07aofTrvXXd77VuRbo9JdrVl0vdlm-1V19tezMUsWz3nRc2AkTxyZqCL0bf5OA8znPuLPi6_YOu863qz0vv2atWTo0hOHEAB9qG2VEKpI3jvFDzm5jgUYhH1EB2XMQg24FrIJZSfVtn9fVV1vVtyLjYfasgVkQowKDDm2AgFEFJk1CSxUNIYWXOEnMeRWsQWYOT0PQVflyb90Mf_zwAAAP__Isd2aQ==",
+            "DISPLAY": ":0",
+            "EDITOR": "nano",
+            "GDMSESSION": "gnome",
+            "GNOME_DESKTOP_SESSION_ID": "this-is-deprecated",
+            "GNOME_SETUP_DISPLAY": ":1",
+            "GNOME_TERMINAL_SCREEN": "/org/gnome/Terminal/screen/b2c77516_ce40_41bc_b00b_7e4d168221fa",
+            "GNOME_TERMINAL_SERVICE": ":1.3772",
+            "GTK_MODULES": "gail:atk-bridge",
+            "HOME": "/home/ktyler",
+            "LANG": "en_US.UTF-8",
+            "LOGNAME": "ktyler",
+            "MANPATH": "/home/ktyler/.config/zsh/.antidote/man:",
+            "OLDPWD": "/home/ktyler/.local/share/chezmoi",
+            "P9K_SSH": "0",
+            "P9K_TTY": "old",
+            "PAGER": "less",
+            "PATH": "/home/ktyler/.asdf/installs/task/3.38.0/bin:/home/ktyler/.local/share/chezmoi/.bin:/home/ktyler/.local/share/chezmoi/.venv/bin:/home/ktyler/.config/zsh/.antidote/romkatv/zsh-bench:/home/ktyler/.asdf/shims:/home/ktyler/.asdf/bin:/home/ktyler/bin:/home/ktyler/.local/bin:/usr/local/bin:/usr/local/sbin:/home/ktyler/.local/share/zsh-bench:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin",
+            "PWD": "/home/ktyler/.local/share/chezmoi/ansible",
+            "PYTHONDONTWRITEBYTECODE": "1",
+            "QT_ACCESSIBILITY": "1",
+            "QT_IM_MODULE": "ibus",
+            "SESSION_MANAGER": "local/pop-os:@/tmp/.ICE-unix/141810,unix/pop-os:/tmp/.ICE-unix/141810",
+            "SHELL": "/usr/bin/zsh",
+            "SHLVL": "1",
+            "SOPS_AGE_KEY_FILE": "/home/ktyler/.local/share/chezmoi/age.key",
+            "SSH_AGENT_LAUNCHER": "gnome-keyring",
+            "SSH_AUTH_SOCK": "/run/user/1000/keyring/ssh",
+            "SYSTEMD_EXEC_PID": "562153",
+            "TERM": "xterm-256color",
+            "USER": "ktyler",
+            "USERNAME": "ktyler",
+            "VIRTUAL_ENV": "/home/ktyler/.local/share/chezmoi/.venv",
+            "VISUAL": "code",
+            "VTE_VERSION": "6800",
+            "WAYLAND_DISPLAY": "wayland-0",
+            "XAUTHORITY": "/run/user/1000/.mutter-Xwaylandauth.FPM2S2",
+            "XDG_CACHE_HOME": "/home/ktyler/.cache",
+            "XDG_CONFIG_DIRS": "/home/ktyler/.config:/etc/xdg:",
+            "XDG_CONFIG_HOME": "/home/ktyler/.config",
+            "XDG_CURRENT_DESKTOP": "GNOME",
+            "XDG_DATA_DIRS": "/home/ktyler/.local/share:/usr/local/share/:/usr/share/:",
+            "XDG_DATA_HOME": "/home/ktyler/.local/share",
+            "XDG_DESKTOP_DIR": "/home/ktyler/Desktop",
+            "XDG_DOCUMENTS_DIR": "/home/ktyler/Documents",
+            "XDG_DOWNLOAD_DIR": "/home/ktyler/Downloads",
+            "XDG_MENU_PREFIX": "gnome-",
+            "XDG_MUSIC_DIR": "/home/ktyler/Music",
+            "XDG_PICTURES_DIR": "/home/ktyler/Pictures",
+            "XDG_PUBLICSHARE_DIR": "/home/ktyler/Public",
+            "XDG_RUNTIME_DIR": "/run/user/1000",
+            "XDG_SESSION_CLASS": "user",
+            "XDG_SESSION_DESKTOP": "gnome",
+            "XDG_SESSION_TYPE": "wayland",
+            "XDG_STATE_HOME": "/home/ktyler/.local/state",
+            "XDG_TEMPLATES_DIR": "/home/ktyler/Templates",
+            "XDG_VIDEOS_DIR": "/home/ktyler/Videos",
+            "XMODIFIERS": "@im=ibus",
+            "ZDOTDIR": "/home/ktyler/.config/zsh",
+            "ZPFX": "/home/ktyler/.zpfx",
+            "_P9K_SSH_TTY": "/dev/pts/1",
+            "_P9K_TTY": "/dev/pts/1"
+        },
+        "fibre_channel_wwn": [],
+        "fips": false,
+        "form_factor": "Notebook",
+        "fqdn": "pop-os.local",
+        "gather_subset": [
+            "all"
+        ],
+        "hostname": "pop-os",
+        "hostnqn": "",
+        "interfaces": [
+            "docker0",
+            "tailscale0",
+            "wlp9s0f0",
+            "lo"
+        ],
+        "is_chroot": false,
+        "iscsi_iqn": "",
+        "kernel": "6.9.3-76060903-generic",
+        "kernel_version": "#202405300957~1721174657~22.04~abb7c06 SMP PREEMPT_DYNAMIC Wed J",
+        "lo": {
+            "active": true,
+            "device": "lo",
+            "ipv4": {
+                "address": "127.0.0.1",
+                "broadcast": "",
+                "netmask": "255.0.0.0",
+                "network": "127.0.0.0",
+                "prefix": "8"
+            },
+            "ipv6": [
+                {
+                    "address": "::1",
+                    "prefix": "128",
+                    "scope": "host"
+                }
+            ],
+            "mtu": 65536,
+            "promisc": false,
+            "type": "loopback"
+        },
+        "loadavg": {
+            "15m": 4.07421875,
+            "1m": 3.03369140625,
+            "5m": 4.4501953125
+        },
+        "locally_reachable_ips": {
+            "ipv4": [
+                "10.0.10.211",
+                "100.125.6.58",
+                "127.0.0.0/8",
+                "127.0.0.1",
+                "172.17.0.1"
+            ],
+            "ipv6": [
+                "::1",
+                "fd7a:115c:a1e0::e01:63a",
+                "fe80::f08c:4cff:7d8e:409c",
+                "fe80::f8f9:ebb3:84a:cc35"
+            ]
+        },
+        "lsb": {
+            "codename": "jammy",
+            "description": "Pop!_OS 22.04 LTS",
+            "id": "Pop",
+            "major_release": "22",
+            "release": "22.04"
+        },
+        "lvm": "N/A",
+        "machine": "x86_64",
+        "machine_id": "1ef3c9a5181e6a6ab096d20c66bf4ab9",
+        "memfree_mb": 3126,
+        "memory_mb": {
+            "nocache": {
+                "free": 16265,
+                "used": 15325
+            },
+            "real": {
+                "free": 3126,
+                "total": 31590,
+                "used": 28464
+            },
+            "swap": {
+                "cached": 0,
+                "free": 20479,
+                "total": 20479,
+                "used": 0
+            }
+        },
+        "memtotal_mb": 31590,
+        "module_setup": true,
+        "mounts": [
+            {
+                "block_available": 220290277,
+                "block_size": 4096,
+                "block_total": 243516938,
+                "block_used": 23226661,
+                "device": "/dev/mapper/data-root",
+                "fstype": "ext4",
+                "inode_available": 61109765,
+                "inode_total": 61923328,
+                "inode_used": 813563,
+                "mount": "/",
+                "options": "rw,noatime,errors=remount-ro",
+                "size_available": 902308974592,
+                "size_total": 997445378048,
+                "uuid": "7a7d54a4-e888-421b-99b0-86041ceef8fc"
+            },
+            {
+                "block_available": 305409,
+                "block_size": 4096,
+                "block_total": 1046524,
+                "block_used": 741115,
+                "device": "/dev/nvme0n1p2",
+                "fstype": "vfat",
+                "inode_available": 0,
+                "inode_total": 0,
+                "inode_used": 0,
+                "mount": "/recovery",
+                "options": "rw,relatime,fmask=0077,dmask=0077,codepage=437,iocharset=iso8859-1,shortname=mixed,errors=remount-ro",
+                "size_available": 1250955264,
+                "size_total": 4286562304,
+                "uuid": "AA12-0159"
+            },
+            {
+                "block_available": 212800,
+                "block_size": 4096,
+                "block_total": 261114,
+                "block_used": 48314,
+                "device": "/dev/nvme0n1p1",
+                "fstype": "vfat",
+                "inode_available": 0,
+                "inode_total": 0,
+                "inode_used": 0,
+                "mount": "/boot/efi",
+                "options": "rw,relatime,fmask=0077,dmask=0077,codepage=437,iocharset=iso8859-1,shortname=mixed,errors=remount-ro",
+                "size_available": 871628800,
+                "size_total": 1069522944,
+                "uuid": "AA12-024F"
+            },
+            {
+                "block_available": 0,
+                "block_size": 131072,
+                "block_total": 311,
+                "block_used": 311,
+                "device": "/dev/loop0",
+                "fstype": "squashfs",
+                "inode_available": 0,
+                "inode_total": 651,
+                "inode_used": 651,
+                "mount": "/snap/snapd/21759",
+                "options": "ro,nodev,relatime,errors=continue,threads=single",
+                "size_available": 0,
+                "size_total": 40763392,
+                "uuid": "N/A"
+            },
+            {
+                "block_available": 0,
+                "block_size": 131072,
+                "block_total": 446,
+                "block_used": 446,
+                "device": "/dev/loop1",
+                "fstype": "squashfs",
+                "inode_available": 0,
+                "inode_total": 10944,
+                "inode_used": 10944,
+                "mount": "/snap/core18/2829",
+                "options": "ro,nodev,relatime,errors=continue,threads=single",
+                "size_available": 0,
+                "size_total": 58458112,
+                "uuid": "N/A"
+            },
+            {
+                "block_available": 0,
+                "block_size": 131072,
+                "block_total": 1,
+                "block_used": 1,
+                "device": "/dev/loop3",
+                "fstype": "squashfs",
+                "inode_available": 0,
+                "inode_total": 29,
+                "inode_used": 29,
+                "mount": "/snap/bare/5",
+                "options": "ro,nodev,relatime,errors=continue,threads=single",
+                "size_available": 0,
+                "size_total": 131072,
+                "uuid": "N/A"
+            },
+            {
+                "block_available": 0,
+                "block_size": 131072,
+                "block_total": 734,
+                "block_used": 734,
+                "device": "/dev/loop4",
+                "fstype": "squashfs",
+                "inode_available": 0,
+                "inode_total": 76208,
+                "inode_used": 76208,
+                "mount": "/snap/gtk-common-themes/1535",
+                "options": "ro,nodev,relatime,errors=continue,threads=single",
+                "size_available": 0,
+                "size_total": 96206848,
+                "uuid": "N/A"
+            },
+            {
+                "block_available": 0,
+                "block_size": 131072,
+                "block_total": 1748,
+                "block_used": 1748,
+                "device": "/dev/loop7",
+                "fstype": "squashfs",
+                "inode_available": 0,
+                "inode_total": 18503,
+                "inode_used": 18503,
+                "mount": "/snap/gnome-3-34-1804/93",
+                "options": "ro,nodev,relatime,errors=continue,threads=single",
+                "size_available": 0,
+                "size_total": 229113856,
+                "uuid": "N/A"
+            },
+            {
+                "block_available": 0,
+                "block_size": 131072,
+                "block_total": 512,
+                "block_used": 512,
+                "device": "/dev/loop2",
+                "fstype": "squashfs",
+                "inode_available": 0,
+                "inode_total": 12057,
+                "inode_used": 12057,
+                "mount": "/snap/core20/2318",
+                "options": "ro,nodev,relatime,errors=continue,threads=single",
+                "size_available": 0,
+                "size_total": 67108864,
+                "uuid": "N/A"
+            },
+            {
+                "block_available": 0,
+                "block_size": 131072,
+                "block_total": 2505,
+                "block_used": 2505,
+                "device": "/dev/loop6",
+                "fstype": "squashfs",
+                "inode_available": 0,
+                "inode_total": 9772,
+                "inode_used": 9772,
+                "mount": "/snap/code/167",
+                "options": "ro,nodev,relatime,errors=continue,threads=single",
+                "size_available": 0,
+                "size_total": 328335360,
+                "uuid": "N/A"
+            }
+        ],
+        "nodename": "pop-os",
+        "os_family": "Debian",
+        "pkg_mgr": "apt",
+        "proc_cmdline": {
+            "initrd": "\\EFI\\Pop_OS-7a7d54a4-e888-421b-99b0-86041ceef8fc\\initrd.img",
+            "loglevel": "0",
+            "quiet": true,
+            "ro": true,
+            "root": "UUID=7a7d54a4-e888-421b-99b0-86041ceef8fc",
+            "splash": true,
+            "systemd.show_status": "false"
+        },
+        "processor": [
+            "0",
+            "GenuineIntel",
+            "Intel(R) Core(TM) Ultra 7 155H",
+            "1",
+            "GenuineIntel",
+            "Intel(R) Core(TM) Ultra 7 155H",
+            "2",
+            "GenuineIntel",
+            "Intel(R) Core(TM) Ultra 7 155H",
+            "3",
+            "GenuineIntel",
+            "Intel(R) Core(TM) Ultra 7 155H",
+            "4",
+            "GenuineIntel",
+            "Intel(R) Core(TM) Ultra 7 155H",
+            "5",
+            "GenuineIntel",
+            "Intel(R) Core(TM) Ultra 7 155H",
+            "6",
+            "GenuineIntel",
+            "Intel(R) Core(TM) Ultra 7 155H",
+            "7",
+            "GenuineIntel",
+            "Intel(R) Core(TM) Ultra 7 155H",
+            "8",
+            "GenuineIntel",
+            "Intel(R) Core(TM) Ultra 7 155H",
+            "9",
+            "GenuineIntel",
+            "Intel(R) Core(TM) Ultra 7 155H",
+            "10",
+            "GenuineIntel",
+            "Intel(R) Core(TM) Ultra 7 155H",
+            "11",
+            "GenuineIntel",
+            "Intel(R) Core(TM) Ultra 7 155H",
+            "12",
+            "GenuineIntel",
+            "Intel(R) Core(TM) Ultra 7 155H",
+            "13",
+            "GenuineIntel",
+            "Intel(R) Core(TM) Ultra 7 155H",
+            "14",
+            "GenuineIntel",
+            "Intel(R) Core(TM) Ultra 7 155H",
+            "15",
+            "GenuineIntel",
+            "Intel(R) Core(TM) Ultra 7 155H",
+            "16",
+            "GenuineIntel",
+            "Intel(R) Core(TM) Ultra 7 155H",
+            "17",
+            "GenuineIntel",
+            "Intel(R) Core(TM) Ultra 7 155H",
+            "18",
+            "GenuineIntel",
+            "Intel(R) Core(TM) Ultra 7 155H",
+            "19",
+            "GenuineIntel",
+            "Intel(R) Core(TM) Ultra 7 155H",
+            "20",
+            "GenuineIntel",
+            "Intel(R) Core(TM) Ultra 7 155H"
+        ],
+        "processor_cores": 16,
+        "processor_count": 1,
+        "processor_nproc": 21,
+        "processor_threads_per_core": 1,
+        "processor_vcpus": 16,
+        "product_name": "21KV0014US",
+        "product_serial": "NA",
+        "product_uuid": "NA",
+        "product_version": "ThinkPad P1 Gen 7",
+        "python": {
+            "executable": "/usr/bin/python3.10",
+            "has_sslcontext": true,
+            "type": "cpython",
+            "version": {
+                "major": 3,
+                "micro": 12,
+                "minor": 10,
+                "releaselevel": "final",
+                "serial": 0
+            },
+            "version_info": [
+                3,
+                10,
+                12,
+                "final",
+                0
+            ]
+        },
+        "python_version": "3.10.12",
+        "real_group_id": 1000,
+        "real_user_id": 1000,
+        "selinux": {
+            "status": "disabled"
+        },
+        "selinux_python_present": true,
+        "service_mgr": "systemd",
+        "swapfree_mb": 20479,
+        "swaptotal_mb": 20479,
+        "system": "Linux",
+        "system_capabilities": [
+            ""
+        ],
+        "system_capabilities_enforced": "True",
+        "system_vendor": "LENOVO",
+        "tailscale0": {
+            "active": true,
+            "device": "tailscale0",
+            "ipv4": {
+                "address": "100.125.6.58",
+                "broadcast": "",
+                "netmask": "255.255.255.255",
+                "network": "100.125.6.58",
+                "prefix": "32"
+            },
+            "ipv6": [
+                {
+                    "address": "fd7a:115c:a1e0::e01:63a",
+                    "prefix": "128",
+                    "scope": "global"
+                },
+                {
+                    "address": "fe80::f8f9:ebb3:84a:cc35",
+                    "prefix": "64",
+                    "scope": "link"
+                }
+            ],
+            "mtu": 1280,
+            "promisc": false,
+            "speed": -1,
+            "type": "tunnel"
+        },
+        "uptime_seconds": 202511,
+        "user_dir": "/home/ktyler",
+        "user_gecos": "Kilian Tyler",
+        "user_gid": 1000,
+        "user_id": "ktyler",
+        "user_shell": "/usr/bin/zsh",
+        "user_uid": 1000,
+        "userspace_architecture": "x86_64",
+        "userspace_bits": "64",
+        "virtualization_role": "host",
+        "virtualization_tech_guest": [],
+        "virtualization_tech_host": [
+            "kvm",
+            "virtualbox"
+        ],
+        "virtualization_type": "kvm",
+        "wlp9s0f0": {
+            "active": true,
+            "device": "wlp9s0f0",
+            "ipv4": {
+                "address": "10.0.10.211",
+                "broadcast": "10.0.10.255",
+                "netmask": "255.255.255.0",
+                "network": "10.0.10.0",
+                "prefix": "24"
+            },
+            "ipv6": [
+                {
+                    "address": "fe80::f08c:4cff:7d8e:409c",
+                    "prefix": "64",
+                    "scope": "link"
+                }
+            ],
+            "macaddress": "dc:97:ba:a3:cc:8a",
+            "module": "iwlwifi",
+            "mtu": 1500,
+            "pciid": "0000:09:00.0",
+            "promisc": false,
+            "type": "ether"
+        }
+    }
+}
+2024-08-21 17:29:09,741 p=1098610 u=ktyler n=ansible | PLAY RECAP **********************************************************************************************************************************************************************************************************************************************
+2024-08-21 17:29:09,741 p=1098610 u=ktyler n=ansible | localhost                  : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-08-21 17:30:44,690 p=1101430 u=ktyler n=ansible | Starting galaxy collection install process
+2024-08-21 17:30:44,704 p=1101430 u=ktyler n=ansible | Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+2024-08-21 17:30:45,224 p=1101575 u=ktyler n=ansible | PLAY [Set up local development environment] *************************************************************************************************************************************************************************************************************
+2024-08-21 17:30:45,261 p=1101575 u=ktyler n=ansible | TASK [Gathering Facts] **********************************************************************************************************************************************************************************************************************************
+2024-08-21 17:30:46,640 p=1101575 u=ktyler n=ansible | [WARNING]: Platform linux on host localhost is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-
+core/2.15/reference_appendices/interpreter_discovery.html for more information.
+
+2024-08-21 17:30:46,640 p=1101575 u=ktyler n=ansible | ok: [localhost]
+2024-08-21 17:30:46,670 p=1101575 u=ktyler n=ansible | TASK [os : Run Debian specific tasks] *******************************************************************************************************************************************************************************************************************
+2024-08-21 17:30:46,694 p=1101575 u=ktyler n=ansible | included: /home/ktyler/.local/share/chezmoi/ansible/roles/os/tasks/Debian.yaml for localhost
+2024-08-21 17:30:46,702 p=1101575 u=ktyler n=ansible | TASK [os : Print all available facts] *******************************************************************************************************************************************************************************************************************
+2024-08-21 17:30:46,723 p=1101575 u=ktyler n=ansible | ok: [localhost] => {
+    "ansible_facts.distribution_release": "jammy"
+}
+2024-08-21 17:30:46,762 p=1101575 u=ktyler n=ansible | PLAY RECAP **********************************************************************************************************************************************************************************************************************************************
+2024-08-21 17:30:46,762 p=1101575 u=ktyler n=ansible | localhost                  : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-08-21 17:30:58,805 p=1102276 u=ktyler n=ansible | Starting galaxy collection install process
+2024-08-21 17:30:58,819 p=1102276 u=ktyler n=ansible | Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+2024-08-21 17:30:59,365 p=1102293 u=ktyler n=ansible | PLAY [Set up local development environment] *************************************************************************************************************************************************************************************************************
+2024-08-21 17:30:59,403 p=1102293 u=ktyler n=ansible | TASK [Gathering Facts] **********************************************************************************************************************************************************************************************************************************
+2024-08-21 17:31:00,783 p=1102293 u=ktyler n=ansible | [WARNING]: Platform linux on host localhost is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-
+core/2.15/reference_appendices/interpreter_discovery.html for more information.
+
+2024-08-21 17:31:00,784 p=1102293 u=ktyler n=ansible | ok: [localhost]
+2024-08-21 17:31:00,816 p=1102293 u=ktyler n=ansible | TASK [os : Run Debian specific tasks] *******************************************************************************************************************************************************************************************************************
+2024-08-21 17:31:00,843 p=1102293 u=ktyler n=ansible | included: /home/ktyler/.local/share/chezmoi/ansible/roles/os/tasks/Debian.yaml for localhost
+2024-08-21 17:31:00,852 p=1102293 u=ktyler n=ansible | TASK [os : Print all available facts] *******************************************************************************************************************************************************************************************************************
+2024-08-21 17:31:00,880 p=1102293 u=ktyler n=ansible | ok: [localhost] => {
+    "distribution_release": "VARIABLE IS NOT DEFINED!"
+}
+2024-08-21 17:31:00,918 p=1102293 u=ktyler n=ansible | PLAY RECAP **********************************************************************************************************************************************************************************************************************************************
+2024-08-21 17:31:00,919 p=1102293 u=ktyler n=ansible | localhost                  : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-08-21 17:31:20,530 p=1103370 u=ktyler n=ansible | Starting galaxy collection install process
+2024-08-21 17:31:20,544 p=1103370 u=ktyler n=ansible | Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+2024-08-21 17:31:21,069 p=1103373 u=ktyler n=ansible | PLAY [Set up local development environment] *************************************************************************************************************************************************************************************************************
+2024-08-21 17:31:21,105 p=1103373 u=ktyler n=ansible | TASK [Gathering Facts] **********************************************************************************************************************************************************************************************************************************
+2024-08-21 17:31:22,521 p=1103373 u=ktyler n=ansible | [WARNING]: Platform linux on host localhost is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-
+core/2.15/reference_appendices/interpreter_discovery.html for more information.
+
+2024-08-21 17:31:22,521 p=1103373 u=ktyler n=ansible | ok: [localhost]
+2024-08-21 17:31:22,548 p=1103373 u=ktyler n=ansible | TASK [os : Run Debian specific tasks] *******************************************************************************************************************************************************************************************************************
+2024-08-21 17:31:22,573 p=1103373 u=ktyler n=ansible | included: /home/ktyler/.local/share/chezmoi/ansible/roles/os/tasks/Debian.yaml for localhost
+2024-08-21 17:31:22,582 p=1103373 u=ktyler n=ansible | TASK [os : Enable universe repository] ******************************************************************************************************************************************************************************************************************
+2024-08-21 17:31:23,147 p=1103373 u=ktyler n=ansible | failed: [localhost] (item=deb http://archive.ubuntu.com/ubuntu/ jammy universe) => {"ansible_loop_var": "item", "changed": false, "item": "deb http://archive.ubuntu.com/ubuntu/ jammy universe", "msg": "Unable to create temp file at \"/etc/apt\" for apt source: [Errno 13] Permission denied: '/etc/apt/.sources.list-nr46xmzk'"}
+2024-08-21 17:31:23,545 p=1103373 u=ktyler n=ansible | failed: [localhost] (item=deb http://archive.ubuntu.com/ubuntu/ jammy-updates universe) => {"ansible_loop_var": "item", "changed": false, "item": "deb http://archive.ubuntu.com/ubuntu/ jammy-updates universe", "msg": "Unable to create temp file at \"/etc/apt\" for apt source: [Errno 13] Permission denied: '/etc/apt/.sources.list-xtagl1mm'"}
+2024-08-21 17:31:23,952 p=1103373 u=ktyler n=ansible | failed: [localhost] (item=deb http://security.ubuntu.com/ubuntu/ jammy-security universe) => {"ansible_loop_var": "item", "changed": false, "item": "deb http://security.ubuntu.com/ubuntu/ jammy-security universe", "msg": "Unable to create temp file at \"/etc/apt\" for apt source: [Errno 13] Permission denied: '/etc/apt/.sources.list-nkpa7fey'"}
+2024-08-21 17:31:23,956 p=1103373 u=ktyler n=ansible | PLAY RECAP **********************************************************************************************************************************************************************************************************************************************
+2024-08-21 17:31:23,956 p=1103373 u=ktyler n=ansible | localhost                  : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2024-08-21 17:31:49,935 p=1104611 u=ktyler n=ansible | Starting galaxy collection install process
+2024-08-21 17:31:49,949 p=1104611 u=ktyler n=ansible | Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+2024-08-21 17:31:50,530 p=1104624 u=ktyler n=ansible | PLAY [Set up local development environment] *************************************************************************************************************************************************************************************************************
+2024-08-21 17:31:50,570 p=1104624 u=ktyler n=ansible | TASK [Gathering Facts] **********************************************************************************************************************************************************************************************************************************
+2024-08-21 17:31:51,959 p=1104624 u=ktyler n=ansible | [WARNING]: Platform linux on host localhost is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-
+core/2.15/reference_appendices/interpreter_discovery.html for more information.
+
+2024-08-21 17:31:51,959 p=1104624 u=ktyler n=ansible | ok: [localhost]
+2024-08-21 17:31:51,987 p=1104624 u=ktyler n=ansible | TASK [os : Run Debian specific tasks] *******************************************************************************************************************************************************************************************************************
+2024-08-21 17:31:52,024 p=1104624 u=ktyler n=ansible | included: /home/ktyler/.local/share/chezmoi/ansible/roles/os/tasks/Debian.yaml for localhost
+2024-08-21 17:31:52,044 p=1104624 u=ktyler n=ansible | TASK [os : Enable universe repository] ******************************************************************************************************************************************************************************************************************
+2024-08-21 17:32:15,169 p=1104624 u=ktyler n=ansible | changed: [localhost] => (item=deb http://archive.ubuntu.com/ubuntu/ jammy universe)
+2024-08-21 17:32:36,872 p=1104624 u=ktyler n=ansible | changed: [localhost] => (item=deb http://archive.ubuntu.com/ubuntu/ jammy-updates universe)
+2024-08-21 17:32:52,033 p=1104624 u=ktyler n=ansible | changed: [localhost] => (item=deb http://security.ubuntu.com/ubuntu/ jammy-security universe)
+2024-08-21 17:32:52,075 p=1104624 u=ktyler n=ansible | PLAY RECAP **********************************************************************************************************************************************************************************************************************************************
+2024-08-21 17:32:52,076 p=1104624 u=ktyler n=ansible | localhost                  : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-08-21 17:32:54,587 p=1110395 u=ktyler n=ansible | Starting galaxy collection install process
+2024-08-21 17:32:54,601 p=1110395 u=ktyler n=ansible | Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+2024-08-21 17:32:55,154 p=1110424 u=ktyler n=ansible | PLAY [Set up local development environment] *************************************************************************************************************************************************************************************************************
+2024-08-21 17:32:55,198 p=1110424 u=ktyler n=ansible | TASK [Gathering Facts] **********************************************************************************************************************************************************************************************************************************
+2024-08-21 17:32:56,599 p=1110424 u=ktyler n=ansible | [WARNING]: Platform linux on host localhost is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-
+core/2.15/reference_appendices/interpreter_discovery.html for more information.
+
+2024-08-21 17:32:56,599 p=1110424 u=ktyler n=ansible | ok: [localhost]
+2024-08-21 17:32:56,627 p=1110424 u=ktyler n=ansible | TASK [os : Run Debian specific tasks] *******************************************************************************************************************************************************************************************************************
+2024-08-21 17:32:56,656 p=1110424 u=ktyler n=ansible | included: /home/ktyler/.local/share/chezmoi/ansible/roles/os/tasks/Debian.yaml for localhost
+2024-08-21 17:32:56,665 p=1110424 u=ktyler n=ansible | TASK [os : Enable universe repository] ******************************************************************************************************************************************************************************************************************
+2024-08-21 17:32:57,347 p=1110424 u=ktyler n=ansible | ok: [localhost] => (item=deb http://archive.ubuntu.com/ubuntu/ jammy universe)
+2024-08-21 17:32:57,816 p=1110424 u=ktyler n=ansible | ok: [localhost] => (item=deb http://archive.ubuntu.com/ubuntu/ jammy-updates universe)
+2024-08-21 17:32:58,294 p=1110424 u=ktyler n=ansible | ok: [localhost] => (item=deb http://security.ubuntu.com/ubuntu/ jammy-security universe)
+2024-08-21 17:32:58,333 p=1110424 u=ktyler n=ansible | PLAY RECAP **********************************************************************************************************************************************************************************************************************************************
+2024-08-21 17:32:58,333 p=1110424 u=ktyler n=ansible | localhost                  : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-08-21 17:41:32,891 p=1126667 u=ktyler n=ansible | Starting galaxy collection install process
+2024-08-21 17:41:32,905 p=1126667 u=ktyler n=ansible | Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+2024-08-21 17:41:33,429 p=1126669 u=ktyler n=ansible | PLAY [Set up local development environment] *************************************************************************************************************************************************************************************************************
+2024-08-21 17:41:33,466 p=1126669 u=ktyler n=ansible | TASK [Gathering Facts] **********************************************************************************************************************************************************************************************************************************
+2024-08-21 17:41:34,841 p=1126669 u=ktyler n=ansible | [WARNING]: Platform linux on host localhost is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-
+core/2.15/reference_appendices/interpreter_discovery.html for more information.
+
+2024-08-21 17:41:34,841 p=1126669 u=ktyler n=ansible | ok: [localhost]
+2024-08-21 17:41:34,868 p=1126669 u=ktyler n=ansible | TASK [os : Run Debian specific tasks] *******************************************************************************************************************************************************************************************************************
+2024-08-21 17:41:34,898 p=1126669 u=ktyler n=ansible | included: /home/ktyler/.local/share/chezmoi/ansible/roles/os/tasks/Debian.yaml for localhost
+2024-08-21 17:41:34,906 p=1126669 u=ktyler n=ansible | TASK [os : debug] ***************************************************************************************************************************************************************************************************************************************
+2024-08-21 17:41:34,922 p=1126669 u=ktyler n=ansible | ok: [localhost] => {
+    "ansible_distribution_release": "jammy"
+}
+2024-08-21 17:41:34,931 p=1126669 u=ktyler n=ansible | TASK [os : Enable main repositories] ********************************************************************************************************************************************************************************************************************
+2024-08-21 17:41:35,588 p=1126669 u=ktyler n=ansible | changed: [localhost] => (item=deb http://archive.ubuntu.com/ubuntu/ jammy main)
+2024-08-21 17:41:36,060 p=1126669 u=ktyler n=ansible | changed: [localhost] => (item=deb http://archive.ubuntu.com/ubuntu/ jammy-updates main)
+2024-08-21 17:41:36,524 p=1126669 u=ktyler n=ansible | changed: [localhost] => (item=deb http://security.ubuntu.com/ubuntu/ jammy-security main)
+2024-08-21 17:41:36,535 p=1126669 u=ktyler n=ansible | TASK [os : Enable universe repositories] ****************************************************************************************************************************************************************************************************************
+2024-08-21 17:41:37,026 p=1126669 u=ktyler n=ansible | changed: [localhost] => (item=deb http://archive.ubuntu.com/ubuntu/ jammy universe)
+2024-08-21 17:41:37,484 p=1126669 u=ktyler n=ansible | changed: [localhost] => (item=deb http://archive.ubuntu.com/ubuntu/ jammy-updates universe)
+2024-08-21 17:41:38,066 p=1126669 u=ktyler n=ansible | changed: [localhost] => (item=deb http://security.ubuntu.com/ubuntu/ jammy-security universe)
+2024-08-21 17:41:38,109 p=1126669 u=ktyler n=ansible | PLAY RECAP **********************************************************************************************************************************************************************************************************************************************
+2024-08-21 17:41:38,110 p=1126669 u=ktyler n=ansible | localhost                  : ok=5    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   

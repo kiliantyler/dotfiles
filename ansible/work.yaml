@@ -1,0 +1,5 @@
+# yaml-language-server $schema=https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json
+- name: Any work related installs
+  hosts: local
+  roles:
+  - {role: tailscale, tags: ['tailscale']}

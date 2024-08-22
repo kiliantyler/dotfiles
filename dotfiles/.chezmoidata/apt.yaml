@@ -1,6 +1,8 @@
 # trunk-ignore-all(trunk-yls/no-yls)
 packages:
   apt:
+    ppas:
+    - agornostal/ulauncher
     repos:
     - name: google-chrome
       url: http://dl.google.com/linux/chrome/deb/
@@ -12,7 +14,8 @@ packages:
       key: https://packages.microsoft.com/keys/microsoft.asc
       distribution: stable
       components: main
-    apps:
+    installs:
+    - ulauncher
     - apt-transport-https
     - ca-certificates
     - curl
@@ -22,3 +25,4 @@ packages:
     - wget
     - build-essential
     - git
+    - wmctrl

@@ -1,0 +1,6 @@
+# yaml-language-server $schema=https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json
+- name: Set up local development environment
+  hosts: local
+  roles:
+  - {role: os, tags: ['os']}
+  - {role: vscode, tags: ['vscode']}

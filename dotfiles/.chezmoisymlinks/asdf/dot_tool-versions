@@ -16,3 +16,4 @@ goreleaser 2.1.0
 editorconfig-checker 2.8.0
 1password-cli 2.30.0
 fzf 0.53.0
+trunk 1.22.3

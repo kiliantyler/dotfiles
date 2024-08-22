@@ -1,0 +1,15 @@
+- name: Install Tailscale GPG key
+  become: true
+  apt_key:
+    url: https://pkgs.tailscale.com/stable/ubuntu/{{ansible_distribution_release}}.noarmor.gpg
+    keyring: /etc/apt/trusted.gpg.d/tailscale.gpg
+    state: present
+
+- name: Enable Tailscale repository
+  become: true
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+    update_cache: no
+  with_items:
+  - "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/tailscale.gpg] https://pkgs.tailscale.com/stable/ubuntu {{ ansible_distribution_release }} main"

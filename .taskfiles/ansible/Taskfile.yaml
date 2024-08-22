@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+
+vars:
+  ANSIBLE_DIR: "{{ .ROOT_DIR }}/ansible"
+
+env:
+  ANSIBLE_CONFIG: "{{ .ANSIBLE_DIR }}/ansible.cfg"
+
+tasks:
+  init:
+    desc: "Initialize ansible"
+    cmds:
+    - ansible-galaxy install -r "{{.ANSIBLE_DIR}}/requirements.yaml"
+
+  run:
+    desc: "Run ansible-playbook"
+    dir: "{{ .ANSIBLE_DIR }}"
+    deps:
+    - init
+    cmds:
+    - ansible-playbook "{{.ANSIBLE_DIR}}/playbook.yaml"

@@ -1,0 +1,38 @@
+{{- if eq .osid "linux-debian" -}}
+#!/usr/bin/env bash
+
+__NEED_REFRESH=0
+
+{{ range .packages.apt.ppas -}}
+
+if ! grep -q "^deb .*$the_ppa" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
+  echo "Adding PPA {{ . }}"
+  sudo add-apt-repository ppa:{{ . }} -yn > /dev/null 2>&1
+  __NEED_REFRESH=1
+fi
+
+{{ end -}}
+
+{{ range .packages.apt.repos -}}
+
+echo "Would add {{ . }}"
+
+{{ end -}}
+
+if [ "$__NEED_REFRESH" -eq 1 ]; then
+  echo "Updating package list"
+  sudo apt-get -qq update
+fi
+
+__INSTALLED_PACKAGES=$(dpkg --get-selections | awk '{print $1}' | grep -v deinstall)
+
+{{ range .packages.apt.installs -}}
+
+if ! echo "$__INSTALLED_PACKAGES" | grep -q "^{{ . }}$"; then
+  echo "Installing {{ . }}"
+  sudo apt-get -qq install -y {{ . }}
+fi
+
+{{ end -}}
+
+{{ end -}}

@@ -7,6 +7,9 @@ Library/
 # Hammerspoon is MacOS specific
 .hammerspoon/
 
+# Karabiner is MacOS specific
+.config/karabiner/
+
 {{ end }}
 
 # Ignore Linux Specific Files

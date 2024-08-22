@@ -1,0 +1,4 @@
+# yaml-language-server $schema=https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json
+
+- name: "Run {{ ansible_os_family }} specific tasks"
+  ansible.builtin.include_tasks: "{{ ansible_os_family }}.yaml"

@@ -1,0 +1,3 @@
+# yaml-language-server $schema=https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json
+collections:
+- community.general
