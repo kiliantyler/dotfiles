@@ -1,0 +1,18 @@
+- ansible.builtin.include_vars:
+    name: "OSvars"
+    file: "{{ ansible_os_family }}.yaml"
+
+- name: debug
+  debug:
+    var: apt
+
+- name: debug
+  debug:
+    var: 'OSvars.apt'
+
+- set_fact:
+    combined_apt: "{{ lookup('community.general.merge_variables',  'OSVars', initial_value=apt) }}"
+
+- name: debug
+  debug:
+    var: combined_apt

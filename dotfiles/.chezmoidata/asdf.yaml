@@ -13,9 +13,6 @@ packages:
   - name: kubectl
     url: https://github.com/asdf-community/asdf-kubectl.git
     version: latest
-  - name: janet
-    url: https://github.com/Jakski/asdf-janet.git
-    version: latest
   - name: jq
     url: https://github.com/lsanwick/asdf-jq.git
     version: latest

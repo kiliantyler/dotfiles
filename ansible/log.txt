@@ -1439,3 +1439,576 @@ core/2.15/reference_appendices/interpreter_discovery.html for more information.
 2024-08-21 17:41:38,066 p=1126669 u=ktyler n=ansible | changed: [localhost] => (item=deb http://security.ubuntu.com/ubuntu/ jammy-security universe)
 2024-08-21 17:41:38,109 p=1126669 u=ktyler n=ansible | PLAY RECAP **********************************************************************************************************************************************************************************************************************************************
 2024-08-21 17:41:38,110 p=1126669 u=ktyler n=ansible | localhost                  : ok=5    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-08-22 16:57:56,359 p=2009151 u=ktyler n=ansible | Starting galaxy collection install process
+2024-08-22 16:57:56,372 p=2009151 u=ktyler n=ansible | Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+2024-08-22 16:57:56,920 p=2009153 u=ktyler n=ansible | PLAY [Set up local development environment] *************************************************************************************************************************************************************************************************************
+2024-08-22 16:57:56,932 p=2009153 u=ktyler n=ansible | TASK [Gathering Facts] **********************************************************************************************************************************************************************************************************************************
+2024-08-22 16:57:58,533 p=2009153 u=ktyler n=ansible | [WARNING]: Platform linux on host localhost is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-
+core/2.15/reference_appendices/interpreter_discovery.html for more information.
+
+2024-08-22 16:57:58,533 p=2009153 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 16:57:58,557 p=2009153 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 16:57:58,579 p=2009153 u=ktyler n=ansible | ok: [localhost] => {
+    "asdf": [
+        "1password-cli"
+    ]
+}
+2024-08-22 16:57:58,619 p=2009153 u=ktyler n=ansible | PLAY RECAP **********************************************************************************************************************************************************************************************************************************************
+2024-08-22 16:57:58,619 p=2009153 u=ktyler n=ansible | localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-08-22 16:58:18,367 p=2010299 u=ktyler n=ansible | Starting galaxy collection install process
+2024-08-22 16:58:18,381 p=2010299 u=ktyler n=ansible | Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+2024-08-22 16:58:18,947 p=2010347 u=ktyler n=ansible | PLAY [Set up local development environment] *************************************************************************************************************************************************************************************************************
+2024-08-22 16:58:18,958 p=2010347 u=ktyler n=ansible | TASK [Gathering Facts] **********************************************************************************************************************************************************************************************************************************
+2024-08-22 16:58:20,379 p=2010347 u=ktyler n=ansible | [WARNING]: Platform linux on host localhost is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-
+core/2.15/reference_appendices/interpreter_discovery.html for more information.
+
+2024-08-22 16:58:20,379 p=2010347 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 16:58:20,403 p=2010347 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 16:58:20,431 p=2010347 u=ktyler n=ansible | ok: [localhost] => {
+    "apt": "VARIABLE IS NOT DEFINED!"
+}
+2024-08-22 16:58:20,468 p=2010347 u=ktyler n=ansible | PLAY RECAP **********************************************************************************************************************************************************************************************************************************************
+2024-08-22 16:58:20,468 p=2010347 u=ktyler n=ansible | localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-08-22 16:59:13,938 p=2012686 u=ktyler n=ansible | Starting galaxy collection install process
+2024-08-22 16:59:13,952 p=2012686 u=ktyler n=ansible | Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+2024-08-22 16:59:14,518 p=2012688 u=ktyler n=ansible | PLAY [Set up local development environment] *************************************************************************************************************************************************************************************************************
+2024-08-22 16:59:14,531 p=2012688 u=ktyler n=ansible | TASK [Gathering Facts] **********************************************************************************************************************************************************************************************************************************
+2024-08-22 16:59:16,979 p=2012688 u=ktyler n=ansible | [WARNING]: Platform linux on host localhost is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-
+core/2.15/reference_appendices/interpreter_discovery.html for more information.
+
+2024-08-22 16:59:16,979 p=2012688 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 16:59:17,011 p=2012688 u=ktyler n=ansible | TASK [install_programs : include_vars] ******************************************************************************************************************************************************************************************************************
+2024-08-22 16:59:17,033 p=2012688 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 16:59:17,042 p=2012688 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 16:59:17,073 p=2012688 u=ktyler n=ansible | ok: [localhost] => {
+    "apt": [
+        "wget",
+        "curl"
+    ]
+}
+2024-08-22 16:59:17,111 p=2012688 u=ktyler n=ansible | PLAY RECAP **********************************************************************************************************************************************************************************************************************************************
+2024-08-22 16:59:17,112 p=2012688 u=ktyler n=ansible | localhost                  : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-08-22 16:59:42,204 p=2014027 u=ktyler n=ansible | Starting galaxy collection install process
+2024-08-22 16:59:42,218 p=2014027 u=ktyler n=ansible | Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+2024-08-22 16:59:42,831 p=2014049 u=ktyler n=ansible | PLAY [Set up local development environment] *************************************************************************************************************************************************************************************************************
+2024-08-22 16:59:42,842 p=2014049 u=ktyler n=ansible | TASK [Gathering Facts] **********************************************************************************************************************************************************************************************************************************
+2024-08-22 16:59:44,336 p=2014049 u=ktyler n=ansible | [WARNING]: Platform linux on host localhost is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-
+core/2.15/reference_appendices/interpreter_discovery.html for more information.
+
+2024-08-22 16:59:44,336 p=2014049 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 16:59:44,360 p=2014049 u=ktyler n=ansible | TASK [install_programs : include_vars] ******************************************************************************************************************************************************************************************************************
+2024-08-22 16:59:44,381 p=2014049 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 16:59:44,390 p=2014049 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 16:59:44,410 p=2014049 u=ktyler n=ansible | ok: [localhost] => {
+    "apt": [
+        "wget",
+        "curl"
+    ]
+}
+2024-08-22 16:59:44,454 p=2014049 u=ktyler n=ansible | PLAY RECAP **********************************************************************************************************************************************************************************************************************************************
+2024-08-22 16:59:44,454 p=2014049 u=ktyler n=ansible | localhost                  : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-08-22 17:06:56,211 p=2028465 u=ktyler n=ansible | Starting galaxy collection install process
+2024-08-22 17:06:56,225 p=2028465 u=ktyler n=ansible | Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+2024-08-22 17:06:56,738 p=2028480 u=ktyler n=ansible | ERROR! conflicting action statements: ansible.builtin.include_vars, file
+
+The error appears to be in '/home/ktyler/.local/share/chezmoi/ansible/roles/install_programs/tasks/main.yaml': line 1, column 3, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+
+- ansible.builtin.include_vars:
+  ^ here
+
+2024-08-22 17:07:18,067 p=2029380 u=ktyler n=ansible | Starting galaxy collection install process
+2024-08-22 17:07:18,081 p=2029380 u=ktyler n=ansible | Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+2024-08-22 17:07:18,653 p=2029419 u=ktyler n=ansible | PLAY [Set up local development environment] *************************************************************************************************************************************************************************************************************
+2024-08-22 17:07:18,664 p=2029419 u=ktyler n=ansible | TASK [Gathering Facts] **********************************************************************************************************************************************************************************************************************************
+2024-08-22 17:07:20,038 p=2029419 u=ktyler n=ansible | [WARNING]: Platform linux on host localhost is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-
+core/2.15/reference_appendices/interpreter_discovery.html for more information.
+
+2024-08-22 17:07:20,039 p=2029419 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:07:20,062 p=2029419 u=ktyler n=ansible | TASK [install_programs : ansible.builtin.include_vars] **************************************************************************************************************************************************************************************************
+2024-08-22 17:07:20,084 p=2029419 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:07:20,098 p=2029419 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:07:20,117 p=2029419 u=ktyler n=ansible | ok: [localhost] => {
+    "apt": [
+        "test"
+    ]
+}
+2024-08-22 17:07:20,127 p=2029419 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:07:20,150 p=2029419 u=ktyler n=ansible | ok: [localhost] => {
+    "Debian.apt": [
+        "wget",
+        "curl"
+    ]
+}
+2024-08-22 17:07:20,188 p=2029419 u=ktyler n=ansible | PLAY RECAP **********************************************************************************************************************************************************************************************************************************************
+2024-08-22 17:07:20,188 p=2029419 u=ktyler n=ansible | localhost                  : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-08-22 17:09:21,262 p=2033950 u=ktyler n=ansible | Starting galaxy collection install process
+2024-08-22 17:09:21,277 p=2033950 u=ktyler n=ansible | Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+2024-08-22 17:09:21,866 p=2033975 u=ktyler n=ansible | ERROR! couldn't resolve module/action 'combined_apt'. This often indicates a misspelling, missing collection, or incorrect module path.
+
+The error appears to be in '/home/ktyler/.local/share/chezmoi/ansible/roles/install_programs/tasks/main.yaml': line 13, column 3, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+
+- combined_apt: "{{ lookup('community.general.merge_variables', '^.apt$', initial_value=apt) }}"
+  ^ here
+We could be wrong, but this one looks like it might be an issue with
+missing quotes. Always quote template expression brackets when they
+start a value. For instance:
+
+    with_items:
+      - {{ foo }}
+
+Should be written as:
+
+    with_items:
+      - "{{ foo }}"
+
+2024-08-22 17:15:01,615 p=2045048 u=ktyler n=ansible | Starting galaxy collection install process
+2024-08-22 17:15:01,629 p=2045048 u=ktyler n=ansible | Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+2024-08-22 17:15:02,219 p=2045051 u=ktyler n=ansible | PLAY [Set up local development environment] *************************************************************************************************************************************************************************************************************
+2024-08-22 17:15:02,230 p=2045051 u=ktyler n=ansible | TASK [Gathering Facts] **********************************************************************************************************************************************************************************************************************************
+2024-08-22 17:15:03,845 p=2045051 u=ktyler n=ansible | [WARNING]: Platform linux on host localhost is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-
+core/2.15/reference_appendices/interpreter_discovery.html for more information.
+
+2024-08-22 17:15:03,846 p=2045051 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:15:03,868 p=2045051 u=ktyler n=ansible | TASK [install_programs : ansible.builtin.include_vars] **************************************************************************************************************************************************************************************************
+2024-08-22 17:15:03,889 p=2045051 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:15:03,898 p=2045051 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:15:03,926 p=2045051 u=ktyler n=ansible | ok: [localhost] => {
+    "apt": [
+        "test"
+    ]
+}
+2024-08-22 17:15:03,936 p=2045051 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:15:03,961 p=2045051 u=ktyler n=ansible | ok: [localhost] => {
+    "Debian.apt": [
+        "wget",
+        "curl"
+    ]
+}
+2024-08-22 17:15:03,971 p=2045051 u=ktyler n=ansible | TASK [install_programs : set_fact] **********************************************************************************************************************************************************************************************************************
+2024-08-22 17:15:04,008 p=2045051 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:15:04,017 p=2045051 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:15:04,037 p=2045051 u=ktyler n=ansible | ok: [localhost] => {
+    "combined_apt": [
+        "test"
+    ]
+}
+2024-08-22 17:15:04,076 p=2045051 u=ktyler n=ansible | PLAY RECAP **********************************************************************************************************************************************************************************************************************************************
+2024-08-22 17:15:04,076 p=2045051 u=ktyler n=ansible | localhost                  : ok=6    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-08-22 17:15:19,877 p=2046076 u=ktyler n=ansible | Starting galaxy collection install process
+2024-08-22 17:15:19,891 p=2046076 u=ktyler n=ansible | Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+2024-08-22 17:15:20,480 p=2046091 u=ktyler n=ansible | PLAY [Set up local development environment] *************************************************************************************************************************************************************************************************************
+2024-08-22 17:15:20,492 p=2046091 u=ktyler n=ansible | TASK [Gathering Facts] **********************************************************************************************************************************************************************************************************************************
+2024-08-22 17:15:21,983 p=2046091 u=ktyler n=ansible | [WARNING]: Platform linux on host localhost is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-
+core/2.15/reference_appendices/interpreter_discovery.html for more information.
+
+2024-08-22 17:15:21,983 p=2046091 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:15:22,007 p=2046091 u=ktyler n=ansible | TASK [install_programs : ansible.builtin.include_vars] **************************************************************************************************************************************************************************************************
+2024-08-22 17:15:22,029 p=2046091 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:15:22,039 p=2046091 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:15:22,059 p=2046091 u=ktyler n=ansible | ok: [localhost] => {
+    "apt": [
+        "test"
+    ]
+}
+2024-08-22 17:15:22,068 p=2046091 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:15:22,093 p=2046091 u=ktyler n=ansible | ok: [localhost] => {
+    "Debian.apt": [
+        "wget",
+        "curl"
+    ]
+}
+2024-08-22 17:15:22,102 p=2046091 u=ktyler n=ansible | TASK [install_programs : set_fact] **********************************************************************************************************************************************************************************************************************
+2024-08-22 17:15:22,138 p=2046091 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:15:22,147 p=2046091 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:15:22,170 p=2046091 u=ktyler n=ansible | ok: [localhost] => {
+    "combined_apt": [
+        "test",
+        "test"
+    ]
+}
+2024-08-22 17:15:22,207 p=2046091 u=ktyler n=ansible | PLAY RECAP **********************************************************************************************************************************************************************************************************************************************
+2024-08-22 17:15:22,207 p=2046091 u=ktyler n=ansible | localhost                  : ok=6    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-08-22 17:15:41,336 p=2047215 u=ktyler n=ansible | Starting galaxy collection install process
+2024-08-22 17:15:41,350 p=2047215 u=ktyler n=ansible | Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+2024-08-22 17:15:41,920 p=2047239 u=ktyler n=ansible | PLAY [Set up local development environment] *************************************************************************************************************************************************************************************************************
+2024-08-22 17:15:41,937 p=2047239 u=ktyler n=ansible | TASK [Gathering Facts] **********************************************************************************************************************************************************************************************************************************
+2024-08-22 17:15:43,354 p=2047239 u=ktyler n=ansible | [WARNING]: Platform linux on host localhost is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-
+core/2.15/reference_appendices/interpreter_discovery.html for more information.
+
+2024-08-22 17:15:43,354 p=2047239 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:15:43,378 p=2047239 u=ktyler n=ansible | TASK [install_programs : ansible.builtin.include_vars] **************************************************************************************************************************************************************************************************
+2024-08-22 17:15:43,405 p=2047239 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:15:43,414 p=2047239 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:15:43,440 p=2047239 u=ktyler n=ansible | ok: [localhost] => {
+    "apt": [
+        "test"
+    ]
+}
+2024-08-22 17:15:43,449 p=2047239 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:15:43,469 p=2047239 u=ktyler n=ansible | ok: [localhost] => {
+    "Debian.apt": [
+        "wget",
+        "curl"
+    ]
+}
+2024-08-22 17:15:43,478 p=2047239 u=ktyler n=ansible | TASK [install_programs : set_fact] **********************************************************************************************************************************************************************************************************************
+2024-08-22 17:15:43,518 p=2047239 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:15:43,526 p=2047239 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:15:43,548 p=2047239 u=ktyler n=ansible | ok: [localhost] => {
+    "combined_apt": [
+        "test"
+    ]
+}
+2024-08-22 17:15:43,588 p=2047239 u=ktyler n=ansible | PLAY RECAP **********************************************************************************************************************************************************************************************************************************************
+2024-08-22 17:15:43,588 p=2047239 u=ktyler n=ansible | localhost                  : ok=6    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-08-22 17:15:58,029 p=2048245 u=ktyler n=ansible | Starting galaxy collection install process
+2024-08-22 17:15:58,043 p=2048245 u=ktyler n=ansible | Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+2024-08-22 17:15:58,624 p=2048266 u=ktyler n=ansible | PLAY [Set up local development environment] *************************************************************************************************************************************************************************************************************
+2024-08-22 17:15:58,635 p=2048266 u=ktyler n=ansible | TASK [Gathering Facts] **********************************************************************************************************************************************************************************************************************************
+2024-08-22 17:16:00,036 p=2048266 u=ktyler n=ansible | [WARNING]: Platform linux on host localhost is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-
+core/2.15/reference_appendices/interpreter_discovery.html for more information.
+
+2024-08-22 17:16:00,036 p=2048266 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:16:00,059 p=2048266 u=ktyler n=ansible | TASK [install_programs : ansible.builtin.include_vars] **************************************************************************************************************************************************************************************************
+2024-08-22 17:16:00,083 p=2048266 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:16:00,091 p=2048266 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:16:00,113 p=2048266 u=ktyler n=ansible | ok: [localhost] => {
+    "apt": [
+        "test"
+    ]
+}
+2024-08-22 17:16:00,122 p=2048266 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:16:00,142 p=2048266 u=ktyler n=ansible | ok: [localhost] => {
+    "Debian.apt": [
+        "wget",
+        "curl"
+    ]
+}
+2024-08-22 17:16:00,151 p=2048266 u=ktyler n=ansible | TASK [install_programs : set_fact] **********************************************************************************************************************************************************************************************************************
+2024-08-22 17:16:00,190 p=2048266 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:16:00,201 p=2048266 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:16:00,225 p=2048266 u=ktyler n=ansible | ok: [localhost] => {
+    "combined_apt": [
+        "test"
+    ]
+}
+2024-08-22 17:16:00,265 p=2048266 u=ktyler n=ansible | PLAY RECAP **********************************************************************************************************************************************************************************************************************************************
+2024-08-22 17:16:00,265 p=2048266 u=ktyler n=ansible | localhost                  : ok=6    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-08-22 17:16:23,618 p=2049472 u=ktyler n=ansible | Starting galaxy collection install process
+2024-08-22 17:16:23,636 p=2049472 u=ktyler n=ansible | Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+2024-08-22 17:16:24,224 p=2049518 u=ktyler n=ansible | PLAY [Set up local development environment] *************************************************************************************************************************************************************************************************************
+2024-08-22 17:16:24,236 p=2049518 u=ktyler n=ansible | TASK [Gathering Facts] **********************************************************************************************************************************************************************************************************************************
+2024-08-22 17:16:25,633 p=2049518 u=ktyler n=ansible | [WARNING]: Platform linux on host localhost is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-
+core/2.15/reference_appendices/interpreter_discovery.html for more information.
+
+2024-08-22 17:16:25,633 p=2049518 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:16:25,656 p=2049518 u=ktyler n=ansible | TASK [install_programs : ansible.builtin.include_vars] **************************************************************************************************************************************************************************************************
+2024-08-22 17:16:25,690 p=2049518 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:16:25,699 p=2049518 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:16:25,721 p=2049518 u=ktyler n=ansible | ok: [localhost] => {
+    "apt": [
+        "test"
+    ]
+}
+2024-08-22 17:16:25,731 p=2049518 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:16:25,753 p=2049518 u=ktyler n=ansible | ok: [localhost] => {
+    "Debian.apt": [
+        "wget",
+        "curl"
+    ]
+}
+2024-08-22 17:16:25,762 p=2049518 u=ktyler n=ansible | TASK [install_programs : set_fact] **********************************************************************************************************************************************************************************************************************
+2024-08-22 17:16:25,798 p=2049518 u=ktyler n=ansible | fatal: [localhost]: FAILED! => {"msg": "An unhandled exception occurred while running the lookup plugin 'community.general.merge_variables'. Error was a <class 'ansible.errors.AnsibleError'>, original message: Unable to merge, not all variables are of the same type. Unable to merge, not all variables are of the same type"}
+2024-08-22 17:16:25,799 p=2049518 u=ktyler n=ansible | PLAY RECAP **********************************************************************************************************************************************************************************************************************************************
+2024-08-22 17:16:25,800 p=2049518 u=ktyler n=ansible | localhost                  : ok=4    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2024-08-22 17:16:41,456 p=2050527 u=ktyler n=ansible | Starting galaxy collection install process
+2024-08-22 17:16:41,470 p=2050527 u=ktyler n=ansible | Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+2024-08-22 17:16:42,058 p=2050529 u=ktyler n=ansible | PLAY [Set up local development environment] *************************************************************************************************************************************************************************************************************
+2024-08-22 17:16:42,069 p=2050529 u=ktyler n=ansible | TASK [Gathering Facts] **********************************************************************************************************************************************************************************************************************************
+2024-08-22 17:16:43,467 p=2050529 u=ktyler n=ansible | [WARNING]: Platform linux on host localhost is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-
+core/2.15/reference_appendices/interpreter_discovery.html for more information.
+
+2024-08-22 17:16:43,467 p=2050529 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:16:43,491 p=2050529 u=ktyler n=ansible | TASK [install_programs : ansible.builtin.include_vars] **************************************************************************************************************************************************************************************************
+2024-08-22 17:16:43,512 p=2050529 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:16:43,522 p=2050529 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:16:43,541 p=2050529 u=ktyler n=ansible | ok: [localhost] => {
+    "apt": [
+        "test"
+    ]
+}
+2024-08-22 17:16:43,552 p=2050529 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:16:43,573 p=2050529 u=ktyler n=ansible | ok: [localhost] => {
+    "Debian.apt": [
+        "wget",
+        "curl"
+    ]
+}
+2024-08-22 17:16:43,582 p=2050529 u=ktyler n=ansible | TASK [install_programs : set_fact] **********************************************************************************************************************************************************************************************************************
+2024-08-22 17:16:43,631 p=2050529 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:16:43,640 p=2050529 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:16:43,661 p=2050529 u=ktyler n=ansible | ok: [localhost] => {
+    "combined_apt": [
+        "test"
+    ]
+}
+2024-08-22 17:16:43,700 p=2050529 u=ktyler n=ansible | PLAY RECAP **********************************************************************************************************************************************************************************************************************************************
+2024-08-22 17:16:43,700 p=2050529 u=ktyler n=ansible | localhost                  : ok=6    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-08-22 17:17:00,331 p=2051586 u=ktyler n=ansible | Starting galaxy collection install process
+2024-08-22 17:17:00,345 p=2051586 u=ktyler n=ansible | Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+2024-08-22 17:17:00,908 p=2051613 u=ktyler n=ansible | PLAY [Set up local development environment] *************************************************************************************************************************************************************************************************************
+2024-08-22 17:17:00,920 p=2051613 u=ktyler n=ansible | TASK [Gathering Facts] **********************************************************************************************************************************************************************************************************************************
+2024-08-22 17:17:02,401 p=2051613 u=ktyler n=ansible | [WARNING]: Platform linux on host localhost is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-
+core/2.15/reference_appendices/interpreter_discovery.html for more information.
+
+2024-08-22 17:17:02,402 p=2051613 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:17:02,425 p=2051613 u=ktyler n=ansible | TASK [install_programs : ansible.builtin.include_vars] **************************************************************************************************************************************************************************************************
+2024-08-22 17:17:02,457 p=2051613 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:17:02,466 p=2051613 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:17:02,492 p=2051613 u=ktyler n=ansible | ok: [localhost] => {
+    "apt": [
+        "test"
+    ]
+}
+2024-08-22 17:17:02,501 p=2051613 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:17:02,524 p=2051613 u=ktyler n=ansible | ok: [localhost] => {
+    "Debian.apt": "{{Debian.apt}}"
+}
+2024-08-22 17:17:02,534 p=2051613 u=ktyler n=ansible | TASK [install_programs : set_fact] **********************************************************************************************************************************************************************************************************************
+2024-08-22 17:17:02,572 p=2051613 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:17:02,581 p=2051613 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:17:02,601 p=2051613 u=ktyler n=ansible | ok: [localhost] => {
+    "combined_apt": [
+        "test"
+    ]
+}
+2024-08-22 17:17:02,643 p=2051613 u=ktyler n=ansible | PLAY RECAP **********************************************************************************************************************************************************************************************************************************************
+2024-08-22 17:17:02,643 p=2051613 u=ktyler n=ansible | localhost                  : ok=6    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-08-22 17:18:09,751 p=2054274 u=ktyler n=ansible | Starting galaxy collection install process
+2024-08-22 17:18:09,765 p=2054274 u=ktyler n=ansible | Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+2024-08-22 17:18:10,309 p=2054336 u=ktyler n=ansible | ERROR! We were unable to read either as JSON nor YAML, these are the errors we got from each:
+JSON: Expecting value: line 1 column 1 (char 0)
+
+Syntax Error while loading YAML.
+  did not find expected key
+
+The error appears to be in '/home/ktyler/.local/share/chezmoi/ansible/roles/install_programs/tasks/main.yaml': line 11, column 32, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+  debug:
+    var: {{ ansible_os_family}}.apt
+                               ^ here
+We could be wrong, but this one looks like it might be an issue with
+missing quotes. Always quote template expression brackets when they
+start a value. For instance:
+
+    with_items:
+      - {{ foo }}
+
+Should be written as:
+
+    with_items:
+      - "{{ foo }}"
+
+2024-08-22 17:20:04,534 p=2058234 u=ktyler n=ansible | Starting galaxy collection install process
+2024-08-22 17:20:04,548 p=2058234 u=ktyler n=ansible | Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+2024-08-22 17:20:05,121 p=2058239 u=ktyler n=ansible | PLAY [Set up local development environment] *************************************************************************************************************************************************************************************************************
+2024-08-22 17:20:05,133 p=2058239 u=ktyler n=ansible | TASK [Gathering Facts] **********************************************************************************************************************************************************************************************************************************
+2024-08-22 17:20:06,551 p=2058239 u=ktyler n=ansible | [WARNING]: Platform linux on host localhost is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-
+core/2.15/reference_appendices/interpreter_discovery.html for more information.
+
+2024-08-22 17:20:06,552 p=2058239 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:20:06,575 p=2058239 u=ktyler n=ansible | TASK [install_programs : ansible.builtin.include_vars] **************************************************************************************************************************************************************************************************
+2024-08-22 17:20:06,597 p=2058239 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:20:06,608 p=2058239 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:20:06,628 p=2058239 u=ktyler n=ansible | ok: [localhost] => {
+    "apt": [
+        "test"
+    ]
+}
+2024-08-22 17:20:06,637 p=2058239 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:20:06,661 p=2058239 u=ktyler n=ansible | ok: [localhost] => {
+    "Debian.apt": "{{Debian.apt}}"
+}
+2024-08-22 17:20:06,670 p=2058239 u=ktyler n=ansible | TASK [install_programs : set_fact] **********************************************************************************************************************************************************************************************************************
+2024-08-22 17:20:06,706 p=2058239 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:20:06,715 p=2058239 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:20:06,742 p=2058239 u=ktyler n=ansible | ok: [localhost] => {
+    "combined_apt": [
+        "test"
+    ]
+}
+2024-08-22 17:20:06,782 p=2058239 u=ktyler n=ansible | PLAY RECAP **********************************************************************************************************************************************************************************************************************************************
+2024-08-22 17:20:06,782 p=2058239 u=ktyler n=ansible | localhost                  : ok=6    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-08-22 17:25:15,934 p=2068737 u=ktyler n=ansible | Starting galaxy collection install process
+2024-08-22 17:25:15,948 p=2068737 u=ktyler n=ansible | Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+2024-08-22 17:25:16,514 p=2068751 u=ktyler n=ansible | PLAY [Set up local development environment] *************************************************************************************************************************************************************************************************************
+2024-08-22 17:25:16,525 p=2068751 u=ktyler n=ansible | TASK [Gathering Facts] **********************************************************************************************************************************************************************************************************************************
+2024-08-22 17:25:17,984 p=2068751 u=ktyler n=ansible | [WARNING]: Platform linux on host localhost is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-
+core/2.15/reference_appendices/interpreter_discovery.html for more information.
+
+2024-08-22 17:25:17,984 p=2068751 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:25:18,011 p=2068751 u=ktyler n=ansible | TASK [install_programs : ansible.builtin.include_vars] **************************************************************************************************************************************************************************************************
+2024-08-22 17:25:18,039 p=2068751 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:25:18,049 p=2068751 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:25:18,075 p=2068751 u=ktyler n=ansible | ok: [localhost] => {
+    "apt": [
+        "test"
+    ]
+}
+2024-08-22 17:25:18,088 p=2068751 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:25:18,110 p=2068751 u=ktyler n=ansible | ok: [localhost] => {
+    "ansible_os_family.apt": "VARIABLE IS NOT DEFINED!"
+}
+2024-08-22 17:25:18,123 p=2068751 u=ktyler n=ansible | TASK [install_programs : set_fact] **********************************************************************************************************************************************************************************************************************
+2024-08-22 17:25:18,168 p=2068751 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:25:18,178 p=2068751 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:25:18,199 p=2068751 u=ktyler n=ansible | ok: [localhost] => {
+    "combined_apt": [
+        "test"
+    ]
+}
+2024-08-22 17:25:18,237 p=2068751 u=ktyler n=ansible | PLAY RECAP **********************************************************************************************************************************************************************************************************************************************
+2024-08-22 17:25:18,237 p=2068751 u=ktyler n=ansible | localhost                  : ok=6    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-08-22 17:25:41,568 p=2069798 u=ktyler n=ansible | Starting galaxy collection install process
+2024-08-22 17:25:41,582 p=2069798 u=ktyler n=ansible | Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+2024-08-22 17:25:42,139 p=2069990 u=ktyler n=ansible | PLAY [Set up local development environment] *************************************************************************************************************************************************************************************************************
+2024-08-22 17:25:42,152 p=2069990 u=ktyler n=ansible | TASK [Gathering Facts] **********************************************************************************************************************************************************************************************************************************
+2024-08-22 17:25:43,535 p=2069990 u=ktyler n=ansible | [WARNING]: Platform linux on host localhost is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-
+core/2.15/reference_appendices/interpreter_discovery.html for more information.
+
+2024-08-22 17:25:43,536 p=2069990 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:25:43,560 p=2069990 u=ktyler n=ansible | TASK [install_programs : ansible.builtin.include_vars] **************************************************************************************************************************************************************************************************
+2024-08-22 17:25:43,582 p=2069990 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:25:43,592 p=2069990 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:25:43,615 p=2069990 u=ktyler n=ansible | ok: [localhost] => {
+    "apt": [
+        "test"
+    ]
+}
+2024-08-22 17:25:43,625 p=2069990 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:25:43,646 p=2069990 u=ktyler n=ansible | ok: [localhost] => {
+    "OSvars.apt": [
+        "wget",
+        "curl"
+    ]
+}
+2024-08-22 17:25:43,655 p=2069990 u=ktyler n=ansible | TASK [install_programs : set_fact] **********************************************************************************************************************************************************************************************************************
+2024-08-22 17:25:43,694 p=2069990 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:25:43,702 p=2069990 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:25:43,721 p=2069990 u=ktyler n=ansible | ok: [localhost] => {
+    "combined_apt": [
+        "test"
+    ]
+}
+2024-08-22 17:25:43,764 p=2069990 u=ktyler n=ansible | PLAY RECAP **********************************************************************************************************************************************************************************************************************************************
+2024-08-22 17:25:43,764 p=2069990 u=ktyler n=ansible | localhost                  : ok=6    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-08-22 17:26:00,125 p=2071055 u=ktyler n=ansible | Starting galaxy collection install process
+2024-08-22 17:26:00,139 p=2071055 u=ktyler n=ansible | Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+2024-08-22 17:26:00,697 p=2071076 u=ktyler n=ansible | PLAY [Set up local development environment] *************************************************************************************************************************************************************************************************************
+2024-08-22 17:26:00,710 p=2071076 u=ktyler n=ansible | TASK [Gathering Facts] **********************************************************************************************************************************************************************************************************************************
+2024-08-22 17:26:02,086 p=2071076 u=ktyler n=ansible | [WARNING]: Platform linux on host localhost is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-
+core/2.15/reference_appendices/interpreter_discovery.html for more information.
+
+2024-08-22 17:26:02,086 p=2071076 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:26:02,110 p=2071076 u=ktyler n=ansible | TASK [install_programs : ansible.builtin.include_vars] **************************************************************************************************************************************************************************************************
+2024-08-22 17:26:02,139 p=2071076 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:26:02,152 p=2071076 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:26:02,174 p=2071076 u=ktyler n=ansible | ok: [localhost] => {
+    "apt": [
+        "test"
+    ]
+}
+2024-08-22 17:26:02,183 p=2071076 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:26:02,204 p=2071076 u=ktyler n=ansible | ok: [localhost] => {
+    "OSvars.apt": [
+        "wget",
+        "curl"
+    ]
+}
+2024-08-22 17:26:02,213 p=2071076 u=ktyler n=ansible | TASK [install_programs : set_fact] **********************************************************************************************************************************************************************************************************************
+2024-08-22 17:26:02,248 p=2071076 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:26:02,258 p=2071076 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:26:02,279 p=2071076 u=ktyler n=ansible | ok: [localhost] => {
+    "combined_apt": [
+        "test"
+    ]
+}
+2024-08-22 17:26:02,318 p=2071076 u=ktyler n=ansible | PLAY RECAP **********************************************************************************************************************************************************************************************************************************************
+2024-08-22 17:26:02,318 p=2071076 u=ktyler n=ansible | localhost                  : ok=6    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-08-22 17:26:06,669 p=2071791 u=ktyler n=ansible | Starting galaxy collection install process
+2024-08-22 17:26:06,683 p=2071791 u=ktyler n=ansible | Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+2024-08-22 17:26:07,260 p=2071804 u=ktyler n=ansible | PLAY [Set up local development environment] *************************************************************************************************************************************************************************************************************
+2024-08-22 17:26:07,273 p=2071804 u=ktyler n=ansible | TASK [Gathering Facts] **********************************************************************************************************************************************************************************************************************************
+2024-08-22 17:26:08,698 p=2071804 u=ktyler n=ansible | [WARNING]: Platform linux on host localhost is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-
+core/2.15/reference_appendices/interpreter_discovery.html for more information.
+
+2024-08-22 17:26:08,698 p=2071804 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:26:08,722 p=2071804 u=ktyler n=ansible | TASK [install_programs : ansible.builtin.include_vars] **************************************************************************************************************************************************************************************************
+2024-08-22 17:26:08,742 p=2071804 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:26:08,752 p=2071804 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:26:08,770 p=2071804 u=ktyler n=ansible | ok: [localhost] => {
+    "apt": [
+        "test"
+    ]
+}
+2024-08-22 17:26:08,779 p=2071804 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:26:08,800 p=2071804 u=ktyler n=ansible | ok: [localhost] => {
+    "OSvars.apt": [
+        "wget",
+        "curl"
+    ]
+}
+2024-08-22 17:26:08,810 p=2071804 u=ktyler n=ansible | TASK [install_programs : set_fact] **********************************************************************************************************************************************************************************************************************
+2024-08-22 17:26:08,848 p=2071804 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:26:08,857 p=2071804 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:26:08,879 p=2071804 u=ktyler n=ansible | ok: [localhost] => {
+    "combined_apt": [
+        "test"
+    ]
+}
+2024-08-22 17:26:08,918 p=2071804 u=ktyler n=ansible | PLAY RECAP **********************************************************************************************************************************************************************************************************************************************
+2024-08-22 17:26:08,919 p=2071804 u=ktyler n=ansible | localhost                  : ok=6    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-08-22 17:26:17,676 p=2072549 u=ktyler n=ansible | Starting galaxy collection install process
+2024-08-22 17:26:17,690 p=2072549 u=ktyler n=ansible | Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+2024-08-22 17:26:18,285 p=2072553 u=ktyler n=ansible | PLAY [Set up local development environment] *************************************************************************************************************************************************************************************************************
+2024-08-22 17:26:18,296 p=2072553 u=ktyler n=ansible | TASK [Gathering Facts] **********************************************************************************************************************************************************************************************************************************
+2024-08-22 17:26:19,876 p=2072553 u=ktyler n=ansible | [WARNING]: Platform linux on host localhost is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-
+core/2.15/reference_appendices/interpreter_discovery.html for more information.
+
+2024-08-22 17:26:19,877 p=2072553 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:26:19,900 p=2072553 u=ktyler n=ansible | TASK [install_programs : ansible.builtin.include_vars] **************************************************************************************************************************************************************************************************
+2024-08-22 17:26:19,921 p=2072553 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:26:19,932 p=2072553 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:26:19,965 p=2072553 u=ktyler n=ansible | ok: [localhost] => {
+    "apt": [
+        "test"
+    ]
+}
+2024-08-22 17:26:19,973 p=2072553 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:26:19,999 p=2072553 u=ktyler n=ansible | ok: [localhost] => {
+    "OSvars.apt": [
+        "wget",
+        "curl"
+    ]
+}
+2024-08-22 17:26:20,008 p=2072553 u=ktyler n=ansible | TASK [install_programs : set_fact] **********************************************************************************************************************************************************************************************************************
+2024-08-22 17:26:20,047 p=2072553 u=ktyler n=ansible | ok: [localhost]
+2024-08-22 17:26:20,056 p=2072553 u=ktyler n=ansible | TASK [install_programs : debug] *************************************************************************************************************************************************************************************************************************
+2024-08-22 17:26:20,080 p=2072553 u=ktyler n=ansible | ok: [localhost] => {
+    "combined_apt": [
+        "test"
+    ]
+}
+2024-08-22 17:26:20,117 p=2072553 u=ktyler n=ansible | PLAY RECAP **********************************************************************************************************************************************************************************************************************************************
+2024-08-22 17:26:20,117 p=2072553 u=ktyler n=ansible | localhost                  : ok=6    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
