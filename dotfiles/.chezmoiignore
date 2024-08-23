@@ -27,3 +27,6 @@ Library/
 
 # Ignore .TODO files in the dotfiles directory
 .TODO
+
+# Allows encryption on first run
+key.txt.age
