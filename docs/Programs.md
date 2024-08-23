@@ -20,17 +20,19 @@
 | build-essential            | apt        | N/A        |
 | git                        | apt        | homebrew?  |
 | wmctrl                     | apt        | N/A        |
-| ansible                    | TODO       | TODO       |
 | zygote                     | czExternal | czExternal |
 | asdf                       | czExternal | czExternal |
 | kmonad                     | gh-r       | gh-r       |
 | font-fira-code-nerd-font   | gh-r       | homebrew   |
 | watchman                   | homebrew   | homebrew   |
-| zsh                        | TODO       | TODO       |
 
 #### Programs To Add:
 - topgrade
-- 
+- kubecolor
+- zsh
+- ansible
+- eza
+- bat
 
 ### ASDF
 
