@@ -25,9 +25,18 @@ Description:
 # ZSH Configuration
 # -----------------------------------------------------------
 
+ZSHENV=${ZSHENV:-$ZDOTDIR/.zshenv}
 ZOPTSFILE=${ZOPTSFILE:-$ZDOTDIR/.zopts}
 ZSTYLESFILE=${ZSTYLESFILE:-$ZDOTDIR/.zstyles}
 ZFUNCDIR=${ZFUNCDIR:-$ZDOTDIR/functions}
+
+# -----------------------------------------------------------
+# Load ZSH Configuration
+# -----------------------------------------------------------
+
+# Load environment variables
+[[ -e ${ZSHENV} ]] && \
+  source ${ZSHENV}
 
 # # Load options and styles
 [[ -e ${ZOPTSFILE} ]] && \
@@ -61,9 +70,6 @@ func akeyval() {
 # Plugin Configuration
 # -----------------------------------------------------------
 
-# Zidote cache directory
-# export ZIDOTE_HOME=${ZIDOTE_HOME:-$XDG_CACHE_HOME/zidote}
-
 # powerlevel10k theme configuration
 POWERLEVEL9K_CONFIG_FILE=${POWERLEVEL9K_CONFIG_FILE:-$XDG_CONFIG_HOME/powerlevel10k/.p10k.zsh}
 [[ -e $POWERLEVEL9K_CONFIG_FILE ]] && \
@@ -73,7 +79,7 @@ POWERLEVEL9K_CONFIG_FILE=${POWERLEVEL9K_CONFIG_FILE:-$XDG_CONFIG_HOME/powerlevel
 autoload -Uz compinit && compinit -C
 
 # -----------------------------------------------------------
-# antidote
+# antidote (for now)
 # -----------------------------------------------------------
 
 export ANTIDOTE_HOME=${ZDOTDIR}/.antidote
@@ -91,5 +97,6 @@ export ANTIDOTE_HOME=${ZDOTDIR}/.antidote
 # -----------------------------------------------------------
 # Finalize
 # -----------------------------------------------------------
-# I shouldn't need this here, but I do
+
+# TODO: Remove this
 compinit
