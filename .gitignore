@@ -913,9 +913,10 @@ cython_debug/
 ##                                              ##
 ##################################################
 
-trunk/*
-!trunk/config/*
-!trunk/trunk.yaml
+.trunk/
+.trunk/plugins/
+!.trunk/config/
+!.trunk/trunk.yaml
 
 ##################################################
 ##                                              ##
