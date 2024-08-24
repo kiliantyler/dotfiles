@@ -16,6 +16,9 @@ includes:
   ansible:
     taskfile: ".taskfiles/ansible/Taskfile.yaml"
     aliases: [a]
+  docusaurus:
+    taskfile: ".taskfiles/docs/Taskfile.yaml"
+    aliases: [d, docs]
 
 tasks:
   default:

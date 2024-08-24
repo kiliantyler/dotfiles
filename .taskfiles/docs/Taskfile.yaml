@@ -1,0 +1,11 @@
+version: "3"
+
+vars:
+  DocsDir: "/docs"
+
+tasks:
+  serve:
+    desc: "Start the Docusaurus development server"
+    cmds:
+    - npm run start
+    dir: "{{.DocsDir}}"
