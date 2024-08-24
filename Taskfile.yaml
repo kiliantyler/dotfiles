@@ -1,8 +1,10 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: "3"
 
 vars:
   PROJECT_DIR:
     sh: git rev-parse --show-toplevel
+  TASKFILE_DIR: "{{.ROOT_DIR}}/.taskfiles"
 
 dotenv: [.config.env]
 
@@ -11,7 +13,12 @@ env:
   VIRTUAL_ENV: "{{.ROOT_DIR}}/.venv"
 
 includes:
-  precommit: .taskfiles/PrecommitTasks.yaml
+  ansible:
+    taskfile: ".taskfiles/ansible/Taskfile.yaml"
+    aliases: [a]
+  docusaurus:
+    taskfile: ".taskfiles/docs/Taskfile.yaml"
+    aliases: [d, docs]
 
 tasks:
   default:

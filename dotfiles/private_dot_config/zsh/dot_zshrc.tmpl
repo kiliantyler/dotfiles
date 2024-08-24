@@ -1,0 +1,102 @@
+#!/usr/bin/env zsh
+# -*- mode: zsh; sh-indentation: 2; indent-tabs-mode: nil; sh-basic-offset: 2; -*-
+# vim: ft=zsh sw=2 ts=2 et
+{{- /*
+                        $$\
+                        $$ |
+    $$$$$$$$\  $$$$$$$\ $$$$$$$\   $$$$$$\   $$$$$$$\
+    \____$$  |$$  _____|$$  __$$\ $$  __$$\ $$  _____|
+      $$$$ _/ \$$$$$$\  $$ |  $$ |$$ |  \__|$$ /
+     $$  _/    \____$$\ $$ |  $$ |$$ |      $$ |
+$$\ $$$$$$$$\ $$$$$$$  |$$ |  $$ |$$ |      \$$$$$$$\
+\__|\________|\_______/ \__|  \__|\__|       \_______|
+
+.zshrc - Interactive configuration for the Z-Shell
+Scope: Interactive, login shells
+Location: $ZDOTDIR/.zshrc
+Reference: https://zsh.sourceforge.io/Doc/Release/Files.html#Startup_002fShutdown-Files
+Description:
+>  Handles Zsh configuration, options, styles, and functions.
+>  This file is loaded in all interactive shells. If the shell is also a login
+>  shell, this file is loaded *after* zprofile.
+*/}}
+
+# -----------------------------------------------------------
+# ZSH Configuration
+# -----------------------------------------------------------
+
+ZSHENV=${ZSHENV:-$ZDOTDIR/.zshenv}
+ZOPTSFILE=${ZOPTSFILE:-$ZDOTDIR/.zopts}
+ZSTYLESFILE=${ZSTYLESFILE:-$ZDOTDIR/.zstyles}
+ZFUNCDIR=${ZFUNCDIR:-$ZDOTDIR/functions}
+
+# -----------------------------------------------------------
+# Load ZSH Configuration
+# -----------------------------------------------------------
+
+# Load environment variables
+[[ -e ${ZSHENV} ]] && \
+  source ${ZSHENV}
+
+# # Load options and styles
+[[ -e ${ZOPTSFILE} ]] && \
+  source ${ZOPTSFILE}
+
+[[ -r "${XDG_CACHE_HOME}/p10k-instant-prompt-${(%):-%n}.zsh" ]] && \
+  source "${XDG_CACHE_HOME}/p10k-instant-prompt-${(%):-%n}.zsh"
+
+# Load functions
+fpath=($ZFUNCDIR $fpath)
+autoload -Uz $fpath[1]/*(.:t)
+
+# TODO: Remove this
+alias cz="chezmoi"
+alias path='echo -e ${PATH//:/\\n}'
+func akey() {
+  printf '%s\n' ${(@kPi)1}
+}
+func akeyval() {
+  local combined k v sorted
+  combined=()
+  for k v ("${(@kvPq)1}") combined+=("${1}[${k}]= ${v}")
+  sorted=(${${(@On)combined}#*$'\0'})
+  printf '%s\n' ${sorted}
+}
+
+[[ -e ${ZSTYLESFILE} ]] && \
+  source ${ZSTYLESFILE}
+
+# -----------------------------------------------------------
+# Plugin Configuration
+# -----------------------------------------------------------
+
+# powerlevel10k theme configuration
+POWERLEVEL9K_CONFIG_FILE=${POWERLEVEL9K_CONFIG_FILE:-$XDG_CONFIG_HOME/powerlevel10k/.p10k.zsh}
+[[ -e $POWERLEVEL9K_CONFIG_FILE ]] && \
+  source $POWERLEVEL9K_CONFIG_FILE
+
+# TODO: there has to be a better way
+autoload -Uz compinit && compinit -C
+
+# -----------------------------------------------------------
+# antidote (for now)
+# -----------------------------------------------------------
+
+export ANTIDOTE_HOME=${ZDOTDIR}/.antidote
+
+[[ -d ${ANTIDOTE_HOME} ]] || \
+  git clone --depth=1 https://github.com/mattmc3/antidote.git ${ANTIDOTE_HOME}
+
+[[ -f ${ANTIDOTE_HOME}/antidote.zsh ]] && \
+  source ${ANTIDOTE_HOME}/antidote.zsh
+
+( command -v antidote &>/dev/null  ) && \
+  antidote load
+
+
+# -----------------------------------------------------------
+# Finalize
+# -----------------------------------------------------------
+
+# TODO: Remove this
+compinit

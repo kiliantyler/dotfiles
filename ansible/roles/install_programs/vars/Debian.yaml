@@ -1,0 +1,3 @@
+apt:
+- wget
+- curl

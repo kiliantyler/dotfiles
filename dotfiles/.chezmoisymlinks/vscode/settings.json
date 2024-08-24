@@ -1,0 +1,232 @@
+{
+	"trunk.autoInit": false,
+	"editor.accessibilitySupport": "off",
+	"editor.detectIndentation": false,
+	"editor.fontFamily": "FiraCode Nerd Font",
+	"editor.minimap.enabled": false,
+	"editor.tabSize": 2,
+	"yaml.schemaStore.enable": true,
+	"editor.defaultFormatter": "trunk.io",
+	"editor.bracketPairColorization.enabled": true,
+	"editor.guides.bracketPairs": true,
+	"editor.guides.bracketPairsHorizontal": true,
+	"editor.guides.highlightActiveBracketPair": true,
+	"editor.hover.delay": 1500,
+	"editor.stickyScroll.enabled": false,
+	"editor.rulers": [
+	  120
+	],
+	"explorer.autoReveal": false,
+	"go.toolsManagement.autoUpdate": true,
+	"security.workspace.trust.untrustedFiles": "open",
+	"terminal.integrated.allowMnemonics": true,
+	"terminal.integrated.fontFamily": "FiraCode Nerd Font Mono",
+	"vs-kubernetes": {
+		"vs-kubernetes.knownKubeconfigs": [
+			"~/.kube/config"
+		],
+		"vs-kubernetes.kubeconfig": "~/.kube/config",
+		"vscode-kubernetes.helm-path-mac": "~/.vs-kubernetes/tools/helm/darwin-arm64/helm",
+		"vscode-kubernetes.minikube-path-mac": "~/.vs-kubernetes/tools/minikube/darwin-arm64/minikube",
+		"vs-kubernetes.crd-code-completion": "enabled"
+	},
+	"window.autoDetectColorScheme": true,
+	"workbench.preferredLightColorTheme": "MacOS Modern Light - Ventura Xcode",
+	"workbench.preferredDarkColorTheme": "Dracula Pro (Van Helsing)",
+	"workbench.iconTheme": "material-icon-theme",
+	"files.autoSave": "onFocusChange",
+	"editor.fontSize": 15,
+	"workbench.colorCustomizations": {
+		"terminal.foreground": "#f8f8f2",
+		"terminal.background": "#212121",
+		"terminal.ansiBlack": "#21222c",
+		"terminal.ansiBlue": "#82aaff",
+		"terminal.ansiCyan": "#8be9fd",
+		"terminal.ansiGreen": "#50fa7b",
+		"terminal.ansiMagenta": "#c792ea",
+		"terminal.ansiRed": "#ff5555",
+		"terminal.ansiWhite": "#f8f8f2",
+		"terminal.ansiYellow": "#ffcb6b",
+		"terminal.ansiBrightBlack": "#545454",
+		"terminal.ansiBrightBlue": "#d6acff",
+		"terminal.ansiBrightCyan": "#a4ffff",
+		"terminal.ansiBrightGreen": "#69ff94",
+		"terminal.ansiBrightMagenta": "#ff92df",
+		"terminal.ansiBrightRed": "#ff6e6e",
+		"terminal.ansiBrightWhite": "#f8f8f2",
+		"terminal.ansiBrightYellow": "#ffcb6b",
+		"terminal.selectionBackground": "#f8f8f2",
+		"terminalCursor.foreground": "#eceff4"
+	},
+	"html.autoCreateQuotes": false,
+	"editor.inlineSuggest.enabled": true,
+	"redhat.telemetry.enabled": false,
+	"files.eol": "\n",
+	"terminal.external.windowsExec": "",
+	"terminal.integrated.cursorStyle": "line",
+	"terminal.integrated.cursorStyleInactive": "line",
+	"terminal.integrated.defaultProfile.windows": "Ubuntu-22.04 (WSL)",
+	"terminal.external.osxExec": "",
+	"workbench.sideBar.location": "right",
+	"workbench.startupEditor": "none",
+	"files.associations": {
+		"*.yaml": "yaml",
+		"*.gotmpl": "gotemplate",
+		"*.tmpl": "gotemplate",
+		".chezmoi.yaml.tmpl": "goyaml",
+    "*.TODO": "markdown"
+	},
+	"1password.editor.suggestStorage": false,
+	"editor.inlineSuggest.suppressSuggestions": true,
+	"editor.formatOnSave": true,
+	"cue.toolsPath": "/opt/homebrew/bin/",
+	"[cue]": {
+		"editor.defaultFormatter": "asdine.cue" // TODO: Can trunk manage this?
+	},
+	"workbench.productIconTheme": "macos-modern",
+	"material-icon-theme.folders.theme": "specific",
+	"workbench.colorTheme": "Dracula Pro (Van Helsing)",
+	"material-icon-theme.folders.color": "#42a5f5",
+	"git.confirmSync": false,
+	"terminal.integrated.defaultLocation": "editor",
+	"terminal.integrated.enablePersistentSessions": false,
+	"terminal.integrated.profiles.osx": {
+		"zsh": {
+			"path": "zsh",
+			"args": [
+				"-l"
+			]
+		}
+	},
+	"application.shellEnvironmentResolutionTimeout": 30,
+	"terminal.integrated.env.osx": {
+		"CW_NEW_SESSION": "1",
+		"FIG_NEW_SESSION": "1",
+		"Q_NEW_SESSION": "1"
+	},
+	"explorer.compactFolders": false,
+	"explorer.incrementalNaming": "smart",
+	"javascript.updateImportsOnFileMove.enabled": "never",
+	"git.autofetch": true,
+	"gitlens.graph.layout": "editor",
+	"files.exclude": {
+    "**/.trunk/*actions/": true,
+    "**/.trunk/*logs/": true,
+    "**/.trunk/*notifications/": true,
+    "**/.trunk/*out/": true,
+    "**/.trunk/*plugins/": true
+  },
+	"files.watcherExclude": {
+    "**/.trunk/*actions/": true,
+    "**/.trunk/*logs/": true,
+    "**/.trunk/*notifications/": true,
+    "**/.trunk/*out/": true,
+    "**/.trunk/*plugins/": true
+  },
+	"github.copilot.editor.enableAutoCompletions": true,
+	"trunk.showPreexistingIssues": true,
+	"svg.preview.mode": "svg",
+	"material-icon-theme.folders.associations": {
+		".trunk": "../../../../icons/folder-trunk"
+	},
+	"material-icon-theme.files.associations": {
+    "*.zsh": "../../icons/zsh",
+    "*.zsh.tmpl": "../../icons/zsh",
+    "README.md": "../../icons/book",
+		"trunk.yaml": "../../icons/trunk",
+		".tool-versions": "../../icons/tool",
+		"dot_tool-versions": "../../icons/tool",
+		// can't use globs in this setting
+		"dot_zopts.tmpl": "../../icons/zsh",
+		"dot_zshrc.tmpl": "../../icons/zsh",
+		"dot_zshenv.tmpl": "../../icons/zsh",
+		"dot_zprofile.tmpl": "../../icons/zsh",
+		"dot_zlogin.tmpl": "../../icons/zsh",
+		"dot_zlogout.tmpl": "../../icons/zsh",
+		"dot_zplugins.tmpl": "../../icons/zsh",
+		"dot_zstyles.tmpl": "../../icons/zsh",
+    "dot_zkeybinds.tmpl": "../../icons/zsh",
+	},
+	"typescript.updateImportsOnFileMove.enabled": "always",
+	"update.mode": "none",
+	// APC
+	"apc.statusBar": {
+		"height": 32
+	},
+  "apc.listRow" : {
+    "height": 32
+  },
+	"apc.electron": {
+		"titleBarStyle": "hidden",
+		"backgroundColor": "#00000000",
+		"transparent": true,
+		"vibrancy": "sidebar"
+	},
+	"apc.header": {
+		"height": 24
+	},
+	"apc.sidebar.titlebar": {
+		"height": 24,
+		"fontSize": 12
+	},
+	"apc.activityBar": {
+		"size": 40,
+		"itemSize": 36,
+		"itemMargin": 8,
+		"position": "bottom",
+		"hideSettings": true
+	},
+	"apc.stylesheet": {
+    // This is to make the sidebar titlebar more compact
+		".custom-sidebar-titlebar .sidebar .composite.title .title-label": "visibility: hidden;",
+		".custom-sidebar-titlebar .sidebar .composite.title .title-actions": "padding-left: -100px; padding-top: 2px;",
+		".monaco-workbench .part.statusbar>.items-container>.statusbar-item.left.first-visible-item": "padding-left: 0;",
+    // This is to make the scrollbar more rounded
+		"div.invisible.scrollbar.vertical.fade .slider": "border-radius: 10px !important;",
+		"div.visible.scrollbar.vertical .slider": "border-radius: 10px !important;",
+		"div.invisible.scrollbar.horizontal.fade .slider": "border-radius: 10px !important;",
+		"div.visible.scrollbar.horizontal .slider": "border-radius: 10px !important;",
+    // This is to make the cursor more visible
+		".monaco-editor .cursors-layer.cursor-block-style .cursor": "transform: translateX(-1px); width: 9px !important; color: transparent; border-width: 1px; border-color: #ffffff8b; border-style: solid; border-radius: 2px; background: #ffffff4b",
+		// Breadcrumbs at the top of the editor
+    ".breadcrumbs-control": "height: 18px",
+		".monaco-breadcrumbs": "font-size: 11px; transform: translateY(0px);",
+    // This allows the sidebar icons to be larger
+    ".sidebar .monaco-icon-label:before": "background-size: 28px; height: 25px; width: 30px; padding: 4px;",
+    },
+	"window.titleBarStyle": "native",
+	"window.customTitleBarVisibility": "never",
+  "workbench.statusBar.visible": true,
+  "editor.cursorBlinking": "smooth",
+  "editor.autoClosingBrackets": "beforeWhitespace",
+  "editor.autoClosingComments": "beforeWhitespace",
+  "editor.autoClosingQuotes": "beforeWhitespace",
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit"
+  },
+  "editor.codeLensFontFamily": "FiraCode Nerd Font",
+  "editor.colorDecoratorsActivatedOn": "click",
+  "editor.fontLigatures": true,
+  "editor.formatOnPaste": true,
+  "todo-tree.general.tags": [
+    "BUG",
+    "HACK",
+    "FIXME",
+    "TODO:",
+    "XXX",
+    "[ ]",
+    "TODO"
+  ],
+  "todo-tree.general.periodicRefreshInterval": 2,
+  "todohighlight.isEnable": false,
+  "todo-tree.tree.showCountsInTree": true,
+  "todo-tree.general.showIconsInsteadOfTagsInStatusBar": true,
+  "todo-tree.general.showActivityBarBadge": true,
+  "todo-tree.filtering.includeHiddenFiles": true,
+  "todo-tree.tree.labelFormat": "${after}",
+  "trunk.addToolsToPath": true,
+  "trunk.inlineDecoratorsForAllExtensions": true,
+  "trunk.repoScanViewEnabled": true,
+  "trunk.repoScanViewVisible": true,
+  "git.suggestSmartCommit": false
+}

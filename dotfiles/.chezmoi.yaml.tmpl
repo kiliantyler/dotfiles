@@ -1,0 +1,104 @@
+cacheDir: ~/.cache/chezmoi
+color: auto
+destDir: ~
+encryption: age
+env: {}
+format: yaml
+mode: file
+pager: $PAGER # TODO: Fix pager
+persistentState: ~/.config/chezmoi/chezmoistate.boltdb
+progress: true
+scriptEnv: {}
+scriptTempDir: ""
+sourceDir: ~/.local/share/chezmoi
+tempDir: ~/.TMPDIR/chezmoi
+umask: 0o22 # https://www.chezmoi.io/reference/configuration-file/umask/
+useBuiltinAge: auto
+useBuiltinGit: auto
+verbose: false
+workingTree: ~/.local/share/chezmoi
+add:
+  encrypt: false
+  secrets: warning
+  templateSymlinks: false
+age:
+  args: []
+  command: age
+  identity: ~/.config/chezmoi/key.txt
+  recipient: "age16mykf4nyrlvwmlgpgvpmd97mc0npydcjq30wc4jvsapcheu8lvjsh8u4g8"
+  passphrase: false
+  suffix: .age
+completion:
+  custom: false
+diff: # https://www.chezmoi.io/user-guide/tools/diff/
+  args: []
+  command: ""
+  exclude:
+  - scripts
+  pager: ""
+  scriptContent: true
+edit:
+  apply: true
+  args: ["--wait"]
+  command: code
+  hardlink: true
+  minDuration: 1s
+  watch: true
+git:
+  autoAdd: false
+  autoCommit: false
+  autoPush: false
+  command: git
+  commitMessageTemplate: ""
+  commitMessageTemplateFile: ""
+github:
+  refreshPeriod: 1m
+# hooks: # https://www.chezmoi.io/reference/configuration-file/hooks/
+#   <command>.post.args: []
+#   <command>.post.command: []
+#   <command>.pre.args: []
+#   <command>.pre.command: []
+merge: # https://www.chezmoi.io/user-guide/tools/merge/
+  args: []
+  command: ""
+onepassword: # https://www.chezmoi.io/user-guide/password-managers/1password/#secrets-automation
+  cache: true
+  command: op
+  mode: account
+  prompt: true
+# onepasswordSDK: # https://www.chezmoi.io/reference/templates/1password-sdk-functions/
+#   token: ""
+#   tokenEnvVar: ""
+status:
+  exclude: []
+  pathStyle: relative
+template:
+  options:
+  - missingkey=error
+textconv: [] # https://www.chezmoi.io/reference/configuration-file/textconv/
+update:
+  apply: true
+  args: []
+  command: ""
+  recurseSubmodules: true
+verify:
+  exclude: []
+warnings: # https://www.chezmoi.io/reference/configuration-file/warnings/
+ configFileTemplateHasChanged: true
+
+
+{{/* Setting up data that needs to be templated */}}
+
+{{- $osid := .chezmoi.os -}}
+{{- if hasKey .chezmoi.osRelease "id" -}}
+  {{- /* If osRelease is "pop" change it to "debian" */ -}}
+  {{- if eq .chezmoi.osRelease.id "pop" -}}
+    {{- $osid = printf "%s-%s" .chezmoi.os "debian" -}}
+  {{- else -}}
+    {{-   $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
+  {{- end -}}
+{{- end }}
+
+data:
+  osid: {{ $osid | quote }}
+  symlinkDir: {{ .chezmoi.sourceDir }}/.chezmoisymlinks

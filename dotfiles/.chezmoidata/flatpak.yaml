@@ -1,0 +1,7 @@
+# trunk-ignore-all(trunk-yls/no-yls)
+packages:
+  flatpak:
+    repos:
+    - name: flathub
+      url: https://flathub.org/repo/flathub.flatpakrepo
+    apps: []

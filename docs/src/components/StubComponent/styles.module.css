@@ -1,0 +1,24 @@
+/* src/components/StubComponent.module.css */
+
+.stubContainer {
+  text-align: center;
+  padding: 50px;
+  background-color: var(--ifm-background-color-secondary);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.stubContainer h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.stubContainer p {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.stubImage {
+  max-width: 100%;
+  height: auto;
+}

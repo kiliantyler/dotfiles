@@ -1,0 +1,107 @@
+#!/usr/bin/env zsh
+# -*- mode: zsh; sh-indentation: 2; indent-tabs-mode: nil; sh-basic-offset: 2; -*-
+# vim: ft=zsh sw=2 ts=2 et
+{{- /*
+                        $$\                     $$\
+                        $$ |                    \__|
+    $$$$$$$$\  $$$$$$\  $$ |$$\   $$\  $$$$$$\  $$\ $$$$$$$\   $$$$$$$\
+    \____$$  |$$  __$$\ $$ |$$ |  $$ |$$  __$$\ $$ |$$  __$$\ $$  _____|
+      $$$$ _/ $$ /  $$ |$$ |$$ |  $$ |$$ /  $$ |$$ |$$ |  $$ |\$$$$$$\
+     $$  _/   $$ |  $$ |$$ |$$ |  $$ |$$ |  $$ |$$ |$$ |  $$ | \____$$\
+$$\ $$$$$$$$\ $$$$$$$  |$$ |\$$$$$$  |\$$$$$$$ |$$ |$$ |  $$ |$$$$$$$  |
+\__|\________|$$  ____/ \__| \______/  \____$$ |\__|\__|  \__|\_______/
+              $$ |                    $$\   $$ |
+              $$ |                    \$$$$$$  |
+              \__|                     \______/
+
+.zplugins - Plugin list for antidote
+Scope: Interactive, login shells
+Location: $ZDOTDIR/.zplugins
+Reference:
+Description:
+> This file is sourced by antidote to load zsh plugins
+> It is sourced from .zshrc
+*/}}
+
+# -----------------------------------------------------------
+# Prompt themes
+# -----------------------------------------------------------
+
+# # powerlevel10k [default] (https://github.com/romkatv/powerlevel10k)
+romkatv/powerlevel10k
+
+# # ASDF + Direnv (https://github.com/redxtech/zsh-asdf-direnv)
+redxtech/zsh-asdf-direnv
+
+# # Up (https://github.com/peterhurford/up.zsh)
+# # Change to a parent directory by typing "up" or "up 3" to go up 3 directories
+peterhurford/up.zsh
+
+# # Zman (https://github.com/mattmc3/zman)
+# # Browse zshell manuals
+mattmc3/zman
+
+# Local Plugins
+${ZDOTDIR}/custom/plugins/temp_aliae
+# custom/eza
+# custom/flux
+# custom/fzf
+# custom/gh
+# custom/gnuutils
+# custom/iterm2
+# custom/kubectl
+
+# -----------------------------------------------------------
+# OMZ Plugins & Libraries
+# https://github.com/ohmyzsh/ohmyzsh
+# https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins
+# https://github.com/ohmyzsh/ohmyzsh/tree/master/lib
+# -----------------------------------------------------------
+# getantidote/use-omz # Use Oh My Zsh in Antidote
+# ohmyzsh/ohmyzsh path:lib/clipboard.zsh # Copy to clipboard | {clipcopy, clippaste}
+# ohmyzsh/ohmyzsh path:plugins/aliases # View installed aliases | als
+# ohmyzsh/ohmyzsh path:plugins/aws # AWS Shortcuts | asp, asr, acp, agp, agr, aws_change_access_key, aws_profiles, aws_regions
+# ohmyzsh/ohmyzsh path:plugins/brew
+# ohmyzsh/ohmyzsh path:plugins/copybuffer # Copy current buffer to clipboard | ctrl-o
+# ohmyzsh/ohmyzsh path:plugins/copyfile # Copy contents of a file | copyfile <file>
+# ohmyzsh/ohmyzsh path:plugins/copypath # Copy the absolute path of a file | copypath <file>
+# ohmyzsh/ohmyzsh path:plugins/dirhistory # Cycle through directories | option-left, option-right, option-up, option-down
+# ohmyzsh/ohmyzsh path:plugins/encode64 # Encode/Decode base64 | e64 <string>, d64 <string>, ef64 <file>
+# ohmyzsh/ohmyzsh path:plugins/extract # Extract archives | extract <file>
+
+# -----------------------------------------------------------
+# Utilities
+# -----------------------------------------------------------
+
+# ZSH Bench (https://github.com/romkatv/zsh-bench)
+# # Benchmark Zsh startup time
+romkatv/zsh-bench kind:path
+
+# # -----------------------------------------------------------
+# # Completion
+# # -----------------------------------------------------------
+
+# # Zsh Completions (https://github.com/zsh-users/zsh-completions)
+# # Additional completion definitions for Zsh
+zsh-users/zsh-completions path:src kind:fpath
+
+# # Load after all other completions
+# custom/completion
+
+# # -----------------------------------------------------------
+# # Syntax Highlighting, Autosuggestions, History Substring Search
+# # -----------------------------------------------------------
+
+# # Zsh Syntax Highlighting (https://github.com/zsh-users/zsh-syntax-highlighting)
+# # Fish-like syntax highlighting for zsh
+zsh-users/zsh-syntax-highlighting
+
+# # Zsh Autosuggestions (https://github.com/zsh-users/zsh-autosuggestions)
+# # Fish-like autosuggestions for zsh
+# # Needs to be loaded at the end
+zsh-users/zsh-autosuggestions
+
+# # Zsh History Substring Search (https://github.com/zsh-users/zsh-history-substring-search)
+# # Fish-like history substring search for zsh
+# # Needs to be loaded at the end
+zsh-users/zsh-history-substring-search

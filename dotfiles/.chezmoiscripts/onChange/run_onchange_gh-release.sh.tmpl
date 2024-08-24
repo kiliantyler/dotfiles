@@ -1,0 +1,33 @@
+{{- if or (eq .chezmoi.os "darwin" ) (eq .chezmoi.os "linux") -}}
+#!/usr/bin/env bash
+
+{{- if eq .chezmoi.os "linux" }}
+{{ range .packages.ghr.linux }}
+
+# Check if the program is already installed
+if ! command -v {{ .binary }} &> /dev/null; then
+    TMP_DIR=$(mktemp -d)
+    DEST_BIN="{{ $.chezmoi.homeDir }}/.local/bin/{{ .binary }}"
+    SOURCE_BIN=$TMP_DIR/{{ .name }}/{{ .binary }}
+    echo "Downloading {{ .name }}"
+    FILE_EXT="{{ .ext }}"
+    url="https://github.com/{{ .owner }}/{{ .repo }}/releases/{{ .version }}/download/{{ .name }}{{ .ext }}"
+    wget -q --show-progress $url -O $TMP_DIR/{{ .name }}
+    echo "Installing {{ .name }}"
+    {{ if eq .ext ".tar.gz" }}
+    tar -xzf $TMP_DIR/{{ .name }} -C $TMP_DIR
+    {{ else if eq .ext ".tar.xz" }}
+    tar -xf $TMP_DIR/{{ .name }} -C $TMP_DIR
+    {{ else if eq .ext ".zip" }}
+    unzip -q $TMP_DIR/{{ .name }} -d $TMP_DIR
+    {{ else if eq .ext "" }}
+    SOURCE_BIN=$TMP_DIR/{{ .name }}
+    {{ end }}
+
+    mv ${SOURCE_BIN} ${DEST_BIN}
+    chmod +x ${DEST_BIN}
+    rm -rf $TMP_DIR
+fi
+{{ end }}
+{{ end }}
+{{ end }}

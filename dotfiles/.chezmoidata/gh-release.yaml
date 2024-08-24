@@ -1,0 +1,10 @@
+# trunk-ignore-all(trunk-yls/no-yls)
+packages:
+  ghr:
+    linux:
+    - name: kmonad
+      repo: kmonad
+      owner: kmonad
+      version: latest
+      binary: kmonad
+      ext: ""
