@@ -10,6 +10,9 @@ jobs:
   build:
     name: Build Docusaurus
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./app
     steps:
     - uses: actions/checkout@v4
       with:
@@ -27,7 +30,7 @@ jobs:
     - name: Upload Build Artifact
       uses: actions/upload-pages-artifact@v3
       with:
-        path: build
+        path: docs/build
 
   deploy:
     name: Deploy to GitHub Pages
