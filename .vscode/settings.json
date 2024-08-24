@@ -5,20 +5,221 @@
     "*.ssh": "ssh_config",
     "*.gitconfig": "gitconfig",
     "*.delta": "gitconfig",
-    ".zshrc": "shellscript"
+    ".zshrc": "shellscript",
+    "*.zsh": "shellscript",
+    ".chezmoiignore": "ignore",
+    ".TODO": "markdown",
+    "*.tmpl": "gotemplate",
+    "*.yaml.tmpl": "goyaml",
+    "*.sh.tmpl": "gotemplate",
+    "*.zsh.tmpl": "shellscript",
+    "dot_z*.tmpl": "shellscript",
   },
+  "material-icon-theme.files.associations": {
+    ".tool-versions": "settings",
+    //
+    // Custom icons
+    //
+    // VSCode does not allow to use glob patterns for filenames (only extensions)
+    // So we need to specify each file individually, sadly
+    // https://github.com/material-extensions/vscode-material-icon-theme/issues/330
+    "dot_hushlogin": "hushlogin",
+    "*.task.yaml": "task",
+    "symlink_dot_tool-versions.tmpl": "symlink",
+    "*.sh.tmpl": "sh-template",
+    ".chezmoiremove": "chezmoi-remove",
+    "dot_tool-versions": "tool-versions",
+    ".chezmoi.yaml.tmpl": "chezmoi-yaml",
+    ".chezmoiroot": "chezmoi-root",
+    ".chezmoiversion": "chezmoi-version",
+    ".chezmoiignore": "chezmoi-ignore",
+
+    // "ZSH" is set in user settings to zsh.svg:
+    //
+    //"material-icon-theme.files.associations": {
+    //   "dot_zshenv.tmpl": "../../icons/zsh",
+    //   ...
+    // },
+    // These are set as a backup in case the user has not set the icon
+
+    "dot_zshenv.tmpl": "zsh",
+    "dot_zshrc.tmpl": "zsh",
+    "dot_zprofile.tmpl": "zsh",
+    "dot_zlogin.tmpl": "zsh",
+    "dot_zlogout.tmpl": "zsh",
+    "dot_zopts.tmpl": "zsh",
+    "dot_zplugins.tmpl": "zsh",
+    "dot_zstyles.tmpl": "zsh",
+    "dot_zkeybinds.tmpl": "zsh",
+  },
+  "material-icon-theme.files.customClones": [
+    {
+      "name": "hushlogin",
+      "base": "lock",
+      "color": "gray-700"
+    },
+    {
+      "name": "chezmoi-yaml",
+      "base": "settings",
+      "color": "gray-700"
+    },
+    {
+      "name": "chezmoi-root",
+      "base": "search",
+      "color": "gray-700"
+    },
+    {
+      "name": "chezmoi-version",
+      "base": "verified",
+      "color": "gray-700"
+    },
+    {
+      "name": "chezmoi-remove",
+      "base": "template",
+      "color": "gray-700"
+    },
+    {
+      "name": "chezmoi-ignore",
+      "base": "git",
+      "color": "gray-700"
+    },
+    {
+      "name": "task",
+      "base": "taskfile",
+      "color": "green-700"
+    },
+    {
+      "name": "tool-versions",
+      "base": "settings",
+      "color": "orange-400"
+    },
+    {
+      "name": "symlink",
+      "base": "url",
+      "color": "red-400"
+    },
+    {
+      "name": "sh-template",
+      "base": "console",
+      "color": "green-400"
+    },
+    {
+      "name": "zsh",
+      "base": "console",
+      "color": "purple-400"
+    },
+  ],
   "material-icon-theme.folders.associations": {
     ".taskfiles": "utils",
     "git": "git",
-    "pypoetry": "python",
-    "1password": "keys",
+    "powerlevel10k": "theme",
+
+    //
+    // Custom icons
+    //
+    ".chezmoidata": "chezmoi-data",
+    ".chezmoiexternals": "chezmoi-external",
+    ".chezmoiscripts": "chezmoi-scripts",
+    ".chezmoisymlinks": "chezmoi-symlinks",
+    ".chezmoitemplates": "chezmoi-templates",
+    "1password": "1password-keys",
+    "comtrya": "comtrya",
+    "dot_bin": "dist",
+    "dot_vscode": "vscode",
+    "dotfiles": "home",
+    "private_dot_config": "private-config",
+    "private_Library": "private-lib",
+    "wiki": "wiki",
+    "blog": "blog",
     "zsh": "scripts",
   },
-  "files.trimTrailingWhitespace": true,
-  "files.insertFinalNewline": true,
-  "editor.formatOnSave": true,
+  "material-icon-theme.folders.customClones": [
+    {
+      "name": "1password-keys",
+      "base": "keys",
+      "color": "blue-200",
+      "folderNames": [""]
+    },
+    {
+      "name": "private-lib",
+      "base": "lib",
+      "color": "orange-400",
+      "folderNames": [""]
+    },
+    {
+      "name": "private-config",
+      "base": "lib",
+      "color": "orange-400",
+      "folderNames": [""]
+    },
+    {
+      "name": "comtrya",
+      "base": "ansible",
+      "color": "orange-400",
+      "folderNames": [""]
+    },
+    {
+      "name": "chezmoi-data",
+      "base": "database",
+      "color": "gray-700",
+      "folderNames": [""]
+    },
+    {
+      "name": "chezmoi-external",
+      "base": "public",
+      "color": "gray-700",
+      "folderNames": [""]
+    },
+    {
+      "name": "chezmoi-scripts",
+      "base": "scripts",
+      "color": "gray-700",
+      "folderNames": [""]
+    },
+    {
+      "name": "chezmoi-templates",
+      "base": "template",
+      "color": "gray-700",
+      "folderNames": [""]
+    },
+    {
+      "name": "chezmoi-symlinks",
+      "base": "contract",
+      "color": "gray-700",
+      "folderNames": [""]
+    },
+    {
+      "name": "blog",
+      "base": "docs",
+      "color": "orange-700",
+      "folderNames": [""]
+    },
+    {
+      "name": "wiki",
+      "base": "docs",
+      "color": "red-700",
+      "folderNames": [""]
+    },
+    {
+      "name": "vscode",
+      "base": "vscode",
+      "color": "blue-600",
+      "folderNames": [""]
+    }
+  ],
+  "material-icon-theme.folders.theme": "specific",
   "yaml.customTags": [
     "!include scalar",
     "!include_dir scalar"
   ],
+  "todo-tree.tree.scanMode": "workspace",
+  "files.exclude": {
+    "**/.trunk/*actions/": true,
+    "**/.trunk/*logs/": true,
+    "**/.trunk/*notifications/": true,
+    "**/.trunk/*out/": true,
+    "**/.trunk/*plugins/": true,
+    "**/.trunk/*tmp/": true,
+    "**/.trunk/*tools/": true,
+  },
 }
