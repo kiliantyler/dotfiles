@@ -1,4 +1,6 @@
 {
+  "editor.renderFinalNewline": "dimmed",
+  "files.insertFinalNewline": true,
   "files.associations": {
     "*.json5": "jsonc",
     "*.json": "jsonc",
