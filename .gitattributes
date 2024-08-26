@@ -192,6 +192,7 @@
 *.xml      text
 *.yaml     text
 *.yml      text
+*.cfg      text
 
 ##################################################
 ##                                              ##
@@ -368,3 +369,62 @@ devcontainer.json linguist-language=JSON-with-Comments
 ##################################################
 
 *.lockb binary diff=lockb
+
+
+##################################################
+##                                              ##
+##                    Docker                    ##
+##                                              ##
+##################################################
+
+# Dockerfile
+# ============
+Dockerfile* text eol=lf
+
+# Docker Compose
+# ============
+docker-compose.yml text eol=lf
+docker-compose.yaml text eol=lf
+
+# Docker Ignore
+# ============
+.dockerignore text eol=lf
+
+##################################################
+##                                              ##
+##                    Ansible                   ##
+##                                              ##
+##################################################
+
+ansible.cfg text eol=lf
+
+##################################################
+##                                              ##
+##                 Documentation                ##
+##                                              ##
+##################################################
+
+*.ipynb           text eol=lf
+*.markdown        text diff=markdown
+*.md              text diff=markdown
+*.mdwn            text diff=markdown
+*.mdown           text diff=markdown
+*.mkd             text diff=markdown
+*.mkdn            text diff=markdown
+*.mdtxt           text
+*.mdtext          text
+*.txt             text
+AUTHORS           text
+CHANGELOG         text
+CHANGES           text
+CONTRIBUTING      text
+COPYING           text
+copyright         text
+*COPYRIGHT*       text
+INSTALL           text
+license           text
+LICENSE           text
+NEWS              text
+readme            text
+*README*          text
+TODO              text

@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: "3"
 
 vars:
@@ -5,7 +6,7 @@ vars:
 
 tasks:
   serve:
-    desc: "Start the Docusaurus development server"
+    desc: "Start the Starlight development server"
     cmds:
-    - npm run start
+    - bun run start
     dir: "{{.DocsDir}}"

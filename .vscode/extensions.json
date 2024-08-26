@@ -2,6 +2,9 @@
     "recommendations": [
       "yy0931.gitconfig-lsp",
       "zokugun.explicit-folding",
-      "pkief.material-icon-theme"
+      "pkief.material-icon-theme",
+      "astro-build.astro-vscode",
+      "hideoo.starlight-i18n",
+      "bradlc.vscode-tailwindcss",
     ]
 }

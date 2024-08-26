@@ -228,5 +228,9 @@
   "trunk.inlineDecoratorsForAllExtensions": true,
   "trunk.repoScanViewEnabled": true,
   "trunk.repoScanViewVisible": true,
-  "git.suggestSmartCommit": false
+  "git.suggestSmartCommit": false,
+  "starlight-i18n.configDirectories": [
+    ".",
+    "./docs"
+  ]
 }

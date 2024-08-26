@@ -1,6 +1,10 @@
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: "3"
 
+vars:
+  gitattributes: ".gitattributes"
+  GA_DIR: ".taskfiles/gitattributes"
+
 tasks:
   check:
     desc: Check if all files have a corresponding rule in .gitattributes

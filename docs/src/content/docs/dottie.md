@@ -1,0 +1,11 @@
+---
+title: Dottie
+template: splash
+hero:
+  title: 'Meet Dottie'
+  tagline: She loves to help with dotfiles
+  image:
+    alt: Dottie, the Dotfile
+    dark: ../../assets/Dottie_Hero.webp
+    light: ../../assets/Dottie_Hero_light.webp
+---
