@@ -300,7 +300,7 @@ devcontainer.json linguist-language=JSON-with-Comments
 
 ##################################################
 ##                                              ##
-##                   RC files                    ##
+##                   RC files                   ##
 ##                                              ##
 ##################################################
 
@@ -359,3 +359,12 @@ devcontainer.json linguist-language=JSON-with-Comments
 # SOPS encrypted files
 # ============
 *.sops.* text diff=sopsdiffer
+
+
+##################################################
+##                                              ##
+##                  BUN/Node                    ##
+##                                              ##
+##################################################
+
+*.lockb binary diff=lockb

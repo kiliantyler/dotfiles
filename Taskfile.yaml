@@ -16,9 +16,12 @@ includes:
   ansible:
     taskfile: ".taskfiles/ansible/Taskfile.yaml"
     aliases: [a]
-  docusaurus:
+  docs:
     taskfile: ".taskfiles/docs/Taskfile.yaml"
-    aliases: [d, docs]
+    aliases: [d]
+  gitattributes:
+    taskfile: ".taskfiles/gitattributes/Taskfile.yaml"
+    aliases: [ga]
 
 tasks:
   default:
