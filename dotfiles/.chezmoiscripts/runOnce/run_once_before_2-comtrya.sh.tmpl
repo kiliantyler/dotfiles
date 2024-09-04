@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-# check if ~/.bin is in PATH
-if [[ ":$PATH:" != *":$HOME/.bin:"* ]]; then
-  export PATH="$HOME/.bin:$PATH"
-fi
-
-{{/* comtrya -d {{ .chezmoi.workingTree }}/comtrya apply */}}
