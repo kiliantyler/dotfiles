@@ -7,7 +7,7 @@ interface StubComponentProps {
   iconStyle?: React.CSSProperties;
 }
 
-const StubComponent: React.FC<StubComponentProps> = ({ title }) => {
+const StubComponent: React.FC<StubComponentProps> = () => {
   return (
     <div>
       <h1>Coming Soon</h1>
