@@ -47,6 +47,11 @@ export ZDOTDIR=${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}
 
 export ZPFX=${ZPFX:-$HOME/.zpfx}
 
+#
+if [[ -n "$VSCODE_PID" ]]; then
+  eval "$(mise activate zsh --shims)"
+fi
+
 if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi

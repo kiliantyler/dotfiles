@@ -4,25 +4,20 @@
 # -----------------------------------
 # author: @kiliantyler
 # title: Ansible Setup
-# description: Installs Ansible
+# description: Installs and runs Ansible
 # -----------------------------------
 
-# Install Ansible
-if command -v ansible &> /dev/null; then
-  return 0
-fi
+cd {{ .chezmoi.config.sourceDir }}/ansible
 
 __PYTHON_LOC=/usr/bin/python3
 
-# Use default python to install ansible
-${__PYTHON_LOC} -m pip install --user ansible
-
-cd {{ .chezmoi.config.sourceDir }}/ansible
+# Use default python to install ansible and requirements
+${__PYTHON_LOC} -m pip install --user requirements.txt
 
 # Install Ansible Galaxy
 ${__PYTHON_LOC} -m ansible galaxy install -r requirements.yaml
 
 # Run Ansible Playbook
-${__PYTHON_LOC} -m ansible playbook playbook.yaml
+${__PYTHON_LOC} -m ansible playbook ./playbooks/playbook.yaml
 
 {{ end }}

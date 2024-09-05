@@ -6,9 +6,6 @@
 #     repo: all
 #     state: absent
 
-- debug:
-    var: ansible_distribution_release
-
 - name: Enable main repositories
   become: true
   apt_repository:
@@ -30,4 +27,3 @@
   - "deb http://archive.ubuntu.com/ubuntu/ {{ansible_distribution_release}} universe"
   - "deb http://archive.ubuntu.com/ubuntu/ {{ansible_distribution_release}}-updates universe"
   - "deb http://security.ubuntu.com/ubuntu/ {{ansible_distribution_release}}-security universe"
-

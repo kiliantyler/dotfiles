@@ -148,7 +148,7 @@
     "dot_zkeybinds.tmpl": "../../icons/zsh",
 	},
 	"typescript.updateImportsOnFileMove.enabled": "always",
-	"update.mode": "none",
+	"update.mode": "manual",
 	// APC
 	"apc.statusBar": {
 		"height": 32
@@ -232,5 +232,25 @@
   "starlight-i18n.configDirectories": [
     ".",
     "./docs"
-  ]
+  ],
+  "terminal.integrated.defaultProfile.linux": "zsh",
+  "terminal.integrated.profiles.linux": {
+    "zsh": {
+      "path": "zsh",
+      "args": ["-l", "-i"]
+    },
+  },
+  "terminal.integrated.env.linux": {
+    "ZDOTDIR": "/home/ktyler/.config/zsh"
+  },
+  "yaml.schemas": {
+    "file:///Users/kilian/.vscode/extensions/atlassian.atlascode-3.0.10/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+  },
+  "atlascode.jira.enabled": false,
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false
+  },
 }
