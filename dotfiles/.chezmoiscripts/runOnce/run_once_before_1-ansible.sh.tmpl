@@ -23,6 +23,6 @@ cd {{ .chezmoi.config.sourceDir }}/ansible
 ${__PYTHON_LOC} -m ansible galaxy install -r requirements.yaml
 
 # Run Ansible Playbook
-${__PYTHON_LOC} -m ansible-playbook playbook.yaml
+${__PYTHON_LOC} -m ansible playbook playbook.yaml
 
 {{ end }}
