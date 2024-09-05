@@ -12,7 +12,7 @@ cd {{ .chezmoi.config.sourceDir }}/ansible
 __PYTHON_LOC=/usr/bin/python3
 
 # Use default python to install ansible and requirements
-${__PYTHON_LOC} -m pip install --user requirements.txt
+${__PYTHON_LOC} -m pip install --user -r requirements.txt
 
 # Install Ansible Galaxy
 ${__PYTHON_LOC} -m ansible galaxy install -r requirements.yaml
