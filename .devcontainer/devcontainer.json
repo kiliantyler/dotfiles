@@ -5,11 +5,20 @@
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"image": "mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm",
 	"features": {
-		"ghcr.io/mpriscella/features/sops:1": {},
-		"ghcr.io/eitsupi/devcontainer-features/go-task:1": {},
-		"ghcr.io/astronomer/devcontainer-features/astro-cli:1": {},
+		"ghcr.io/mpriscella/features/sops:1": {
+			"version": "latest"
+		},
+		"ghcr.io/eitsupi/devcontainer-features/go-task:1": {
+			"version": "latest"
+		},
+		"ghcr.io/astronomer/devcontainer-features/astro-cli:1": {
+			"version": "latest"
+		},
 		"ghcr.io/trunk-io/devcontainer-feature/trunk:1": {},
-		"ghcr.io/itsmechlark/features/1password:1": {}
+		"ghcr.io/itsmechlark/features/1password:1": {
+			"version": "latest"
+		},
+		"ghcr.io/michidk/devcontainers-features/bun:1": {}
 	}
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
