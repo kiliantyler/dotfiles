@@ -29,6 +29,8 @@ chomp() {
   printf "%s" "${1/"$'\n'"/}"
 }
 
+sudo -v
+
 # -----------------------------------
 # Xcode Command Line Tools Installation
 # -----------------------------------
