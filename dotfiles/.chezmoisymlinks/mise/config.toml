@@ -2,26 +2,33 @@
 experimental = true
 yes = true
 status = { missing_tools = "always", show_env = false, show_tools = false }
+trusted_config_paths = [
+  "{{ get_env(name='HOME') }}/Github/shamubernetes/",
+  "{{ get_env(name='HOME') }}/Github/kiliantyler/",
+]
 
 [plugins]
 trunk = "https://github.com/sdurrheimer/asdf-trunk"
 
 [tools]
-1password-cli = "2.30.0"
-age = "1.2.0"
-awscli = "2.17.20"
-bun = "1.1.26"
-direnv = "2.34.0"
-editorconfig-checker = "2.8.0"
-fzf = "0.53.0"
-golang = "1.22.6"
-golangci-lint = "1.59.1"
-goreleaser = "2.1.0"
-helm = "3.15.4"
-jq = "1.7.1"
-kubectl = "1.31.0"
-node = "22.6.0"
-python = "3.12.4"
-task = "3.38.0"
-terragrunt = "0.66.9"
-zoxide = "0.9.4"
+1password-cli = "latest"
+age = "latest"
+awscli = "latest"
+bun = "latest"
+direnv = "latest"
+editorconfig-checker = "latest"
+fzf = "latest"
+golang = "latest"
+golangci-lint = "latest"
+goreleaser = "latest"
+helm = "latest"
+jq = "latest"
+kubectl = "latest"
+node = "latest"
+python = "latest"
+terragrunt = "latest"
+zoxide = "latest"
+flux2 = "latest"
+task = "latest"
+yq = "latest"
+yamlfmt = "latest"
