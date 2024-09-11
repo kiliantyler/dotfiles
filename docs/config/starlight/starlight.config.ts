@@ -13,6 +13,7 @@ const githubUrl = 'https://github.com/kiliantyler/dotfiles';
 // Custom CSS Array
 const customCss = [
   './src/css/tailwind.css',
+  './src/css/asides.css',
 ];
 
 
