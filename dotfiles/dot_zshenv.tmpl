@@ -43,11 +43,10 @@ export XDG_VIDEOS_DIR=${XDG_VIDEOS_DIR:-$HOME/Videos}
 # -----------------------------------------------------------
 
 # Rehome ZDOTDIR to $XDG_CONFIG_HOME/zsh
-export ZDOTDIR=${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}
+export ZDOTDIR=$XDG_CONFIG_HOME/zsh
 
 export ZPFX=${ZPFX:-$HOME/.zpfx}
 
-#
 if [[ -n "$VSCODE_PID" ]]; then
   eval "$(mise activate zsh --shims)"
 fi
