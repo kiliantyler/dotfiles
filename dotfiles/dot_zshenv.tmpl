@@ -47,10 +47,9 @@ export ZDOTDIR=$XDG_CONFIG_HOME/zsh
 
 export ZPFX=${ZPFX:-$HOME/.zpfx}
 
-if [[ -n "$VSCODE_PID" ]]; then
-  eval "$(mise activate zsh --shims)"
-fi
+# Needed for VSCode to see shims
+[[ -n "$VSCODE_PID" ]] && eval "$({{ .chezmoi.homeDir }}/.local/bin/mise activate zsh --shims)"
 
-if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
+if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR}/.zprofile" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
