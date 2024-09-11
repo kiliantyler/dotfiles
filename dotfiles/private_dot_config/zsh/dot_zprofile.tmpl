@@ -46,7 +46,11 @@ typeset -gU path fpath
 path=(
   $HOME/{,s}bin(N)
   $HOME/.local/{,s}bin(N)
+  {{ if eq .chezmoi.os "darwin" -}}
   /opt/{homebrew,local}/{,s}bin(N)
+  {{- else if eq .chezmoi.os "linux" -}}
+  /home/linuxbrew/.linuxbrew/{,s}bin(N)
+  {{- end }}
   /usr/local/{,s}bin(N)
   /Users/{{.chezmoi.username}}/{,.local/}{,.}{,s}bin(N)
   /Users/{{.chezmoi.username}}/.local/share/dude/bin(N)
