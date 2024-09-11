@@ -88,16 +88,6 @@
 	"workbench.colorTheme": "Dracula Pro (Van Helsing)",
 	"material-icon-theme.folders.color": "#42a5f5",
 	"git.confirmSync": false,
-	"terminal.integrated.defaultLocation": "editor",
-	"terminal.integrated.enablePersistentSessions": false,
-	"terminal.integrated.profiles.osx": {
-		"zsh": {
-			"path": "zsh",
-			"args": [
-				"-l"
-			]
-		}
-	},
 	"application.shellEnvironmentResolutionTimeout": 30,
 	"terminal.integrated.env.osx": {
 		"CW_NEW_SESSION": "1",
@@ -233,18 +223,25 @@
     ".",
     "./docs"
   ],
+  "terminal.integrated.defaultLocation": "view",
+	"terminal.integrated.enablePersistentSessions": false,
+	"terminal.integrated.profiles.osx": {
+		"zsh": {
+			"path": "zsh",
+			"args": [
+				"-l"
+			]
+		}
+	},
   "terminal.integrated.defaultProfile.linux": "zsh",
   "terminal.integrated.profiles.linux": {
     "zsh": {
       "path": "zsh",
-      "args": ["-l", "-i"]
+      "args": ["-l"]
     },
   },
-  "terminal.integrated.env.linux": {
-    "ZDOTDIR": "/home/ktyler/.config/zsh"
-  },
   "yaml.schemas": {
-    "file:///Users/kilian/.vscode/extensions/atlassian.atlascode-3.0.10/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+    "file:///home/ktyler/.vscode/extensions/atlassian.atlascode-3.0.10/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
   },
   "atlascode.jira.enabled": false,
   "github.copilot.enable": {
@@ -256,4 +253,6 @@
   "[yaml]": {
     "diffEditor.ignoreTrimWhitespace": true
   },
+  "terminal.external.linuxExec": "kitty",
+  "terminal.explorerKind": "both",
 }
