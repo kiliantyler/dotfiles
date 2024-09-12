@@ -5,9 +5,6 @@ import starlightPlugins from './plugins.config.ts';
 import de from './i18n/de.config.ts';
 import en from './i18n/en.config.ts';
 
-// import Configs
-import sidebarConfig from './sidebar.config.ts';
-
 const githubUrl = 'https://github.com/kiliantyler/dotfiles';
 
 // Custom CSS Array
@@ -15,7 +12,6 @@ const customCss = [
   './src/css/tailwind.css',
   './src/css/asides.css',
 ];
-
 
 // i18n Config
 const i18nTitleConfig = {
@@ -57,7 +53,6 @@ const starlightConfig: StarlightConfig = {
   social: {
     github: githubUrl
   },
-  sidebar: sidebarConfig,
   plugins: starlightPlugins,
   credits: false,
 };

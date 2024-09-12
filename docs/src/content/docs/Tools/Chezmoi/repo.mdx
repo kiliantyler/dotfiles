@@ -1,0 +1,69 @@
+---
+title: Repo Layout
+sidebar:
+  badge:
+    text: WIP
+    variant: caution
+---
+
+:::caution[Work in Progress]
+This page is a stub and is still under construction.
+:::
+
+import LinkCard, { FileTree } from '@astrojs/starlight/components'
+import StubComponent from '@react/StubComponent'
+
+<StubComponent />
+
+
+# File Structure
+<FileTree>
+
+- .devcontainer/
+  - devcontainer.json
+- .github/ # Contains All Github related files
+  - workflows/ # Contains Github Actions
+    - docs-deploy.yaml # Github Action to deploy docs
+    - docs-test-deploy.yaml
+  - LICENSE
+  - README.md
+  - SECURITY.md
+  - ISSUE_TEMPLATE.md
+  - PULL_REQUEST_TEMPLATE.md
+- .taskfiles/
+  - ansible/ # ansible related tasks
+  - docs/ # docs related tasks
+  - gitattributes/ # gitattributes related tasks
+- .trunk/ # Contains linters and formatters
+- .vscode/
+  - extensions.json
+  - launch.json
+  - settings.json
+- ansible/
+  - inventory/
+    - hosts
+  - playbooks/
+    - playbook.yaml
+    - work.yaml
+  - roles/
+    - install_programs/ # WIP
+    - kitty/ # WIP (Will install Kitty Terminal)
+    - mise/ # WIP (Program installer similar to ASDF)
+    - os/
+      - debian/ # WIP
+      - macos/ # Establishes Dock and Finder settings as well as other OS Defaults
+    - tailscale/ # WIP
+    - vscode/ # WIP (Will install Visual Studio Code)
+    - zsh/ # WIP
+  - ansible.cfg
+  - requirements.txt # Pip requirements for Ansible
+  - requirements.yaml # Ansible Galaxy requirements
+- docs/
+  - assets/
+  - config/ # Contains Astro/Starlight configuration
+  - public/
+    - install # Installer script for entire repo (https://install.dotfiles.wiki/[username])
+  - ... # TODO: Add the rest
+- dotfiles/
+  - ...
+</FileTree>

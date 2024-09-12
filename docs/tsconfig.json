@@ -8,7 +8,7 @@
       "@site/*": ["./*"],
       "@assets/*": ["/src/assets/*"],
       "@react/*": ["/src/components/react/*"],
-      "@astro/*": ["/src/components/astro/*"]
+      "@astro/*": ["/src/components/astro/*"],
     }
   }
 }
