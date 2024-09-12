@@ -1,0 +1,40 @@
+[settings]
+experimental = true
+yes = true
+status = { missing_tools = "always", show_env = false, show_tools = false }
+trusted_config_paths = [
+  "{{ get_env(name='HOME') }}/Github/shamubernetes/",
+  "{{ get_env(name='HOME') }}/Github/kiliantyler/",
+]
+
+[plugins]
+trunk = "https://github.com/sdurrheimer/asdf-trunk"
+
+[tools]
+1password-cli = "latest"
+age = "latest"
+awscli = "latest"
+bun = "latest"
+direnv = "latest"
+editorconfig-checker = "latest"
+fzf = "latest"
+golang = "latest"
+golangci-lint = "latest"
+goreleaser = "latest"
+helm = "latest"
+jq = "latest"
+kubectl = "latest"
+node = "latest"
+python = "latest"
+terragrunt = "latest"
+zoxide = "latest"
+flux2 = "latest"
+task = "latest"
+yq = "latest"
+yamlfmt = "latest"
+rust = "latest"
+"cargo:eza" = "latest"
+"cargo:bat" = "latest"
+kubecolor = "latest"
+yarn = "1.22.22"
+"cargo:procs" = "latest"

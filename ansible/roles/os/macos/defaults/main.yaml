@@ -1,0 +1,45 @@
+# yaml-language-server $schema=https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json
+
+Defaults:
+  Dock:
+    ScrollToOpen: true
+    ShowAppExposeGestureEnabled: false
+    ShowHidden: true
+    Pinning: middle
+    MinimizeToApplication: true
+    NoBouncing: false
+    Animations:
+      Launch: true
+      MinimizeEffect: suck
+    Autohide:
+      Enabled: true
+      AnimationDuration: 0.25
+      Delay: 0.1
+    Icons:
+      Size: 42
+      Magnification: true
+      MagnificationSize: 44
+    Position: left
+    ShowRecents: false
+
+  Finder:
+    ShowFileExtensions: true
+    ShowHiddenFiles: true
+    ShowPathBar: true
+    PreferredViewStyle: Nlsv
+    ShowStatusBar: true
+    SearchScope: SCcf
+    RemoveOldTrash: true
+    ChangeExtensionWarning: false
+    TitlebarIcon: true
+    SidebarIconSize: 3
+
+  Desktop:
+    ShowHardDrives: false
+    ShowExternalHardDrives: false
+    ShowRemovableMedia: false
+    ShowMountedServers: false
+    ShowIcons: false
+
+  Menubar:
+    FlashClock: true

@@ -88,16 +88,6 @@
 	"workbench.colorTheme": "Dracula Pro (Van Helsing)",
 	"material-icon-theme.folders.color": "#42a5f5",
 	"git.confirmSync": false,
-	"terminal.integrated.defaultLocation": "editor",
-	"terminal.integrated.enablePersistentSessions": false,
-	"terminal.integrated.profiles.osx": {
-		"zsh": {
-			"path": "zsh",
-			"args": [
-				"-l"
-			]
-		}
-	},
 	"application.shellEnvironmentResolutionTimeout": 30,
 	"terminal.integrated.env.osx": {
 		"CW_NEW_SESSION": "1",
@@ -148,7 +138,7 @@
     "dot_zkeybinds.tmpl": "../../icons/zsh",
 	},
 	"typescript.updateImportsOnFileMove.enabled": "always",
-	"update.mode": "none",
+	"update.mode": "manual",
 	// APC
 	"apc.statusBar": {
 		"height": 32
@@ -232,5 +222,37 @@
   "starlight-i18n.configDirectories": [
     ".",
     "./docs"
-  ]
+  ],
+  "terminal.integrated.defaultLocation": "view",
+	"terminal.integrated.enablePersistentSessions": false,
+	"terminal.integrated.profiles.osx": {
+		"zsh": {
+			"path": "zsh",
+			"args": [
+				"-l"
+			]
+		}
+	},
+  "terminal.integrated.defaultProfile.linux": "zsh",
+  "terminal.integrated.profiles.linux": {
+    "zsh": {
+      "path": "zsh",
+      "args": ["-l"]
+    },
+  },
+  "yaml.schemas": {
+    "file:///home/ktyler/.vscode/extensions/atlassian.atlascode-3.0.10/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+  },
+  "atlascode.jira.enabled": false,
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false
+  },
+  "[yaml]": {
+    "diffEditor.ignoreTrimWhitespace": true
+  },
+  "terminal.external.linuxExec": "kitty",
+  "terminal.explorerKind": "both",
 }

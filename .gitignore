@@ -930,6 +930,17 @@ cython_debug/
 # Ignore TODO files
 *.TODO
 
+##################################################
+##                                              ##
+##                   Ansible                    ##
+##                                              ##
+##################################################
+
+ansible/collections/
+ansible/facts/
+ansible/tmp/
+ansible/logs/
+ansible/galaxy_cache/
 
 ##################################################
 ##                                              ##

@@ -1,0 +1,11 @@
+# yaml-language-server $schema=https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json
+- ansible.builtin.include_tasks: "{{ item }}"
+  with_items:
+  - defaults_dock.yaml
+  - defaults_finder.yaml
+  - defaults_desktop.yaml
+  - defaults_menuBar.yaml
+  # - defaults_keyboard.yaml
+  # - defaults_screensaver.yaml
+  # - defaults_system.yaml
+  # - defaults_trackpad.yaml

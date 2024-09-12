@@ -11,6 +11,7 @@ tasks:
   init:
     desc: "Initialize ansible"
     cmds:
+    - /usr/bin/python3 -m pip install --user -r "{{.ANSIBLE_DIR}}/requirements.txt"
     - ansible-galaxy install -r "{{.ANSIBLE_DIR}}/requirements.yaml"
 
   run:
@@ -19,4 +20,4 @@ tasks:
     deps:
     - init
     cmds:
-    - ansible-playbook "{{.ANSIBLE_DIR}}/playbook.yaml"
+    - ansible-playbook "{{.ANSIBLE_DIR}}/playbooks/playbook.yaml"

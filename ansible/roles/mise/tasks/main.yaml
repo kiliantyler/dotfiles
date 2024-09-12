@@ -1,0 +1,51 @@
+# yaml-language-server $schema=https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json
+
+- name: Get latest mise release from Github
+  community.general.github_release:
+    user: jdx
+    repo: mise
+    action: latest_release
+  register: mise_latest
+
+- name: Create a temporary directory for mise
+  tempfile:
+    state: directory
+  register: temp_dir
+
+- name: Download and extract mise from Github Release
+  ansible.builtin.unarchive:
+    src: "https://github.com/jdx/mise/releases/download/{{ mise_latest['tag'] }}/mise-{{ mise_latest['tag'] }}-{{ ('macos' if ansible_os_family == 'Darwin' else 'linux') }}-{{ ('x64' if ansible_architecture == 'x86_64' else ansible_architecture) }}.tar.gz"
+    dest: "{{ temp_dir.path }}"
+    remote_src: true
+
+- name: Ensure ~/.local/bin directory exists
+  ansible.builtin.file:
+    path: $HOME/.local/bin
+    state: directory
+    owner: "{{ ansible_user_id }}"
+    recurse: yes
+
+- name: Move mise binary to ~/.local/bin
+  ansible.builtin.copy:
+    src: "{{ temp_dir.path }}/mise/bin/mise"
+    dest: $HOME/.local/bin/mise
+    mode: 0755
+    owner: "{{ ansible_user_id }}"
+
+- name: Check if $XDG_DATA_HOME is set
+  ansible.builtin.shell: |
+    echo ${XDG_DATA_HOME:-$HOME/.local/share}
+  register: xdg_data_home
+  ignore_errors: true
+
+- name: Ensure $XDG_DATA_HOME/man/man1 directory exists
+  ansible.builtin.file:
+    path: "{{ xdg_data_home.stdout }}/man/man1"
+    state: directory
+    owner: "{{ ansible_user_id }}"
+    recurse: yes
+
+- name: Move mise man pages
+  ansible.builtin.copy:
+    src: "{{ temp_dir.path }}/mise/man/man1/mise.1"
+    dest: "{{ xdg_data_home.stdout }}/man/man1/mise.1"

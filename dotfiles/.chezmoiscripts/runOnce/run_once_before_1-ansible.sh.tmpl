@@ -1,0 +1,23 @@
+{{- if or (eq .chezmoi.os "darwin") (eq .chezmoi.os "linux") -}}
+#!/usr/bin/env zsh
+
+# -----------------------------------
+# author: @kiliantyler
+# title: Ansible Setup
+# description: Installs and runs Ansible
+# -----------------------------------
+
+cd {{ .chezmoi.config.sourceDir }}/ansible
+
+__PYTHON_LOC=/usr/bin/python3
+
+# Use default python to install ansible and requirements
+${__PYTHON_LOC} -m pip install --user -r requirements.txt
+
+# Install Ansible Galaxy
+${__PYTHON_LOC} -m ansible galaxy install -r requirements.yaml
+
+# Run Ansible Playbook
+${__PYTHON_LOC} -m ansible playbook ./playbooks/playbook.yaml
+
+{{ end }}

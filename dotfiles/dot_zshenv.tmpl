@@ -43,10 +43,13 @@ export XDG_VIDEOS_DIR=${XDG_VIDEOS_DIR:-$HOME/Videos}
 # -----------------------------------------------------------
 
 # Rehome ZDOTDIR to $XDG_CONFIG_HOME/zsh
-export ZDOTDIR=${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}
+export ZDOTDIR=$XDG_CONFIG_HOME/zsh
 
 export ZPFX=${ZPFX:-$HOME/.zpfx}
 
-if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
+# Needed for VSCode to see shims
+[[ -n "$VSCODE_PID" ]] && eval "$({{ .chezmoi.homeDir }}/.local/bin/mise activate zsh --shims)"
+
+if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR}/.zprofile" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
