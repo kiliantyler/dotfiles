@@ -224,4 +224,22 @@
     "**/.trunk/*tmp/": true,
     "**/.trunk/*tools/": true,
   },
+  "editor.foldingStrategy": "auto",
+  "[shellscript]": {
+    "editor.defaultFoldingRangeProvider": "zokugun.explicit-folding"
+  },
+  "explicitFolding.rules": {
+    "shellscript": [
+      {
+        "name": "Go Template folds",
+        "beginRegex": "^{{(-\\s)?\\/\\*$",
+        "endRegex": "^\\*\\/(\\s-)?}}$",
+      },
+      {
+        "name": "Folding Sections",
+        "beginRegex": "^(\\s+)?#.*\\[\\[\\[$",
+        "endRegex": "^(\\s+)?#\\s?\\]\\]\\]$",
+      }
+    ]
+  }
 }

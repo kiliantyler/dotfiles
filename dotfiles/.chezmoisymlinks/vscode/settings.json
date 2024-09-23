@@ -135,7 +135,7 @@
 		"dot_zlogout.tmpl": "../../icons/zsh",
 		"dot_zplugins.tmpl": "../../icons/zsh",
 		"dot_zstyles.tmpl": "../../icons/zsh",
-    "dot_zkeybinds.tmpl": "../../icons/zsh",
+    "dot_zkeybinds.tmpl": "../../icons/zsh"
 	},
 	"typescript.updateImportsOnFileMove.enabled": "always",
 	"update.mode": "manual",
@@ -182,7 +182,7 @@
     ".breadcrumbs-control": "height: 18px",
 		".monaco-breadcrumbs": "font-size: 11px; transform: translateY(0px);",
     // This allows the sidebar icons to be larger
-    ".sidebar .monaco-icon-label:before": "background-size: 28px; height: 25px; width: 30px; padding: 4px;",
+    ".sidebar .monaco-icon-label:before": "background-size: 28px; height: 25px; width: 30px; padding: 4px;"
     },
 	"window.titleBarStyle": "native",
 	"window.customTitleBarVisibility": "never",
@@ -238,10 +238,11 @@
     "zsh": {
       "path": "zsh",
       "args": ["-l"]
-    },
+    }
   },
   "yaml.schemas": {
-    "file:///home/ktyler/.vscode/extensions/atlassian.atlascode-3.0.10/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+    "file:///Users/kilian/.vscode/extensions/atlassian.atlascode-3.0.10/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml",
+    "file:///Home/ktyler/.vscode/extensions/atlassian.atlascode-3.0.10/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
   },
   "atlascode.jira.enabled": false,
   "github.copilot.enable": {
@@ -254,5 +255,5 @@
     "diffEditor.ignoreTrimWhitespace": true
   },
   "terminal.external.linuxExec": "kitty",
-  "terminal.explorerKind": "both",
+  "terminal.explorerKind": "both"
 }

@@ -1,4 +1,6 @@
 #!/usr/bin/env zsh
+# -*- mode: zsh; sh-indentation: 2; indent-tabs-mode: nil; sh-basic-offset: 2; -*-
+# vim: ft=zsh sw=2 ts=2 et
 {{/*
                         $$\
                         $$ |
@@ -14,7 +16,7 @@ $$\ $$$$$$$$\ $$$$$$$  |$$ |  $$ |\$$$$$$$\ $$ |  $$ |  \$  /
 ## Location: $ZDOTDIR/.zshenv
 */}}
 
-{{/* Age encryption via sops (https://github.com/getsops/sops) */}}
+# Age encryption via sops (https://github.com/getsops/sops)
 export SOPS_AGE_KEY_FILE="${HOME}/.config/sops/age/keys.txt"
 export SOPS_AGE_RECIPIENT="age1tk7tw0625mspavxe8lvv348p58ydqw6r04sxcjq76m98nan2lsnq3dhvxd"
 

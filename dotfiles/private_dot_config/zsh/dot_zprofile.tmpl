@@ -16,7 +16,7 @@ $$\ $$$$$$$$\ $$$$$$$  |$$ |      \$$$$$$  |$$ |      $$ |$$ |\$$$$$$$\
 
 .zprofile - Environment configuration for the Z-Shell
 # This file is sourced on login shells, before .zshrc
-Scope:
+Scope: TODO: Add scope
 Location: $ZDOTDIR/.zprofile
 Reference: https://zsh.sourceforge.io/Doc/Release/Files.html#Startup_002fShutdown-Files
 Description:
@@ -35,12 +35,15 @@ if [[ "$OSTYPE" == darwin* ]]; then
   export BROWSER="${BROWSER:-open}"
 fi
 
-export EDITOR="${EDITOR:-nano}"
+export EDITOR="${EDITOR:-micro}"
 export VISUAL="${VISUAL:-code}"
-export PAGER="${PAGER:-less}"
+export PAGER="${PAGER:-most}"
+
+(( $+aliases[run-help] )) && unalias run-help
+autoload -Uz run-help
 
 # Ensure path arrays do not contain duplicates.
-typeset -gU path fpath
+typeset -gU path cdpath fpath manpath
 
 # Add default paths to the path array
 path=(
@@ -61,11 +64,6 @@ path=(
 {{- /*
 # https://github.com/sykloid/etc/blob/master/zsh/zprofile
 # export FPATH=${HOME}/.zfunc:${FPATH}
-
-# export EDITOR=emacs
-
-# export LESS_TERMCAP_so=$(echo -e '\e[1;7m')
-# export LESS_TERMCAP_se=$(echo -e '\e[0m')
 # export MANROFFOPT="-c"
 # export MANPAGER="sh -c 'col -bx | bat -plman'"
 # export MANWIDTH=80

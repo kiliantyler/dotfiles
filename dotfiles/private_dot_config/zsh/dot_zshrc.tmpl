@@ -75,9 +75,6 @@ POWERLEVEL9K_CONFIG_FILE=${POWERLEVEL9K_CONFIG_FILE:-$XDG_CONFIG_HOME/powerlevel
 [[ -e $POWERLEVEL9K_CONFIG_FILE ]] && \
   source $POWERLEVEL9K_CONFIG_FILE
 
-# TODO: there has to be a better way
-autoload -Uz compinit && compinit -C
-
 # -----------------------------------------------------------
 # antidote (for now)
 # -----------------------------------------------------------
@@ -97,9 +94,6 @@ export ANTIDOTE_HOME=${ZDOTDIR}/.antidote
 # -----------------------------------------------------------
 # Finalize
 # -----------------------------------------------------------
-
-# TODO: Move to zsh plugin
-eval "$(~/.local/bin/mise activate zsh)"
 
 # TODO: Remove this
 compinit

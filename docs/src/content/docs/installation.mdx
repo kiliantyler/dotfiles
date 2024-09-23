@@ -1,0 +1,41 @@
+---
+title: Installation
+sidebar:
+  title: Installation
+  order: 2
+---
+
+### Installation Script
+
+:::caution[Support]
+Currently the script only supports:
+  - `Chezmoi` based dotfiles (Support for other dotfiles managers is coming soon)
+  - `Github` based dotfiles (Support for other git providers is coming soon)
+  - `main` or `master` branches (Support for other branches is coming soon)
+  - `MacOS` based systems (Support for other systems is coming soon)
+:::
+
+There is an `install.sh` script in the root of the [repository](/tools/Chezmoi/repo#File\ Structure) that will allow
+the install of required tools and then run the dotfiles scripts via [Chezmoi](/tools/Chezmoi/overview).
+
+
+:::tip
+The script is hosted on a [Cloudflare](/external/cloudflare/overview) workers and you can pass in a username to the
+curl command to install a specific user's dotfiles.
+:::
+
+```shell
+curl install.dotfiles.wiki/kiliantyler | sh
+```
+
+### Ideals
+
+The script is designed to be as simple as possible and to be as easy to use as possible. It is designed to be a
+one-liner that can be run on any system to install the dotfiles.
+
+There are many other "one-click" or "one-liner" dotfiles install scripts out there, but they generally are not truly
+"one-liners" as they require some manual setup or configuration before the "one-line" can be run. This script is
+designed to be a true one-liner. Installing all the required tools and then running the dotfiles install.
+
+If you have to install any tools or configure anything before running a "one-liner" then it is not a true "one-liner",
+ in my opinion.

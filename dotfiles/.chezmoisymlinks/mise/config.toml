@@ -6,35 +6,92 @@ trusted_config_paths = [
   "{{ get_env(name='HOME') }}/Github/shamubernetes/",
   "{{ get_env(name='HOME') }}/Github/kiliantyler/",
 ]
+disable_hints = ["python_multi"]
 
 [plugins]
+devcontainer = "https://github.com/iloveitaly/asdf-devcontainer"
 trunk = "https://github.com/sdurrheimer/asdf-trunk"
+micro = "https://github.com/YR-ZR0/asdf-micro"
+topgrade = "https://github.com/kiliantyler/asdf-topgrade.git"
+aliae = "https://github.com/kiliantyler/asdf-aliae.git"
+coreutils = "https://github.com/kiliantyler/asdf-coreutils.git"
 
 [tools]
 1password-cli = "latest"
-age = "latest"
+age = "latest"           # TODO: List-all broken
+aliae = "latest"
+aws-sso-cli = "latest"
 awscli = "latest"
 bun = "latest"
+coreutils = "latest"
+cue = "0.10.0"           # TODO: latest is broken
+# devcontainer = "latest" # TODO: List-all broken
 direnv = "latest"
+dust = "latest"
 editorconfig-checker = "latest"
+eza = "latest"
+flux2 = "latest"
 fzf = "latest"
-golang = "latest"
 golangci-lint = "latest"
 goreleaser = "latest"
+goss = "latest"
 helm = "latest"
 jq = "latest"
-kubectl = "latest"
-node = "latest"
-python = "latest"
-terragrunt = "latest"
-zoxide = "latest"
-flux2 = "latest"
-task = "latest"
-yq = "latest"
-yamlfmt = "latest"
-rust = "latest"
-"cargo:eza" = "latest"
-"cargo:bat" = "latest"
 kubecolor = "latest"
-yarn = "1.22.22"
+kubectl = "latest"
+make = "latest"
+micro = "latest"
+node = "latest"
+sops = "latest"
+task = "latest"
+talosctl = "latest"
+terraform-docs = "latest"
+terraform = "latest"
+terragrunt = "latest"
+# topgrade = "latest" # TODO: List-all broken
+trunk = "latest"
+yamlfmt = "latest"
+usage = "latest"
+yarn = "latest"
+yq = "latest"
+zoxide = "latest"
+
+# To Create
+# asdf-aliae
+# git-lfs
+# gnu-indent
+# gnu-sed
+# gnu-tar
+# gnu-which
+# gnupg
+# grep
+# most
+# unzip
+# watchman
+# wget
+
+# TODO:  asdf-m4 -> asdf-autoconf
+# autoconf needed for git
+git = "latest"
+
+# Go tools
+go = "latest"
+"go:github.com/cloudflare/cf-terraforming/cmd/cf-terraforming" = "latest"
+
+# Rust tools
+rust = "latest"
+"cargo:bat" = "latest"
 "cargo:procs" = "latest"
+"cargo:findutils" = "latest" # Replace with gnu find
+"cargo:diffutils" = "latest" # Replace with gnu diff
+"cargo:coreutils" = "latest"
+
+# Python tools
+python = "latest"
+pipx = "latest"
+"pipx:ansible-core" = "latest"
+"pipx:ansible" = "latest"
+"pipx:jinja2-cli" = "latest"
+"pipx:virtualenv" = "latest"
+colima = "latest"
+lima = "latest"
