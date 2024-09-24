@@ -12,18 +12,4 @@ if [ ! -f "${HOME}/.config/chezmoi/key.txt" ]; then
     $HOME/.local/bin/chezmoi age decrypt --output "${HOME}/.config/chezmoi/key.txt" --passphrase "{{ .chezmoi.sourceDir }}/key.txt.age"
     chmod 600 "${HOME}/.config/chezmoi/key.txt"
 fi
-
-{{- else if eq .chezmoi.os "windows" -}}
-
-$KeyPath = "$HOME\.config\chezmoi\key.txt"
-
-if (-Not (Test-Path $KeyPath)) {
-    $ConfigDir = "$HOME\.config\chezmoi"
-    New-Item -ItemType Directory -Force -Path $ConfigDir
-
-    & "$HOME\.local\bin\chezmoi" age decrypt --output $KeyPath --passphrase "{{ .chezmoi.sourceDir }}\key.txt.age"
-
-    icacls $KeyPath /inheritance:r /grant:r "$($env:USERNAME):(R,W)" /c
-}
-
 {{- end}}

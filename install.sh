@@ -44,16 +44,6 @@
   # get OS type
   OS=$(uname -s)
 
-  if [ "$OS" = "Darwin" ]; then
-    echo "MacOS detected"
-    macos_install
-  elif [ "$OS" = "Linux" ]; then
-    echo "Linux detected"
-    linux_install
-  else
-    fail "Unsupported OS: $OS"
-  fi
-
   macos_install() {
     # -----------------------------------
     # Xcode Command Line Tools Installation (MacOS-specific)
@@ -97,6 +87,16 @@
       fail "Unsupported package manager"
     fi
   }
+
+  if [ "$OS" = "Darwin" ]; then
+    echo "MacOS detected"
+    macos_install
+  elif [ "$OS" = "Linux" ]; then
+    echo "Linux detected"
+    linux_install
+  else
+    fail "Unsupported OS: $OS"
+  fi
 
   # -----------------------------------
   # Chezmoi Installation and Initialization

@@ -16,6 +16,7 @@
     "*.sh.tmpl": "gotemplate",
     "*.zsh.tmpl": "shellscript",
     "dot_z*.tmpl": "shellscript",
+    "*.ps1.tmpl": "gotemplate",
   },
   "material-icon-theme.files.associations": {
     ".tool-versions": "settings",
@@ -29,6 +30,7 @@
     "*.task.yaml": "task",
     "symlink_dot_tool-versions.tmpl": "symlink",
     "*.sh.tmpl": "sh-template",
+    "*.ps1.tmpl": "pwsh-template",
     ".chezmoiremove": "chezmoi-remove",
     "dot_tool-versions": "tool-versions",
     ".chezmoi.yaml.tmpl": "chezmoi-yaml",
@@ -103,6 +105,11 @@
     {
       "name": "sh-template",
       "base": "console",
+      "color": "green-400"
+    },
+    {
+      "name": "pwsh-template",
+      "base": "powershell",
       "color": "green-400"
     },
     {

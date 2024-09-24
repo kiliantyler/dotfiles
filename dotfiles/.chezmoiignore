@@ -31,7 +31,17 @@ Library/
 # Allows encryption on first run
 key.txt.age
 
+{{ if ne .chezmoi.os "windows" }}
+# Ignore Windows Specific Files
+# Anything in AppData is going to be Windows specific
+AppData/
+
+# All ps1 files
+**/*.ps1
+{{ end }}
+
 {{ if eq .chezmoi.os "windows" }}
+# Ignore all shell scripts
 **/*/*.sh.tmpl
 **/*/*.sh
 {{ end }}
