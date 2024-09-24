@@ -17,6 +17,7 @@ __PYTHON_LOC=/usr/bin/python3
 
 curl -fsSL https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 ${__PYTHON_LOC} get-pip.py
+command rm -rf git-pip.py
 
 # Use default python to install ansible and requirements
 ${__PYTHON_LOC} -m pip install --user -r requirements.txt

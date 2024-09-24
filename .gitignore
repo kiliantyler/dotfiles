@@ -20,6 +20,9 @@
 
 *.archive/
 
+# Unignore ansible log folder
+!ansible/logs/.gitkeep
+
 # ---------------------------------------------- #
 
 ##################################################
@@ -936,11 +939,18 @@ cython_debug/
 ##                                              ##
 ##################################################
 
-ansible/collections/
-ansible/facts/
-ansible/tmp/
-ansible/logs/
-ansible/galaxy_cache/
+!ansible/logs/
+ansible/logs/*
+!ansible/logs/.gitkeep
+ansible/collections/*
+!ansible/collections/.gitkeep
+ansible/facts/*
+!ansible/facts/.gitkeep
+!ansible/tmp/
+ansible/tmp/*
+!ansible/tmp/.gitkeep
+ansible/galaxy_cache/*
+!ansible/galaxy_cache/.gitkeep
 
 ##################################################
 ##                                              ##
