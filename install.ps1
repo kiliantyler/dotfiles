@@ -4,9 +4,7 @@
     Sets up a windows machine for chezmoi
 
 .EXAMPLE
-    iex "&{$(irm 'https://install.dotfiles.wiki')}"
-
-    Runs the script with the specified input and output files.
+    iex "&{$(irm 'https://install.dotfiles.wiki/ps1')}"
 #>
 
 
