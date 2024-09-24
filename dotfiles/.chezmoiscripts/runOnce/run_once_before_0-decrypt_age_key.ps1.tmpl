@@ -4,7 +4,6 @@
 # description: Decrypts the Age key used by chezmoi
 # -----------------------------------
 
-{{- if eq .chezmoi.os "windows" -}}
 $KeyPath = "$HOME\.config\chezmoi\key.txt"
 
 if (-Not (Test-Path $KeyPath)) {
@@ -15,4 +14,3 @@ if (-Not (Test-Path $KeyPath)) {
 
     icacls $KeyPath /inheritance:r /grant:r "$($env:USERNAME):(R,W)" /c
 }
-{{- end }}

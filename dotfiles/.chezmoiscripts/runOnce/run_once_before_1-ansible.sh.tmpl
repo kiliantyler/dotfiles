@@ -1,20 +1,22 @@
+{{- if eq .chezmoi.os "darwin" -}}
+#!/usr/bin/env zsh
+{{- else if eq .chezmoi.os "linux" -}}
+#!/usr/bin/env bash
+{{- end}}
+
 # -----------------------------------
 # author: @kiliantyler
 # title: Ansible Setup
 # description: Installs and runs Ansible
 # -----------------------------------
 
-{{- if eq .chezmoi.os "darwin"-}}
-#!/usr/bin/env zsh
-{{- else if eq .chezmoi.os "linux"-}}
-#!/usr/bin/env bash
-{{- end}}
-
-{{- if or (eq .chezmoi.os "darwin") (eq .chezmoi.os "linux") -}}
-
 cd {{ .chezmoi.config.sourceDir }}/ansible
 
+# TODO: Change to Chezmoi variable
 __PYTHON_LOC=/usr/bin/python3
+
+curl -fsSL https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+${__PYTHON_LOC} get-pip.py
 
 # Use default python to install ansible and requirements
 ${__PYTHON_LOC} -m pip install --user -r requirements.txt
@@ -24,11 +26,3 @@ ${__PYTHON_LOC} -m ansible galaxy install -r requirements.yaml
 
 # Run Ansible Playbook
 ${__PYTHON_LOC} -m ansible playbook ./playbooks/playbook.yaml
-
-
-
-__PYTHON_LOC=/usr/bin/python3
-
-${__PYTHON_LOC} -m ensurepip --upgrade
-
-{{- end}}

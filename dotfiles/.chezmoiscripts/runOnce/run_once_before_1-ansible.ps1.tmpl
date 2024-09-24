@@ -4,7 +4,6 @@
 # description: Installs and runs Ansible
 # -----------------------------------
 
-{{- if eq .chezmoi.os "windows"-}}
 {{/* # Self-elevate the script if required
 if (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] 'Administrator')) {
   if ([int](Get-CimInstance -Class Win32_OperatingSystem | Select-Object -ExpandProperty BuildNumber) -ge 6000) {
@@ -13,6 +12,7 @@ if (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
     Exit
   }
 } */}}
+
 cd {{ .chezmoi.config.sourceDir }}/ansible
 
 # Use default python to install ansible and requirements
@@ -23,5 +23,3 @@ python -m ansible galaxy install -r requirements.yaml
 
 # Run Ansible Playbook
 python -m ansible playbook ./playbooks/playbook.yaml
-
-{{ end }}

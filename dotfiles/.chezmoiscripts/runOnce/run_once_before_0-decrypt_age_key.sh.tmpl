@@ -1,15 +1,14 @@
+#!/usr/bin/env bash
+
 # -----------------------------------
 # author: @kiliantyler
 # title: Decrypt Age Key
 # description: Decrypts the Age key used by chezmoi
 # -----------------------------------
 
-{{- if or (eq .chezmoi.os "darwin") (eq .chezmoi.os "linux") -}}
-#!/usr/bin/env bash
 
-if [ ! -f "${HOME}/.config/chezmoi/key.txt" ]; then
-    mkdir -p "${HOME}/.config/chezmoi"
-    $HOME/.local/bin/chezmoi age decrypt --output "${HOME}/.config/chezmoi/key.txt" --passphrase "{{ .chezmoi.sourceDir }}/key.txt.age"
-    chmod 600 "${HOME}/.config/chezmoi/key.txt"
+if [ ! -f "{{ .chezmoi.homeDir }}/.config/chezmoi/key.txt" ]; then
+    mkdir -p "{{ .chezmoi.homeDir }}/.config/chezmoi"
+    {{ .chezmoi.homeDir }}/.local/bin/chezmoi age decrypt --output "{{ .chezmoi.homeDir }}/.config/chezmoi/key.txt" --passphrase "{{ .chezmoi.sourceDir }}/key.txt.age"
+    chmod 600 "{{ .chezmoi.homeDir }}/.config/chezmoi/key.txt"
 fi
-{{- end}}
