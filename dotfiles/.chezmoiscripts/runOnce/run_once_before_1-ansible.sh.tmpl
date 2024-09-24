@@ -1,11 +1,11 @@
-{{- if or (eq .chezmoi.os "darwin") (eq .chezmoi.os "linux") -}}
-#!/usr/bin/env zsh
-
 # -----------------------------------
 # author: @kiliantyler
 # title: Ansible Setup
 # description: Installs and runs Ansible
 # -----------------------------------
+
+{{- if eq .chezmoi.os "darwin"-}}
+#!/usr/bin/env zsh
 
 cd {{ .chezmoi.config.sourceDir }}/ansible
 
@@ -19,5 +19,30 @@ ${__PYTHON_LOC} -m ansible galaxy install -r requirements.yaml
 
 # Run Ansible Playbook
 ${__PYTHON_LOC} -m ansible playbook ./playbooks/playbook.yaml
+
+{{- else if eq .chezmoi.os "linux"-}}
+#!/usr/bin/env bash
+# TODO: Add Linux support
+{{- end}}
+
+{{- if eq .chezmoi.os "windows"-}}
+{{/* # Self-elevate the script if required
+if (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] 'Administrator')) {
+  if ([int](Get-CimInstance -Class Win32_OperatingSystem | Select-Object -ExpandProperty BuildNumber) -ge 6000) {
+    $CommandLine = "-NoExit -File `"" + $MyInvocation.MyCommand.Path + "`" " + $MyInvocation.UnboundArguments
+    Start-Process -Wait -FilePath PowerShell.exe -Verb Runas -ArgumentList $CommandLine
+    Exit
+  }
+} */}}
+cd {{ .chezmoi.config.sourceDir }}/ansible
+
+# Use default python to install ansible and requirements
+python -m pip install --user -r requirements.txt
+
+# Install Ansible Galaxy
+python -m ansible galaxy install -r requirements.yaml
+
+# Run Ansible Playbook
+python -m ansible playbook ./playbooks/playbook.yaml
 
 {{ end }}
