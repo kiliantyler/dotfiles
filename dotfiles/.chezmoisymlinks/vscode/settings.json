@@ -241,8 +241,7 @@
     }
   },
   "yaml.schemas": {
-    "file:///Users/kilian/.vscode/extensions/atlassian.atlascode-3.0.10/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml",
-    "file:///Home/ktyler/.vscode/extensions/atlassian.atlascode-3.0.10/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+    "file:///c%3A/Users/kilian/.vscode/extensions/atlassian.atlascode-3.0.10/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
   },
   "atlascode.jira.enabled": false,
   "github.copilot.enable": {
@@ -255,5 +254,8 @@
     "diffEditor.ignoreTrimWhitespace": true
   },
   "terminal.external.linuxExec": "kitty",
-  "terminal.explorerKind": "both"
+  "terminal.explorerKind": "both",
+  "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  }
 }

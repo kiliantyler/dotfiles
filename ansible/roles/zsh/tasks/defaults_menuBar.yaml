@@ -1,0 +1,10 @@
+# yaml-language-server $schema=https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json
+
+- name: "[MENUBAR] Flash Clock"
+  community.general.osx_defaults:
+    domain: com.apple.menuextra.clock
+    key: FlashDateSeparators
+    type: bool
+    value: "{{ Defaults.Menubar.FlashClock }}"
+    state: present
+  notify: Finder Restart

@@ -1,0 +1,46 @@
+# yaml-language-server $schema=https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json
+
+- name: "[DESKTOP] Hard Drives on Desktop"
+  community.general.osx_defaults:
+    domain: com.apple.finder
+    key: ShowHardDrivesOnDesktop
+    type: bool
+    value: "{{ Defaults.Desktop.ShowHardDrives }}"
+    state: present
+  notify: Finder Restart
+
+- name: "[DESKTOP] External Hard Drives on Desktop"
+  community.general.osx_defaults:
+    domain: com.apple.finder
+    key: ShowExternalHardDrivesOnDesktop
+    type: bool
+    value: "{{ Defaults.Desktop.ShowExternalHardDrives }}"
+    state: present
+  notify: Finder Restart
+
+- name: "[DESKTOP] Removable Media on Desktop"
+  community.general.osx_defaults:
+    domain: com.apple.finder
+    key: ShowRemovableMediaOnDesktop
+    type: bool
+    value: "{{ Defaults.Desktop.ShowRemovableMedia }}"
+    state: present
+  notify: Finder Restart
+
+- name: "[DESKTOP] Mounted Servers on Desktop"
+  community.general.osx_defaults:
+    domain: com.apple.finder
+    key: ShowMountedServersOnDesktop
+    type: bool
+    value: "{{ Defaults.Desktop.ShowMountedServers }}"
+    state: present
+  notify: Finder Restart
+
+- name: "[DESKTOP] Desktop Icons"
+  community.general.osx_defaults:
+    domain: com.apple.finder
+    key: CreateDesktop
+    type: bool
+    value: "{{ Defaults.Desktop.ShowIcons }}"
+    state: present
+  notify: Finder Restart

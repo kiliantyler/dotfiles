@@ -1,0 +1,145 @@
+# yaml-language-server $schema=https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json
+
+- name: "[DOCK] Position"
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: orientation
+    type: string
+    value: "{{ Defaults.Dock.Position }}"
+    state: present
+  notify: Dock Restart
+
+- name: "[DOCK] Auto-hide"
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: autohide
+    type: bool
+    value: "{{ Defaults.Dock.Autohide.Enabled }}"
+    state: present
+  notify: Dock Restart
+
+- name: "[DOCK] Auto-hide Delay"
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: autohide-delay
+    type: float
+    value: "{{ Defaults.Dock.Autohide.Delay }}"
+    state: present
+  notify: Dock Restart
+
+- name: "[DOCK] Auto-hide Animation Duration"
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: autohide-time-modifier
+    type: float
+    value: "{{ Defaults.Dock.Autohide.AnimationDuration }}"
+    state: present
+  notify: Dock Restart
+
+- name: "[DOCK] Icon size"
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: tilesize
+    type: float
+    value: "{{ Defaults.Dock.Icons.Size }}"
+    state: present
+  notify: Dock Restart
+
+- name: "[DOCK] Magnification"
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: magnification
+    type: bool
+    value: "{{ Defaults.Dock.Icons.Magnification }}"
+    state: present
+  notify: Dock Restart
+
+- name: "[DOCK] Magnification size"
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: largesize
+    type: float
+    value: "{{ Defaults.Dock.Icons.MagnificationSize }}"
+    state: present
+  notify: Dock Restart
+
+- name: "[DOCK] Show Recents"
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: show-recents
+    type: bool
+    value: "{{ Defaults.Dock.ShowRecents }}"
+    state: present
+  notify: Dock Restart
+
+- name: "[DOCK] Show hidden"
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: showhidden
+    type: bool
+    value: "{{ Defaults.Dock.ShowHidden }}"
+    state: present
+  notify: Dock Restart
+
+- name: "[DOCK] Pinning"
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: pinning
+    type: string
+    value: "{{ Defaults.Dock.Pinning }}"
+    state: present
+  notify: Dock Restart
+
+- name: "[DOCK] Minimize to application"
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: minimize-to-application
+    type: bool
+    value: "{{ Defaults.Dock.MinimizeToApplication }}"
+    state: present
+  notify: Dock Restart
+
+- name: "[DOCK] No bouncing"
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: no-bouncing
+    type: bool
+    value: "{{ Defaults.Dock.NoBouncing }}"
+    state: present
+  notify: Dock Restart
+
+- name: "[DOCK] Launch animation"
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: launchanim
+    type: bool
+    value: "{{ Defaults.Dock.Animations.Launch }}"
+    state: present
+  notify: Dock Restart
+
+- name: "[DOCK] Minimize effect"
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: mineffect
+    type: string
+    value: "{{ Defaults.Dock.Animations.MinimizeEffect }}"
+    state: present
+  notify: Dock Restart
+
+- name: "[DOCK] Scroll to open"
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: scroll-to-open
+    type: bool
+    value: "{{ Defaults.Dock.ScrollToOpen }}"
+    state: present
+  notify: Dock Restart
+
+- name: "[DOCK] Show App Expose Gesture"
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: showAppExposeGestureEnabled
+    type: bool
+    value: "{{ Defaults.Dock.ShowAppExposeGestureEnabled }}"
+    state: present
+  notify: Dock Restart

@@ -39,7 +39,6 @@ chomp() {
   echo "$1" | tr -d '\n'
 }
 
-# Make sure sudo timestamp is updated
 sudo -v
 
 # -----------------------------------

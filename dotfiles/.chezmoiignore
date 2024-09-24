@@ -30,3 +30,8 @@ Library/
 
 # Allows encryption on first run
 key.txt.age
+
+{{ if eq .chezmoi.os "windows" }}
+**/*/*.sh.tmpl
+**/*/*.sh
+{{ end }}

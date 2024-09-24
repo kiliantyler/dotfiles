@@ -1,0 +1,14 @@
+#!/usr/bin/env zsh
+
+#{
+
+__completion_dir="$1"
+
+if ! command -v kubectl &>/dev/null; then
+  return
+fi
+
+echo "Generating kubectl completions..."
+kubectl completion zsh > "${__completion_dir}/_kubectl"
+
+#}
