@@ -16,6 +16,7 @@ topgrade = "https://github.com/kiliantyler/asdf-topgrade.git"
 aliae = "https://github.com/kiliantyler/asdf-aliae.git"
 coreutils = "https://github.com/kiliantyler/asdf-coreutils.git"
 atuin = "https://github.com/rzyns/asdf-atuin.git"
+git = "https://github.com/john-cai/asdf-git.git"
 
 [tools]
 1password-cli = "latest"
@@ -56,6 +57,9 @@ usage = "latest"
 yarn = "latest"
 yq = "latest"
 zoxide = "latest"
+colima = "latest"
+lima = "latest"
+atuin = "latest"
 
 # To Create
 # asdf-aliae
@@ -73,6 +77,7 @@ zoxide = "latest"
 
 # TODO:  asdf-m4 -> asdf-autoconf
 # autoconf needed for git
+# gettext needed for git
 git = "latest"
 
 # Go tools
@@ -94,6 +99,3 @@ pipx = "latest"
 "pipx:ansible" = "latest"
 "pipx:jinja2-cli" = "latest"
 "pipx:virtualenv" = "latest"
-colima = "latest"
-lima = "latest"
-atuin = "latest"
