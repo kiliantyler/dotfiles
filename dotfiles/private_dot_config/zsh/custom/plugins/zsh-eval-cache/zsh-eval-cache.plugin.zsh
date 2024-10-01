@@ -9,28 +9,11 @@
 
 # https://wiki.zshell.dev/community/zsh_plugin_standard#standard-plugins-hash
 typeset -gA Plugins
-Plugins[ZSH_MISE]="${0:h}"
+Plugins[ZSH_PLUGIN_CACHE]="${0:h}"
 
 # https://wiki.zshell.dev/community/zsh_plugin_standard#funtions-directory
 if [[ $PMSPEC != *f* ]]; then
   fpath+=( "${0:h}/functions" )
 fi
 
-# https://wiki.zshell.dev/community/zsh_plugin_standard#global-parameter-with-capabilities
-if [[ $PMSPEC == *P* ]]; then
-  _ZO_DATA_DIR=${ZPFX}/share
-fi
-
-
-if (( ! $+commands[mise] )); then
-  print "Please install mise or make sure it is in your PATH"
-  print "More info: https://mise.jdx.dev/getting-started.html"
-  exit 1
-fi
-
-# check if @zsh-eval-cache is loaded
-if (( $+functions[@zsh-eval-cache] )); then
-  @zsh-eval-cache ~/.local/bin/mise activate zsh
-else
-  eval "$(~/.local/bin/mise activate zsh)"
-fi
+autoload -Uz @zsh-eval-cache

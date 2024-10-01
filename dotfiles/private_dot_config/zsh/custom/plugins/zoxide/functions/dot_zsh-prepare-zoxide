@@ -36,14 +36,4 @@ if (( ${+commands[fzf]} )); then
   fi
 fi
 
-# Initialize git submodule if required.
-if [[ ! -f ${Plugins[ZSH_ZOXIDE]:?}/man/man1/zoxide-add.1 ]]; then
-  command git submodule --quiet init
-  command git submodule --quiet update
-  if [[ ! -f ${Plugins[ZSH_ZOXIDE]}/man/man1/zoxide.1 ]]; then
-    print "Failed to initiate git submodules"
-    ret=102
-  fi
-fi
-
 return $ret

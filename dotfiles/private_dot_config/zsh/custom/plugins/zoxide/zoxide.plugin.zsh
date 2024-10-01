@@ -1,6 +1,7 @@
+#!/usr/bin/env zsh
 # -*- mode: zsh; sh-indentation: 2; indent-tabs-mode: nil; sh-basic-offset: 2; -*-
 # vim: ft=zsh sw=2 ts=2 et
-#
+
 # Zsh Plugin Standard
 # https://wiki.zshell.dev/community/zsh_plugin_standard#zero-handling
 0="${ZERO:-${${0:#$ZSH_ARGZERO}:-${(%):-%N}}}"
@@ -65,13 +66,8 @@ if [[ -n $_ZO_DATA_DIR ]]; then
   typeset -gx _ZO_DATA_DIR=${~_ZO_DATA_DIR}
 fi
 
-# Autoload zsh-eval-cache.
-autoload -Uz @zsh-eval-cache
-
 if [[ -n $_ZO_CMD_PREFIX ]]; then
-  # Set zoxide commands x, xi when using with Zi.
   @zsh-eval-cache zoxide init --cmd $_ZO_CMD_PREFIX zsh
 else
-  # Default zoxide commands z, zi when not using with Zi.
   @zsh-eval-cache zoxide init zsh
 fi
