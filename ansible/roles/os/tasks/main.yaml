@@ -2,4 +2,4 @@
 
 - name: "Run OS specific tasks"
   ansible.builtin.include_role:
-    name: "os/{{ 'macos' if ansible_os_family == 'Darwin' else ansible_os_family }}"
+    name: "os/{{ 'macos' if ansible_os_family == 'Darwin' else ansible_os_family | lower }}"
