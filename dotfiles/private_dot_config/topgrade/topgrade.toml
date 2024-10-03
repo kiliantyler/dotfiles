@@ -1,0 +1,24 @@
+# Files in $CONFIG_DIR/topgrade.d/ are automatically included before this file
+[misc]
+disable = ["system", "emacs", "pnpm", "containers"]
+no_retry = true
+cleanup = true
+
+[python]
+enable_pipupgrade = true
+
+[composer]
+self_update = true
+
+[brew]
+greedy_cask = true
+greedy_latest = true
+autoremove = true
+
+[git]
+max_concurrency = 5
+repos = ["~/.local/share/chezmoi"]
+arguments = "--rebase --autostash"
+
+[firmware]
+upgrade = false

@@ -8,25 +8,35 @@ builtin setopt extended_glob typeset_silent no_short_loops rc_quotes no_auto_pus
 typeset -gA ZEC
 typeset -i ret=0
 typeset -a input_array=( "$@" )
+ZEC[command]=$(basename "$1" | awk '{print $1}')
 
-: ${ZEC[CACHE_DIR]:=${ZEC[CACHE_DIR]:-${Plugins[ZSH_ZOXIDE]}/._zoxide}}
+ZEC[CACHE_DIR__${command}]=${ZEC[CACHE_DIR_BASE]}/${ZEC[command]}
 : ${ZEC[DISABLED]:=${ZEC[DISABLED]:-0}}
-: ${ZEC[DEBUG]:=${ZEC[DEBUG]:-0}}
+: ${ZEC[DEBUG]:=${ZEC[DEBUG]:-1}}
 : ${ZEC[MAX]:=${ZEC[MAX]:-1000}}
 
-ZEC[CACHE_DIR]=${~ZEC[CACHE_DIR]}
+ZEC[CACHE_DIR]=${ZEC[CACHE_DIR__${command}]}
+
+# ZEC[CACHE_DIR]=${~ZEC[CACHE_DIR]}
 [[ -d ${ZEC[CACHE_DIR]} ]] || command mkdir -p ${ZEC[CACHE_DIR]} &> /dev/null
 
 if (( $+commands[md5] )); then
-  ZEC[MD5_HASH]=$(md5 <<< $input_array)
+  : ${ZEC[MD5_HASH__${COMMAND}]:=$(md5 <<< $input_array)}
 elif (( $+commands[md5sum] )); then
-  ZEC[MD5_HASH]=$(md5sum <<< $input_array | awk '{ print $1 }')
+  : ${ZEC[MD5_HASH__${COMMAND}]:=$(md5sum <<< $input_array | awk '{ print $1 }')}
 else
-  ZEC[MD5_HASH]=no_hash
+  : ${ZEC[MD5_HASH__${COMMAND}]:="no hash"}
 fi
 
-: ${ZEC[CACHE]:=${ZEC[CACHE]:-${ZEC[CACHE_DIR]}/${ZEC[MD5_HASH]}.zsh}}
-: ${ZEC[COUNT]:=${ZEC[COUNT]:-${ZEC[CACHE_DIR]}/${ZEC[MD5_HASH]}.txt}}
+ZEC[MD5_HASH]=${ZEC[MD5_HASH__${COMMAND}]}
+
+: ${ZEC[CACHE__${command}]:=${ZEC[CACHE__${command}]:-${ZEC[CACHE_DIR]}/${ZEC[MD5_HASH]}.zsh}}
+: ${ZEC[COUNT__${command}]:=${ZEC[COUNT__${command}]:-${ZEC[CACHE_DIR]}/${ZEC[MD5_HASH]}.txt}}
+
+ZEC[CACHE]=${ZEC[CACHE__${command}]}
+ZEC[COUNT]=${ZEC[COUNT__${command}]}
+
+# ???????
 
 if (( ZEC[DISABLED] )); then
   (( ZEC[DEBUG] )) && builtin print -Pr "@zsh-eval-cache: disabled"
@@ -37,22 +47,22 @@ elif [[ -s ${ZEC[CACHE]} ]]; then
   typeset count=$(<${ZEC[COUNT]})
   if [[ $count =~ ^[0-9]+$ ]]; then
     (( count++ )) && { builtin print $count > ${ZEC[COUNT]}; } 2> /dev/null
-    (( ZEC[DEBUG] )) && builtin print -Pr "@zsh-eval-cache: hit $count"
+    (( ZEC[DEBUG] )) && builtin print -Pr "@zsh-eval-cache: ${ZEC[command]} hit $count"
   else
-    builtin print -Pr "@zsh-eval-cache: failed to get cache count"
+    builtin print -Pr "@zsh-eval-cache: failed to get cache count for ${ZEC[command]}"
   fi
 
   builtin source ${ZEC[CACHE]}; ret=$?
 else
   [[ -f ${ZEC[COUNT]} ]] || { builtin print 1 > ${ZEC[COUNT]}; } 2> /dev/null
 
-  (( ZEC[DEBUG] )) && builtin print -Pr "@zsh-eval-cache: miss"
+  (( ZEC[DEBUG] )) && builtin print -Pr "@zsh-eval-cache: ${ZEC[command]} miss"
 
   ${(@)input_array} >! ${ZEC[CACHE]} && zcompile -U ${ZEC[CACHE]} && builtin source ${ZEC[CACHE]}; ret=$?
 fi
 
 (( count > ZEC[MAX] )) && command rm -rf ${ZEC[CACHE_DIR]} &> /dev/null
 
-(( ret )) && builtin print -Pr "@zsh-eval-cache: failed to initialize zoxide" >&2
+(( ret )) && builtin print -Pr "@zsh-eval-cache: failed to initialize ${ZEC[command]}" >&2
 
 return $ret

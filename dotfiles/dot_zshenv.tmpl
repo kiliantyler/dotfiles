@@ -45,10 +45,10 @@ $$\ $$$$$$$$\ $$$$$$$  |$$ |  $$ |\$$$$$$$\ $$ |  $$ |  \$  /
 
     # Rehome ZDOTDIR to $XDG_CONFIG_HOME/zsh
     export ZDOTDIR=$XDG_CONFIG_HOME/zsh
+    typeset -gA ZEC
+    export ZEC[CACHE_DIR_BASE]=${ZEC[CACHE_DIR_BASE]:-${XDG_CACHE_HOME}/zsh/eval-cache}
 
-    # Needed for VSCode to see shims
-    [[ -n "$VSCODE_PID" ]] && \
-      eval "$({{ .chezmoi.homeDir }}/.local/bin/mise activate zsh --shims)"
+    eval "$({{ .chezmoi.homeDir }}/.local/bin/mise activate zsh --shims)"
 
     # Load zshenv for Interactive Shells
     [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) ]] && \

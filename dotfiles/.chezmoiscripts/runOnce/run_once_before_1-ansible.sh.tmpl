@@ -15,9 +15,11 @@ cd {{ .chezmoi.config.sourceDir }}/ansible
 # TODO: Change to Chezmoi variable
 __PYTHON_LOC=/usr/bin/python3
 
-curl -fsSL https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-${__PYTHON_LOC} get-pip.py
-command rm -rf git-pip.py
+tmpdir=$(mktemp -d)
+
+curl -fsSL https://bootstrap.pypa.io/get-pip.py -o ${tmpdir}/get-pip.py
+${__PYTHON_LOC} ${tmpdir}/get-pip.py
+rm -rm ${tmpdir}
 
 # Use default python to install ansible and requirements
 ${__PYTHON_LOC} -m pip install --user -r requirements.txt
