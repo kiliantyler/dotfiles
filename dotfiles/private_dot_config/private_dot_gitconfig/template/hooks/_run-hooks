@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+# GIT_COMMON_DIR=$(git rev-parse --git-common-dir)
+# GIT_TEMPLATE_DIR=$(git config --get init.templateDir)
+
+# export GIT_COMMON_DIR
+# export GIT_TEMPLATE_DIR
+
+HOOK_NAME=$(basename "${1}")
+
+echo "Setting up $HOOK_NAME"
+
+case $HOOK_NAME in
+pre-commit)
+  ARGNUM=0
+  ;;
+prepare-commit-msg)
+  ARGNUM=3
+  ;;
+commit-msg)
+  test -d "$GIT_COMMON_DIR"/rebase-merge -o -d "$GIT_COMMON_DIR"/rebase-apply && exit 0
+  ARGNUM=1
+  ;;
+post-commit)
+  ARGNUM=0
+  ;;
+post-checkout)
+  ARGNUM=3
+  ;;
+post-merge)
+  ARGNUM=1
+  ;;
+pre-push)
+  ARGNUM=2
+  ;;
+*)
+  echo "Unknown hook: $HOOK_NAME"
+  exit 1
+  ;;
+esac

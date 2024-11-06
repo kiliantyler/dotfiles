@@ -60,6 +60,7 @@ zoxide = "latest"
 colima = "latest"
 lima = "latest"
 atuin = "latest"
+helmfile = "latest"
 
 # To Create
 # asdf-aliae

@@ -4,7 +4,8 @@
   "files.associations": {
     "*.json5": "jsonc",
     "*.json": "jsonc",
-    "*.ssh": "ssh_config",
+    "*.ssh": "ssh-config",
+    "*.ssh.tmpl": "ssh-config",
     "*.gitconfig": "gitconfig",
     "*.delta": "gitconfig",
     ".zshrc": "shellscript",
@@ -26,7 +27,7 @@
     // VSCode does not allow to use glob patterns for filenames (only extensions)
     // So we need to specify each file individually, sadly
     // https://github.com/material-extensions/vscode-material-icon-theme/issues/330
-    "dot_hushlogin": "hushlogin",
+    "empty_dot_hushlogin": "hushlogin",
     "*.task.yaml": "task",
     "symlink_dot_tool-versions.tmpl": "symlink",
     "*.sh.tmpl": "sh-template",
@@ -37,6 +38,8 @@
     ".chezmoiroot": "chezmoi-root",
     ".chezmoiversion": "chezmoi-version",
     ".chezmoiignore": "chezmoi-ignore",
+    "*.ssh.tmpl": "lock",
+    "*.sock.tmpl": "template",
 
     // "ZSH" is set in user settings to zsh.svg:
     //
@@ -141,8 +144,16 @@
     "wiki": "wiki",
     "blog": "blog",
     "zsh": "scripts",
+    "ssh": "ssh",
+    "config.d": "config",
   },
   "material-icon-theme.folders.customClones": [
+    {
+      "name": "ssh",
+      "base": "admin",
+      "color": "yellow-600",
+      "folderNames": [""]
+    },
     {
       "name": "1password-keys",
       "base": "keys",

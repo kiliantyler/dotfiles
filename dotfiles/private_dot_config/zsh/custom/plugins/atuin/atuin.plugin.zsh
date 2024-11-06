@@ -1,6 +1,5 @@
 atuin-setup() {
   ! hash atuin && return
-  bindkey '^E' _atuin_search_widget
 
   export ATUIN_NOBIND="true"
   eval "$(atuin init zsh)"
