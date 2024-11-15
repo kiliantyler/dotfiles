@@ -134,7 +134,7 @@ alias myip="curl http://ipecho.net/plain; echo"
 alias upgrade="topgrade"
 alias brew_lock="rm -rf $(brew --prefix)/var/homebrew/locks"
 alias cls="clear"
-alias dps="docker ps --format \"table {{.Names}}\\t{{.RunningFor}}\\t{{.Status}}\""
+{{/* alias dps="docker ps --format \"table {{.Names}}\\t{{.RunningFor}}\\t{{.Status}}\"" */}}
 alias lsblk="lsblk -o NAME,SIZE,FSTYPE,TYPE,MOUNTPOINT"
 alias du="dust -w 120"
 alias df="duf"
@@ -173,6 +173,7 @@ alias kcs="kubectl config set"
 alias kcu="kubectl config unset"
 alias kcv="kubectl config view"
 
+{{/*
 # kgpscn() {
 #     kubectl get pods -n $1 $2 -o go-template \
 #   --template='{{range .items}}{{"pod: "}}{{.metadata.name}}
@@ -202,6 +203,7 @@ alias kcv="kubectl config view"
 # {{end}}{{end}}'
 
 # }
+*/}}
 
 kdecsn() {
   k get secret -n $1 $2 -o json | jq -r '.data | map_values(@base64d)'
@@ -610,3 +612,7 @@ export SSH_AUTH_SOCK="$HOME/.1password/agent.sock"
 export OP_PLUGIN_ALIASES_SOURCED=1
 export SOPS_AGE_KEY_FILE="${HOME}/.config/sops/age/keys.txt"
 export YSU_IGNORED_ALIASES=("_" ".." "..." "...." "....." "......" "apt" "k" "zi" "zini" "zpl" "zplg")
+
+{{ if eq .chezmoi.os "linux" }}
+alias ssh='kitten ssh'
+{{ end }}

@@ -6,5 +6,6 @@
       "astro-build.astro-vscode",
       "hideoo.starlight-i18n",
       "bradlc.vscode-tailwindcss",
+      "nico-castell.linux-desktop-file",
     ]
 }

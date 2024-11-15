@@ -49,7 +49,6 @@ task = "latest"
 talosctl = "latest"
 terraform-docs = "latest"
 terraform = "latest"
-terragrunt = "latest"
 # topgrade = "latest" # TODO: List-all broken
 trunk = "latest"
 yamlfmt = "latest"
@@ -61,25 +60,6 @@ colima = "latest"
 lima = "latest"
 atuin = "latest"
 helmfile = "latest"
-
-# To Create
-# asdf-aliae
-# git-lfs
-# gnu-indent
-# gnu-sed
-# gnu-tar
-# gnu-which
-# gnupg
-# grep
-# most
-# unzip
-# watchman
-# wget
-
-# TODO:  asdf-m4 -> asdf-autoconf
-# autoconf needed for git
-# gettext needed for git
-git = "latest"
 
 # Go tools
 go = "latest"
@@ -100,3 +80,6 @@ pipx = "latest"
 "pipx:ansible" = "latest"
 "pipx:jinja2-cli" = "latest"
 "pipx:virtualenv" = "latest"
+terragrunt = "latest"
+delta = "latest"
+git = "latest"

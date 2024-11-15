@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Terminal URL Launcher
+GenericName=Terminal emulator
+Comment=Open URLs with Terminal (kitty)
+StartupNotify=true
+TryExec=/home/ktyler/.local/kitty.app/bin/kitty
+Exec=/home/ktyler/.local/kitty.app/bin/kitty +open %U
+Icon={{ .chezmoi.homeDir }}/.local/share/icons/kitty/dracula.png
+Categories=System;TerminalEmulator;
+NoDisplay=true
+MimeType=image/*;application/x-sh;application/x-shellscript;inode/directory;text/*;x-scheme-handler/kitty;x-scheme-handler/ssh;

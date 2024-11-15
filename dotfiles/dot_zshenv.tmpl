@@ -56,4 +56,11 @@ $$\ $$$$$$$$\ $$$$$$$  |$$ |  $$ |\$$$$$$$\ $$ |  $$ |  \$  /
       source "${ZDOTDIR:-$HOME}/.zprofile"
   # ]]]
 
+  # 1.3 Linux Configuration [[[
+    {{- if eq .chezmoi.os "linux" }}
+    export GTK_USE_PORTAL=1
+    export QT_QPA_PLATFORMTHEME="qt5ct"
+    {{- end }}
+  # ]]]
+
 # ]]]

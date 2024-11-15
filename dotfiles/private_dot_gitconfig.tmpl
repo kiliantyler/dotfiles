@@ -1,0 +1,11 @@
+[include]
+  path = ~/.config/.gitconfig/common.gitconfig
+
+[include]
+  path = ~/.config/.gitconfig/personal.gitconfig
+
+[includeIf "gitdir:~/git/NewInnov/"]
+  path = ~/.config/.gitconfig/ni.gitconfig
+
+[includeIf "hasconfig:remote.*.url:https://github.com/realtext"]
+  path = ~/.config/.gitconfig/realtext.gitconfig

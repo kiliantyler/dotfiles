@@ -22,14 +22,15 @@
 	"terminal.integrated.allowMnemonics": true,
 	"terminal.integrated.fontFamily": "FiraCode Nerd Font Mono",
 	"vs-kubernetes": {
-		"vs-kubernetes.knownKubeconfigs": [
-			"~/.kube/config"
-		],
-		"vs-kubernetes.kubeconfig": "~/.kube/config",
-		"vscode-kubernetes.helm-path-mac": "~/.vs-kubernetes/tools/helm/darwin-arm64/helm",
-		"vscode-kubernetes.minikube-path-mac": "~/.vs-kubernetes/tools/minikube/darwin-arm64/minikube",
-		"vs-kubernetes.crd-code-completion": "enabled"
-	},
+    "vs-kubernetes.knownKubeconfigs": [
+      "~/.kube/config"
+    ],
+    "vs-kubernetes.kubeconfig": "~/.kube/config",
+    "vscode-kubernetes.helm-path-mac": "~/.vs-kubernetes/tools/helm/darwin-arm64/helm",
+    "vscode-kubernetes.minikube-path-mac": "~/.vs-kubernetes/tools/minikube/darwin-arm64/minikube",
+    "vs-kubernetes.crd-code-completion": "enabled",
+    "vs-kubernetes.minikube-show-information-expiration": "2024-11-13T15:17:41.197Z"
+  },
 	"window.autoDetectColorScheme": true,
 	"workbench.preferredLightColorTheme": "MacOS Modern Light - Ventura Xcode",
 	"workbench.preferredDarkColorTheme": "Dracula Pro (Van Helsing)",
@@ -77,8 +78,7 @@
     "*.TODO": "markdown"
 	},
 	"1password.editor.suggestStorage": false,
-	"editor.inlineSuggest.suppressSuggestions": true,
-	"editor.formatOnSave": true,
+  "editor.inlineSuggest.suppressSuggestions": true,
 	"cue.toolsPath": "/opt/homebrew/bin/",
 	"[cue]": {
 		"editor.defaultFormatter": "asdine.cue" // TODO: Can trunk manage this?
@@ -241,9 +241,9 @@
     }
   },
   "yaml.schemas": {
-    "file:///home/ktyler/.vscode/extensions/atlassian.atlascode-3.0.10/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+    "file:///Users/kilian/.vscode/extensions/atlassian.atlascode-3.0.12/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
   },
-  "atlascode.jira.enabled": false,
+  "atlascode.jira.enabled": true,
   "github.copilot.enable": {
     "*": true,
     "plaintext": false,
@@ -257,5 +257,20 @@
   "terminal.explorerKind": "both",
   "[shellscript]": {
     "editor.defaultFormatter": "foxundermoon.shell-format"
-  }
+  },
+  "atlascode.bitbucket.enabled": false,
+  "atlascode.jira.jqlList": [
+    {
+      "id": "9fe427c2-d67a-42e1-bbc9-fda15c1eb178",
+      "siteId": "84ef0728-ea8b-494d-965f-5f4ea0031d3d",
+      "filterId": "10006",
+      "name": "Filter for Shamubernetes board",
+      "query": "project = Shamubernetes",
+      "enabled": true,
+      "monitor": true
+    }
+  ],
+  "atlascode.jira.explorer.nestSubtasks": false,
+  "atlascode.jira.explorer.fetchAllQueryResults": true,
+  "editor.formatOnSave": true
 }
