@@ -1,3 +1,12 @@
 # yaml-language-server $schema=https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json
 collections:
-- community.general
+- name: community.general
+  version: 10.0.1
+# - name: kiliantyler.mac_defaults
+# - name: kiliantyler.mac_installs
+# - name: kiliantyler.mac_setup
+- name: geerlingguy.mac
+  version: 4.0.2
+roles:
+- name: elliotweiser.osx-command-line-tools
+  version: 2.3.0

@@ -1,0 +1,19 @@
+# yaml-language-server $schema=https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json
+
+- name: Get current user
+  ansible.builtin.shell:
+    cmd: "whoami"
+  register: user
+  when: ansible_user is not defined
+
+- name: Set current_user fact
+  ansible.builtin.set_fact:
+    ansible_user: "{{ user.stdout }}"
+
+- name: "Add {{ ansible_user }} to sudo"
+  community.general.sudoers:
+    name: "{{ ansible_user }} allow all nopasswd"
+    commands: ALL
+    user: "{{ ansible_user }}"
+    nopassword: true
+  become: true

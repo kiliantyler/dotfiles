@@ -1,5 +1,0 @@
-# yaml-language-server $schema=https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json
-
-- name: "Run OS specific tasks"
-  ansible.builtin.include_role:
-    name: "os/{{ 'macos' if ansible_os_family == 'Darwin' else ansible_os_family | lower }}"

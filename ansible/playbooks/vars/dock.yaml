@@ -1,0 +1,35 @@
+dockitems_remove:
+- Launchpad
+- Safari
+- Mail
+- Maps
+- Photos
+- FaceTime
+- Calendar
+- Contacts
+- Reminders
+- Notes
+- Freeform
+- TV
+- Music
+- News
+- Keynote
+- Numbers
+- Pages
+- "App Store"
+- "System Settings"
+- "iPhone Mirroring"
+dockitems_persist:
+- name: iTerm
+  path: /Applications/iTerm.app/
+  pos: 1
+- name: Zen
+  path: "/Applications/Zen Browser.app/"
+  pos: 2
+- name: Spark
+  path: "/Applications/Spark Desktop.app/"
+  pos: 3
+- name: Messages
+  path: /Applications/Messages.app
+  pos: 4
+dockutil_install: true

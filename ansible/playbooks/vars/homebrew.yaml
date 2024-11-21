@@ -1,0 +1,66 @@
+homebrew_installed_packages:
+- autoconf
+- bat
+- bat-extras
+- coreutils
+- diffutils
+- findutils
+- gnupg
+- make
+- procs
+homebrew_cask_apps:
+- 1password-cli
+- 1password@beta
+- adobe-creative-cloud
+- alt-tab
+- amethyst
+- backblaze
+- balenaetcher
+- battle-net
+- betterdiscord-installer
+- bruno
+- chatgpt
+- chromium
+- default-folder-x
+- discord
+- docker
+- elgato-stream-deck
+- fantastical
+- fantasy-grounds
+- figma
+- font-fira-code-nerd-font
+- github-copilot-for-xcode
+- gitkraken
+- gitkraken-cli
+- ha-menu
+- hammerspoon
+- iterm2
+- itermai
+- karabiner-elements
+- league-of-legends
+- limitless
+- little-snitch
+- logitech-options
+- micro-snitch
+# - microsoft-excel
+# - microsoft-word
+- nordvpn
+- obsidian
+- openlens
+- orcaslicer
+- powershell
+- raycast
+- readdle-spark
+- rewind
+- rocket
+- setapp
+- sf-symbols
+- slack
+- sony-ps-remote-play
+- steam
+- syntax-highlight
+- the-unarchiver
+- visual-studio-code
+- wifiman
+- zen-browser
+# - pcloud-drive -- No exist

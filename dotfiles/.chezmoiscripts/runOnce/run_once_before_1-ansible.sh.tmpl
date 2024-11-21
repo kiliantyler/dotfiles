@@ -28,4 +28,4 @@ ${__PYTHON_LOC} -m pip install --user -r requirements.txt
 ${__PYTHON_LOC} -m ansible galaxy install -r requirements.yaml
 
 # Run Ansible Playbook
-${__PYTHON_LOC} -m ansible playbook ./playbooks/playbook.yaml
+${__PYTHON_LOC} -m ansible playbook ./playbooks/playbook.yaml --ask-become-pass

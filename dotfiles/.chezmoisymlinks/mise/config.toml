@@ -25,7 +25,7 @@ aliae = "latest"
 aws-sso-cli = "latest"
 awscli = "latest"
 bun = "latest"
-coreutils = "latest"
+# coreutils = "latest"
 cue = "0.10.0"           # TODO: latest is broken
 # devcontainer = "latest" # TODO: List-all broken
 direnv = "latest"
@@ -41,7 +41,7 @@ helm = "latest"
 jq = "latest"
 kubecolor = "latest"
 kubectl = "latest"
-make = "latest"
+# make = "latest"
 micro = "latest"
 node = "latest"
 sops = "latest"
@@ -83,20 +83,19 @@ git = "latest"
 
 # Go tools
 go = "latest"
-"go:github.com/cloudflare/cf-terraforming/cmd/cf-terraforming" = "latest"
 
 # Rust tools
 rust = "latest"
-"cargo:bat" = "latest"
-"cargo:procs" = "latest"
-"cargo:findutils" = "latest" # Replace with gnu find
-"cargo:diffutils" = "latest" # Replace with gnu diff
-"cargo:coreutils" = "latest"
+# "cargo:bat" = "latest"
+# "cargo:procs" = "latest"
+# "cargo:findutils" = "latest" # Replace with gnu find
+# "cargo:diffutils" = "latest" # Replace with gnu diff
+# "cargo:coreutils" = "latest"
 
 # Python tools
 python = "latest"
 pipx = "latest"
-"pipx:ansible-core" = "latest"
-"pipx:ansible" = "latest"
+#"pipx:ansible-core" = "latest"
+#"pipx:ansible" = "latest"
 "pipx:jinja2-cli" = "latest"
 "pipx:virtualenv" = "latest"

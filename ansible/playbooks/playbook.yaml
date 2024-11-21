@@ -1,17 +1,34 @@
 # yaml-language-server $schema=https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json
 - name: Set up local environment
   hosts: local
+  gather_facts: yes
+  vars_files:
+  - vars/homebrew.yaml
+  - vars/dock.yaml
   roles:
-  # - {role: vscode, tags: ['vscode']}
-  - role: os
-    tags:
-    - os
-    - personal
-    - work
-    - workstation
-  - role: mise
-    tags:
-    - mise
-    - programs
-    - personal
-    - work
+  - role: sudo
+    tags: ["sudo"]
+  - role: kiliantyler.mac_defaults.dock
+    tags: ["defaults", "dock"]
+  - role: kiliantyler.mac_defaults.desktop
+    tags: ["defaults", "desktop"]
+  - role: kiliantyler.mac_defaults.finder
+    tags: ["defaults", "finder"]
+  - role: kiliantyler.mac_defaults.keyboard
+    tags: ["defaults", "keyboard"]
+  - role: kiliantyler.mac_defaults.menubar
+    tags: ["defaults", "menubar"]
+  - role: kiliantyler.mac_defaults.screensaver
+    tags: ["defaults", "screensaver"]
+  - role: kiliantyler.mac_defaults.system
+    tags: ["defaults", "system"]
+  - role: kiliantyler.mac_defaults.trackpad
+    tags: ["defaults", "trackpad"]
+  - role: kiliantyler.mac_setup.dock
+    tags: ["setup", "dock"]
+  - role: geerlingguy.mac.dock
+    tags: ["dock"]
+  - role: geerlingguy.mac.homebrew
+    tags: ["programs", "homebrew", "brew"]
+  - role: kiliantyler.mac_installs.mise
+    tags: ["programs", "mise"]

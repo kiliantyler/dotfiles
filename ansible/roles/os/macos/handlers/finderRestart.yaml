@@ -1,4 +1,0 @@
-# yaml-language-server $schema=https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json
-- name: Finder Restart
-  ansible.builtin.command:
-    cmd: "killall Finder"
