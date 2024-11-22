@@ -54,6 +54,9 @@ const starlightConfig: StarlightConfig = {
     github: githubUrl
   },
   plugins: starlightPlugins,
+  components: {
+      MarkdownContent: "./src/components/MarkdownContent.astro",
+  },
   credits: false,
 };
 
