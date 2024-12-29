@@ -8,6 +8,7 @@ homebrew_installed_packages:
 - coreutils
 - diffutils
 - findutils
+- fish-shell/fish-beta-4/fish
 - gnupg
 - make
 - procs
@@ -33,12 +34,13 @@ homebrew_cask_apps:
 - fantasy-grounds
 - figma
 - font-fira-code-nerd-font
+- font-open-dyslexic-nerd-font
+- ghostty
 - github-copilot-for-xcode
 - gitkraken
 - gitkraken-cli
 - ha-menu
 - hammerspoon
-- iterm2
 - itermai
 - karabiner-elements
 - league-of-legends
