@@ -1,12 +1,12 @@
-#!/usr/bin/env bash
+# #!/usr/bin/env bash
 
-GIT_COMMON_DIR=$(git rev-parse --git-common-dir)
+# GIT_COMMON_DIR=$(git rev-parse --git-common-dir)
 
-export GIT_COMMON_DIR
+# export GIT_COMMON_DIR
 
-for enabled_plugin in $(git config --get-all hooks.enabled-plugins); do
-  if [ -f "$gitDir/hooks/$enabled_plugin/pre-push" ]; then
-    "$GIT_COMMON_DIR/hooks/$enabled_plugin/pre-push"
-    exit $?
-  fi
-done
+# for enabled_plugin in $(git config --get-all hooks.enabled-plugins); do
+#   if [ -f "$gitDir/hooks/$enabled_plugin/pre-push" ]; then
+#     "$GIT_COMMON_DIR/hooks/$enabled_plugin/pre-push"
+#     exit $?
+#   fi
+# done

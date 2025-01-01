@@ -1,7 +1,7 @@
-#!/usr/bin/env bash
+# #!/usr/bin/env bash
 
-# Does not use _run-hooks
+# # Does not use _run-hooks
 
-case "$1" in
-rebase) exec "$(git rev-parse --git-common-dir)/hooks/post-merge" ;;
-esac
+# case "$1" in
+# rebase) exec "$(git rev-parse --git-common-dir)/hooks/post-merge" ;;
+# esac
