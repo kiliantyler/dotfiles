@@ -1,7 +1,7 @@
 # yaml-language-server $schema=https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json
 - name: Set up local environment
   hosts: local
-  gather_facts: yes
+  gather_facts: true
   vars_files:
   - vars/homebrew.yaml
   - vars/dock.yaml
@@ -38,5 +38,5 @@
     tags: ["programs", "mise"]
   - role: geerlingguy.mac.dock
     tags: ["dock"]
-  # - role: kiliantyler.mac_setup.dock
-  #   tags: ["setup", "dock"]
+  - role: kiliantyler.macos.dockutil
+    tags: ["setup", "dock"]
