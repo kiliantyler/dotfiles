@@ -64,7 +64,6 @@ lint:
     - docs/src/content/docs/** # TODO: Currently broken with mdx files
 actions:
   enabled:
-  - commitlint
   - trunk-announce
   - trunk-check-pre-push
   - trunk-check-pre-commit

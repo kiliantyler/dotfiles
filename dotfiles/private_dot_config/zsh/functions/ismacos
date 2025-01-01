@@ -1,5 +1,0 @@
-#!/usr/bin/env zsh
-##? ismacos - Check if the current operating system is macOS.
-# function ismacos {
-[[ $OSTYPE = *darwin* ]] || return 1
-# }
