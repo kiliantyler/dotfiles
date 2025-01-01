@@ -8,15 +8,15 @@ trusted_config_paths = [
 ]
 disable_hints = ["python_multi"]
 
-[plugins]
-devcontainer = "https://github.com/iloveitaly/asdf-devcontainer"
-trunk = "https://github.com/sdurrheimer/asdf-trunk"
-micro = "https://github.com/YR-ZR0/asdf-micro"
-topgrade = "https://github.com/kiliantyler/asdf-topgrade.git"
-aliae = "https://github.com/kiliantyler/asdf-aliae.git"
-coreutils = "https://github.com/kiliantyler/asdf-coreutils.git"
-atuin = "https://github.com/rzyns/asdf-atuin.git"
-git = "https://github.com/john-cai/asdf-git.git"
+#[plugins]
+#devcontainer = "https://github.com/iloveitaly/asdf-devcontainer"
+#trunk = "https://github.com/sdurrheimer/asdf-trunk"
+#micro = "https://github.com/YR-ZR0/asdf-micro"
+#topgrade = "https://github.com/kiliantyler/asdf-topgrade.git"
+#aliae = "https://github.com/kiliantyler/asdf-aliae.git"
+#coreutils = "https://github.com/kiliantyler/asdf-coreutils.git"
+#atuin = "https://github.com/rzyns/asdf-atuin.git"
+#git = "https://github.com/john-cai/asdf-git.git"
 
 [tools]
 1password-cli = "latest"
@@ -26,7 +26,7 @@ aws-sso-cli = "latest"
 awscli = "latest"
 bun = "latest"
 # coreutils = "latest"
-cue = "0.10.0"           # TODO: latest is broken
+cue = "0.10.0" # TODO: latest is broken
 # devcontainer = "latest" # TODO: List-all broken
 direnv = "latest"
 dust = "latest"
@@ -99,3 +99,4 @@ pipx = "latest"
 #"pipx:ansible" = "latest"
 "pipx:jinja2-cli" = "latest"
 "pipx:virtualenv" = "latest"
+kustomize = "latest"
