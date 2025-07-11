@@ -3,13 +3,28 @@ if status is-interactive
     fish_add_path ~/.local/bin
     fish_add_path ~/.bin
 
-    mise activate fish | source
-
     # Theme - ./themes/Dracula Official.theme
     fish_config theme choose "Dracula Official"
 
     # Remove greeting
-    set --global fish_greeting ""
+    set -g fish_greeting
+
+    # Path
+    set -gx PATH $PATH $HOME/.krew/bin # Krew plugins
+
+    # Programs
+    mise activate fish | source
+    atuin init fish --disable-up-arrow | source
+
+    # # Completions
+    # mise completions fish | source //mise completion fish > ~/.config/fish/completions/mise.fish
+    atuin gen-completions --shell fish | source
+    kubectl completion fish | source
+    talosctl completion fish | source
+    helm completion fish | source
+
+    # Paths
+    set -gx PATH $PATH $HOME/.krew/bin
 
     function starship_transient_rprompt_func
       starship module time

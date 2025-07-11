@@ -28,10 +28,10 @@
     "vs-kubernetes.kubeconfig": "~/.kube/config",
     "vscode-kubernetes.helm-path-mac": "~/.vs-kubernetes/tools/helm/darwin-arm64/helm",
     "vscode-kubernetes.minikube-path-mac": "~/.vs-kubernetes/tools/minikube/darwin-arm64/minikube",
-    "vs-kubernetes.crd-code-completion": "enabled"
+    "vs-kubernetes.crd-code-completion": "enabled",
+    "vs-kubernetes.minikube-show-information-expiration": "2025-11-23T19:28:55.945Z"
   },
-  "window.autoDetectColorScheme": true,
-  "workbench.preferredLightColorTheme": "MacOS Modern Light - Ventura Xcode",
+  "workbench.preferredLightColorTheme": "MacOS Modern Dark - Xcode Default",
   "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
   "workbench.iconTheme": "catppuccin-mocha",
   "files.autoSave": "onFocusChange",
@@ -65,7 +65,7 @@
   "terminal.external.windowsExec": "",
   "terminal.integrated.cursorStyle": "line",
   "terminal.integrated.cursorStyleInactive": "line",
-  "terminal.integrated.defaultProfile.windows": "Ubuntu-24.04 (WSL)",
+  "terminal.integrated.defaultProfile.windows": "Git Bash",
   "terminal.external.osxExec": "",
   "workbench.sideBar.location": "right",
   "workbench.startupEditor": "none",
@@ -112,7 +112,7 @@
     "**/.trunk/*out/": true,
     "**/.trunk/*plugins/": true
   },
-  "github.copilot.editor.enableAutoCompletions": true,
+  "github.copilot.enabke": true,
   "trunk.showPreexistingIssues": true,
   "svg.preview.mode": "svg",
   // "material-icon-theme.folders.associations": {
@@ -186,7 +186,6 @@
   },
   "window.titleBarStyle": "native",
   "window.customTitleBarVisibility": "never",
-  "workbench.statusBar.visible": true,
   "editor.cursorBlinking": "smooth",
   "editor.autoClosingBrackets": "beforeWhitespace",
   "editor.autoClosingComments": "beforeWhitespace",
@@ -243,7 +242,7 @@
     }
   },
   "yaml.schemas": {
-    "file:///home/kilian/.vscode-server/extensions/atlassian.atlascode-3.0.15/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+    "file:///Users/kilian/.vscode/extensions/atlassian.atlascode-3.8.5/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
   },
   "atlascode.jira.enabled": false,
   "github.copilot.enable": {
@@ -270,5 +269,12 @@
   "terminal.integrated.cursorBlinking": true,
   "[javascript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
-  }
+  },
+  "parallels-desktop.extension.path": "/Users/kilian/.parallels-desktop-vscode",
+  "parallels-desktop.git.path": "/Users/kilian/.local/share/mise/installs/git/2.48.0/bin/git",
+  "parallels-desktop.prlctl.path": "/usr/local/bin/prlctl",
+  "parallels-desktop.brew.path": "/opt/homebrew/bin/brew",
+  "terminal.integrated.automationProfile.windows": {},
+  "previewjs.codelens": true,
+  "window.autoDetectColorScheme": true
 }

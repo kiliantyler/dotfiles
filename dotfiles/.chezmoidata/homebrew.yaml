@@ -3,6 +3,7 @@ packages:
   homebrew:
     casks:
     - font-fira-code-nerd-font
+    - iina
     formulas:
     - watchman
     taps: []

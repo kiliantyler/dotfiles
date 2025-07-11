@@ -1,10 +1,11 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
-SETUVAR __brew_prefix:/opt/homebrew
 SETUVAR __fish_initialized:3800
-SETUVAR _fisher_halostatue_2F_fish_2D_brew_40_v3_2E_x_files:\x7e/\x2econfig/fish/functions/has_cask\x2efish\x1e\x7e/\x2econfig/fish/functions/has_keg\x2efish\x1e\x7e/\x2econfig/fish/conf\x2ed/halostatue_fish_brew\x2efish
+SETUVAR _fisher_blackjid_2F_plugin_2D_kubectl_files:\x7e/\x2econfig/fish/functions/__kubectl\x2edestroy\x2efish\x1e\x7e/\x2econfig/fish/functions/__kubectl\x2einit\x2efish\x1e\x7e/\x2econfig/fish/conf\x2ed/kubectl\x2efish
+SETUVAR _fisher_halostatue_2F_fish_2D_brew_40_v3_files:\x7e/\x2econfig/fish/functions/has_cask\x2efish\x1e\x7e/\x2econfig/fish/functions/has_keg\x2efish\x1e\x7e/\x2econfig/fish/conf\x2ed/halostatue_fish_brew\x2efish
+SETUVAR _fisher_icezyclon_2F_zoxide_2E_fish_files:\x7e/\x2econfig/fish/functions/zoxide\x2efish\x1e\x7e/\x2econfig/fish/conf\x2ed/zoxide\x2efish\x1e\x7e/\x2econfig/fish/completions/zoxide\x2efish
 SETUVAR _fisher_jorgebucaran_2F_fisher_files:\x7e/\x2econfig/fish/functions/fisher\x2efish\x1e\x7e/\x2econfig/fish/completions/fisher\x2efish
-SETUVAR _fisher_plugins:jorgebucaran/fisher\x1ehalostatue/fish\x2dbrew\x40v3\x2ex
+SETUVAR _fisher_plugins:jorgebucaran/fisher\x1ehalostatue/fish\x2dbrew\x40v3\x1eblackjid/plugin\x2dkubectl\x1eicezyclon/zoxide\x2efish
 SETUVAR _fisher_upgraded_to_4_4:\x1d
 SETUVAR fish_color_autosuggestion:brblack
 SETUVAR fish_color_cancel:\x2dr
