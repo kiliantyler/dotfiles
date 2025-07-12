@@ -4,6 +4,7 @@ packages:
     casks:
     - font-fira-code-nerd-font
     - iina
+    - jordanbaird-ice
     formulas:
     - watchman
     taps: []
