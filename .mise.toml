@@ -1,7 +1,6 @@
 [tools]
-task = "3.38.0"
-node = "22.5.1"
-age = "1.2.0"
-1password-cli = "2.30.0"
-trunk = "1.22.3"
-bun = "1.1.27"
+task = "3.44.0"
+node = "24.4.0"
+age = "1.2.1"
+1password-cli = "2.31.1"
+bun = "1.2.18"
