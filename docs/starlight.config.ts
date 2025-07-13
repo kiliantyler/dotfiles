@@ -1,5 +1,4 @@
 import type { StarlightUserConfig } from "@astrojs/starlight/types";
-import starlightBlog from "starlight-blog";
 import starlightHeadingBadges from "starlight-heading-badges";
 import starlightImageZoom from "starlight-image-zoom";
 import starlightLinksValidator from "starlight-links-validator";
@@ -33,7 +32,6 @@ export const starlightConfig: StarlightUserConfig = {
   plugins: [
     starlightHeadingBadges(),
     starlightLinksValidator(),
-    starlightBlog(),
     starlightImageZoom(),
   ],
   credits: false,
