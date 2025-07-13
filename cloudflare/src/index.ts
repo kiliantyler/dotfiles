@@ -115,3 +115,8 @@ function sanitizeBranchName(branch: string): string {
 
 // Export handleRequest for testing purposes
 export { handleRequest };
+
+// Default export for Cloudflare Worker
+export default {
+	fetch: handleRequest,
+};
