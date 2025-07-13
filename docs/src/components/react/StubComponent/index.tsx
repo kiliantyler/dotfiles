@@ -2,16 +2,16 @@ import img from '@assets/under_construction.svg';
 import React from 'react';
 import styles from './styles.module.css';
 
-interface StubComponentProps {
+export interface StubComponentProps {
   title: string;
   iconStyle?: React.CSSProperties;
 }
 
-const StubComponent: React.FC<StubComponentProps> = () => {
+export const StubComponent: React.FC<StubComponentProps> = () => {
   return (
     <div>
       <h1>Coming Soon</h1>
-      <p>We're working hard to create this page. Please check back later for updates.</p>
+      <p>We&apos;re working hard to create this page. Please check back later for updates.</p>
       <img src={img.src} alt="Under Construction" className={styles.stubImage} />
     </div>
   );

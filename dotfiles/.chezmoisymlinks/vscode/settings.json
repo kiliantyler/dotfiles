@@ -31,7 +31,7 @@
     "vs-kubernetes.crd-code-completion": "enabled",
     "vs-kubernetes.minikube-show-information-expiration": "2025-11-23T19:28:55.945Z"
   },
-  "workbench.preferredLightColorTheme": "MacOS Modern Dark - Xcode Default",
+  "workbench.preferredLightColorTheme": "Catppuccin Macchiato",
   "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
   "workbench.iconTheme": "catppuccin-mocha",
   "files.autoSave": "onFocusChange",
@@ -276,5 +276,11 @@
   "parallels-desktop.brew.path": "/opt/homebrew/bin/brew",
   "terminal.integrated.automationProfile.windows": {},
   "previewjs.codelens": true,
-  "window.autoDetectColorScheme": true
+  "window.autoDetectColorScheme": true,
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[mdx]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }
