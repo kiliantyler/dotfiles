@@ -18,6 +18,7 @@
     "*.zsh.tmpl": "shellscript",
     "dot_z*.tmpl": "shellscript",
     "*.ps1.tmpl": "gotemplate",
+    "wrangler.json": "jsonc"
   },
   "material-icon-theme.files.associations": {
     ".tool-versions": "settings",
