@@ -5,30 +5,3 @@
 @import 'tailwindcss/utilities.css' layer(utilities);
 
 @theme {}
-
-{{/* Asides */}}
-.starlight-aside {
-  @apply border text-[color:var(--sl-color-white)] text-[0.9375rem] p-4 rounded-lg border-solid;
-}
-.starlight-aside--note {
-  @apply border-[color:var(--sl-color-blue)] bg-[color-mix(in_srgb,var(--sl-color-blue-low),transparent_75%)];
-  --sl-color-asides-text-accent: var(--sl-color-blue-high);
-}
-.starlight-aside--tip {
-  @apply border-[color:var(--sl-color-purple)] bg-[color-mix(in_srgb,var(--sl-color-purple-low),transparent_75%)];
-  --sl-color-asides-text-accent: var(--sl-color-purple-high);
-}
-.starlight-aside--caution {
-  @apply border-[color:var(--sl-color-orange)] bg-[color-mix(in_srgb,var(--sl-color-orange-low),transparent_75%)];
-  --sl-color-asides-text-accent: var(--sl-color-orange-high);
-}
-.starlight-aside--danger {
-  @apply border-[color:var(--sl-color-red)] bg-[color-mix(in_srgb,var(--sl-color-red-low),transparent_75%)];
-  --sl-color-asides-text-accent: var(--sl-color-red-high);
-}
-.starlight-aside__title {
-  @apply flex gap-2 items-center font-semibold leading-[var(--sl-line-height-headings)];
-}
-.starlight-aside__icon {
-  @apply text-[color:var(--sl-color-asides-text-accent)] w-[1em] h-[1em];
-}

@@ -26,6 +26,7 @@
     "starlight-image-zoom": "^0.13.0",
     "starlight-links-validator": "^0.17.0",
     "starlight-showcases": "^0.3.0",
+    "starlight-theme-rapide": "^0.5.1",
     "starlight-view-modes": "^0.11.0",
     "tailwindcss": "^4.1.11"
   },
