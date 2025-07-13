@@ -270,7 +270,7 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[mdx]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "unifiedjs.vscode-mdx",
     "editor.codeActionsOnSave": {
       "source.organizeImports": "never"
     }

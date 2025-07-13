@@ -5,28 +5,79 @@ sidebar:
   order: 2
 ---
 
-### Installation Script
+import { Steps } from "@astrojs/starlight/components";
+import { Aside } from '@astrojs/starlight/components';
 
-There is an `install.sh` script in the root of the [repository](/tools/chezmoi/repo/#file-structure) that will allow
-the install of required tools and then run the dotfiles scripts via [Chezmoi](/tools/chezmoi/overview).
+## Why you shouldn't install my dotfiles
 
-:::tip
-The script is hosted on a [Cloudflare](/external/cloudflare/overview) workers and you can pass in a username to the
-curl command to install a specific user's dotfiles.
-:::
+Dotfiles are deeply personal configurations that reflect years of individual workflow optimization, personal preferences, and specific hardware/software setups. Here's why you should think twice before installing mine:
+
+- **They're built for my workflow**: My configurations are optimized for how _I_ work, not necessarily how you work
+- **System-specific optimizations**: These dotfiles may include configurations specific to my hardware, OS version, and installed software
+- **Breaking changes**: What works perfectly on my system might break functionality on yours
+- **Security considerations**: Installing dotfiles means running code written by someone else that can access sensitive parts of your system
+- **Learning opportunity missed**: Building your own dotfiles from scratch teaches you valuable skills about your system
+- **Maintenance challenges**: When issues arise, you'll need to understand someone else's configuration structure to fix them
+- **Personal preferences**: Color schemes, key bindings, and UI choices are highly subjective and may not match your taste
+- **Dependency assumptions**: My dotfiles may assume the presence of specific tools, fonts, or utilities you don't use
+
+Instead of installing these directly, consider:
+
+- Using them as reference/inspiration for your own dotfiles
+- Cherry-picking specific configurations you understand and need
+- Forking the repository and gradually adapting it to your needs
+
+## If you insist
+
+<Aside type="danger" title="Important Warning">
+Installing someone else's dotfiles is risky and not recommended unless you fully understand the implications. Proceed with caution!
+There will be no support for issues arising from installing these dotfiles.
+</Aside>
+
+If you've read the warnings above and still want to proceed, here's how to install my dotfiles.
+
+### Quick Installation
+
+One simple command to install everything:
 
 ```shell
 curl install.dotfiles.wiki/kiliantyler | sh
 ```
+<Aside type="tip" title="Customization">
+The installation script is hosted on [Cloudflare Workers](/management-tools/cloudflare) and supports installing other users' dotfiles by changing the username:
 
-### Ideals
+```shell
+curl install.dotfiles.wiki/username | sh
+```
+</Aside>
 
-The script is designed to be as simple as possible and to be as easy to use as possible. It is designed to be a
-one-liner that can be run on any system to install the dotfiles.
 
-There are many other "one-click" or "one-liner" dotfiles install scripts out there, but they generally are not truly
-"one-liners" as they require some manual setup or configuration before the "one-line" can be run. This script is
-designed to be a true one-liner. Installing all the required tools and then running the dotfiles install.
+:::
 
-If you have to install any tools or configure anything before running a "one-liner" then it is not a true "one-liner",
-in my opinion.
+### What happens during installation
+
+The installation process:
+<Steps>
+1. Downloads the `install.sh` script from the [repository](/repolayout/#file-structure)
+
+2. Installs all required dependencies for your system
+
+3. Sets up [Chezmoi](/management-tools/chezmoi) as the dotfiles manager
+
+4. Applies all configurations automatically
+</Steps>
+
+### Installation Philosophy
+
+I believe in true "one-liner" installation experiences:
+
+- **Truly one command** - No manual preparation or prerequisites needed
+- **Complete automation** - Handles all dependency installation and configuration
+- **Cross-platform** - Works across different operating systems
+- **Reproducible** - Delivers consistent results every time
+- **No manual steps** - No need to edit files or run additional commands after installation
+- **User-friendly** - Designed to be as simple and intuitive as possible
+
+<Aside type="tip" title="Why this is different">
+Many "one-liner" dotfiles installers actually require pre-installation setup or multiple commands. This solution aims to be a genuine one-command experience that handles everything for you.
+</Aside>

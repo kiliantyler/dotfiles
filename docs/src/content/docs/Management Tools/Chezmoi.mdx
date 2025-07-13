@@ -1,0 +1,189 @@
+---
+title: Chezmoi
+---
+import { LinkCard } from '@astrojs/starlight/components';
+
+[Chezmoi](https://www.chezmoi.io/) is the foundation of my dotfiles management system, providing powerful capabilities for managing configuration across multiple machines.
+
+### What is Chezmoi?
+
+Chezmoi is a dotfiles manager that helps you maintain consistent configuration across multiple machines, with strong support for:
+
+- Templating (different settings on different machines)
+- Encryption (for sensitive information)
+- Cross-platform compatibility (Linux, macOS, Windows)
+- Powerful scripting for automation
+
+At its core, Chezmoi maintains a source directory (typically `~/.local/share/chezmoi`) that stores the desired state of your dotfiles. It then uses this source to manage the actual files in your home directory, ensuring they match your defined configurations.
+
+### Why I Chose Chezmoi
+
+After experimenting with multiple dotfiles management approaches, I settled on Chezmoi for these key reasons:
+
+#### 1. Template-Based Configuration
+
+Chezmoi excels at handling machine-specific configurations. Using Go's templating system, I can maintain a single set of dotfiles with conditional sections that adapt based on:
+
+- Operating system
+- Hostname
+- User
+- Environment variables
+- File existence
+- And more
+
+This means I can use identical source files across all my systems, but each machine gets appropriately customized configurations.
+
+#### 2. Built-in Security
+
+Sensitive information like API keys and private server details need protection. Chezmoi integrates with password managers and encryption tools, allowing me to:
+
+- Store encrypted secrets within my dotfiles repository
+- Automatically decrypt files during deployment
+- Keep sensitive data secure even in public repositories
+
+#### 3. Scriptable Workflows
+
+Chezmoi provides robust scripting capabilities through:
+
+- `.chezmoiscripts` - Run automatically during updates
+- Hooks for pre/post operations
+- Shell-agnostic scripting support
+
+This allows for complex setup operations that go beyond simple file copying, such as:
+
+- Installing required packages
+- Setting system preferences
+- Creating necessary directories
+- Bootstrapping development environments
+
+#### 4. Git Integration
+
+As a Git-centric tool, Chezmoi naturally integrates with version control workflows:
+
+- Easy synchronization between machines
+- Clean history of configuration changes
+- Branching for experimental configurations
+- Seamless remote repository management
+
+#### 5. Non-Destructive Operations
+
+Chezmoi's approach is safe and non-destructive:
+
+- Preview changes before applying
+- Automatic backups of modified files
+- Selective application of changes
+- Easy rollbacks when needed
+
+#### 6. Cross-Platform Support
+
+My computing environment spans macOS, Linux, and Windows+WSL systems. Chezmoi works consistently across all of these platforms, allowing me to maintain a unified configuration strategy.
+
+### Alternatives I Considered
+
+Before settling on Chezmoi, I evaluated several other dotfiles management approaches:
+
+| Tool/Method             | Why I Didn't Choose It                                                  |
+| ----------------------- | ----------------------------------------------------------------------- |
+| **Bare Git Repository** | Lacks templating, requires manual handling of machine-specific configs  |
+| **GNU Stow**            | Limited templating capabilities, no built-in security features          |
+| **Homesick/Homeshick**  | Less flexible for complex configurations, weaker cross-platform support |
+| **Dotbot**              | Less mature ecosystem, more configuration required                      |
+| **Shell Scripts**       | High maintenance, difficult to ensure idempotence                       |
+| **Ansible**             | Overly complex for personal dotfiles, steeper learning curve            |
+
+### How I Use Chezmoi
+
+My dotfiles workflow centers around several key Chezmoi features:
+
+#### Templating for OS-Specific Configuration
+
+```
+{{- if eq .chezmoi.os "darwin" }}
+# macOS specific configurations
+{{- else if eq .chezmoi.os "linux" }}
+# Linux specific configurations
+{{- end }}
+```
+
+#### External Data Integration
+
+I use Chezmoi's data sources to pull in external information that shapes my configurations:
+
+```yaml
+# .chezmoi.yaml.tmpl
+data:
+  email: "{{ (index . "email") }}"
+  git:
+    name: "{{ (index . "name") }}"
+  hostname: "{{ .chezmoi.hostname }}"
+```
+
+#### Encrypted Secrets
+
+Sensitive data is stored securely using encryption:
+
+```
+chezmoi add --encrypt ~/.config/some_service/credentials.json
+```
+
+#### Automated Scripts
+
+Complex setup operations are handled by scripts that run during application:
+
+```bash
+#!/bin/bash
+
+# This script runs when Chezmoi applies changes
+# ~/.local/share/chezmoi/run_once_install-packages.sh.tmpl
+
+{{ if eq .chezmoi.os "darwin" -}}
+# Install macOS packages
+brew bundle --file=~/Brewfile
+{{ else if eq .chezmoi.os "linux" -}}
+# Install Linux packages
+sudo apt update && sudo apt install -y {{ .packages.apt | join " " }}
+{{ end -}}
+```
+
+### Getting Started with Chezmoi
+
+For those new to Chezmoi, here's a quick reference to common commands:
+
+```bash
+# Initialize Chezmoi with your dotfiles
+chezmoi init https://github.com/username/dotfiles.git
+
+# See what changes would be made
+chezmoi diff
+
+# Apply changes to your home directory
+chezmoi apply
+
+# Add a file to Chezmoi management
+chezmoi add ~/.bashrc
+
+# Edit a file managed by Chezmoi
+chezmoi edit ~/.bashrc
+
+# Update from remote repository and apply changes
+chezmoi update
+```
+
+<LinkCard
+  title="Chezmoi documentation"
+  href="https://www.chezmoi.io/user-guide/command-overview/"
+  description="Visit the official Chezmoi documentation for more"
+/>
+
+
+### Why Chezmoi Makes Sense for Dotfiles Management
+
+Managing dotfiles isn't just about backing up configuration files—it's about creating a reproducible, adaptable system that works across different environments. Chezmoi addresses this holistic challenge with an approach that:
+
+- **Respects differences** between machines while maintaining core consistency
+- **Secures sensitive information** without compromising convenience
+- **Automates setup** beyond simple file placement
+- **Evolves cleanly** as your needs and preferences change
+- **Integrates well** with other tools and workflows
+
+For my needs, Chezmoi strikes the perfect balance between simplicity and power—providing a robust foundation for dotfiles management without unnecessary complexity.

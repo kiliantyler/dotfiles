@@ -1,0 +1,97 @@
+---
+title: Cloudflare
+---
+import { Steps } from "@astrojs/starlight/components";
+
+## What are Cloudflare Workers?
+
+Cloudflare Workers are serverless functions that run on Cloudflare's global network of data centers. They allow you to execute JavaScript/WebAssembly code at the edge, without managing servers. Some key benefits include:
+
+- **Edge Computing** - Code runs close to your users for low latency
+- **Serverless** - No infrastructure to manage
+- **Scalable** - Handles traffic spikes automatically
+- **Customizable** - Can modify requests/responses on the fly
+- **Cost-effective** - Free tier available for small projects
+
+## My Dotfiles Installation Worker
+
+I use a Cloudflare Worker to power my one-command dotfiles installation. This approach creates a clean, memorable URL (`install.dotfiles.wiki/username`) that dynamically serves the appropriate installation script.
+
+### How it works
+<Steps>
+1. The Worker receives a request to `install.dotfiles.wiki/username`
+
+2. It determines which script format to serve (shell script or PowerShell) based on the user agent
+
+3. It fetches the base installation script from my GitHub repository
+
+4. It injects the specified username (or defaults to mine) into the script
+
+5. It serves the dynamically modified script with the proper content type
+</Steps>
+Here's the Worker code that powers this functionality:
+
+```javascript
+addEventListener('fetch', event => {
+  event.respondWith(handleRequest(event.request))
+})
+
+async function handleRequest(request) {
+  var ext = "sh"
+  // Parse the URL path to extract arguments
+  const url = new URL(request.url);
+  const parts = url.pathname.split('/').filter(Boolean);  // Split the path and remove empty elements
+
+  const firstPart = parts[0] || 'kiliantyler';
+  var username = firstPart
+
+  // Get user-agent
+  const agent = request.headers.get('user-agent')
+  // If Powershell download PS1 instead of sh
+  if (agent.toLowerCase().includes("powershell")) {
+    ext = "ps1"
+  }
+
+  // Base URL of the GitHub repo containing the script (use raw content URL)
+  const scriptUrl = `https://raw.githubusercontent.com/kiliantyler/dotfiles/main/install.${ext}`;
+  // Fetch the base shell script from the GitHub repository
+  const response = await fetch(scriptUrl);
+  if (!response.ok) {
+    return new Response('Failed to fetch the script from GitHub', { status: 500 });
+  }
+
+  // Get the content of the script
+  let script = await response.text();
+
+  // Substitute the placeholders with actual values from the URL
+  script = script.replace('{{USERNAME}}', username)
+
+  // Respond with the dynamically modified script
+  return new Response(script, {
+    headers: {
+      'Content-Type': 'text/x-shellscript',
+      'Content-Disposition': `attachment; filename="install.${ext}"`,
+    },
+  });
+}
+```
+
+## Using This Installation System With Your Repository
+
+You don't need to create your own Cloudflare Worker to benefit from this system. My installation script is designed to work with any Chezmoi-compatible dotfiles repository. Here's how to use it with your own repository:
+<Steps>
+1. **Ensure your repository is Chezmoi-compatible:**
+   - Structure your dotfiles for use with Chezmoi
+   - Follow standard Chezmoi conventions for file organization
+
+2. **Use the existing installation URL with your GitHub username:**
+   ```bash
+   curl install.dotfiles.wiki/YOUR-USERNAME | sh
+   ```
+
+3. **That's it!** The script will:
+   - Install Chezmoi if needed
+   - Initialize Chezmoi with your GitHub repository (`https://github.com/YOUR-USERNAME/dotfiles.git`)
+   - Apply your configuration
+</Steps>
+No need to set up your own Worker, domain, or custom scripts. The installation system automatically detects the user agent and serves the appropriate script type (bash or PowerShell), substituting the username parameter into the installation process.

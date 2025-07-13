@@ -4,31 +4,195 @@ sidebar:
   order: 3
 ---
 
-:::caution[Work in Progress]
-This page is a stub and is still under construction.
-:::
+## Dotfiles Basics
 
-## What is this?
+### What is this repository?
 
-This is my collection of dotfiles. It's a set of configuration files that I use to customize my system.
+This is my personal collection of dotfiles - configuration files that customize my development environment across different systems. It includes shell configurations, application preferences, keyboard shortcuts, and automation scripts that I've refined over years of use.
 
-## What are "dotfiles"?
+### What are "dotfiles"?
 
-Dotfiles are configuration files that are used to customize and personalize your system.
-They are called "dotfiles" because they are typically hidden files that start with a dot
-(e.g. `.bashrc`, `.gitconfig`, `.aws/`).
+Dotfiles are configuration files that customize applications and system behaviors on Unix-like operating systems (Linux, macOS, BSD). They're called "dotfiles" because they traditionally begin with a dot (`.`), making them hidden files in directory listings.
 
-## Why should I care?
+Examples include:
 
-Dotfiles are a great way to customize your system and make it your own.
-They can help you be more productive and efficient by automating repetitive tasks and
-setting up your environment the way you like it.
+- `.bashrc` or `.zshrc` - Shell configuration
+- `.gitconfig` - Git user settings and aliases
+- `.vimrc` - Vim editor preferences
+- `.tmux.conf` - Tmux terminal multiplexer settings
+- `.config/` - Directory containing many modern app configs
 
-## Why are your dotfiles special?
+### Why should I care about dotfiles?
 
-They aren't. They're just mine. But I've spent a lot of time on them and I think they're pretty cool.
-I've tried to make them as simple and easy to use as possible, while still being powerful and flexible.
+Investing time in your dotfiles offers significant benefits:
 
-## What tools do you use?
+- **Consistency** - Maintain identical environments across multiple machines
+- **Efficiency** - Automate repetitive tasks and streamline workflows
+- **Personalization** - Customize tools to match your preferences and habits
+- **Portability** - Quickly set up a familiar environment on new systems
+- **Version control** - Track changes and experiment with configurations safely
+- **Knowledge** - Learn more about how your tools actually work
 
-You can see a listing of all the tools I use in my [tools](/tools/overview) section.
+For developers especially, well-crafted dotfiles can dramatically improve productivity by reducing friction in daily workflows.
+
+### Why are your dotfiles special?
+
+They aren't inherently special - they're just mine. I've spent years refining them to match my specific workflow and preferences. What might be unique about my approach is:
+
+1. The comprehensive documentation (this wiki)
+2. The true one-command installation system
+3. The modular organization using Chezmoi
+4. My focus on cross-platform compatibility
+5. The balance between power and simplicity I've aimed for
+
+I don't claim they're better than anyone else's - they're simply optimized for me.
+
+## Installation & Management
+
+### How do I use these dotfiles?
+
+You have several options:
+
+1. **Browse for inspiration** - Look through the code and documentation to find ideas for your own dotfiles
+2. **Cherry-pick specific configs** - Copy parts you like into your own setup
+3. **Fork the repository** - Create your own version to customize
+4. **Install directly** - Use the [installation guide](/installation) (though read the warnings first)
+
+For most people, the first two options are recommended.
+
+### What makes your installation process different?
+
+My installation is genuinely a single command that handles everything:
+
+```shell
+curl install.dotfiles.wiki/kiliantyler | sh
+```
+
+Unlike many other "one-liner" dotfiles installers, mine:
+
+- Requires no manual prerequisites
+- Installs all necessary dependencies
+- Works across different operating systems
+- Needs no preparation or configuration before running
+
+### How do you manage your dotfiles?
+
+I use [Chezmoi](/management-tools/chezmoi), a dotfiles manager that offers:
+
+- Templating for machine-specific configurations
+- Secure handling of secrets
+- Cross-platform compatibility
+- Easy synchronization between machines
+- Powerful scripting capabilities
+
+Chezmoi maintains my dotfiles in a central repository while deploying them correctly to each system.
+
+## Technical Questions
+
+### What tools do you use?
+
+You can see a comprehensive listing of all the tools I use in the [tools](/management-tools) section. Some highlights include:
+
+- Shell: Fish with Starship prompt
+- Terminal: Ghostty (macOS) and Windows Terminal (Windows/WSL2)
+- Editor: VSCode
+- Package Managers: Mise, Homebrew, Scoop
+
+### How often do you update your dotfiles?
+
+I continuously refine my dotfiles as my workflow evolves. Major updates typically occur when:
+
+- I discover new tools that improve my workflow
+- I encounter pain points in my current setup
+- I learn better ways of doing things
+
+The Git history shows the evolution over time.
+
+## Common Concerns
+
+### Are dotfiles secure?
+
+Dotfiles themselves are just configuration files, but they can contain sensitive information like:
+
+- API tokens
+- Private server addresses
+- Personal preferences
+- Authentication credentials
+
+My dotfiles management strategy uses [Chezmoi's encryption](https://www.chezmoi.io/user-guide/encryption/age/) for initial setup, as well as [1Password](http://1password.com/) for managing secrets.
+
+### Will these slow down my system?
+
+Poorly implemented dotfiles can impact system performance. I've optimized mine to:
+
+- Lazy-load functionality only when needed
+- Avoid unnecessary processes and background tasks
+- Cache results of expensive operations
+- Use efficient scripting practices
+
+If you notice performance issues, check the [troubleshooting](/troubleshooting) section.
+
+### How do I back up my existing configuration before trying these?
+
+Before installing any dotfiles, it's wise to back up your existing configuration:
+
+```shell
+mkdir ~/dotfiles-backup
+cp -r ~/.bash* ~/.zsh* ~/.git* ~/.vim* ~/dotfiles-backup/
+```
+
+Chezmoi will also create backups of files it replaces during installation.
+
+### Should I just copy all your settings?
+
+Probably not. Dotfiles are highly personal and reflect years of individual workflow optimization. Instead:
+
+1. Start with minimal configurations
+2. Add customizations incrementally as you understand them
+3. Document why you made each change
+4. Regularly review and remove unused configurations
+
+Your ideal environment will be unique to how you work.
+
+## Best Practices
+
+### What's the best way to organize dotfiles?
+
+While there's no single "right way," some effective approaches include:
+
+- **Topic-based organization** - Group by tool or function (shell, git, editor)
+- **Modularity** - Break configurations into smaller, focused files
+- **Documentation** - Comment extensively on non-obvious settings
+- **Version control** - Always keep dotfiles in a Git repository
+- **Automation** - Use installation/bootstrap scripts
+- **Separation of concerns** - Keep machine-specific settings separate from general ones
+
+My repository demonstrates these principles in action.
+
+### How did you learn all of this?
+
+My dotfiles knowledge came from:
+
+- Years of incremental improvements
+- Studying other people's dotfiles repositories
+- Active participation in developer communities
+- Reading documentation for tools I use
+- Trial and error (lots of error!)
+
+The best way to learn is to start simple and gradually expand your configurations as you understand more.
+
+### Where can I find more resources about dotfiles?
+
+Some excellent dotfiles resources include:
+
+- [GitHub's dotfiles page](https://dotfiles.github.io/)
+- [r/unixporn](https://www.reddit.com/r/unixporn/) for inspiration
+- [Awesome Dotfiles](https://github.com/webpro/awesome-dotfiles)
+- Individual tool documentation
+- Other developers' dotfiles repositories
+
+I also recommend joining communities where people share and discuss their configurations.
+
+### Why did you make Dottie?
+
+Because she's cute.
