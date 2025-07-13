@@ -11,9 +11,9 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://dotfiles.wiki",
   integrations: [starlight(starlightConfig), react(), markdoc(), sitemap()],
   vite: {
-    // @ts-expect-error Vite config doesn't work right now
     plugins: [tailwindcss()],
   },
 });
