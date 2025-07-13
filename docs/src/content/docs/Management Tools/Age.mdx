@@ -1,0 +1,18 @@
+---
+title: Age
+---
+
+# Age
+
+[Age](https://age-encryption.org/) is a simple, modern, and secure file encryption tool. It's designed to be a simpler alternative to tools like GPG, focusing specifically on file encryption.
+
+## Configuration Files
+
+- `.chezmoiscripts/runOnce/run_once_before_0-decrypt_age_key.sh.tmpl` - Script template to decrypt Age keys during Chezmoi initialization
+- `.chezmoiscripts/runOnce/run_once_before_0-decrypt_age_key.ps1.tmpl` - PowerShell equivalent for Windows systems
+
+These files both create a decrypted Age key which is then used for decrypting other secrets in the Chezmoi configuration.
+
+## Related Documentation
+
+- [Age Documentation](https://age-encryption.org/)
