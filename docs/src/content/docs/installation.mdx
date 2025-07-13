@@ -38,34 +38,68 @@ If you've read the warnings above and still want to proceed, here's how to insta
 
 ### Quick Installation
 
-One simple command to install everything:
+Choose the installation command for your operating system:
+
+#### Unix-like systems (macOS, Linux)
 
 ```shell
-curl install.dotfiles.wiki/kiliantyler | sh
+curl -fsSL https://install.dotfiles.wiki/ | sh
 ```
-<Aside type="tip" title="Customization">
-The installation script is hosted on [Cloudflare Workers](/management-tools/cloudflare) and supports installing other users' dotfiles by changing the username:
+
+#### Windows PowerShell
+
+```powershell
+iex "&{$(irm 'https://install.dotfiles.wiki/?os=windows')}"
+```
+
+### Customization Options
+
+The installation script is hosted on [Cloudflare Workers](/management-tools/cloudflare) and supports several customization options through URL parameters:
+
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `username` | Git username | kiliantyler |
+| `provider` | Git provider (github, gitlab, bitbucket, or any custom domain) | github |
+| `branch` | Repository branch | main |
+| `repo` | Repository name | dotfiles |
+| `os` | Operating system (windows, macos, linux) | auto-detect |
+
+#### Examples
+
+Install dotfiles from a GitLab user on the develop branch:
 
 ```shell
-curl install.dotfiles.wiki/username | sh
+curl -fsSL 'https://install.dotfiles.wiki/?username=johndoe&provider=gitlab&branch=develop' | sh
 ```
-</Aside>
 
+Install dotfiles from a custom repository name:
 
-:::
+```shell
+curl -fsSL 'https://install.dotfiles.wiki/?username=johndoe&repo=my-config' | sh
+```
+
+Install Windows dotfiles from Bitbucket:
+
+```powershell
+iex "&{$(irm 'https://install.dotfiles.wiki/?username=janedoe&provider=bitbucket&os=windows')}"
+```
 
 ### What happens during installation
 
 The installation process:
 <Steps>
-1. Downloads the `install.sh` script from the [repository](/repolayout/#file-structure)
+1. The Cloudflare Worker generates a customized script based on your operating system and parameters
 
-2. Installs all required dependencies for your system
+2. Installs any prerequisites (e.g. Xcode Command Line Tools on macOS)
 
-3. Sets up [Chezmoi](/management-tools/chezmoi) as the dotfiles manager
+3. Downloads and installs [Chezmoi](/management-tools/chezmoi) as the dotfiles manager
 
-4. Applies all configurations automatically
+4. Initializes Chezmoi with your specified Git repository
 </Steps>
+
+<Aside type="note" title="Script security">
+The installation scripts are generated dynamically and sanitized to prevent injection attacks and other security issues. The source code is available in the repository under the `cloudflare` directory.
+</Aside>
 
 ### Installation Philosophy
 
