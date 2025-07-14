@@ -26,7 +26,7 @@ if (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
   }
 }
 
-Set-ExecutionPolicy RemoteSigned –Scope Process
+Set-ExecutionPolicy RemoteSigned -Scope Process
 
 # Install chezmoi and initialize with the specified repository and branch
 iex "&{$(irm 'https://get.chezmoi.io/ps1')} -- init --apply ${repoUrl} --branch ${branch}"
