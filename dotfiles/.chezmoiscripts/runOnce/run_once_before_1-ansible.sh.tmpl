@@ -1,3 +1,4 @@
+{{- if ne .chezmoi.os "windows" -}}
 {{- if eq .chezmoi.os "darwin" -}}
 #!/usr/bin/env zsh
 {{- else if eq .chezmoi.os "linux" -}}
@@ -29,3 +30,4 @@ ${__PYTHON_LOC} -m ansible galaxy install -r requirements.yaml
 
 # Run Ansible Playbook
 ${__PYTHON_LOC} -m ansible playbook ./playbooks/playbook.yaml --ask-become-pass
+{{- end -}}
