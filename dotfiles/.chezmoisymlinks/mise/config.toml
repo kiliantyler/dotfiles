@@ -7,6 +7,7 @@ trusted_config_paths = [
   "{{ get_env(name='HOME') }}/Github/kiliantyler/",
 ]
 disable_hints = ["python_multi"]
+idiomatic_version_file_enable_tools = ["node"]
 
 #[plugins]
 #devcontainer = "https://github.com/iloveitaly/asdf-devcontainer"
@@ -98,3 +99,4 @@ pipx = "latest"
 "pipx:virtualenv" = "latest"
 kustomize = "latest"
 usage = "latest"
+delta = "latest"

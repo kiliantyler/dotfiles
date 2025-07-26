@@ -1,0 +1,163 @@
+{
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[mdx]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[yaml]": {
+    "diffEditor.ignoreTrimWhitespace": true,
+    "editor.defaultFormatter": "kiliantyler.yamlfmt-vscode"
+  },
+  "1password.editor.suggestStorage": false,
+  "cursor.cpp.disabledLanguages": [
+    "plaintext",
+    "markdown",
+    "scminput"
+  ],
+  "editor.accessibilitySupport": "off",
+  "editor.autoClosingBrackets": "beforeWhitespace",
+  "editor.autoClosingComments": "beforeWhitespace",
+  "editor.autoClosingQuotes": "beforeWhitespace",
+  "editor.bracketPairColorization.enabled": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit"
+  },
+  "editor.codeLensFontFamily": "FiraCode Nerd Font",
+  "editor.colorDecoratorsActivatedOn": "click",
+  "editor.cursorBlinking": "smooth",
+  "editor.detectIndentation": false,
+  "editor.fontFamily": "FiraCode Nerd Font",
+  "editor.fontLigatures": true,
+  "editor.fontSize": 15,
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.guides.bracketPairs": true,
+  "editor.guides.bracketPairsHorizontal": true,
+  "editor.guides.highlightActiveBracketPair": true,
+  "editor.hover.delay": 1500,
+  "editor.inlineSuggest.enabled": true,
+  "editor.minimap.enabled": false,
+  "editor.rulers": [
+    120
+  ],
+  "editor.stickyScroll.enabled": false,
+  "editor.tabSize": 2,
+  "explorer.autoReveal": false,
+  "explorer.compactFolders": false,
+  "explorer.incrementalNaming": "smart",
+  "files.associations": {
+    ".chezmoi.yaml.tmpl": "goyaml",
+    "*.gotmpl": "gotemplate",
+    "*.tmpl": "gotemplate",
+    "*.TODO": "markdown",
+    "*.yaml": "yaml"
+  },
+  "files.autoSave": "onFocusChange",
+  "files.eol": "\n",
+  "files.exclude": {
+    "**/.trunk/*actions/": true,
+    "**/.trunk/*logs/": true,
+    "**/.trunk/*notifications/": true,
+    "**/.trunk/*out/": true,
+    "**/.trunk/*plugins/": true
+  },
+  "files.watcherExclude": {
+    "**/.trunk/*actions/": true,
+    "**/.trunk/*logs/": true,
+    "**/.trunk/*notifications/": true,
+    "**/.trunk/*out/": true,
+    "**/.trunk/*plugins/": true
+  },
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "git.suggestSmartCommit": false,
+  "gitlens.graph.layout": "editor",
+  "go.toolsManagement.autoUpdate": true,
+  "html.autoCreateQuotes": false,
+  "javascript.updateImportsOnFileMove.enabled": "never",
+  "redhat.telemetry.enabled": false,
+  "security.workspace.trust.untrustedFiles": "open",
+  "svg.preview.mode": "svg",
+  "terminal.explorerKind": "both",
+  "terminal.external.osxExec": "ghostty",
+  "terminal.external.windowsExec": "",
+  "terminal.integrated.allowMnemonics": true,
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.cursorStyle": "line",
+  "terminal.integrated.cursorStyleInactive": "line",
+  "terminal.integrated.defaultLocation": "view",
+  "terminal.integrated.defaultProfile.windows": "",
+  "terminal.integrated.enablePersistentSessions": false,
+  "terminal.integrated.env.osx": {},
+  "terminal.integrated.fontFamily": "FiraCode Nerd Font",
+  "todo-tree.filtering.includeHiddenFiles": true,
+  "todo-tree.general.periodicRefreshInterval": 2,
+  "todo-tree.general.showActivityBarBadge": true,
+  "todo-tree.general.showIconsInsteadOfTagsInStatusBar": true,
+  "todo-tree.general.tags": [
+    "BUG",
+    "HACK",
+    "FIXME",
+    "TODO:",
+    "XXX",
+    "[ ]",
+    "TODO"
+  ],
+  "todo-tree.tree.labelFormat": "${after}",
+  "todo-tree.tree.showCountsInTree": true,
+  "todohighlight.isEnable": false,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "vs-kubernetes": {
+    "vs-kubernetes.crd-code-completion": "enabled",
+    "vs-kubernetes.knownKubeconfigs": [
+      "~/.kube/config"
+    ],
+    "vs-kubernetes.kubeconfig": "~/.kube/config",
+    "vs-kubernetes.minikube-show-information-expiration": "2025-11-23T19:28:55.945Z",
+    "vscode-kubernetes.helm-path-mac": "~/.vs-kubernetes/tools/helm/darwin-arm64/helm",
+    "vscode-kubernetes.minikube-path-mac": "~/.vs-kubernetes/tools/minikube/darwin-arm64/minikube"
+  },
+  "window.autoDetectColorScheme": true,
+  "workbench.colorCustomizations": {
+    "terminal.ansiBlack": "#0B0D0F",
+    "terminal.ansiBlue": "#9580FF",
+    "terminal.ansiBrightBlack": "#504C67",
+    "terminal.ansiBrightBlue": "#AA99FF",
+    "terminal.ansiBrightCyan": "#99FFEE",
+    "terminal.ansiBrightGreen": "#A2FF99",
+    "terminal.ansiBrightMagenta": "#FF99CC",
+    "terminal.ansiBrightRed": "#FFAA99",
+    "terminal.ansiBrightWhite": "#f8f8f2",
+    "terminal.ansiBrightYellow": "#ffcb6b",
+    "terminal.ansiCyan": "#80FFEA",
+    "terminal.ansiGreen": "#8AFF80",
+    "terminal.ansiMagenta": "#FF80BF",
+    "terminal.ansiRed": "#FF9580",
+    "terminal.ansiWhite": "#F8F8F2",
+    "terminal.ansiYellow": "#FFFF80",
+    "terminal.background": "#0B0D0F",
+    "terminal.foreground": "#F8F8F2",
+    "terminal.selectionBackground": "#f8f8f2",
+    "terminalCursor.foreground": "#ECEff4"
+  },
+  "workbench.iconTheme": "catppuccin-mocha",
+  "workbench.startupEditor": "none",
+  "yaml.schemaStore.enable": true,
+  "workbench.preferredDarkColorTheme": "Cursor Dark Midnight",
+}
