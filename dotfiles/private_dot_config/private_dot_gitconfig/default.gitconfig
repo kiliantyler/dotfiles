@@ -9,7 +9,6 @@
 
 [init]
   defaultBranch = main
-	templateDir = ~/.config/.gitconfig/template
 
 [color]
   ui = true
@@ -49,13 +48,13 @@
   conflictstyle = diff3
   tool = vscode
 [mergetool "vscode"]
-  cmd = code --wait $MERGED
+  cmd = cursor --wait $MERGED
 
 [diff]
   colorMoved = default
   tool = vscode
 [difftool "vscode"]
-  cmd = code --wait --diff $LOCAL $REMOTE
+  cmd = cursor --wait --diff $LOCAL $REMOTE
 
 [include]
   path = ${HOME}/.config/.gitconfig/themes.gitconfig
@@ -90,10 +89,7 @@
   hunk-header-decoration-style = cyan box ul
 
 [user]
-	name = Kilian Tyler
+  name = Kilian Tyler
 
 [include]
   path = ~/.config/.gitconfig/personal.gitconfig
-
-[includeIf "hasconfig:remote.*.url:https://github.com/realtext"]
-  path = ~/.config/.gitconfig/realtext.gitconfig
