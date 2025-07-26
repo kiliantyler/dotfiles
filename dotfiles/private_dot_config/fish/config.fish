@@ -13,7 +13,6 @@ if status is-interactive
     set -gx PATH $PATH $HOME/.krew/bin # Krew plugins
 
     # Programs
-    mise activate fish | source
     atuin init fish --disable-up-arrow | source
 
     # # Completions
