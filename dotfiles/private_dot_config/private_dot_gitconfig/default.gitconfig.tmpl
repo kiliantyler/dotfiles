@@ -17,8 +17,8 @@
   pretty = oneline
 
 [core]
-  autocrl = input
-  fileMode = true
+  autocrl = false
+  fileMode = false
   editor = code --wait
   pager = delta
 
@@ -29,8 +29,12 @@
   format = ssh
 
 [gpg "ssh"]
+  {{- if eq .chezmoi.os "windows" }}
+  program = {{.chezmoi.homeDir }}/AppData/Local/1Password/app/8/op-ssh-sign.exe
+  {{- else }}
   program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
-  allowedSignersFile = ~/.config/.gitconfig/allowed-signers
+  {{- end }}
+  allowedSignersFile = {{.chezmoi.homeDir }}/.config/.gitconfig/allowed-signers
 
 [filter "lfs"]
   clean = git-lfs clean -- %f
@@ -57,7 +61,7 @@
   cmd = cursor --wait --diff $LOCAL $REMOTE
 
 [include]
-  path = ${HOME}/.config/.gitconfig/themes.gitconfig
+  path = {{.chezmoi.homeDir }}/.config/.gitconfig/themes.gitconfig
 
 [delta]
   pager = less
@@ -92,4 +96,4 @@
   name = Kilian Tyler
 
 [include]
-  path = ~/.config/.gitconfig/personal.gitconfig
+  path = {{.chezmoi.homeDir }}/.config/.gitconfig/personal.gitconfig
