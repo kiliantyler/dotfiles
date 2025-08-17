@@ -1,0 +1,118 @@
+# -----------------------------------
+# author: @kiliantyler
+# title: Windows Bloat
+# description: Removes Windows Bloatware
+# -----------------------------------
+
+# -----------------------------------
+# OneDrive
+# -----------------------------------
+
+# Kill OneDrive Process
+Write-Host "Killing OneDrive process..." -ForegroundColor Green
+taskkill /f /im OneDrive.exe 2>$null
+
+# Uninstall OneDrive
+Write-Host "Uninstalling OneDrive..." -ForegroundColor Green
+& "C:\Windows\System32\OneDriveSetup.exe" /uninstall 2>$null
+
+# -----------------------------------
+# Remove New Outlook
+# -----------------------------------
+
+New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" -Name AllowDevelopmentWithoutDevLicense -PropertyType DWORD -Value 1 -Force | Out-Null
+
+# -----------------------------------
+# Remove Bloat Apps
+# -----------------------------------
+
+# App List
+$apps = @(
+  "Microsoft.549981C3F5F10",
+  "MSTeams",
+  "Microsoft.MicrosoftEdge.Stable",
+  "Clipchamp.Clipchamp",
+  "Microsoft.MicrosoftSolitaireCollection",
+  "Microsoft.BingNews",
+  "Microsoft.BingWeather",
+  "Microsoft.GamingApp",
+  "Microsoft.GetHelp",
+  "Microsoft.Getstarted",
+  "Microsoft.MicrosoftOfficeHub",
+  "Microsoft.People",
+  "Microsoft.PowerAutomateDesktop",
+  "Microsoft.Todos",
+  "Microsoft.WindowsAlarms",
+  "Microsoft.WindowsCamera",
+  "Microsoft.windowscommunicationsapps",
+  "Microsoft.WindowsFeedbackHub",
+  "Microsoft.WindowsMaps",
+  "Microsoft.WindowsSoundRecorder",
+  "Microsoft.Xbox.TCUI",
+  "Microsoft.XboxGameOverlay",
+  "Microsoft.XboxGamingOverlay",
+  "Microsoft.XboxIdentityProvider",
+  "Microsoft.XboxSpeechToTextOverlay",
+  "Microsoft.YourPhone",
+  "Microsoft.ZuneMusic",
+  "Microsoft.ZuneVideo",
+  "MicrosoftCorporationII.QuickAssist",
+  "MicrosoftWindows.Client.WebExperience",
+  "MicrosoftTeams",
+  "Microsoft.LanguageExperiencePackfr-FR",
+  "MicrosoftCorporationII.MicrosoftFamily",
+  "Microsoft.MicrosoftStickyNotes"
+  "Microsoft.OutlookForWindows"
+)
+
+Write-Host "Removing Windows Bloatware..." -ForegroundColor Green
+
+$apps.ForEach{Get-AppxPackage -AllUsers -Name $_ | Remove-AppxPackage -AllUsers ; Get-AppxProvisionedPackage -online | where-object PackageName -like $_ | Remove-AppxProvisionedPackage -online}
+
+Write-Host "Windows Bloatware removed!" -ForegroundColor Green
+
+# ----------------------------------
+# Cleanup Start Menu
+# ----------------------------------
+
+$startMenuPaths = @(
+    "$env:APPDATA\Microsoft\Windows\Start Menu\Programs",
+    "$env:PROGRAMDATA\Microsoft\Windows\Start Menu\Programs"
+)
+
+# Function to check if a shortcut is valid
+function Test-Shortcut {
+    param (
+        [string]$ShortcutPath
+    )
+    try {
+        $shell = New-Object -ComObject WScript.Shell
+        $shortcut = $shell.CreateShortcut($ShortcutPath)
+        Test-Path $shortcut.TargetPath
+    } catch {
+        $false
+    }
+}
+
+# Iterate through Start Menu paths
+foreach ($path in $startMenuPaths) {
+  if (Test-Path $path) {
+    Write-Host "Scanning: $path" -ForegroundColor Cyan
+    Get-ChildItem -Path $path -Recurse -Filter *.lnk | ForEach-Object {
+      if (-not (Test-Shortcut $_.FullName)) {
+        Write-Host "Removing broken shortcut: $($_.FullName)" -ForegroundColor Yellow
+        Remove-Item -Path $_.FullName -Force
+      }
+    }
+  }
+}
+
+Write-Host "Start Menu cleanup completed!" -ForegroundColor Green
+
+
+
+# ----------------------------------
+# Public User
+# ----------------------------------
+
+# del C:\Users\Public\Desktop\* /F /Q
