@@ -13,5 +13,15 @@
     "key": "ctrl+shift+u",
     "command": "editor.action.transformToUppercase",
     "when": "editorTextFocus"
-  }
+  },
+  {
+    "key": "ctrl+shift+t",
+    "command": "typescript.restartTsServer",
+    "when": "isWindows"
+  },
+  {
+    "key": "ctrl+shift+r",
+    "command": "workbench.action.reloadWindow",
+    "when": "isWindows"
+  },
 ]
