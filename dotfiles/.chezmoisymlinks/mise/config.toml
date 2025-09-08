@@ -21,32 +21,21 @@ idiomatic_version_file_enable_tools = ["node"]
 
 [tools]
 1password-cli = "latest"
-age = "latest"           # TODO: List-all broken
-aliae = "latest"
-aws-sso-cli = "latest"
+age = "latest"
 awscli = "latest"
 bun = "latest"
-# coreutils = "latest"
-cue = "0.13.2"
-# devcontainer = "latest" # TODO: List-all broken
 direnv = "latest"
-dust = "latest"
 editorconfig-checker = "latest"
-eza = "latest"
+# eza = "latest"
 flux2 = "latest"
 fzf = "latest"
-golangci-lint = "latest"
 goreleaser = "latest"
-goss = "latest"
 helm = "latest"
 jq = "latest"
 kubecolor = "latest"
 kubectl = "latest"
-# make = "latest"
-micro = "latest"
 node = "latest"
 sops = "latest"
-task = "latest"
 talosctl = "latest"
 terraform-docs = "latest"
 terraform = "latest"
@@ -55,48 +44,19 @@ yamlfmt = "latest"
 yarn = "latest"
 yq = "latest"
 zoxide = "latest"
-colima = "latest"
-lima = "latest"
 atuin = "latest"
 helmfile = "latest"
-
-# To Create
-# asdf-aliae
-# git-lfs
-# gnu-indent
-# gnu-sed
-# gnu-tar
-# gnu-which
-# gnupg
-# grep
-# most
-# unzip
-# watchman
-# wget
-
-# TODO:  asdf-m4 -> asdf-autoconf
-# autoconf needed for git
-# gettext needed for git
-git = "latest"
+kustomize = "latest"
+usage = "latest"
+delta = "latest"
 
 # Go tools
 go = "latest"
 
-# Rust tools
-rust = "latest"
-# "cargo:bat" = "latest"
-# "cargo:procs" = "latest"
-# "cargo:findutils" = "latest" # Replace with gnu find
-# "cargo:diffutils" = "latest" # Replace with gnu diff
-# "cargo:coreutils" = "latest"
-
 # Python tools
 python = "latest"
 pipx = "latest"
-#"pipx:ansible-core" = "latest"
-#"pipx:ansible" = "latest"
-"pipx:jinja2-cli" = "latest"
-"pipx:virtualenv" = "latest"
-kustomize = "latest"
-usage = "latest"
-delta = "latest"
+
+# Rust tools
+rust = "latest"
+"cargo:eza" = "latest"
