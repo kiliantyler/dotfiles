@@ -1,0 +1,11 @@
+font-family = FiraCode Nerd Font Mono
+theme = dracula-pro-vanhelsing
+cursor-style = bar
+cursor-style-blink = true
+mouse-hide-while-typing = true
+macos-titlebar-style = tabs
+macos-icon = custom-style
+macos-icon-ghost-color = 9580FF
+macos-icon-screen-color = 0B0D0F
+macos-icon-frame = aluminum
+auto-update = download
