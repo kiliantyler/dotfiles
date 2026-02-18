@@ -24,4 +24,12 @@
     "command": "workbench.action.reloadWindow",
     "when": "isWindows"
   },
+  {
+    "key": "ctrl+shift+alt+s",
+    "command": "workbench.action.files.saveWithoutFormatting"
+  },
+  {
+    "key": "ctrl+m ctrl+shift+s",
+    "command": "-workbench.action.files.saveWithoutFormatting"
+  },
 ]
