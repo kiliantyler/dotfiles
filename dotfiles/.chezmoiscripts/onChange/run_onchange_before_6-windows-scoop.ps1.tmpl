@@ -1,8 +1,30 @@
 # -----------------------------------
 # author: @kiliantyler
-# title: Windows Winget
-# description: Installs Windows Applications via Winget
+# title: Windows Scoop
+# description: Installs Windows Applications via Scoop
 # -----------------------------------
 
-# Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-# Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+{{- if eq .chezmoi.os "windows" }}
+# Install Scoop if not present
+if (!(Get-Command scoop -ErrorAction SilentlyContinue)) {
+    Write-Host "Installing Scoop..." -ForegroundColor Green
+    Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+    Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+}
+
+# Install Scoop applications
+Write-Host "Installing Scoop applications..." -ForegroundColor Green
+
+{{- range .scoop.apps }}
+$app = "{{ . }}"
+$installed = scoop list $app 2>$null | Select-String $app
+if (!$installed) {
+    Write-Host "Installing $app..." -ForegroundColor Yellow
+    scoop install $app
+} else {
+    Write-Host "$app already installed" -ForegroundColor DarkGray
+}
+
+{{- end }}
+Write-Host "Scoop installation complete!"
+{{- end }}
