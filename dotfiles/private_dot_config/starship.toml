@@ -5,7 +5,7 @@ format = """[╭─](dimmed white)$all$fill$time$line_break\
 
 [character]
 success_symbol = "[](dimmed white)"
-error_symbol = "[󰧚](dimmedreloa white)"
+error_symbol = "[󰧚](dimmed white)"
 
 [aws]
 symbol = ""
