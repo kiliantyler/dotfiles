@@ -30,7 +30,7 @@
 
 [gpg "ssh"]
   {{- if eq .chezmoi.os "windows" }}
-  program = {{.chezmoi.homeDir }}/AppData/Local/1Password/app/8/op-ssh-sign.exe
+  program = "{{.chezmoi.homeDir }}/AppData/Local/Microsoft/WindowsApps/op-ssh-sign.exe"
   {{- else }}
   program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
   {{- end }}
