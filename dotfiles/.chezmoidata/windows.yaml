@@ -8,63 +8,36 @@ winget:
     - Zen-Team.Zen-Browser
     - VB-Audio.Voicemeeter.Potato
     - AgileBits.1Password.Beta
-    - AgileBits.1Password.CLI
-    - Starship.Starship
-    - Oven-sh.Bun
-    - jdx.mise
-    - Git.Git
-    - GitHub.cli
     - Axosoft.GitKraken
-    - GitKraken.cli
     - M2Team.NanaZip
     - Freelensapp.Freelens
     - ShareX.ShareX
     - Valve.Steam
     - Yaak.app
-    - eza-community.eza
     - eloston.ungoogled-chromium
-    - dotenvx.dotenvx
     - Anysphere.Cursor
     - Docker.DockerDesktop
     - Docker.DockerCLI
-    - Amazon.AWSCLI
-    - noborus.ov
-    - dandavison.delta
     - Balena.Etcher
-    - OpenJS.NodeJS
     - NexusMods.Vortex
-    - twpayne.chezmoi
     - VideoLAN.VLC
-    - FluxCD.Flux
-    - Kubernetes.kubectl
-    - Kubernetes.krew
-    - ahmetb.kubectx
-    - Kubecolor.kubecolor
-    - Helm.Helm
     - Logitech.GHUB
-    - junegunn.fzf
-    - Derailed.k9s
-    - Sidero.talosctl
     - SoftFever.OrcaSlicer
-    - astral-sh.uv
-    - nektos.act
-    - jqlang.jq
     # - Raycast.Raycast
     - pCloudAG.pCloudDrive
     - Microsoft.WSL
-    - topgrade-rs.topgrade
-    - Task.Task
-    - Cilium.CiliumCLI
-    - ajeetdsouza.zoxide
     - Blitz.Blitz
     - RiotGames.LeagueOfLegends.NA
     - Elgato.StreamDeck
     - GoXLR-on-Linux.GoXLR-Utility
     - Piriform.Speccy
-    - gerardog.gsudo
     - Amazon.Kiro
+    - Git.Git
 chocolatey:
   apps:
     - nvidia-app
 scoop:
   apps:
+    - mise
+    - eza
+    - topgrade
