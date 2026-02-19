@@ -24,8 +24,11 @@ if ($psrl) {
 
 # 3) Bash-like aliases
 function which { (Get-Command @args).Source }
+function reload { & $PROFILE; Clear-Host }
 
 # 4) Initialize starship prompt (if available)
 if (Get-Command starship -ErrorAction SilentlyContinue) {
+  function Invoke-Starship-TransientFunction { "󰧚 " }
   Invoke-Expression (& starship init powershell)
+  Enable-TransientPrompt
 }
