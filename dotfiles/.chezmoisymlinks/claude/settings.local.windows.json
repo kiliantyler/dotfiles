@@ -3,5 +3,8 @@
     "allow": [
       "Bash(wsl --list --verbose:*)"
     ]
+  },
+  "env": {
+    "CLAUDE_CODE_SHELL": "pwsh"
   }
 }
