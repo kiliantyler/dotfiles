@@ -185,4 +185,5 @@
   "remote.SSH.remotePlatform": {
     "maude": "macOS"
   },
+  "json.schemaDownload.enable": true,
 }
