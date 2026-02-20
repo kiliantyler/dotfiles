@@ -99,6 +99,9 @@ warnings: # https://www.chezmoi.io/reference/configuration-file/warnings/
   {{- end -}}
 {{- end }}
 
+{{- $isWork := regexMatch "^L\\d+-" .chezmoi.hostname -}}
+
 data:
   osid: {{ $osid | quote }}
+  isWork: {{ $isWork }}
   symlinkDir: {{ .chezmoi.sourceDir }}/.chezmoisymlinks
