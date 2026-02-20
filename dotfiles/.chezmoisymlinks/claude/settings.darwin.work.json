@@ -1,0 +1,28 @@
+{
+  "awsAuthRefresh": "aws sso login --profile claude-code",
+  "env": {
+    "CLAUDE_CODE_USE_BEDROCK": "1",
+    "ENABLE_LSP_TOOL": "1",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "us.anthropic.claude-opus-4-6-v1",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+    "AWS_PROFILE": "claude-code",
+    "AWS_REGION": "us-east-1"
+  },
+  "model": "us.anthropic.claude-opus-4-6-v1",
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/scripts/statusline-command.sh"
+  },
+  "enabledPlugins": {
+    "context7@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "qgenda-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "qgenda-dev/claude-code-marketplace"
+      }
+    }
+  },
+  "skipDangerousModePermissionPrompt": true
+}
