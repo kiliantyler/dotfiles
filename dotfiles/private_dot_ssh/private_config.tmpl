@@ -21,6 +21,12 @@ Host github
     HostName github.com
     IdentityFile ~/.ssh/github_qgenda.pub
     IdentitiesOnly yes
+
+Host github-personal
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/github_personal.pub
+    IdentitiesOnly yes
 {{- end }}
 
 host maude
