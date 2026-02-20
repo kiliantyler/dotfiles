@@ -1,0 +1,26 @@
+[include]
+  path = ~/.config/.gitconfig/default.gitconfig
+{{- if .isWork }}
+
+[user]
+	name = Kilian Tyler
+	email = kilian.tyler@qgenda.com
+	signingKey =
+
+[commit]
+	gpgSign = false
+
+[tag]
+	forceSignAnnotated = false
+
+[gpg "ssh"]
+	program = ssh-keygen
+	allowedSignersFile =
+
+[gpg]
+	format = ssh
+	program = gpg
+
+[includeIf "gitdir:~/git/QGenda/github/"]
+    path = ~/.config/.gitconfig/qgenda.gitconfig
+{{- end }}
