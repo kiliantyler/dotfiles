@@ -15,6 +15,16 @@ if status is-interactive
     # Programs
     atuin init fish --disable-up-arrow | source
 
+    # Replace `cd` with `zoxide` if available
+    if type -q zoxide
+        zoxide init fish --cmd cd | source
+    end
+
+    # Replace `ls` with `eza` if available
+    if type -q eza
+        alias ls 'eza --icons=auto --color=auto'
+    end
+
     # # Completions
     # mise completions fish | source //mise completion fish > ~/.config/fish/completions/mise.fish
     atuin gen-completions --shell fish | source
@@ -42,3 +52,6 @@ end
 function reload
     exec fish
 end
+{{- if .isWork }}
+set -gx AWS_DEFAULT_REGION us-east-1
+{{- end }}
