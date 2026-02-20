@@ -1,0 +1,28 @@
+# -----------------------------------
+# author: @kiliantyler
+# title: Windows Winget
+# description: Installs Windows Applications via Winget
+# -----------------------------------
+
+{{- if eq .chezmoi.os "windows" }}
+# Install winget applications
+Write-Host "Installing winget applications..." -ForegroundColor Green
+
+{{- range .winget.apps }}
+$appId = "{{ . }}"
+$installed = winget list --id $appId --exact --accept-source-agreements 2>$null | Select-String $appId
+if ($installed) {
+    Write-Host "$appId already installed, skipping" -ForegroundColor DarkGray
+} else {
+    Write-Host "Installing $appId..." -ForegroundColor Yellow
+    winget install --id $appId --exact --silent --accept-package-agreements --accept-source-agreements
+    if ($LASTEXITCODE -ne 0 -and $LASTEXITCODE -ne -1978335189) {
+        Write-Host "Failed to install $appId" -ForegroundColor Red
+    } else {
+        Write-Host "$appId installed successfully" -ForegroundColor Green
+    }
+}
+
+{{- end }}
+Write-Host "Winget installation complete!"
+{{- end }}

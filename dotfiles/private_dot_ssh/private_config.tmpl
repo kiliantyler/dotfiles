@@ -1,1 +1,5 @@
 Include {{ .chezmoi.homeDir }}/ssh/config.ssh
+host maude
+  user maudebot
+  IdentitiesOnly true
+  IdentityFile ~/.ssh/maude.pub

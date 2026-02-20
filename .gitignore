@@ -446,6 +446,7 @@ local.properties
 [Ll]ib
 [Ll]ib64
 [Ll]ocal
+!dotfiles/AppData/Local/
 pyvenv.cfg
 .venv
 pip-selfcheck.json

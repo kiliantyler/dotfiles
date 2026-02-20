@@ -1,4 +1,9 @@
 {
+  "workbench.colorTheme": "Cursor Dark Midnight",
+  "workbench.preferredDarkColorTheme": "Cursor Dark Midnight",
+  "workbench.iconTheme": "catppuccin-mocha",
+  "workbench.startupEditor": "none",
+  "cursor.windowSwitcher.sidebarHoverCollapsed": true,
   "[javascript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
@@ -94,15 +99,13 @@
   "redhat.telemetry.enabled": false,
   "security.workspace.trust.untrustedFiles": "open",
   "svg.preview.mode": "svg",
-  "terminal.explorerKind": "both",
   "terminal.external.osxExec": "ghostty",
-  "terminal.external.windowsExec": "",
   "terminal.integrated.allowMnemonics": true,
   "terminal.integrated.cursorBlinking": true,
   "terminal.integrated.cursorStyle": "line",
   "terminal.integrated.cursorStyleInactive": "line",
   "terminal.integrated.defaultLocation": "view",
-  "terminal.integrated.defaultProfile.windows": "",
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
   "terminal.integrated.enablePersistentSessions": false,
   "terminal.integrated.env.osx": {},
   "terminal.integrated.fontFamily": "FiraCode Nerd Font",
@@ -156,8 +159,30 @@
     "terminal.selectionBackground": "#f8f8f2",
     "terminalCursor.foreground": "#ECEff4"
   },
-  "workbench.iconTheme": "catppuccin-mocha",
-  "workbench.startupEditor": "none",
   "yaml.schemaStore.enable": true,
-  "workbench.preferredDarkColorTheme": "Cursor Dark Midnight",
+  "prettier.documentSelectors": [
+    "**/*.ripple"
+  ],
+  "[ripple]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "explorer.confirmDragAndDrop": false,
+  "[dockercompose]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "editor.autoIndent": "advanced",
+    "editor.quickSuggestions": {
+      "other": true,
+      "comments": false,
+      "strings": true
+    },
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "[github-actions-workflow]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "powershell.startAsLoginShell.osx": false,
+  "remote.SSH.remotePlatform": {
+    "maude": "macOS"
+  },
 }

@@ -13,5 +13,23 @@
     "key": "ctrl+shift+u",
     "command": "editor.action.transformToUppercase",
     "when": "editorTextFocus"
-  }
+  },
+  {
+    "key": "ctrl+shift+t",
+    "command": "typescript.restartTsServer",
+    "when": "isWindows"
+  },
+  {
+    "key": "ctrl+shift+r",
+    "command": "workbench.action.reloadWindow",
+    "when": "isWindows"
+  },
+  {
+    "key": "ctrl+shift+alt+s",
+    "command": "workbench.action.files.saveWithoutFormatting"
+  },
+  {
+    "key": "ctrl+m ctrl+shift+s",
+    "command": "-workbench.action.files.saveWithoutFormatting"
+  },
 ]

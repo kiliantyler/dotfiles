@@ -1,15 +1,18 @@
 "$schema" = "https://starship.rs/config-schema.json"
 add_newline = false
+scan_timeout = 100
 format = """[╭─](dimmed white)$all$fill$time$line_break\
             [╰─](dimmed white)$character"""
 
 [character]
 success_symbol = "[](dimmed white)"
-error_symbol = "[󰧚](dimmedreloa white)"
+error_symbol = "[󰧚](dimmed white)"
+
 
 [aws]
+disabled = true
 symbol = ""
-format = "\\[[$symbol($profile)(\\($region\\))(\\[$duration\\])]($style)\\]"
+format = "\\[[$symbol($profile)(\\[$duration\\])]($style)\\]"
 
 [azure]
 disabled = true
@@ -22,6 +25,7 @@ disabled = true
 format = "\\[[$symbol($version)]($style)\\]"
 
 [c]
+disabled = true
 symbol = ""
 format = "\\[[$symbol($version(-$name))]($style)\\]"
 
@@ -32,27 +36,36 @@ format = "\\[[$symbol($version)]($style)\\]"
 format = "\\[[⏱ $duration]($style)\\]"
 
 [cobol]
+disabled = true
 format = "\\[[$symbol($version)]($style)\\]"
 
 [conda]
+disabled = true
 symbol = ""
 format = "\\[[$symbol$environment]($style)\\]"
 
 [crystal]
+disabled = true
 symbol = ""
 format = "\\[[$symbol($version)]($style)\\]"
 
 [daml]
+disabled = true
 format = "\\[[$symbol($version)]($style)\\]"
 
 [dart]
+disabled = true
 symbol = ""
 format = "\\[[$symbol($version)]($style)\\]"
 
 [deno]
+disabled = true
 format = "\\[[$symbol($version)]($style)\\]"
 
 [directory]
+format = "\\[[$path]($style)[$read_only]($style)\\]"
+truncate_to_repo = false
+truncation_length = 0
 read_only = " 󰌾"
 [directory.substitutions]
 "Documents" = "󰈙"
@@ -65,18 +78,22 @@ symbol = ""
 format = "\\[[$symbol$context]($style)\\]"
 
 [elixir]
+disabled = true
 symbol = ""
 format = "\\[[$symbol($version \\(OTP $otp_version\\))]($style)\\]"
 
 [elm]
+disabled = true
 symbol = ""
 format = "\\[[$symbol($version)]($style)\\]"
 
 [fennel]
+disabled = true
 symbol = ""
 format = "\\[[$symbol($version)]($style)\\]"
 
 [fossil_branch]
+disabled = true
 symbol = ""
 format = "\\[[$symbol$branch]($style)\\]"
 
@@ -92,18 +109,22 @@ symbol = ""
 format = "\\[[$symbol($version)]($style)\\]"
 
 [guix_shell]
+disabled = true
 symbol = ""
 format = "\\[[$symbol]($style)\\]"
 
 [haskell]
+disabled = true
 symbol = ""
 format = "\\[[$symbol($version)]($style)\\]"
 
 [haxe]
+disabled = true
 symbol = ""
 format = "\\[[$symbol($version)]($style)\\]"
 
 [hg_branch]
+disabled = true
 symbol = ""
 format = "\\[[$symbol$branch]($style)\\]"
 
@@ -111,18 +132,22 @@ format = "\\[[$symbol$branch]($style)\\]"
 ssh_symbol = ""
 
 [java]
+disabled = true
 symbol = ""
 format = "\\[[$symbol($version)]($style)\\]"
 
 [julia]
+disabled = true
 symbol = ""
 format = "\\[[$symbol($version)]($style)\\]"
 
 [kotlin]
+disabled = true
 symbol = ""
 format = "\\[[$symbol($version)]($style)\\]"
 
 [lua]
+disabled = true
 symbol = ""
 format = "\\[[$symbol($version)]($style)\\]"
 
@@ -135,10 +160,12 @@ symbol = "󰔷"
 format = "\\[[$symbol$project]($style)\\]"
 
 [nim]
+disabled = true
 symbol = "󰆥"
 format = "\\[[$symbol($version)]($style)\\]"
 
 [nix_shell]
+disabled = true
 symbol = ""
 format = "\\[[$symbol$state( \\($name\\))]($style)\\]"
 
@@ -147,6 +174,7 @@ symbol = ""
 format = "\\[[$symbol($version)]($style)\\]"
 
 [ocaml]
+disabled = true
 symbol = ""
 format = "\\[[$symbol($version)(\\($switch_indicator$switch_name\\))]($style)\\]"
 
@@ -203,14 +231,17 @@ symbol = "󰏗"
 format = "\\[[$symbol$version]($style)\\]"
 
 [perl]
+disabled = true
 symbol = ""
 format = "\\[[$symbol($version)]($style)\\]"
 
 [php]
+disabled = true
 symbol = ""
 format = "\\[[$symbol($version)]($style)\\]"
 
 [pijul_channel]
+disabled = true
 symbol = ""
 format = "\\[[$symbol$channel]($style)\\]"
 
@@ -219,9 +250,11 @@ symbol = ""
 format = "\\[[${symbol}${pyenv_prefix}(${version})(\\($virtualenv\\))]($style)\\]"
 
 [rlang]
+disabled = true
 symbol = "󰟔"
 
 [ruby]
+disabled = true
 symbol = ""
 format = "\\[[$symbol($version)]($style)\\]"
 
@@ -230,28 +263,35 @@ symbol = "󱘗"
 format = "\\[[$symbol($version)]($style)\\]"
 
 [scala]
+disabled = true
 symbol = ""
 format = "\\[[$symbol($version)]($style)\\]"
 
 [swift]
+disabled = true
 symbol = ""
 format = "\\[[$symbol($version)]($style)\\]"
 
 [zig]
+disabled = true
 symbol = ""
 format = "\\[[$symbol($version)]($style)\\]"
 
 [gradle]
+disabled = true
 symbol = ""
 format = "\\[[$symbol($version)]($style)\\]"
 
 [dotnet]
+disabled = true
 format = "\\[[$symbol($version)(🎯 $tfm)]($style)\\]"
 
 [erlang]
+disabled = true
 format = "\\[[$symbol($version)]($style)\\]"
 
 [gcloud]
+disabled = true
 format = "\\[[$symbol$account(@$domain)(\\($region\\))]($style)\\]"
 
 [git_status]
@@ -266,24 +306,31 @@ symbol = "⎈"
 format = "\\[$symbol\\]"
 
 [opa]
+disabled = true
 format = "\\[[$symbol($version)]($style)\\]"
 
 [openstack]
+disabled = true
 format = "\\[[$symbol$cloud(\\($project\\))]($style)\\]"
 
 [pulumi]
+disabled = true
 format = "\\[[$symbol$stack]($style)\\]"
 
 [purescript]
+disabled = true
 format = "\\[[$symbol($version)]($style)\\]"
 
 [raku]
+disabled = true
 format = "\\[[$symbol($version-$vm_version)]($style)\\]"
 
 [red]
+disabled = true
 format = "\\[[$symbol($version)]($style)\\]"
 
 [spack]
+disabled = true
 format = "\\[[$symbol$environment]($style)\\]"
 
 [sudo]
@@ -301,10 +348,13 @@ format = '[$time](bold dimmed)'
 format = "\\[[$user]($style)\\]"
 
 [vagrant]
+disabled = true
 format = "\\[[$symbol($version)]($style)\\]"
 
 [vlang]
+disabled = true
 format = "\\[[$symbol($version)]($style)\\]"
 
 [solidity]
+disabled = true
 format = "\\[[$symbol($version)]($style)\\]"

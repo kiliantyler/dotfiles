@@ -1,0 +1,27 @@
+# -----------------------------------
+# author: @kiliantyler
+# title: Windows Winget
+# description: Installs Windows Applications via Chocolatey
+# -----------------------------------
+
+{{- if eq .chezmoi.os "windows" }}
+# Install Chocolatey if not present
+if (!(Get-Command choco -ErrorAction SilentlyContinue)) {
+    Write-Host "Installing Chocolatey..." -ForegroundColor Green
+    Set-ExecutionPolicy Bypass -Scope Process -Force
+    [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
+    iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+}
+
+$env:PATH = [System.Environment]::GetEnvironmentVariable("PATH", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("PATH", "User")
+
+# Install Chocolatey applications
+Write-Host "Installing Chocolatey applications..." -ForegroundColor Green
+
+{{- range .chocolatey.apps }}
+Write-Host "Installing {{ . }}..." -ForegroundColor Yellow
+choco install "{{ . }}" -y
+
+{{- end }}
+Write-Host "Chocolatey installation complete"
+{{- end }}

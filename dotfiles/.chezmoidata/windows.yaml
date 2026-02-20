@@ -1,0 +1,43 @@
+winget:
+  apps:
+    - Microsoft.VisualStudioCode
+    - Microsoft.PowerToys
+    - Microsoft.WindowsTerminal
+    - Discord.Discord
+    - Chocolatey.Chocolatey
+    - Zen-Team.Zen-Browser
+    - VB-Audio.Voicemeeter.Potato
+    - AgileBits.1Password.Beta
+    - Axosoft.GitKraken
+    - M2Team.NanaZip
+    - Freelensapp.Freelens
+    - ShareX.ShareX
+    - Valve.Steam
+    - Yaak.app
+    - eloston.ungoogled-chromium
+    - Anysphere.Cursor
+    - Docker.DockerDesktop
+    - Docker.DockerCLI
+    - Balena.Etcher
+    - NexusMods.Vortex
+    - VideoLAN.VLC
+    - Logitech.GHUB
+    - SoftFever.OrcaSlicer
+    # - Raycast.Raycast
+    - pCloudAG.pCloudDrive
+    - Microsoft.WSL
+    - Blitz.Blitz
+    - RiotGames.LeagueOfLegends.NA
+    - Elgato.StreamDeck
+    - GoXLR-on-Linux.GoXLR-Utility
+    - Piriform.Speccy
+    - Amazon.Kiro
+    - Git.Git
+chocolatey:
+  apps:
+    - nvidia-app
+scoop:
+  apps:
+    - mise
+    - eza
+    - topgrade
