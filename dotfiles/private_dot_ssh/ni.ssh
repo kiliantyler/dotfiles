@@ -1,0 +1,24 @@
+# aws-sandbox
+Match Host="10.101.*.*,10.111.*.*"
+  IdentitiesOnly yes
+  IdentityFile ~/.ssh/aws-sandbox-us-east-1.pub
+
+# aws-dev
+match Host="10.102.*.*,10.112.*.*"
+  IdentitiesOnly yes
+  IdentityFile ~/.ssh/aws-dev-us-east-1.pub
+
+# aws-stage
+Match Host="10.103.*.*,10.113.*.*"
+  IdentitiesOnly yes
+  IdentityFile ~/.ssh/aws-stage-us-east-1.pub
+
+# aws-build
+Match Host="10.104.*.*,10.114.*.*"
+  IdentitiesOnly yes
+  IdentityFile ~/.ssh/aws-build-us-east-1.pub
+
+# aws-prod
+Match Host="10.1.*.*, 10.11.*.*"
+  IdentitiesOnly yes
+  IdentityFile ~/.ssh/aws-prod-us-east-1.pub

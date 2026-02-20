@@ -1,4 +1,28 @@
-Include {{ .chezmoi.homeDir }}/ssh/config.ssh
+Include {{ .chezmoi.homeDir }}/.config/ssh/config.ssh
+{{- if .isWork }}
+
+Include {{ .chezmoi.homeDir }}/.ssh/ni.ssh
+
+# -------- Bitbucket NI --------
+Host bitbucket-ni
+    HostName bitbucket.org
+    User git
+    IdentityFile ~/.ssh/bitbucket
+    IdentitiesOnly yes
+
+# -------- Bitbucket QG --------
+Host bitbucket-qg
+    HostName bitbucket.org
+    User git
+    IdentityFile ~/.ssh/bitbucket_qgenda
+    IdentitiesOnly yes
+
+Host github
+    HostName github.com
+    IdentityFile ~/.ssh/github_qgenda.pub
+    IdentitiesOnly yes
+{{- end }}
+
 host maude
   user maudebot
   IdentitiesOnly true
