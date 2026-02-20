@@ -38,10 +38,20 @@ AppData/
 
 # All ps1 files
 **/*.ps1
+
+# All bat files
+**/*.bat
 {{ end }}
 
 {{ if eq .chezmoi.os "windows" }}
 # Ignore all shell scripts
 **/*/*.sh.tmpl
 **/*/*.sh
+{{ end }}
+
+{{ if not .isWork }}
+# Work-only files
+.aws/config
+.config/pip/pip.conf
+.ssh/ni.ssh
 {{ end }}
