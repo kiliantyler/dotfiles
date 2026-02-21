@@ -14,7 +14,6 @@
 		"ghcr.io/astronomer/devcontainer-features/astro-cli:1": {
 			"version": "latest"
 		},
-		"ghcr.io/trunk-io/devcontainer-feature/trunk:1": {},
 		"ghcr.io/itsmechlark/features/1password:1": {
 			"version": "latest"
 		},

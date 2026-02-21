@@ -89,20 +89,8 @@
   "javascript.updateImportsOnFileMove.enabled": "never",
   "git.autofetch": true,
   "gitlens.graph.layout": "editor",
-  "files.exclude": {
-    "**/.trunk/*actions/": true,
-    "**/.trunk/*logs/": true,
-    "**/.trunk/*notifications/": true,
-    "**/.trunk/*out/": true,
-    "**/.trunk/*plugins/": true
-  },
-  "files.watcherExclude": {
-    "**/.trunk/*actions/": true,
-    "**/.trunk/*logs/": true,
-    "**/.trunk/*notifications/": true,
-    "**/.trunk/*out/": true,
-    "**/.trunk/*plugins/": true
-  },
+  "files.exclude": {},
+  "files.watcherExclude": {},
   "svg.preview.mode": "svg",
   "typescript.updateImportsOnFileMove.enabled": "always",
   "update.mode": "manual",

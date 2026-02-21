@@ -257,15 +257,7 @@
     "!include_dir scalar"
   ],
   "todo-tree.tree.scanMode": "workspace",
-  "files.exclude": {
-    "**/.trunk/*actions/": true,
-    "**/.trunk/*logs/": true,
-    "**/.trunk/*notifications/": true,
-    "**/.trunk/*out/": true,
-    "**/.trunk/*plugins/": true,
-    "**/.trunk/*tmp/": true,
-    "**/.trunk/*tools/": true,
-  },
+  "files.exclude": {},
   "editor.foldingStrategy": "auto",
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"

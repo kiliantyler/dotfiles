@@ -75,20 +75,8 @@
   },
   "files.autoSave": "onFocusChange",
   "files.eol": "\n",
-  "files.exclude": {
-    "**/.trunk/*actions/": true,
-    "**/.trunk/*logs/": true,
-    "**/.trunk/*notifications/": true,
-    "**/.trunk/*out/": true,
-    "**/.trunk/*plugins/": true
-  },
-  "files.watcherExclude": {
-    "**/.trunk/*actions/": true,
-    "**/.trunk/*logs/": true,
-    "**/.trunk/*notifications/": true,
-    "**/.trunk/*out/": true,
-    "**/.trunk/*plugins/": true
-  },
+  "files.exclude": {},
+  "files.watcherExclude": {},
   "git.autofetch": true,
   "git.confirmSync": false,
   "git.suggestSmartCommit": false,
