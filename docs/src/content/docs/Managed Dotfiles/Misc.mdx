@@ -1,0 +1,93 @@
+---
+title: Everything Else
+sidebar:
+  order: 40
+---
+
+import { Aside, LinkCard } from "@astrojs/starlight/components";
+
+The supporting cast — tools that don't fit neatly into shell, git, or terminal categories but are still managed by chezmoi.
+
+## Atuin (Shell History)
+
+[Atuin](https://atuin.sh/) replaces the built-in shell history with a synchronized, searchable database. My config lives at `private_dot_config/atuin/config.toml`.
+
+- **Sync server:** Self-hosted at `atuin.thezoo.house`
+- **Search mode:** Fuzzy matching
+- **Secrets filter:** Enabled — commands containing tokens or passwords are excluded from sync
+- **Enter behavior:** Execute on Enter, Tab to edit
+- **Sync v2:** Transitive record sync enabled
+
+Atuin is integrated in both [Fish and PowerShell](/managed-dotfiles/shell), so history follows me across platforms.
+
+## Topgrade (System Updates)
+
+[Topgrade](https://github.com/topgrade-rs/topgrade) runs all your package managers with a single command. Config lives at `private_dot_config/topgrade/topgrade.toml`.
+
+- **Greedy Homebrew:** Updates casks even without version bumps
+- **Auto-pulls:** The chezmoi source repo
+- **Disabled:** System updates, Emacs, pnpm, containers
+- Installed via mise on macOS/Linux, Scoop on Windows
+
+## Karabiner-Elements (macOS Keyboard)
+
+[Karabiner-Elements](https://karabiner-elements.pqrs.org/) remaps keys on macOS. The config lives at `private_dot_config/karabiner/` with 13+ complex modification rules in `assets/complex_modifications/`.
+
+This is macOS-only — the `.chezmoiignore` excludes the entire directory on other platforms.
+
+## Editor Configuration
+
+### Cursor / VSCode
+
+Editor settings and keybindings are managed via chezmoi's symlink strategy. The actual files live in `.chezmoisymlinks/` so the editors can write to them directly, while chezmoi tracks the result.
+
+- **macOS:** Cursor settings at `~/Library/Application Support/Cursor/User/`
+- **Windows:** Cursor settings at `AppData/Roaming/Cursor/User/`
+
+Both get the same settings and keybindings through platform-conditional symlink targets.
+
+### micro
+
+[micro](https://micro-editor.github.io/) is a terminal text editor with custom keybindings at `private_dot_config/micro/bindings.json`. Useful when you need a quick edit and don't want to open a full editor.
+
+## GitHub CLI
+
+The [GitHub CLI](https://cli.github.com/) (`gh`) is configured at `private_dot_config/gh/config.yml` (macOS/Linux) and `AppData/Roaming/GitHub CLI/config.yml` (Windows).
+
+- **Protocol:** HTTPS
+- **Aliases:** `co` → `pr checkout`
+- **Progress indicator:** Spinner style
+
+## Claude Code
+
+[Claude Code](https://docs.anthropic.com/en/docs/claude-code) configuration lives at `dot_claude/`, which becomes `~/.claude/`:
+
+- **Settings:** Managed via symlinks (same pattern as VSCode/Cursor)
+- **Skills:** Custom skills including `nano-banana` for image generation via Gemini CLI
+- **Scripts:** A statusline script that formats Claude Code's JSON output into a colored terminal status bar
+
+## Helper Scripts (`~/.bin/`)
+
+Fifteen shell utility scripts in `dot_bin/` end up in `~/.bin/` on the PATH. They're small, focused helpers for platform detection and common checks:
+
+| Script | Purpose |
+|--------|---------|
+| `is-macos` | Detects macOS |
+| `is-arm64` | Detects ARM64 architecture |
+| `is-virtual` | Detects virtual machines |
+| `is-executable` | Checks if a file is executable |
+| `is-file` / `is-folder` | File and folder existence |
+| `is-url` | Validates URLs |
+| `is-symlink` | Detects symbolic links |
+| `is-true` | Boolean evaluation |
+| `is-grep` | Pattern matching support check |
+| `is-supported` | OS support detection |
+| `am-i` | General identity helper |
+
+These are used by other scripts and shell configurations throughout the repo.
+
+<LinkCard
+  title="Managed Dotfiles Overview"
+  href="/managed-dotfiles/"
+  description="Back to the full list of managed configurations"
+/>

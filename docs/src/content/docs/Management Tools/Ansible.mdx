@@ -1,15 +1,106 @@
 ---
 title: Ansible
 sidebar:
-  badge:
-    text: WIP
-    variant: caution
+  order: 20
 ---
 
-import { StubComponent } from "@react/StubComponent";
+import { Steps, Aside, LinkCard } from "@astrojs/starlight/components";
 
-:::caution[Work in Progress]
-This page is a stub and is still under construction.
-:::
+[Ansible](https://www.ansible.com/) handles macOS system setup — the things [chezmoi](/management-tools/chezmoi) can't do alone. Dock layout, Finder preferences, trackpad behavior, Homebrew packages. It's overkill for dotfiles in general (I even listed it as an alternative I considered on the Chezmoi page), but it's perfect for macOS system defaults specifically.
 
-<StubComponent />
+## Why Ansible for macOS Defaults?
+
+macOS system preferences are stored as plist values that need `defaults write` commands. There are hundreds of them, they're poorly documented, and getting them wrong can be annoying to undo. Ansible roles make this declarative and repeatable — I describe what I want, and Ansible figures out how to get there.
+
+The key benefit is idempotency. Running the playbook twice produces the same result. No accidental double-applications, no state drift.
+
+## How It Integrates with Chezmoi
+
+Ansible runs automatically during first-time setup:
+
+<Steps>
+1. You run `chezmoi init` (or the [one-command installer](/installation))
+
+2. Chezmoi's `run_once_before_1-ansible.sh.tmpl` script kicks in
+
+3. The script installs pip and Ansible via Python
+
+4. It installs Ansible Galaxy requirements (collections and roles)
+
+5. It runs the main playbook — you'll be prompted for your sudo password
+</Steps>
+
+<Aside type="note">
+Ansible only runs on macOS (triggered by the `run_once_before` script which is excluded on other platforms via `.chezmoiignore`). Windows setup uses PowerShell scripts in `.chezmoiscripts/onChange/` instead.
+</Aside>
+
+## The Playbook
+
+The main `playbook.yaml` runs a sequence of roles against `localhost`:
+
+### System Defaults
+
+These roles use my custom `kiliantyler.mac_defaults` Ansible collection to set macOS preferences:
+
+| Role | What It Configures |
+|------|--------------------|
+| `desktop` | Desktop appearance and behavior |
+| `dock` | Dock size, position, auto-hide, minimize effects |
+| `finder` | Finder view preferences, sidebar, file extensions |
+| `menubar` | Menu bar items and visibility |
+| `screensaver` | Screen saver timing and selection |
+| `system` | General system behavior, scrolling, animations |
+| `trackpad` | Tap to click, gesture configuration |
+
+### Package Installation
+
+| Role | What It Does |
+|------|-------------|
+| `kiliantyler.mac_installs.homebrew` | Installs Homebrew formulae and cask apps from `vars/homebrew.yaml` |
+| `kiliantyler.mac_installs.mise` | Installs the mise tool version manager |
+
+### Dock Management
+
+| Role | What It Does |
+|------|-------------|
+| `geerlingguy.mac.dock` | Manages which apps appear in the Dock |
+| `kiliantyler.macos.dockutil` | Dock utility setup for fine-grained Dock control |
+
+### Sudo
+
+The `sudo` role configures passwordless sudo with Touch ID — because typing your password every time gets old.
+
+## Dependencies
+
+The playbook relies on a few external Ansible collections and roles:
+
+| Dependency | Purpose |
+|------------|---------|
+| `community.general` | General-purpose Ansible modules |
+| `geerlingguy.mac` | Homebrew and Dock management |
+| `elliotweiser.osx-command-line-tools` | Ensures Xcode CLI tools are installed |
+| `kiliantyler.mac_defaults` | Custom macOS defaults collection |
+| `kiliantyler.mac_installs` | Custom installation roles |
+| `kiliantyler.macos.dockutil` | Dock utility role |
+
+These are installed automatically from `requirements.yaml` during the chezmoi init process.
+
+## Work Playbook
+
+A separate `work.yaml` playbook handles work-specific setup. It runs conditionally based on whether the machine is detected as a work laptop (hostname matching `L\d+-`).
+
+<Aside type="tip">
+The custom Ansible collections (`kiliantyler.mac_defaults`, `kiliantyler.mac_installs`) are published separately and can be used in your own playbooks.
+</Aside>
+
+<LinkCard
+  title="Chezmoi"
+  href="/management-tools/chezmoi"
+  description="How chezmoi triggers Ansible during initialization"
+/>
+
+<LinkCard
+  title="Ansible documentation"
+  href="https://docs.ansible.com/"
+  description="Official Ansible documentation"
+/>

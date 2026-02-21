@@ -1,0 +1,109 @@
+---
+title: Shell & Prompt
+sidebar:
+  order: 10
+---
+
+import { Aside, LinkCard } from "@astrojs/starlight/components";
+
+Two shells, one prompt. Fish for macOS and Linux, PowerShell for Windows, both with the same Starship prompt and the same set of tool integrations.
+
+## Fish Shell
+
+### Why Fish?
+
+[Fish](https://fishshell.com/) gives you autosuggestions, syntax highlighting, and sensible defaults out of the box — no plugins required. I don't need POSIX compatibility for my interactive shell, and Fish's user-friendliness is worth the trade-off.
+
+### Configuration
+
+The main config lives at `private_dot_config/fish/config.fish.tmpl`. It's a chezmoi template, so platform-specific and work-specific sections are rendered conditionally.
+
+**Theme:** Dracula Official (loaded from `themes/Dracula Official.theme`)
+
+### Integrations
+
+Fish is wired up to a bunch of modern CLI tools:
+
+| Tool | What It Does |
+|------|-------------|
+| [atuin](https://atuin.sh/) | Shell history with sync — replaces the built-in history |
+| [zoxide](https://github.com/ajeetdsouza/zoxide) | Smart `cd` that learns your habits |
+| [eza](https://eza.rocks/) | Modern `ls` — aliased as `ls` with `--icons=auto --color=auto` |
+| [starship](https://starship.rs/) | Cross-shell prompt (with transient prompt support) |
+| [mise](https://mise.jdx.dev/) | Tool version manager (activated via `conf.d/00-mise.fish`) |
+| [krew](https://krew.sigs.k8s.io/) | kubectl plugin manager (added to PATH) |
+
+### Shell Completions
+
+Completions are generated for several tools on shell startup:
+
+- `kubectl` and `kubecolor`
+- `talosctl`
+- `helm`
+- `atuin`
+
+### Key Aliases
+
+- `reload` — restarts the Fish shell
+- `claude` — runs Claude Code with `--dangerously-skip-permissions`
+
+### Plugins
+
+Fish plugins are managed via a `fish_plugins` file symlinked through chezmoi (`.chezmoisymlinks/fish/fish_plugins`). This lets Fisher or similar plugin managers update the file directly while chezmoi still tracks it.
+
+<Aside type="note">
+Both Fish and PowerShell use chezmoi templating to inject API keys from 1Password at apply time. Secrets like `GEMINI_API_KEY` are pulled from 1Password vaults and baked into the shell config during `chezmoi apply`.
+</Aside>
+
+## PowerShell
+
+### Purpose
+
+PowerShell is the Windows shell, configured to mirror as much of the Fish experience as possible — same tool integrations, same prompt, same modern replacements.
+
+### Configuration
+
+The profile lives at `Documents/PowerShell/Microsoft.PowerShell_profile.ps1.tmpl`. It skips most of its setup when running inside a VSCode terminal (returns early to keep the VSCode terminal fast).
+
+### What the Profile Sets Up
+
+1. **mise** — Activated for PowerShell (`mise activate pwsh`)
+2. **PSReadLine** — Predictive IntelliSense in ListView mode, Emacs-style keybindings, history-based predictions
+3. **Bash-like aliases** — `which` (Get-Command), `reload` (restart shell), `claude` (skip permissions)
+4. **API keys** — Injected from 1Password via chezmoi templates
+5. **Modern replacements:**
+   - `eza` replaces `ls` (with `--icons=auto --color=auto`)
+   - `bat` replaces `cat`
+   - `zoxide` replaces `cd`
+6. **atuin** — Shell history integration
+7. **PSFzf** — Fuzzy finder module for PowerShell
+8. **Starship** — Prompt with transient prompt support (custom `TransientPrompt` function)
+
+## Starship Prompt
+
+[Starship](https://starship.rs/) provides a consistent prompt across both shells. The config lives at `private_dot_config/starship.toml` — about 360 lines of module configuration.
+
+### Design
+
+- **Two-line prompt** with box-drawing characters (dimmed `┌──` and `└──` borders)
+- **Line 1:** All context modules — git branch/status, language versions, Kubernetes context, Docker, time
+- **Line 2:** Just the character indicator (success/error icons)
+- **Transient prompt:** Previous prompts collapse to just the character, keeping scrollback clean
+
+### Notable Module Choices
+
+| Enabled | Disabled |
+|---------|----------|
+| Go, Rust, Python, Node, Bun | C, C++, Java, Ruby, Perl, PHP |
+| Kubernetes, Helm, Terraform | AWS, Azure, GCP |
+| Git (branch, commit, status) | Mercurial, Fossil |
+| Docker context | Vagrant, VirtualBox |
+| Memory usage | Battery |
+
+The prompt uses Nerd Font icons throughout — language logos, git symbols, and directory substitutions (e.g., `Documents` shows as `󰈙`).
+
+<LinkCard
+  title="Managed Dotfiles Overview"
+  href="/managed-dotfiles/"
+  description="Back to the full list of managed configurations"
+/>

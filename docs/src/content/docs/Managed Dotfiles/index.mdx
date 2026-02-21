@@ -2,15 +2,65 @@
 title: Dotfiles Overview
 sidebar:
   label: Overview
-  order: 60
-  badge:
-    text: WIP
-    variant: caution
+  order: 50
 ---
-import { StubComponent } from "@react/StubComponent";
 
-:::caution[Work in Progress]
-This page is a stub and is still under construction.
-:::
+import { LinkCard, Aside } from "@astrojs/starlight/components";
 
-<StubComponent />
+The [Management Tools](/management-tools/) section covers _how_ things are managed. This section covers _what_ — the actual configurations that end up on each machine.
+
+## At a Glance
+
+| Category | Tools | Platforms |
+|----------|-------|-----------|
+| Shell | Fish, PowerShell | Fish: macOS/Linux — PowerShell: Windows |
+| Prompt | Starship | All |
+| Git | Modular gitconfig, delta pager | All |
+| SSH | Modular SSH config, 1Password agent | All |
+| Terminal | Ghostty, Windows Terminal | Ghostty: macOS — WT: Windows |
+| History | Atuin (self-hosted sync) | All |
+| Editor | Cursor / VSCode | All |
+| Navigation | zoxide (cd replacement) | All |
+| File listing | eza (ls replacement) | All |
+| Keyboard | Karabiner-Elements | macOS |
+| System updates | Topgrade | All |
+| CLI tools | GitHub CLI, Claude Code | All |
+
+## Design Choices
+
+A few decisions that show up everywhere:
+
+- **Dracula theme** — Fish shell, delta pager, Ghostty terminal, eza file listing. Consistency across tools means less visual context-switching.
+- **Nerd Fonts** — FiraCode Nerd Font Mono everywhere. Icons in the prompt, file listings, and terminal UI.
+- **Modern replacements** — `eza` for `ls`, `zoxide` for `cd`, `bat` for `cat`, `atuin` for shell history, `delta` for `diff`. Better defaults, better UX.
+- **1Password for everything** — SSH keys, Git signing, API key injection. No manual key management.
+
+<Aside type="note">
+Platform-specific configs are handled through chezmoi templating. A single source file can produce different output on macOS, Linux, and Windows. See the [Chezmoi page](/management-tools/chezmoi) for how this works.
+</Aside>
+
+## Sections
+
+<LinkCard
+  title="Shell & Prompt"
+  href="/managed-dotfiles/shell"
+  description="Fish, PowerShell, and Starship prompt configuration"
+/>
+
+<LinkCard
+  title="Git & SSH"
+  href="/managed-dotfiles/git"
+  description="Modular Git config, SSH setup, and 1Password signing"
+/>
+
+<LinkCard
+  title="Terminal & Display"
+  href="/managed-dotfiles/terminal"
+  description="Ghostty, Windows Terminal, and eza theming"
+/>
+
+<LinkCard
+  title="Everything Else"
+  href="/managed-dotfiles/misc"
+  description="Atuin, Topgrade, Karabiner, editors, and helper scripts"
+/>

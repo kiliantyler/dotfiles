@@ -2,15 +2,61 @@
 title: Tools Overview
 sidebar:
   label: Overview
-  order: 50
-  badge:
-    text: WIP
-    variant: caution
+  order: 60
 ---
-import { StubComponent } from "@react/StubComponent";
 
-:::caution[Work in Progress]
-This page is a stub and is still under construction.
-:::
+import { LinkCard } from "@astrojs/starlight/components";
 
-<StubComponent />
+Managing dotfiles across macOS, Linux, and Windows takes more than a Git repo and some symlinks. I use a set of specialized tools that each handle a specific piece of the puzzle.
+
+## How It All Fits Together
+
+[Chezmoi](/management-tools/chezmoi) is the orchestrator — it manages the dotfiles, renders templates per platform, and runs lifecycle scripts. [Age](/management-tools/age) encrypts secrets so they can live safely in a public repo. [1Password](https://1password.com/) provides runtime secrets (API keys, SSH signing keys) that get injected into templates at apply time.
+
+On macOS, [Ansible](/management-tools/ansible) handles system-level setup that chezmoi can't do alone — Dock layout, Finder preferences, trackpad settings, and Homebrew package installation. On Windows, PowerShell scripts in `.chezmoiscripts/` handle the equivalent work.
+
+[mise](https://mise.jdx.dev/) manages CLI tool versions across all platforms — over 50 tools from a single `config.toml`. Platform-specific package managers fill in the gaps where mise can't reach.
+
+The [Cloudflare Worker](/management-tools/cloudflare) ties it all together with a one-command installation URL that detects your OS and bootstraps everything.
+
+## Package Management by Platform
+
+Different platforms need different package managers. Here's what handles what:
+
+| Platform | Manager | Purpose |
+|----------|---------|---------|
+| All | [mise](https://mise.jdx.dev/) | CLI tools (55+ tools: node, python, go, kubectl, terraform, etc.) |
+| macOS | [Homebrew](https://brew.sh/) | System packages + GUI apps (via Ansible) |
+| Windows | [Scoop](https://scoop.sh/) | CLI tools not available in mise (eza, topgrade, bat, etc.) |
+| Windows | [Winget](https://learn.microsoft.com/en-us/windows/package-manager/) | GUI applications (VS Code, Discord, Docker, etc.) |
+| Windows | [Chocolatey](https://chocolatey.org/) | Legacy — just nvidia-app |
+
+## Automation
+
+[Task](https://taskfile.dev/) is the general-purpose task runner, with definitions for Ansible, docs, and gitattributes management. The [Cloudflare Worker](/management-tools/cloudflare) handles the installation URL. GitHub Actions deploys both the docs and the worker.
+
+## Deep Dives
+
+<LinkCard
+  title="Chezmoi"
+  href="/management-tools/chezmoi"
+  description="The foundation — dotfiles management, templating, and scripting"
+/>
+
+<LinkCard
+  title="Ansible"
+  href="/management-tools/ansible"
+  description="macOS system setup — Dock, Finder, Homebrew, and more"
+/>
+
+<LinkCard
+  title="Age"
+  href="/management-tools/age"
+  description="File encryption for secrets in the repo"
+/>
+
+<LinkCard
+  title="Cloudflare Worker"
+  href="/management-tools/cloudflare"
+  description="The one-command installation URL"
+/>

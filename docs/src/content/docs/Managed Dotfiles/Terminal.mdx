@@ -1,0 +1,73 @@
+---
+title: Terminal & Display
+sidebar:
+  order: 30
+---
+
+import { Aside, LinkCard } from "@astrojs/starlight/components";
+
+Different terminals per platform, unified aesthetics. Dracula theme and FiraCode Nerd Font everywhere.
+
+## Ghostty (macOS)
+
+[Ghostty](https://ghostty.org/) is my terminal on macOS. It's fast, GPU-accelerated, and has a clean design philosophy.
+
+### Configuration
+
+The config lives at `private_dot_config/ghostty/` and sets:
+
+- **Font:** FiraCode Nerd Font Mono
+- **Theme:** `dracula-pro-vanhelsing` (a Dracula variant, loaded from a custom theme file)
+- **Cursor:** Blinking bar
+- **Tabs:** Titlebar-style (macOS native look)
+- **Icon:** Custom purple ghost icon with aluminum frame
+- **Auto-update:** Enabled in download mode
+
+<Aside type="note">
+Ghostty config is macOS-only. The `.chezmoiignore` excludes the ghostty directory on other platforms automatically.
+</Aside>
+
+## Windows Terminal
+
+[Windows Terminal](https://github.com/microsoft/terminal) is the terminal on Windows, configured through a `settings.json` that chezmoi manages directly.
+
+### Configuration
+
+The config lives at `AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json` — yes, that's a real path.
+
+- **Default profile:** PowerShell 7
+- **Font:** FiraCode Nerd Font Mono (14pt)
+- **Theme:** Dark+
+- **Other profiles:** Command Prompt, Ubuntu WSL, Ubuntu 24.04
+- **Keybindings:** Ctrl+C/V for copy/paste, Alt+Shift+D for duplicate pane
+
+## eza (ls replacement)
+
+[eza](https://eza.rocks/) replaces `ls` with colored output, file icons, and a Git-aware file listing.
+
+### Configuration
+
+- **Theme:** `private_dot_config/eza/theme.yml` — Dracula-inspired colors for file types, permissions, and sizes
+- **Alias:** `ls` is aliased to `eza --icons=auto --color=auto` in both Fish and PowerShell
+
+### Platform Note
+
+eza is installed via mise on macOS and Linux, but via Scoop on Windows. The mise config uses the `os` option to handle this:
+
+```toml
+eza = { version = "latest", os = ["macos", "linux"] }
+```
+
+On Windows, Scoop provides a real executable instead of a shim, which avoids issues with AppExecution aliases over SSH.
+
+<LinkCard
+  title="Shell & Prompt"
+  href="/managed-dotfiles/shell"
+  description="Where the eza alias and shell integrations are configured"
+/>
+
+<LinkCard
+  title="Managed Dotfiles Overview"
+  href="/managed-dotfiles/"
+  description="Back to the full list of managed configurations"
+/>

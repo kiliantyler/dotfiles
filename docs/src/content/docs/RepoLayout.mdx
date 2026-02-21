@@ -1,64 +1,189 @@
 ---
 title: Repo Layout
 sidebar:
-  badge:
-    text: WIP
-    variant: caution
+  order: 65
 ---
 
-:::caution[Work in Progress]
-This page is a stub and is still under construction.
-:::
+import { FileTree, LinkCard } from "@astrojs/starlight/components";
 
-import { LinkCard, FileTree } from "@astrojs/starlight/components";
+This page maps out the repository structure so you can find your way around. The repo is more than just dotfiles — it includes automation, documentation, and infrastructure.
 
 ## File Structure
 
 <FileTree>
-- .devcontainer/
-  - devcontainer.json
-- .github/ # Contains All Github related files
-  - workflows/ # Contains Github Actions
-    - docs-deploy.yaml # Github Action to deploy docs
+- .github/
+  - workflows/
+    - docs-deploy.yaml
     - docs-test-deploy.yaml
-  - LICENSE
-  - README.md
-  - SECURITY.md
-  - ISSUE_TEMPLATE.md
-  - PULL_REQUEST_TEMPLATE.md
+    - worker-deploy.yml
 - .taskfiles/
-  - ansible/ # ansible related tasks
-  - docs/ # docs related tasks
-  - gitattributes/ # gitattributes related tasks
-- .vscode/
-  - extensions.json
-  - launch.json
-  - settings.json
+  - ansible/
+  - docs/
+  - gitattributes/
 - ansible/
   - inventory/
     - hosts
   - playbooks/
     - playbook.yaml
     - work.yaml
+    - vars/
+      - homebrew.yaml
+      - dock.yaml
+      - mas.yaml
   - roles/
-    - install_programs/ # WIP
-    - kitty/ # WIP (Will install Kitty Terminal)
-    - mise/ # WIP (Program installer similar to ASDF)
-    - os/
-      - debian/ # WIP
-      - macos/ # Establishes Dock and Finder settings as well as other OS Defaults
-    - tailscale/ # WIP
-    - vscode/ # WIP (Will install Visual Studio Code)
-    - zsh/ # WIP
   - ansible.cfg
-  - requirements.txt # Pip requirements for Ansible
-  - requirements.yaml # Ansible Galaxy requirements
-- docs/
-  - assets/
-  - config/ # Contains Astro/Starlight configuration
-  - public/
-    - install # Installer script for entire repo (https://install.dotfiles.wiki/[username])
-  - ... # TODO: Add the rest
-- dotfiles/
-  - ...
+  - requirements.yaml
+  - requirements.txt
+- cloudflare/
+  - src/
+    - index.ts
+    - scripts/
+      - bash-script.ts
+      - powershell-script.ts
+  - test/
+  - wrangler.jsonc
+- docs/ This wiki
+  - src/
+    - content/docs/
+    - assets/
+  - astro.config.ts
+  - starlight.config.ts
+- dotfiles/ Chezmoi source directory
+  - .chezmoi.yaml.tmpl Main chezmoi config
+  - .chezmoidata/
+    - data.yaml Shared template variables
+    - windows.yaml Windows package lists
+  - .chezmoiignore Platform-conditional ignores
+  - .chezmoiremove Files to clean up on apply
+  - .chezmoiscripts/
+    - onChange/ Triggered when template data changes
+      - run_onchange_before_3-windows-winget.ps1.tmpl
+      - run_onchange_before_5-windows-cinst.ps1.tmpl
+      - run_onchange_before_6-windows-scoop.ps1.tmpl
+      - run_onchange_before_7-windows-powershell-modules.ps1.tmpl
+    - runOnce/ First-time initialization
+      - run_once_before_0-decrypt_age_key.sh.tmpl
+      - run_once_before_0-decrypt_age_key.ps1.tmpl
+      - run_once_before_1-ansible.sh.tmpl
+      - run_once_before_1-windows-options.ps1
+      - run_once_before_2-windows-bloat.ps1.tmpl
+      - run_once_before_3-windows-gamebar-apply.bat
+  - .chezmoisymlinks/ Externally-edited files
+    - claude/
+    - cursor/
+    - fish/
+    - mise/
+    - vscode/
+  - .chezmoitemplates/
+  - .chezmoiexternals/
+  - dot_bin/ Shell helper scripts
+  - dot_claude/ Claude Code config + skills
+  - private_dot_config/
+    - 1Password/ssh/
+    - atuin/
+    - eza/
+    - fish/ Fish shell config
+    - gh/
+    - ghostty/ Ghostty terminal (macOS)
+    - git/
+    - private_dot_gitconfig/ Git config chain
+    - karabiner/ Keyboard remapping (macOS)
+    - micro/
+    - mise/ Tool version manager
+    - pip/
+    - sops/
+    - ssh/ SSH config fragments
+    - starship.toml Prompt configuration
+    - topgrade/
+  - private_dot_ssh/
+  - private_dot_aws/
+  - Documents/PowerShell/ Windows PowerShell profile
+  - AppData/ Windows-specific configs
+    - Local/…/WindowsTerminal/
+    - Roaming/Cursor/
+    - Roaming/GitHub CLI/
+  - key.txt.age Encrypted age key
+  - op_service_account_token.age Encrypted 1Password token
+- keys/ Age encryption keys
+- Taskfile.yaml Task runner entry point
+- install.sh Unix installation script
+- install.ps1 Windows installation script
 </FileTree>
+
+## Chezmoi Naming Conventions
+
+If the file names in `dotfiles/` look unusual, that's chezmoi's naming system. The prefixes and suffixes tell chezmoi how to handle each file:
+
+| Prefix/Suffix | Meaning | Example |
+|---------------|---------|---------|
+| `dot_` | Becomes a dotfile (`.`) | `dot_bin/` → `~/.bin/` |
+| `private_` | Restricted permissions (0600) | `private_dot_config/` → `~/.config/` |
+| `executable_` | Sets executable bit (+x) | `executable_statusline-command.sh` |
+| `symlink_` | Creates a symlink | `symlink_config.toml.tmpl` |
+| `.tmpl` | Go template, rendered with chezmoi data | `config.fish.tmpl` |
+| `run_once_` | Script runs once per machine | `run_once_before_0-decrypt_age_key.sh.tmpl` |
+| `run_onchange_` | Script runs when data hash changes | `run_onchange_before_3-windows-winget.ps1.tmpl` |
+| `encrypted_` | Age-encrypted file | `encrypted_config.age` |
+
+So `private_dot_config/fish/config.fish.tmpl` becomes `~/.config/fish/config.fish` — restricted permissions, rendered from a Go template.
+
+## Directory Breakdown
+
+### `dotfiles/`
+
+The main chezmoi source directory. A `.chezmoiroot` file at the repo root points chezmoi here, so `chezmoi apply` deploys everything inside `dotfiles/` to your home directory.
+
+The `.chezmoi.yaml.tmpl` config sets up age encryption, 1Password service account mode, delta as the pager, and VSCode as the editor. It also detects the OS, Linux distro, and whether the machine is a work laptop (by hostname pattern).
+
+### `dotfiles/.chezmoidata/`
+
+YAML files that feed into chezmoi templates. `data.yaml` has shared variables like the user's name. `windows.yaml` has the full package lists for Winget, Scoop, Chocolatey, and PowerShell modules — the onChange scripts iterate over these lists to install packages.
+
+### `dotfiles/.chezmoiscripts/`
+
+Lifecycle scripts that chezmoi runs automatically:
+
+- **runOnce/** — First-time setup: decrypt the age key, run Ansible (macOS/Linux), configure Windows system options, remove Windows bloatware
+- **onChange/** — Triggered when `.chezmoidata/windows.yaml` changes: install/update packages via Winget, Scoop, Chocolatey, and PowerShell modules
+
+The number prefix (0, 1, 2, 3...) controls execution order.
+
+### `dotfiles/.chezmoisymlinks/`
+
+Some files are edited by their applications directly (VSCode settings, Fish plugins, mise config). Instead of chezmoi managing the content, these files are symlinked so changes go both ways — the app can write to them, and chezmoi tracks the result.
+
+### `dotfiles/dot_bin/`
+
+Fifteen shell utility scripts that end up in `~/.bin/`. They're platform detection helpers like `is-macos`, `is-arm64`, `is-virtual`, `is-executable`, and general-purpose checks like `is-url`, `is-file`, `is-true`.
+
+### `dotfiles/private_dot_config/`
+
+The big one. This maps to `~/.config/` and contains configuration for most of the tools I use daily. See the [Managed Dotfiles](/managed-dotfiles/) section for what each one does.
+
+### `ansible/`
+
+Ansible playbooks for macOS system setup — Dock preferences, Finder defaults, trackpad behavior, Homebrew packages, and more. Only runs on macOS, triggered automatically during first `chezmoi init`.
+
+<LinkCard
+  title="Ansible"
+  href="/management-tools/ansible"
+  description="How Ansible handles macOS system setup"
+/>
+
+### `cloudflare/`
+
+A Cloudflare Worker (TypeScript) that powers the `install.dotfiles.wiki` URL. It auto-detects your OS and serves the right installation script with your username injected.
+
+<LinkCard
+  title="Cloudflare Worker"
+  href="/management-tools/cloudflare"
+  description="How the installation URL works"
+/>
+
+### `docs/`
+
+You're reading it. An [Astro Starlight](https://starlight.astro.build/) site deployed to [dotfiles.wiki](https://dotfiles.wiki). Content lives in `src/content/docs/` as MDX files.
+
+### `Taskfile.yaml` & `.taskfiles/`
+
+[Task](https://taskfile.dev/) runner definitions. The main entry point includes task files for Ansible, docs (`bun run start`), and gitattributes management. Run `task -l` to see available tasks.

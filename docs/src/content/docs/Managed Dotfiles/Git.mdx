@@ -1,0 +1,111 @@
+---
+title: Git & SSH
+sidebar:
+  order: 20
+---
+
+import { Aside, LinkCard } from "@astrojs/starlight/components";
+
+A modular Git config chain with SSH commit signing via 1Password, delta as a pager, and platform-aware SSH agent configuration. Everything is templated through chezmoi so the same source files produce the right config on macOS, Linux, and Windows.
+
+## Git Configuration
+
+### The Config Chain
+
+Git config is split into multiple files that include each other. This keeps things organized and makes it easy to swap identities between personal and work contexts.
+
+```
+~/.gitconfig (entry point)
+  └── includes ~/.config/.gitconfig/default.gitconfig
+        ├── includes ~/.config/.gitconfig/themes.delta
+        ├── includes ~/.config/.gitconfig/personal.gitconfig
+        └── includeIf gitdir:~/work/ → ~/.config/.gitconfig/qgenda.gitconfig
+```
+
+**`default.gitconfig.tmpl`** — The core config. Sets up:
+- SSH signing via 1Password (platform-conditional paths to `op-ssh-sign`)
+- Delta as the pager with Dracula theme
+- Cursor as the merge/diff tool
+- Core settings: `autocrlf = input`, `defaultBranch = main`
+- Auto setup remote on push (`autoSetupRemote = true`)
+
+**`personal.gitconfig`** — Personal identity (email, SSH signing key)
+
+**`qgenda.gitconfig`** — Work identity, loaded conditionally via `includeIf` based on the git directory path. Only exists on work machines.
+
+**`themes.delta`** — Delta pager theme configuration (Dracula syntax theme, side-by-side diffs)
+
+**`allowed-signers`** — Maps email identities to SSH public keys for signature verification
+
+### Signing with 1Password
+
+Git commits are signed using SSH keys stored in 1Password. The `gpg.ssh.program` setting points to `op-ssh-sign`, and the path is different per platform:
+
+- **macOS:** `/Applications/1Password.app/Contents/MacOS/op-ssh-sign`
+- **Windows:** `C:/Users/.../op-ssh-sign.exe` (via AppExecution alias path)
+
+Chezmoi templates handle this automatically — the config renders the correct path based on `{{ .chezmoi.os }}`.
+
+### Delta as Pager
+
+[Delta](https://dandavber.github.io/delta/) replaces the default Git pager with:
+
+- Dracula syntax theme
+- Side-by-side diffs with line numbers
+- Hyperlinks (clickable file paths in supported terminals)
+- Navigate mode for scrolling between files in large diffs
+
+<Aside type="tip">
+Delta is installed via mise on all platforms. The theme config in `themes.delta` is included automatically by the default gitconfig.
+</Aside>
+
+### Global Gitignore
+
+A global `.gitignore` at `private_dot_config/git/ignore` keeps common noise out of all repositories — OS files, editor artifacts, and temporary files.
+
+## SSH Configuration
+
+### Modular Config
+
+SSH config follows the same modular philosophy as Git:
+
+```
+~/.ssh/config (entry point)
+  └── includes ~/.config/ssh/config.ssh
+        ├── includes ~/.config/ssh/configs/*.ssh (1Password agent config)
+        └── includes ~/.config/ssh/config.d/*.ssh (additional fragments)
+```
+
+The entry point at `~/.ssh/config` also includes work-specific hosts conditionally — Bitbucket, GitHub for work, and other internal hosts. These only render on work machines (when `isWork` is true in chezmoi data).
+
+### 1Password SSH Agent
+
+The SSH agent is provided by 1Password, with a platform-specific socket path:
+
+| Platform | Agent Socket |
+|----------|-------------|
+| Windows | `\\.\pipe\openssh-ssh-agent` |
+| macOS | `~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock` |
+| Linux | `~/.1password/agent.sock` |
+
+This is configured in `configs/1password.ssh.tmpl`, which sets the `IdentityAgent` for all hosts.
+
+### Additional Configs
+
+- **`config.d/colima.ssh.tmpl`** — SSH config for [Colima](https://github.com/abiosoft/colima) (Docker on macOS)
+
+<Aside type="note">
+The 1Password SSH agent means you never manage SSH keys manually. 1Password stores the keys, the agent provides them on demand, and Git signing uses the same keys for commit verification.
+</Aside>
+
+<LinkCard
+  title="Age"
+  href="/management-tools/age"
+  description="How secrets are encrypted in the repo"
+/>
+
+<LinkCard
+  title="Managed Dotfiles Overview"
+  href="/managed-dotfiles/"
+  description="Back to the full list of managed configurations"
+/>
