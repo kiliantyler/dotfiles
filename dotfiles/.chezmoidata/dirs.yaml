@@ -1,4 +1,0 @@
-# trunk-ignore-all(trunk-yls/no-yls)
-dirs:
-  zigote: ~/Github/zigote-zsh/backup-zigote
-  asdf: ~/.asdf
