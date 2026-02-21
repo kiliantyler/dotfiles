@@ -20,6 +20,8 @@ if ($psrl) {
   Set-PSReadLineOption -EditMode Emacs
   Set-PSReadLineOption -BellStyle None
   Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
+  Set-PSReadLineKeyHandler -Key Ctrl+LeftArrow -Function BackwardWord
+  Set-PSReadLineKeyHandler -Key Ctrl+RightArrow -Function ForwardWord
 }
 
 # 3) Bash-like aliases
