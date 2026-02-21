@@ -6,6 +6,6 @@ This is for files that are known to be edited outside of chezmoi, this will keep
 
 Example file:
 
-asdf - .tool-versions
+mise - config.toml
 
-* This will be changed frequently by asdf when installing/updating, but we want it to be tracked always, not when remembering to sync it.
+* This will be changed frequently by mise when installing/updating tools, but we want it to be tracked always, not when remembering to sync it.

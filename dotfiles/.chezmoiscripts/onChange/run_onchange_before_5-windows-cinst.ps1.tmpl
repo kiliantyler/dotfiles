@@ -1,6 +1,6 @@
 # -----------------------------------
 # author: @kiliantyler
-# title: Windows Winget
+# title: Windows Chocolatey
 # description: Installs Windows Applications via Chocolatey
 # -----------------------------------
 
@@ -19,8 +19,14 @@ $env:PATH = [System.Environment]::GetEnvironmentVariable("PATH", "Machine") + ";
 Write-Host "Installing Chocolatey applications..." -ForegroundColor Green
 
 {{- range .chocolatey.apps }}
-Write-Host "Installing {{ . }}..." -ForegroundColor Yellow
-choco install "{{ . }}" -y
+$app = "{{ . }}"
+$installed = choco list --exact $app 2>$null | Select-String $app
+if (!$installed) {
+    Write-Host "Installing $app..." -ForegroundColor Yellow
+    choco install "$app" -y
+} else {
+    Write-Host "$app already installed" -ForegroundColor DarkGray
+}
 
 {{- end }}
 Write-Host "Chocolatey installation complete"
