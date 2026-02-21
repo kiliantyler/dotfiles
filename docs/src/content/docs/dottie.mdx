@@ -2,15 +2,38 @@
 title: Meet Dottie
 sidebar:
   order: 30
-  badge:
-    text: WIP
-    variant: caution
 ---
+import { Image } from 'astro:assets';
+import DottieWelcome from '../../assets/Dottie_Welcome.png';
+import DottieWelcomeLight from '../../assets/Dottie_Welcome_Light.png';
 
-:::caution[Work in Progress]
-This page is a stub and is still under construction.
-:::
+<div style="text-align: center; margin-bottom: 2rem;">
+  <span class="light:sl-hidden">
+    <Image src={DottieWelcome} alt="Dottie waving hello" width={300} />
+  </span>
+  <span class="dark:sl-hidden">
+    <Image src={DottieWelcomeLight} alt="Dottie waving hello" width={300} />
+  </span>
+</div>
 
-import { StubComponent } from "@react/StubComponent";
+Meet **Dottie**, a dotfile who got tired of living in a hidden directory and decided to make herself known.
 
-<StubComponent />
+She's shaped like a file because that's what she is. The rainbow border is her personality. The bow is non-negotiable.
+
+## The name
+
+**Dot**tie. **Dot**files. She didn't pick it, it picked her.
+
+On most systems, dotfiles are invisible by default. Dottie thought that was rude. So she gave herself a face, a bow, and a rainbow border, and now she's impossible to ignore.
+
+## The look
+
+Dottie's design is inspired by the humble config file: a rounded rectangle, because even dotfiles deserve soft edges. Her rainbow gradient border reflects the wide range of tools, platforms, and configs that live in this repo. macOS, Linux, Windows. She doesn't play favorites.
+
+She comes in two flavors: a dark variant and a light variant, because she respects your system preferences more than most apps do. Try toggling your theme, she'll follow along.
+
+## Where you'll find her
+
+Dottie has been the face of this repo since day one. She greets you on the [homepage](/), and keeps you company while you read the docs.
+
+She doesn't write the configs. She doesn't fix the bugs. But she's always there, quietly cheering you on from the sidebar.
