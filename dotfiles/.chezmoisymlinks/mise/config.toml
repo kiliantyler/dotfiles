@@ -100,4 +100,3 @@ atuin = "latest"
 
 # Rust tools
 rust = "latest"
-"cargo:eza" = "latest"
