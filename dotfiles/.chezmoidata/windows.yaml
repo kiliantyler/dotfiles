@@ -48,3 +48,6 @@ scoop:
     - ripgrep
     - less
     - wget
+    - uutils-coreutils
+    - sed
+    - gawk
