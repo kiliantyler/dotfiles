@@ -7,40 +7,37 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "lint": "oxlint",
+    "fmt": "oxfmt --write .",
+    "fmt:check": "oxfmt --check ."
   },
   "dependencies": {
-    "@astrojs/markdoc": "^0.15.0",
-    "@astrojs/react": "^4.3.0",
-    "@astrojs/sitemap": "^3.4.1",
-    "@astrojs/starlight": "^0.34.5",
-    "@astrojs/starlight-tailwind": "^4.0.1",
-    "@tailwindcss/vite": "^4.1.11",
-    "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6",
-    "astro": "^5.11.0",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "sharp": "^0.34.3",
-    "starlight-heading-badges": "^0.5.0",
-    "starlight-image-zoom": "^0.13.0",
-    "starlight-links-validator": "^0.17.0",
-    "starlight-showcases": "^0.3.0",
-    "starlight-theme-rapide": "^0.5.1",
-    "starlight-view-modes": "^0.11.0",
-    "tailwindcss": "^4.1.11"
+    "@astrojs/markdoc": "^0.15.10",
+    "@astrojs/react": "^4.4.2",
+    "@astrojs/sitemap": "^3.7.0",
+    "@astrojs/starlight": "^0.37.6",
+    "@astrojs/starlight-tailwind": "^4.0.2",
+    "@tailwindcss/vite": "^4.2.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "astro": "^5.17.3",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "sharp": "^0.34.5",
+    "starlight-heading-badges": "^0.6.1",
+    "starlight-image-zoom": "^0.13.2",
+    "starlight-links-validator": "^0.19.2",
+    "starlight-showcases": "^0.3.1",
+    "starlight-theme-rapide": "^0.5.2",
+    "starlight-view-modes": "^0.12.0",
+    "tailwindcss": "^4.2.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.31.0",
-    "@eslint/json": "^0.13.0",
-    "@eslint/markdown": "^7.0.0",
-    "eslint": "^9.31.0",
-    "eslint-plugin-react": "^7.37.5",
-    "globals": "^16.3.0",
-    "prettier": "3.6.2",
-    "typescript-eslint": "^8.36.0"
+    "oxfmt": "^0.7.0",
+    "oxlint": "^1.0.0"
   },
   "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "*"
+    "@rollup/rollup-linux-x64-gnu": "^4.58.0"
   }
 }
