@@ -27,7 +27,38 @@ function which { (Get-Command @args).Source }
 function reload { & $PROFILE; Clear-Host }
 function claude { & (Get-Command -CommandType Application claude).Source --dangerously-skip-permissions @args }
 
-# 4) Initialize starship prompt (if available)
+# 4) Replace `ls` with `eza` if available
+if (Get-Command eza -ErrorAction SilentlyContinue) {
+  Remove-Item Alias:ls -Force -ErrorAction SilentlyContinue
+  function ls { eza --icons=auto --color=auto @args }
+}
+
+# 5) Replace `cat` with `bat` if available
+if (Get-Command bat -ErrorAction SilentlyContinue) {
+  Remove-Item Alias:cat -Force -ErrorAction SilentlyContinue
+  function cat { bat @args }
+}
+
+# 6) Replace `cd` with `zoxide` if available
+if (Get-Command zoxide -ErrorAction SilentlyContinue) {
+  Invoke-Expression (& zoxide init powershell --cmd cd | Out-String)
+}
+
+# 7) Initialize atuin (shell history) if available
+if (Get-Command atuin -ErrorAction SilentlyContinue) {
+  Invoke-Expression (& atuin init powershell --disable-up-arrow | Out-String)
+}
+
+# 8) Set up fzf keybindings if available
+if (Get-Command fzf -ErrorAction SilentlyContinue) {
+  $fzfModule = Get-Module -ListAvailable -Name PSFzf | Select-Object -First 1
+  if ($fzfModule) {
+    Import-Module PSFzf
+    Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
+  }
+}
+
+# 9) Initialize starship prompt (if available)
 if (Get-Command starship -ErrorAction SilentlyContinue) {
   function Invoke-Starship-TransientFunction { "󰧚 " }
   Invoke-Expression (& starship init powershell)

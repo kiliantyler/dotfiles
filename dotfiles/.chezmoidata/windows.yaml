@@ -43,3 +43,8 @@ scoop:
     - mise
     - eza
     - topgrade
+    - bat
+    - fd
+    - ripgrep
+    - less
+    - wget
