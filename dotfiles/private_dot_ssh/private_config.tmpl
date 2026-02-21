@@ -29,7 +29,19 @@ Host github-personal
     IdentitiesOnly yes
 {{- end }}
 
-host maude
+Host desktop
+  hostname 10.0.10.159
+  user kilian
+  IdentitiesOnly true
+  identityfile ~/.ssh/windows.pub
+
+Host maude
   user maudebot
   IdentitiesOnly true
-  IdentityFile ~/.ssh/maude.pub
+  identityfile ~/.ssh/maude.pub
+
+host unifi-dm
+  hostname 10.0.10.1
+  user root
+  IdentityFile ~/.ssh/unifi.pub
+  IdentitiesOnly true
