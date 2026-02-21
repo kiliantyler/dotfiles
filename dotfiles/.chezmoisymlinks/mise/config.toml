@@ -9,94 +9,47 @@ trusted_config_paths = [
 disable_hints = ["python_multi"]
 idiomatic_version_file_enable_tools = ["node"]
 
-#[plugins]
-#devcontainer = "https://github.com/iloveitaly/asdf-devcontainer"
-#trunk = "https://github.com/sdurrheimer/asdf-trunk"
-#micro = "https://github.com/YR-ZR0/asdf-micro"
-#topgrade = "https://github.com/kiliantyler/asdf-topgrade.git"
-#aliae = "https://github.com/kiliantyler/asdf-aliae.git"
-#coreutils = "https://github.com/kiliantyler/asdf-coreutils.git"
-#atuin = "https://github.com/rzyns/asdf-atuin.git"
-#git = "https://github.com/john-cai/asdf-git.git"
-
 [tools]
 1password-cli = "latest"
-age = "latest"           # TODO: List-all broken
-# aliae = "latest"
-# aws-sso-cli = "latest"
+act = "latest"
+age = "latest"
+atuin = "latest"
 awscli = "latest"
 bun = "latest"
+chezmoi = "latest"
+cilium-cli = "latest"
+delta = "latest"
 direnv = "latest"
+dotenvx = "latest"
 editorconfig-checker = "latest"
 eza = { version = "latest", os = ["macos", "linux"] }
 flux2 = "latest"
 fzf = "latest"
+github-cli = "latest"
+go = "latest"
 goreleaser = "latest"
 helm = "latest"
+helmfile = "latest"
 jq = "latest"
+k9s = "latest"
+krew = "latest"
 kubecolor = "latest"
 kubectl = "latest"
-# make = "latest"
-# micro = "latest"
+kubectx = "latest"
+kustomize = "latest"
 node = "latest"
+python = "latest"
+rust = "latest"
 sops = "latest"
+starship = "latest"
 talosctl = "latest"
-terraform-docs = "latest"
+talhelper = "latest"
 terraform = "latest"
+terraform-docs = "latest"
 terragrunt = "latest"
+usage = "latest"
+uv = "latest"
 yamlfmt = "latest"
 yarn = "latest"
 yq = "latest"
 zoxide = "latest"
-# colima = "latest"
-# lima = "latest"
-# atuin = "latest"
-helmfile = "latest"
-kustomize = "latest"
-usage = "latest"
-delta = "latest"
-
-# To Create
-# asdf-aliae
-# git-lfs
-# gnu-indent
-# gnu-sed
-# gnu-tar
-# gnu-which
-# gnupg
-# grep
-# most
-# unzip
-# watchman
-# wget
-
-# TODO:  asdf-m4 -> asdf-autoconf
-# autoconf needed for git
-# gettext needed for git
-# git = "latest"
-
-# Go tools
-go = "latest"
-
-# Python tools
-python = "latest"
-# pipx = "latest"
-#"pipx:ansible-core" = "latest"
-#"pipx:ansible" = "latest"
-# "pipx:jinja2-cli" = "latest"
-# "pipx:virtualenv" = "latest"
-talhelper = "latest"
-act = "latest"
-chezmoi = "latest"
-cilium-cli = "latest"
-dotenvx = "latest"
-github-cli = "latest"
-k9s = "latest"
-krew = "latest"
-kubectx = "latest"
-starship = "latest"
-uv = "latest"
-atuin = "latest"
-
-# Rust tools
-rust = "latest"
