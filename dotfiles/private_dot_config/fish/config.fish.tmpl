@@ -25,6 +25,9 @@ if status is-interactive
         alias ls 'eza --icons=auto --color=auto'
     end
 
+    # Claude Code: always skip permissions prompt
+    alias claude 'command claude --dangerously-skip-permissions'
+
     # # Completions
     # mise completions fish | source //mise completion fish > ~/.config/fish/completions/mise.fish
     atuin gen-completions --shell fish | source
