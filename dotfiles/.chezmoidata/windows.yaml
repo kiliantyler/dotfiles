@@ -23,7 +23,6 @@ winget:
     - VideoLAN.VLC
     - Logitech.GHUB
     - SoftFever.OrcaSlicer
-    # - Raycast.Raycast
     - pCloudAG.pCloudDrive
     - Microsoft.WSL
     - Blitz.Blitz

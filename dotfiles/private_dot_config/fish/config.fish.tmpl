@@ -28,15 +28,11 @@ if status is-interactive
     # Claude Code: always skip permissions prompt
     alias claude 'command claude --dangerously-skip-permissions'
 
-    # # Completions
-    # mise completions fish | source //mise completion fish > ~/.config/fish/completions/mise.fish
+    # Completions
     atuin gen-completions --shell fish | source
     kubectl completion fish | source
     talosctl completion fish | source
     helm completion fish | source
-
-    # Paths
-    set -gx PATH $PATH $HOME/.krew/bin
 
     function starship_transient_rprompt_func
       starship module time
