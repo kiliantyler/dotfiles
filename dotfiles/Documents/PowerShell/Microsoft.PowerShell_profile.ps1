@@ -25,6 +25,7 @@ if ($psrl) {
 # 3) Bash-like aliases
 function which { (Get-Command @args).Source }
 function reload { & $PROFILE; Clear-Host }
+function claude { & (Get-Command -CommandType Application claude).Source --dangerously-skip-permissions @args }
 
 # 4) Initialize starship prompt (if available)
 if (Get-Command starship -ErrorAction SilentlyContinue) {
