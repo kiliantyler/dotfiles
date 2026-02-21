@@ -13,38 +13,26 @@ if status is-interactive
     set -gx PATH $PATH $HOME/.krew/bin # Krew plugins
 
     # Programs
-    atuin init fish --disable-up-arrow | source
+    type -q atuin; and atuin init fish --disable-up-arrow | source
 
-    # Replace `cd` with `zoxide` if available
-    if type -q zoxide
-        zoxide init fish --cmd cd | source
+    # Simplified prompt for VS Code / Cursor integrated terminals
+    if test "$TERM_PROGRAM" = "vscode" -o "$TERM_PROGRAM" = "cursor"
+      function fish_prompt
+        echo -n "> "
+      end
+    else
+      function starship_transient_rprompt_func
+        starship module time
+      end
+
+      function starship_transient_prompt_func
+        starship module character
+      end
+
+      # Set the prompt
+      starship init fish | source
+      enable_transience
     end
-
-    # Replace `ls` with `eza` if available
-    if type -q eza
-        alias ls 'eza --icons=auto --color=auto'
-    end
-
-    # Claude Code: always skip permissions prompt
-    alias claude 'command claude --dangerously-skip-permissions'
-
-    # Completions
-    atuin gen-completions --shell fish | source
-    kubectl completion fish | source
-    talosctl completion fish | source
-    helm completion fish | source
-
-    function starship_transient_rprompt_func
-      starship module time
-    end
-
-    function starship_transient_prompt_func
-      starship module character
-    end
-
-    # Set the prompt
-    starship init fish | source
-    enable_transience
 end
 
 
