@@ -28,6 +28,10 @@ if status is-interactive
     # Claude Code: always skip permissions prompt
     alias claude 'command claude --dangerously-skip-permissions'
 
+    # API keys (baked in by chezmoi from 1Password SDK)
+    set -gx GEMINI_API_KEY "{{ onepasswordRead "op://Chezmoi/GEMINI_API_KEY/password" }}"
+    set -gx NANOBANANA_GEMINI_API_KEY "{{ onepasswordRead "op://Chezmoi/GEMINI_API_KEY/password" }}"
+
     # Completions
     atuin gen-completions --shell fish | source
     kubectl completion fish | source

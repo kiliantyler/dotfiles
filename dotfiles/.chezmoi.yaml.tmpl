@@ -2,7 +2,8 @@ cacheDir: ~/.cache/chezmoi
 color: auto
 destDir: ~
 encryption: age
-env: {}
+env:
+  OP_SERVICE_ACCOUNT_TOKEN: {{ include "op_service_account_token.age" | decrypt | trim | quote }}
 format: yaml
 mode: file
 pager: delta
@@ -64,11 +65,8 @@ merge: # https://www.chezmoi.io/user-guide/tools/merge/
 onepassword: # https://www.chezmoi.io/user-guide/password-managers/1password/#secrets-automation
   cache: true
   command: op
-  mode: account
+  mode: service
   prompt: true
-# onepasswordSDK: # https://www.chezmoi.io/reference/templates/1password-sdk-functions/
-#   token: ""
-#   tokenEnvVar: ""
 status:
   exclude: []
   pathStyle: relative
