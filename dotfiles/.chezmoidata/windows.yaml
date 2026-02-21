@@ -36,6 +36,8 @@ winget:
 chocolatey:
   apps:
     - nvidia-app
+powershell_modules:
+  - PSFzf
 scoop:
   apps:
     - mise

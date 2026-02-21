@@ -1,0 +1,32 @@
+# -----------------------------------
+# author: @kiliantyler
+# title: Windows PowerShell Modules
+# description: Installs PowerShell modules into pwsh 7 from the Gallery
+# -----------------------------------
+
+{{- if eq .chezmoi.os "windows" }}
+# Ensure pwsh 7 is available (installed by winget in priority 3)
+$pwsh = Get-Command pwsh -ErrorAction SilentlyContinue
+if (!$pwsh) {
+    Write-Host "pwsh 7 not found, skipping PowerShell module installation" -ForegroundColor Red
+    exit 0
+}
+
+# Build the install script to run inside pwsh 7
+$script = @'
+{{- range .powershell_modules }}
+$module = "{{ . }}"
+$installed = Get-Module -ListAvailable -Name $module | Select-Object -First 1
+if (!$installed) {
+    Write-Host "Installing $module..." -ForegroundColor Yellow
+    Install-Module -Name $module -Scope CurrentUser -Force -AcceptLicense
+} else {
+    Write-Host "$module already installed" -ForegroundColor DarkGray
+}
+{{- end }}
+'@
+
+Write-Host "Installing PowerShell modules (via pwsh 7)..." -ForegroundColor Green
+& pwsh -NoLogo -NoProfile -Command $script
+Write-Host "PowerShell module installation complete!"
+{{- end }}
