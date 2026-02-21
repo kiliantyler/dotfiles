@@ -25,7 +25,6 @@
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "sharp": "^0.34.5",
-    "starlight-heading-badges": "^0.6.1",
     "starlight-image-zoom": "^0.13.2",
     "starlight-links-validator": "^0.19.2",
     "starlight-showcases": "^0.3.1",

@@ -1,5 +1,4 @@
 import type { StarlightUserConfig } from "@astrojs/starlight/types";
-import starlightHeadingBadges from "starlight-heading-badges";
 import starlightImageZoom from "starlight-image-zoom";
 import starlightLinksValidator from "starlight-links-validator";
 import starlightThemeRapide from "starlight-theme-rapide";
@@ -32,9 +31,9 @@ export const starlightConfig: StarlightUserConfig = {
   customCss: ["./src/styles/global.css"],
   plugins: [
     starlightThemeRapide(),
-    starlightHeadingBadges(),
-    starlightLinksValidator(),
+starlightLinksValidator(),
     starlightImageZoom(),
   ],
   credits: false,
+  disable404Route: true,
 };
