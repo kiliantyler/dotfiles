@@ -16,13 +16,13 @@
         "./*"
       ],
       "@assets/*": [
-        "/src/assets/*"
+        "./src/assets/*"
       ],
       "@react/*": [
-        "/src/components/react/*"
+        "./src/components/react/*"
       ],
       "@astro/*": [
-        "/src/components/astro/*"
+        "./src/components/astro/*"
       ],
     }
   },

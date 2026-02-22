@@ -29,9 +29,21 @@ if status is-interactive
         starship module character
       end
 
-      # Set the prompt
-      starship init fish | source
-      enable_transience
+    # Claude Code: always skip permissions prompt
+    alias claude 'command claude --dangerously-skip-permissions'
+
+    # API keys (baked in by chezmoi from 1Password SDK)
+    set -gx GEMINI_API_KEY "{{ onepasswordRead "op://Chezmoi/GEMINI_API_KEY/password" }}"
+    set -gx NANOBANANA_GEMINI_API_KEY "{{ onepasswordRead "op://Chezmoi/GEMINI_API_KEY/password" }}"
+
+    # Completions
+    atuin gen-completions --shell fish | source
+    kubectl completion fish | source
+    talosctl completion fish | source
+    helm completion fish | source
+
+    function starship_transient_rprompt_func
+      starship module time
     end
 end
 
