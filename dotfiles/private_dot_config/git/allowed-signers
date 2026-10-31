@@ -1,0 +1,8 @@
+# current: ~/.ssh/id_ed25519
+kilian@kil.dev ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPgtjXcG24Ws6mzpQWV67nrt37XxBFitqGUK3uTMzF93
+github@ktyler.me ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPgtjXcG24Ws6mzpQWV67nrt37XxBFitqGUK3uTMzF93
+# historical keys so old commits still verify
+kilian@kil.dev ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGHIz6WfbkMcnHxKfNom8mkSxozzVf6GdSxfTxMZFs0q
+github@ktyler.me ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGHIz6WfbkMcnHxKfNom8mkSxozzVf6GdSxfTxMZFs0q
+kilian@kil.dev ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHCwjTWWq3bzmpiYT+9doZUz80H0oEjUHO+dK4JQwQya
+github@ktyler.me ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHCwjTWWq3bzmpiYT+9doZUz80H0oEjUHO+dK4JQwQya

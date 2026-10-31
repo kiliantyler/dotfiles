@@ -1,0 +1,18 @@
+# Apple's ssh-agent (launchd) plus Keychain. No 1Password agent by default.
+Host *
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_ed25519
+
+Host maude
+  User maudebot
+  IdentitiesOnly yes
+  IdentityFile ~/.ssh/maude.pem
+
+# Private key lives only in 1Password. Scoped here so 1Password prompts only for this host.
+Host unifi-dm
+  HostName 10.0.10.1
+  User root
+  IdentitiesOnly yes
+  IdentityFile ~/.ssh/unifi.pub
+  IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"

@@ -1,12 +1,8 @@
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: "3"
 
-vars:
-  DocsDir: "/docs"
-
 tasks:
   serve:
-    desc: "Start the Starlight development server"
-    cmds:
-    - bun run start
-    dir: "{{.DocsDir}}"
+    desc: Start the Starlight dev server
+    dir: "{{.ROOT_DIR}}/docs"
+    cmds: [bun run start]

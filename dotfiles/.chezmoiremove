@@ -1,6 +1,11 @@
-# Remove old zsh files
-.zshrc
-.zprofile
-.zsh_plugins.txt
-.zstyles
-.zsh_plugins.zsh
+# Retired targets. Removed on the next apply, then safe to delete from this list.
+.bin
+.config/.gitconfig
+.config/atuin
+.config/eza
+.config/fish
+.config/karabiner
+.config/micro
+.config/pip
+.config/ssh
+.config/starship.toml

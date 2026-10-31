@@ -1,0 +1,8 @@
+#!/bin/bash
+# Decrypts the age identity chezmoi uses for *.age files. Asks for the passphrase once per machine.
+set -euo pipefail
+key="{{ .chezmoi.homeDir }}/.config/chezmoi/key.txt"
+[ -f "$key" ] && exit 0
+mkdir -p "$(dirname "$key")"
+chezmoi age decrypt --passphrase --output "$key" "{{ .chezmoi.sourceDir }}/key.txt.age"
+chmod 600 "$key"

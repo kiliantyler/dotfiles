@@ -1,26 +1,46 @@
-[include]
-  path = ~/.config/.gitconfig/default.gitconfig
-{{- if .isWork }}
-
 [user]
-	name = Kilian Tyler
-	email = kilian.tyler@qgenda.com
-	signingKey =
-
-[commit]
-	gpgSign = false
-
-[tag]
-	forceSignAnnotated = false
-
-[gpg "ssh"]
-	program = ssh-keygen
-	allowedSignersFile =
+  name = Kilian Tyler
+  email = kilian@kil.dev
+  signingkey = {{ .chezmoi.homeDir }}/.ssh/id_ed25519
 
 [gpg]
-	format = ssh
-	program = gpg
+  format = ssh
+[gpg "ssh"]
+  program = ssh-keygen
+  allowedSignersFile = ~/.config/git/allowed-signers
+[commit]
+  gpgsign = true
+[tag]
+  forceSignAnnotated = true
 
-[includeIf "gitdir:~/git/QGenda/github/"]
-    path = ~/.config/.gitconfig/qgenda.gitconfig
-{{- end }}
+[credential "https://github.com"]
+  helper =
+  helper = !{{ .chezmoi.homeDir }}/.local/share/mise/shims/gh auth git-credential
+[credential "https://gist.github.com"]
+  helper =
+  helper = !{{ .chezmoi.homeDir }}/.local/share/mise/shims/gh auth git-credential
+
+[init]
+  defaultBranch = main
+[push]
+  autoSetupRemote = true
+[core]
+  autocrlf = input
+  editor = code --wait
+[merge]
+  conflictstyle = diff3
+  tool = vscode
+[mergetool "vscode"]
+  cmd = code --wait $MERGED
+[diff]
+  colorMoved = default
+  tool = vscode
+[difftool "vscode"]
+  cmd = code --wait --diff $LOCAL $REMOTE
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+[alias]
+  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit

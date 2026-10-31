@@ -1,0 +1,17 @@
+# Agent-first shell. No prompt framework, no completions, no plugins.
+# mise shims first so every tool resolves without `mise activate`, even in `bash -c`.
+export PATH="$HOME/.local/share/mise/shims:$HOME/.local/bin:$HOME/.bun/bin:$HOME/.opencode/bin:$HOME/.krew/bin:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+export EDITOR="code --wait"
+export VISUAL="$EDITOR"
+export HOMEBREW_NO_ENV_HINTS=1
+
+# Secrets stay out of the repo. Create ~/.config/secrets.env (chmod 600) with `export NAME=value` lines.
+for f in "$HOME/.config/secrets.env" "$HOME/.codex/secrets/linear.env"; do
+  [ -r "$f" ] && . "$f"
+done
+
+case $- in *i*)
+  alias claude='command claude --dangerously-skip-permissions'
+  alias maude='clear; ssh -t maude cc'
+  ;;
+esac

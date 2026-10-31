@@ -1,0 +1,2 @@
+# zsh is no longer the login shell. Stray `zsh -c` callers still get PATH, mise shims, and secrets.
+emulate sh -c '. "$HOME/.bashrc"'

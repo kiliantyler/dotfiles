@@ -1,0 +1,47 @@
+[settings]
+experimental = true
+yes = true
+status = { missing_tools = "always", show_env = false, show_tools = false }
+trusted_config_paths = ["{{ get_env(name='HOME') }}/git/"]
+disable_hints = ["python_multi"]
+idiomatic_version_file_enable_tools = ["node"]
+
+[tools]
+1password-cli = "latest"
+act = "latest"
+age = "latest"
+bun = "latest"
+chezmoi = "latest"
+cilium-cli = "latest"
+direnv = "latest"
+dotenvx = "latest"
+editorconfig-checker = "latest"
+flux2 = "latest"
+github-cli = "latest"
+go = "latest"
+goreleaser = "latest"
+helm = "latest"
+helmfile = "latest"
+jq = "latest"
+krew = "latest"
+kubectl = "latest"
+kubectx = "latest"
+kustomize = "latest"
+node = "24.22.0"
+pnpm = "12.11.2"
+python = "latest"
+rust = { version = "latest", install_env = { ASDF_RUST_PROFILE = "minimal" }, postinstall = 'RUSTUP_HOME="$MISE_TOOL_INSTALL_PATH" CARGO_HOME="$MISE_TOOL_INSTALL_PATH" rustup component add rustfmt clippy' }
+shellcheck = "latest"
+sops = "latest"
+talhelper = "latest"
+talosctl = "latest"
+task = "latest"
+terraform = "latest"
+terraform-docs = "latest"
+terragrunt = "latest"
+usage = "latest"
+uv = "latest"
+yamlfmt = "latest"
+yarn = "latest"
+yq = "latest"
+"npm:@google/gemini-cli" = "latest"
