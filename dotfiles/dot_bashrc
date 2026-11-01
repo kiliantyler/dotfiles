@@ -4,6 +4,8 @@ export PATH="$HOME/.local/share/mise/shims:$HOME/.local/bin:$HOME/.bun/bin:$HOME
 export EDITOR="code --wait"
 export VISUAL="$EDITOR"
 export HOMEBREW_NO_ENV_HINTS=1
+# Shared iOS simulator pool size on this Mac (was in the old .zshenv).
+export IOS_SIMULATOR_POOL_SIZE="${IOS_SIMULATOR_POOL_SIZE:-3}"
 
 # Secrets stay out of the repo. Create ~/.config/secrets.env (chmod 600) with `export NAME=value` lines.
 for f in "$HOME/.config/secrets.env" "$HOME/.codex/secrets/linear.env"; do
