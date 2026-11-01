@@ -1,0 +1,51 @@
+---
+title: Shell
+sidebar:
+  order: 1
+---
+
+Homebrew bash 5 is the login shell. The whole configuration is one file.
+
+## `~/.bashrc`
+
+```bash
+export PATH="$HOME/.local/share/mise/shims:$HOME/.local/bin:$HOME/.bun/bin:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+export EDITOR="code --wait"
+export VISUAL="$EDITOR"
+export HOMEBREW_NO_ENV_HINTS=1
+export IOS_SIMULATOR_POOL_SIZE="${IOS_SIMULATOR_POOL_SIZE:-3}"
+
+for f in "$HOME/.config/secrets.env" "$HOME/.codex/secrets/linear.env"; do
+  [ -r "$f" ] && . "$f"
+done
+
+case $- in *i*)
+  alias claude='command claude --dangerously-skip-permissions'
+  alias maude='clear; ssh -t maude cc'
+  ;;
+esac
+```
+
+- mise shims come first so every tool resolves without `mise activate`, including in `bash -c`.
+- `~/.config/secrets.env` is where API keys go. It is untracked and mode 600. The Codex secrets file is sourced too so both agents see the same variables.
+- The two aliases are the only interactive-only lines.
+
+`~/.bash_profile` sources `~/.bashrc`, so login shells and interactive shells are identical.
+
+## `~/.zshenv`
+
+```zsh
+emulate sh -c '. "$HOME/.bashrc"'
+```
+
+Anything that still runs `zsh -c` gets the same PATH and secrets. There is no `.zshrc`.
+
+## How agents pick the shell
+
+- **Codex** reads the login shell from the user record. After `chsh` it uses bash immediately.
+- **Claude Code** uses `$SHELL`. `CLAUDE_CODE_SHELL` is pinned to `/opt/homebrew/bin/bash` in its settings so it does not depend on the parent process.
+- **T3 Code** and other GUI apps inherit `SHELL` from the login session. `run_once_after_set-login-shell` sets it with `launchctl setenv` so apps launched after the switch get bash without logging out.
+
+## Login shell on a new machine
+
+`run_once_after_set-login-shell` adds `/opt/homebrew/bin/bash` to `/etc/shells`, runs `chsh`, and sets the launchd variable. It asks for `sudo` once.

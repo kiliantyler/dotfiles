@@ -18,9 +18,6 @@
       "@assets/*": [
         "./src/assets/*"
       ],
-      "@react/*": [
-        "./src/components/react/*"
-      ],
       "@astro/*": [
         "./src/components/astro/*"
       ],

@@ -1,67 +1,55 @@
 ---
 title: Repo Layout
 sidebar:
-  badge:
-    text: WIP
-    variant: caution
+  order: 65
 ---
 
-:::caution[Work in Progress]
-This page is a stub and is still under construction.
-:::
-
-import LinkCard, { FileTree } from "@astrojs/starlight/components";
-import { StubComponent } from "@react/StubComponent";
-
-<StubComponent />
-
-## File Structure
+import { FileTree } from "@astrojs/starlight/components";
 
 <FileTree>
-- .devcontainer/
-  - devcontainer.json
-- .github/ # Contains All Github related files
-  - workflows/ # Contains Github Actions
-    - docs-deploy.yaml # Github Action to deploy docs
-    - docs-test-deploy.yaml
-  - LICENSE
-  - README.md
-  - SECURITY.md
-  - ISSUE_TEMPLATE.md
-  - PULL_REQUEST_TEMPLATE.md
-- .taskfiles/
-  - ansible/ # ansible related tasks
-  - docs/ # docs related tasks
-  - gitattributes/ # gitattributes related tasks
-- .vscode/
-  - extensions.json
-  - launch.json
-  - settings.json
-- ansible/
-  - inventory/
-    - hosts
-  - playbooks/
-    - playbook.yaml
-    - work.yaml
-  - roles/
-    - install_programs/ # WIP
-    - kitty/ # WIP (Will install Kitty Terminal)
-    - mise/ # WIP (Program installer similar to ASDF)
-    - os/
-      - debian/ # WIP
-      - macos/ # Establishes Dock and Finder settings as well as other OS Defaults
-    - tailscale/ # WIP
-    - vscode/ # WIP (Will install Visual Studio Code)
-    - zsh/ # WIP
-  - ansible.cfg
-  - requirements.txt # Pip requirements for Ansible
-  - requirements.yaml # Ansible Galaxy requirements
-- docs/
-  - assets/
-  - config/ # Contains Astro/Starlight configuration
-  - public/
-    - install # Installer script for entire repo (https://install.dotfiles.wiki/[username])
-  - ... # TODO: Add the rest
+- .chezmoiroot points chezmoi at dotfiles/
 - dotfiles/
-  - ...
+  - .chezmoi.yaml.tmpl age settings and editor
+  - .chezmoiignore
+  - .chezmoiremove paths older versions managed, deleted on apply
+  - .chezmoiscripts/
+    - run_once_before_decrypt-age-key.sh.tmpl
+    - run_onchange_after_brew-bundle.sh.tmpl
+    - run_once_after_set-login-shell.sh.tmpl
+  - dot_bashrc
+  - dot_bash_profile
+  - dot_zshenv
+  - dot_default-python-packages
+  - empty_dot_hushlogin
+  - key.txt.age
+  - private_dot_gitconfig.tmpl
+  - private_dot_ssh/
+    - private_config
+  - private_dot_config/
+    - homebrew/Brewfile
+    - mise/config.toml
+    - git/
+      - allowed-signers
+      - ignore
+    - gh/config.yml
+    - ghostty/
+    - sops/age/encrypted_private_keys.txt.age
+  - dot_claude/
+    - settings.json
+    - skills/nano-banana/SKILL.md
+  - private_Library/Application Support/Code/User/settings.json
+- cloudflare/ the install.dotfiles.wiki Worker
+  - src/
+  - test/
+  - wrangler.jsonc
+- docs/ this site
+  - src/content/docs/
+  - assets/Dottie/
+- .github/workflows/
+  - docs-deploy.yaml
+  - docs-test-deploy.yaml
+  - worker-deploy.yml
+- install.sh the macOS bootstrap the Worker is modelled on
+- Taskfile.yaml task docs:serve
+- AGENTS.md instructions for agents working in the repo
 </FileTree>

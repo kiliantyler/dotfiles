@@ -1,0 +1,8 @@
+#!/bin/bash
+# Makes Homebrew bash the login shell. Runs once per machine, after the Brewfile has installed bash.
+set -euo pipefail
+shell=/opt/homebrew/bin/bash
+[ -x "$shell" ] || exit 0
+grep -qx "$shell" /etc/shells || echo "$shell" | sudo tee -a /etc/shells >/dev/null
+[ "$(dscl . -read "$HOME" UserShell | awk '{print $2}')" = "$shell" ] || chsh -s "$shell"
+launchctl setenv SHELL "$shell"

@@ -1,16 +1,26 @@
 ---
-title: Dotfiles Overview
+title: Managed Dotfiles
 sidebar:
   label: Overview
   order: 60
-  badge:
-    text: WIP
-    variant: caution
 ---
-import { StubComponent } from "@react/StubComponent";
 
-:::caution[Work in Progress]
-This page is a stub and is still under construction.
-:::
+Every file chezmoi writes into `~`, grouped by what it configures.
 
-<StubComponent />
+| Target                                              | Source in `dotfiles/`                                    | Page                                   |
+| --------------------------------------------------- | -------------------------------------------------------- | -------------------------------------- |
+| `~/.bash_profile`, `~/.bashrc`, `~/.zshenv`         | `dot_bash_profile`, `dot_bashrc`, `dot_zshenv`           | [Shell](/managed-dotfiles/shell)       |
+| `~/.hushlogin`                                      | `empty_dot_hushlogin`                                    | [Shell](/managed-dotfiles/shell)       |
+| `~/.default-python-packages`                        | `dot_default-python-packages`                            | [mise](/management-tools/mise)         |
+| `~/.gitconfig`                                      | `private_dot_gitconfig.tmpl`                             | [Git and SSH](/managed-dotfiles/git-and-ssh) |
+| `~/.config/git/allowed-signers`, `~/.config/git/ignore` | `private_dot_config/git/`                            | [Git and SSH](/managed-dotfiles/git-and-ssh) |
+| `~/.ssh/config`                                     | `private_dot_ssh/private_config`                         | [Git and SSH](/managed-dotfiles/git-and-ssh) |
+| `~/.config/gh/config.yml`                           | `private_dot_config/gh/config.yml`                       | [Git and SSH](/managed-dotfiles/git-and-ssh) |
+| `~/.claude/settings.json`, `~/.claude/skills/`      | `dot_claude/`                                            | [Agents](/managed-dotfiles/agents)     |
+| `~/Library/Application Support/Code/User/settings.json` | `private_Library/Application Support/Code/User/`     | [Agents](/managed-dotfiles/agents)     |
+| `~/.config/ghostty/`                                | `private_dot_config/ghostty/`                            | [Agents](/managed-dotfiles/agents)     |
+| `~/.config/homebrew/Brewfile`                       | `private_dot_config/homebrew/Brewfile`                   | [Homebrew](/management-tools/homebrew) |
+| `~/.config/mise/config.toml`                        | `private_dot_config/mise/config.toml`                    | [mise](/management-tools/mise)         |
+| `~/.config/sops/age/private_keys.txt`               | `private_dot_config/sops/age/…​.age`                      | [age](/management-tools/age)           |
+
+Not managed, by design: `~/.config/secrets.env`, `~/.codex/` (Codex keeps its own state), shell history, and anything an app writes under `~/Library` other than VS Code settings.

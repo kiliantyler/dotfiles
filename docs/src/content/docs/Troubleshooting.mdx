@@ -2,15 +2,59 @@
 title: Troubleshooting
 sidebar:
   order: 70
-  badge:
-    text: WIP
-    variant: caution
 ---
 
-:::caution[Work in Progress]
-This page is a stub and is still under construction.
-:::
+### 1Password asks for approval during `chezmoi status` or `diff`
 
-import { StubComponent } from "@react/StubComponent";
+A template is calling `onepasswordRead` or a similar function. Remove it; secrets belong in `~/.config/secrets.env`. Read-only chezmoi commands render every template.
 
-<StubComponent />
+### "config file template has changed, run chezmoi init"
+
+`.chezmoi.yaml.tmpl` changed in the repo. Run `chezmoi init` to regenerate `~/.config/chezmoi/chezmoi.yaml`, then `chezmoi apply`.
+
+### `brew bundle` refuses a formula from an untrusted tap
+
+Homebrew requires trusting third-party taps once per machine:
+
+```sh
+brew trust <tap>
+chezmoi apply
+```
+
+### An agent's shell is zsh or fish
+
+The parent process still has an old `SHELL`. Check with `echo $SHELL` inside the agent. Fixes, in order:
+
+1. `launchctl setenv SHELL /opt/homebrew/bin/bash`, then relaunch the app. GUI apps inherit the login session's variable.
+2. For Claude Code, confirm `CLAUDE_CODE_SHELL` is set in `~/.claude/settings.json`.
+3. Log out and back in. The login session captures the shell from the user record at login.
+
+### A tool prints "command not found" even though mise lists it
+
+Shims are stale. Run `mise reshim`. If the tool was installed by a project config, `cd` into that project first or add it to the global config.
+
+### `chezmoi apply` stops on `.chezmoiscripts/brew-bundle.sh`
+
+The Brewfile has an entry Homebrew cannot install. Run `brew bundle install --file ~/.config/homebrew/Brewfile --no-upgrade` directly to see which one. The hash comment in the script means it reruns on the next apply after the Brewfile is fixed.
+
+### Signed commits fail with "No such file or directory"
+
+`~/.ssh/id_ed25519` is missing. Generate or copy it, then register the public key on GitHub as a signing key. The allowed-signers file lists the expected public key.
+
+### SSH to GitHub says permission denied
+
+The public key is registered for signing but not authentication, or not at all. Run:
+
+```sh
+gh ssh-key add ~/.ssh/id_ed25519.pub --type authentication --title "$(hostname -s)"
+```
+
+If `gh` reports a missing scope, run `gh auth refresh -h github.com -s admin:public_key` first. HTTPS pushes through `gh` work regardless.
+
+### T3 Code cannot create a worktree
+
+T3 types its setup scripts into `$SHELL`. If that shell was uninstalled after T3 started, relaunch T3 once `launchctl getenv SHELL` prints the bash path.
+
+### Free space did not change after a cleanup
+
+macOS holds local APFS snapshots for up to 24 hours. `tmutil listlocalsnapshots /` shows them; they expire on their own.

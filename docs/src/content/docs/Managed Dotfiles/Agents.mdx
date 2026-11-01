@@ -1,0 +1,34 @@
+---
+title: Agents and Editors
+sidebar:
+  order: 3
+---
+
+## Claude Code
+
+`~/.claude/settings.json` is tracked as a plain file.
+
+- `CLAUDE_CODE_SHELL` pins the Bash tool to Homebrew bash.
+- `skipDangerousModePermissionPrompt` is on; the shell alias adds `--dangerously-skip-permissions`.
+- Plugins: ponytail, i-have-adhd, frontend-design.
+- `~/.claude/skills/nano-banana` generates images through the Gemini CLI, which mise installs. It needs `GEMINI_API_KEY` in `~/.config/secrets.env`.
+
+Memory, history, and project state under `~/.claude` are not tracked.
+
+## Codex
+
+Nothing under `~/.codex` is tracked. Codex reads the login shell from the user record and its own secrets from `~/.codex/secrets/`, which `~/.bashrc` also sources so both agents share variables.
+
+## VS Code
+
+`~/Library/Application Support/Code/User/settings.json` is tracked. VS Code rewrites it when settings change in the UI, so after a change run:
+
+```sh
+chezmoi re-add "$HOME/Library/Application Support/Code/User/settings.json"
+```
+
+Extensions are not tracked.
+
+## Ghostty
+
+`~/.config/ghostty/config` and the Dracula theme. Ghostty runs the login shell, so it opens bash with no further setup.

@@ -1,99 +1,36 @@
 ---
-title: Cloudflare
+title: Cloudflare Worker
 sidebar:
-  position: 99
+  order: 5
 ---
+
 import { Steps } from "@astrojs/starlight/components";
 
-## What are Cloudflare Workers?
+`install.dotfiles.wiki` is a Cloudflare Worker in the `cloudflare/` directory. It returns an installation script for whatever chezmoi repository the query string names, defaulting to this one.
 
-Cloudflare Workers are serverless functions that run on Cloudflare's global network of data centers. They allow you to execute JavaScript/WebAssembly code at the edge, without managing servers. Some key benefits include:
-
-- **Edge Computing** - Code runs close to your users for low latency
-- **Serverless** - No infrastructure to manage
-- **Scalable** - Handles traffic spikes automatically
-- **Customizable** - Can modify requests/responses on the fly
-- **Cost-effective** - Free tier available for small projects
-
-## My Dotfiles Installation Worker
-
-I use a Cloudflare Worker to power my one-command dotfiles installation. This approach creates a clean, memorable URL (`install.dotfiles.wiki/username`) that dynamically serves the appropriate installation script.
-
-### How it works
 <Steps>
-1. The Worker receives a request to `install.dotfiles.wiki/username`
+1. The request arrives with optional `username`, `provider`, `repo`, `branch`, and `os` parameters.
 
-2. It determines which script format to serve (shell script or PowerShell) based on the user agent
+2. `os` decides the script type. Without it, a PowerShell user agent gets PowerShell and everything else gets a POSIX shell script.
 
-3. It fetches the base installation script from my GitHub repository
+3. The provider and names become a repository URL. `github`, `gitlab`, and `bitbucket` map to their hosts; any other value is treated as a bare domain.
 
-4. It injects the specified username (or defaults to mine) into the script
+4. Inputs are stripped of shell metacharacters and the branch is capped at fifty characters.
 
-5. It serves the dynamically modified script with the proper content type
+5. The script is returned inline. Nothing is fetched from GitHub at request time.
 </Steps>
-Here's the Worker code that powers this functionality:
 
-```javascript
-addEventListener('fetch', event => {
-  event.respondWith(handleRequest(event.request))
-})
+The shell script installs the Xcode Command Line Tools on macOS or `git` and `curl` through the distro package manager on Linux, installs chezmoi into `~/.local/bin`, and runs `chezmoi init --apply <url> --branch <branch>`.
 
-async function handleRequest(request) {
-  var ext = "sh"
-  // Parse the URL path to extract arguments
-  const url = new URL(request.url);
-  const parts = url.pathname.split('/').filter(Boolean);  // Split the path and remove empty elements
+## Deploying
 
-  const firstPart = parts[0] || 'kiliantyler';
-  var username = firstPart
+The `worker-deploy.yml` workflow runs `bun test` on every pull request that touches `cloudflare/` and deploys with `wrangler-action` on push to `main`. Tests cover both script generators, URL generation per provider, and input sanitising.
 
-  // Get user-agent
-  const agent = request.headers.get('user-agent')
-  // If Powershell download PS1 instead of sh
-  if (agent.toLowerCase().includes("powershell")) {
-    ext = "ps1"
-  }
-
-  // Base URL of the GitHub repo containing the script (use raw content URL)
-  const scriptUrl = `https://raw.githubusercontent.com/kiliantyler/dotfiles/main/install.${ext}`;
-  // Fetch the base shell script from the GitHub repository
-  const response = await fetch(scriptUrl);
-  if (!response.ok) {
-    return new Response('Failed to fetch the script from GitHub', { status: 500 });
-  }
-
-  // Get the content of the script
-  let script = await response.text();
-
-  // Substitute the placeholders with actual values from the URL
-  script = script.replace('{{USERNAME}}', username)
-
-  // Respond with the dynamically modified script
-  return new Response(script, {
-    headers: {
-      'Content-Type': 'text/x-shellscript',
-      'Content-Disposition': `attachment; filename="install.${ext}"`,
-    },
-  });
-}
+```sh
+cd cloudflare
+bun install
+bun test
+bun run dev      # local worker on wrangler
 ```
 
-## Using This Installation System With Your Repository
-
-You don't need to create your own Cloudflare Worker to benefit from this system. My installation script is designed to work with any Chezmoi-compatible dotfiles repository. Here's how to use it with your own repository:
-<Steps>
-1. **Ensure your repository is Chezmoi-compatible:**
-   - Structure your dotfiles for use with Chezmoi
-   - Follow standard Chezmoi conventions for file organization
-
-2. **Use the existing installation URL with your GitHub username:**
-   ```bash
-   curl install.dotfiles.wiki/YOUR-USERNAME | sh
-   ```
-
-3. **That's it!** The script will:
-   - Install Chezmoi if needed
-   - Initialize Chezmoi with your GitHub repository (`https://github.com/YOUR-USERNAME/dotfiles.git`)
-   - Apply your configuration
-</Steps>
-No need to set up your own Worker, domain, or custom scripts. The installation system automatically detects the user agent and serves the appropriate script type (bash or PowerShell), substituting the username parameter into the installation process.
+The Worker stays generic on purpose. It serves Linux and Windows users of other repositories even though this repository is macOS only.

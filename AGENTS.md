@@ -11,7 +11,8 @@ Personal macOS setup managed with [chezmoi](https://www.chezmoi.io/). macOS only
 │   ├── .chezmoiignore / .chezmoiremove
 │   ├── .chezmoiscripts/
 │   │   ├── run_once_before_decrypt-age-key.sh.tmpl   # unlocks key.txt.age once per machine
-│   │   └── run_onchange_after_brew-bundle.sh.tmpl    # brew bundle install when the Brewfile changes
+│   │   ├── run_onchange_after_brew-bundle.sh.tmpl    # brew bundle install when the Brewfile changes
+│   │   └── run_once_after_set-login-shell.sh.tmpl    # chsh to Homebrew bash, launchctl setenv SHELL
 │   ├── dot_bashrc, dot_bash_profile                  # the shell config
 │   ├── dot_zshenv                                    # shim: sources ~/.bashrc for stray zsh callers
 │   ├── private_dot_gitconfig.tmpl                    # one file, ssh signing with ~/.ssh/id_ed25519
@@ -20,7 +21,7 @@ Personal macOS setup managed with [chezmoi](https://www.chezmoi.io/). macOS only
 │   │   ├── homebrew/Brewfile                         # source of truth for brew formulae and casks
 │   │   ├── mise/config.toml                          # source of truth for CLI tools
 │   │   ├── git/{allowed-signers,ignore}
-│   │   ├── gh/, ghostty/, topgrade/, sops/age/
+│   │   ├── gh/, ghostty/, sops/age/
 │   ├── dot_claude/                                   # Claude Code settings + skills
 │   └── private_Library/Application Support/Code/User/settings.json
 ├── cloudflare/                    # Worker behind install.dotfiles.wiki (generic, serves any GitHub user)
@@ -41,4 +42,6 @@ Personal macOS setup managed with [chezmoi](https://www.chezmoi.io/). macOS only
 
 ## Docs wiki
 
-`docs/` is a Starlight site deployed to https://dotfiles.wiki by `.github/workflows/docs-deploy.yaml`. Content is `.mdx` under `docs/src/content/docs/`; sidebar order is frontmatter `sidebar.order`; WIP pages use `StubComponent`; Dottie assets live in `docs/assets/Dottie/`. Content currently still describes the old Windows/Linux/ansible setup and needs a rewrite.
+`docs/` is a Starlight site deployed to https://dotfiles.wiki by `.github/workflows/docs-deploy.yaml`. Content is `.mdx` under `docs/src/content/docs/`; sidebar order is frontmatter `sidebar.order`; Dottie assets live in `docs/assets/Dottie/`. `bun run build` runs a link validator, so internal links must resolve.
+
+Pages: Overview, Installation, Meet Dottie, FAQ, Management Tools (chezmoi, Homebrew, mise, age, Cloudflare Worker), Managed Dotfiles (Shell, Git and SSH, Agents and Editors), Repo Layout, Troubleshooting. When a file, script, or convention changes, update the page that documents it in the same change.

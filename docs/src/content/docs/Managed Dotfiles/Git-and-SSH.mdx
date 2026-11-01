@@ -1,0 +1,53 @@
+---
+title: Git and SSH
+sidebar:
+  order: 2
+---
+
+## Git
+
+One file, `~/.gitconfig`, rendered from `private_dot_gitconfig.tmpl`. The template exists only to write absolute paths for the signing key and the credential helper.
+
+| Setting                      | Value                                               |
+| ---------------------------- | --------------------------------------------------- |
+| `user.signingkey`            | `~/.ssh/id_ed25519`                                 |
+| `gpg.format`                 | `ssh`                                               |
+| `gpg.ssh.program`            | `ssh-keygen`                                        |
+| `gpg.ssh.allowedSignersFile` | `~/.config/git/allowed-signers`                     |
+| `commit.gpgsign`             | `true`                                              |
+| credential helper (GitHub)   | `gh auth git-credential` through the mise shim      |
+| `core.editor`, merge and diff tool | `code --wait`                                 |
+| `push.autoSetupRemote`       | `true`                                              |
+
+Signing uses the private key file directly, so it works before anything is loaded into an agent. `allowed-signers` lists the current key and the two keys that signed older commits, so `git log --show-signature` verifies the whole history.
+
+GitHub access is HTTPS through `gh`. SSH to GitHub works too once the key is registered, but nothing depends on it.
+
+`~/.config/git/ignore` is the global ignore list. `~/.config/gh/config.yml` sets `git_protocol: https` and the `co` alias for `pr checkout`.
+
+## SSH
+
+`~/.ssh/config`:
+
+```
+Host *
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_ed25519
+
+Host maude
+  User maudebot
+  IdentitiesOnly yes
+  IdentityFile ~/.ssh/maude.pem
+
+Host unifi-dm
+  HostName 10.0.10.1
+  User root
+  IdentitiesOnly yes
+  IdentityFile ~/.ssh/unifi.pub
+  IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+```
+
+Apple's launchd `ssh-agent` is `SSH_AUTH_SOCK` by default on macOS. `UseKeychain` stores passphrases after the first use. The router is the only host that still goes through the 1Password agent, because its private key was never exported; the scope means 1Password prompts only for that host.
+
+Keys themselves are not in the repo. A new machine needs `~/.ssh/id_ed25519` created or copied, then registered on GitHub as described in [Installation](/installation#after-installation).

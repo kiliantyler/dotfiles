@@ -3,55 +3,26 @@ title: Overview
 sidebar:
   order: 10
 ---
-import { Image } from 'astro:assets';
-import Dottie from '../../assets/Dottie.svg';
 
-## Welcome to My Dotfiles
+This repository sets up one Mac so coding agents can work on it unattended. A human rarely opens a terminal here, so there is no prompt framework, no shell plugins, and nothing that asks for approval mid-run.
 
-If you've seen one dotfiles repo you've seen them all. They're all the same. They're all a mess.
+## What it does
 
-This one is no different. But it's mine.
+- [chezmoi](/management-tools/chezmoi) places every file under `~` and runs the bootstrap scripts.
+- A [Brewfile](/management-tools/homebrew) declares every Homebrew formula and app.
+- [mise](/management-tools/mise) declares every CLI tool and language runtime.
+- Homebrew bash is the login shell. See [Shell](/managed-dotfiles/shell).
+- Git signs commits with a local SSH key, and SSH uses Apple's agent. See [Git and SSH](/managed-dotfiles/git-and-ssh).
+- Claude Code, Codex, and VS Code get their settings from the repo. See [Agents](/managed-dotfiles/agents).
+- Secrets live in one untracked file that the shell sources. Nothing calls a password manager at render time.
 
-### What is this repository?
+## Scope
 
-This is my personal collection of dotfiles - the configuration files that customize my development environment, tools, and workflow. While primarily created for my own use, I've documented everything here to:
+macOS only, Apple silicon. Earlier versions of this repo targeted Windows and Linux too; that support was removed in October 2026 along with fish, zsh, Ansible, and Karabiner. The [installer](/installation) still serves other people's repos on any platform.
 
-1. Help me remember what I did and why
-2. Share what I've learned with others
-3. Create a reference for anyone interested in dotfiles management
+## Rules the repo follows
 
-### More than just dotfiles
-
-This repository is also a growing knowledge base for dotfiles management. I'm attempting to turn it into a general-purpose Dotfiles Wiki that documents:
-
-- Best practices for organizing dotfiles
-- Tools and techniques for dotfiles management
-- Common patterns and solutions for configuration challenges
-- My personal journey of customization and optimization
-
-### Key features
-
-- [Chezmoi](/management-tools/chezmoi) for dotfiles management
-- True [one-command installation](/installation#quick-installation)
-- Cross-platform support
-- Extensive documentation
-- Modular organization
-
-### Philosophy
-
-My approach to dotfiles centers on a few core principles:
-
-- **Automation**: If it can be automated, it should be
-- **Documentation**: Everything should be well-documented (for future me)
-- **Modularity**: Components should be organized and separable
-- **Transparency**: The how and why behind each configuration choice
-
-### Getting started
-
-Curious about what's here? You can:
-
-- Browse the docs to learn about my setup
-- Check out the [installation guide](/installation) (but read the warnings first!)
-- Explore specific tools and configurations in the sidebar
-
-Remember: These are _my_ dotfiles. They work for _me_. Your needs will be different. Use this as inspiration, not as a template to blindly apply to your system.
+1. No OS or hostname branching in templates. A template may use the home directory and nothing else.
+2. Secrets never render from a template. They come from `~/.config/secrets.env` at shell start.
+3. Adding a package means editing the Brewfile or the mise config, then `chezmoi apply`.
+4. Files that apps rewrite on their own (VS Code settings, mise config after `mise use`) are edited in place and pulled back with `chezmoi re-add`.

@@ -1,18 +1,21 @@
 ---
-title: Age
+title: age
+sidebar:
+  order: 4
 ---
 
-# Age
+[age](https://age-encryption.org/) encrypts the two files in the repository that cannot be public. chezmoi decrypts them on apply with the identity in `~/.config/chezmoi/key.txt`.
 
-[Age](https://age-encryption.org/) is a simple, modern, and secure file encryption tool. It's designed to be a simpler alternative to tools like GPG, focusing specifically on file encryption.
+| File in `dotfiles/`                                  | Target                                           | Contents                         |
+| ---------------------------------------------------- | ------------------------------------------------ | -------------------------------- |
+| `key.txt.age`                                        | `~/.config/chezmoi/key.txt`                      | the age identity itself          |
+| `private_dot_config/sops/age/encrypted_private_keys.txt.age` | `~/.config/sops/age/private_keys.txt`    | the sops key for other repos     |
 
-## Configuration Files
+`key.txt.age` is passphrase-encrypted, so a fresh machine can unlock it without any other secret. `run_once_before_decrypt-age-key` asks for that passphrase once and writes the identity with mode 600. Every other `.age` file is encrypted to the identity's public key.
 
-- `.chezmoiscripts/runOnce/run_once_before_0-decrypt_age_key.sh.tmpl` - Script template to decrypt Age keys during Chezmoi initialization
-- `.chezmoiscripts/runOnce/run_once_before_0-decrypt_age_key.ps1.tmpl` - PowerShell equivalent for Windows systems
+Runtime secrets such as API keys are not in the repo at all. They go in `~/.config/secrets.env`; see [Shell](/managed-dotfiles/shell).
 
-These files both create a decrypted Age key which is then used for decrypting other secrets in the Chezmoi configuration.
-
-## Related Documentation
-
-- [Age Documentation](https://age-encryption.org/)
+```sh
+chezmoi add --encrypt ~/.config/thing/credentials   # add a new encrypted file
+chezmoi decrypt dotfiles/key.txt.age                # inspect one
+```

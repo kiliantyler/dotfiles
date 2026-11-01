@@ -1,0 +1,34 @@
+---
+title: mise
+sidebar:
+  order: 3
+---
+
+[mise](https://mise.jdx.dev/) installs CLI tools and language runtimes. The global list is `~/.config/mise/config.toml`, tracked as a plain file at `dotfiles/private_dot_config/mise/config.toml`. Projects pin their own versions in their own `.mise.toml`.
+
+## Shims, not activation
+
+`~/.bashrc` puts `~/.local/share/mise/shims` first on `PATH` and never runs `mise activate`. Shims resolve in `bash -c`, in login shells, and in whatever an agent spawns, with no hook into the prompt. A tool that is missing installs itself on first call because `settings.yes = true`.
+
+## Settings that matter
+
+```toml
+[settings]
+yes = true                                   # never prompt
+status = { missing_tools = "always" }        # say when a project pin is not installed
+trusted_config_paths = ["~/git/"]            # project configs under ~/git run without a trust prompt
+idiomatic_version_file_enable_tools = ["node"]   # honour .nvmrc and .node-version
+```
+
+## What is in the global list
+
+Runtimes: node (pinned), python, go, rust, bun, pnpm, yarn, uv.
+Kubernetes and infra: kubectl, kubectx, kustomize, helm, helmfile, flux2, cilium-cli, talosctl, talhelper, terraform, terragrunt, terraform-docs.
+Everything else: chezmoi, age, sops, github-cli, jq, yq, direnv, dotenvx, task, goreleaser, shellcheck, yamlfmt, editorconfig-checker, 1password-cli, act, usage, and the Gemini CLI for image generation.
+
+## Upgrading
+
+```sh
+mise upgrade --bump    # move "latest" tools forward
+mise prune --yes       # drop versions no config references
+```

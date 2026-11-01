@@ -1,117 +1,71 @@
 ---
 title: Installation
 sidebar:
-  title: Installation
   order: 20
 ---
 
-import { Steps } from "@astrojs/starlight/components";
-import { Aside } from '@astrojs/starlight/components';
+import { Aside, Steps } from "@astrojs/starlight/components";
 
-## Why you shouldn't install my dotfiles
-
-Dotfiles are deeply personal configurations that reflect years of individual workflow optimization, personal preferences, and specific hardware/software setups. Here's why you should think twice before installing mine:
-
-- **They're built for my workflow**: My configurations are optimized for how _I_ work, not necessarily how you work
-- **System-specific optimizations**: These dotfiles may include configurations specific to my hardware, OS version, and installed software
-- **Breaking changes**: What works perfectly on my system might break functionality on yours
-- **Security considerations**: Installing dotfiles means running code written by someone else that can access sensitive parts of your system
-- **Learning opportunity missed**: Building your own dotfiles from scratch teaches you valuable skills about your system
-- **Maintenance challenges**: When issues arise, you'll need to understand someone else's configuration structure to fix them
-- **Personal preferences**: Color schemes, key bindings, and UI choices are highly subjective and may not match your taste
-- **Dependency assumptions**: My dotfiles may assume the presence of specific tools, fonts, or utilities you don't use
-
-Instead of installing these directly, consider:
-
-- Using them as reference/inspiration for your own dotfiles
-- Cherry-picking specific configurations you understand and need
-- Forking the repository and gradually adapting it to your needs
-
-## If you insist
-
-<Aside type="danger" title="Important Warning">
-Installing someone else's dotfiles is risky and not recommended unless you fully understand the implications. Proceed with caution!
-There will be no support for issues arising from installing these dotfiles.
+<Aside type="danger" title="These are one person's dotfiles">
+Installing them replaces your shell, git, and SSH configuration with mine. Read the [managed files](/managed-dotfiles) first. Nothing here is supported.
 </Aside>
 
-If you've read the warnings above and still want to proceed, here's how to install my dotfiles.
+## One command
 
-### Quick Installation
-
-Choose the installation command for your operating system:
-
-#### Unix-like systems (macOS, Linux)
-
-```shell
+```sh
 curl -fsSL https://install.dotfiles.wiki/ | sh
 ```
 
-#### Windows PowerShell
+Only macOS is supported for this repository. The command works on Linux for other repositories; see [your own repository](#your-own-repository).
 
-```powershell
-iex "&{$(irm 'https://install.dotfiles.wiki/?os=windows')}"
-```
+## What happens
 
-### Customization Options
-
-The installation script is hosted on [Cloudflare Workers](/management-tools/cloudflare) and supports several customization options through URL parameters:
-
-| Parameter | Description | Default |
-|-----------|-------------|---------|
-| `username` | Git username | kiliantyler |
-| `provider` | Git provider (github, gitlab, bitbucket, or any custom domain) | github |
-| `branch` | Repository branch | main |
-| `repo` | Repository name | dotfiles |
-| `os` | Operating system (windows, macos, linux) | auto-detect |
-
-#### Examples
-
-Install dotfiles from a GitLab user on the develop branch:
-
-```shell
-curl -fsSL 'https://install.dotfiles.wiki/?username=johndoe&provider=gitlab&branch=develop' | sh
-```
-
-Install dotfiles from a custom repository name:
-
-```shell
-curl -fsSL 'https://install.dotfiles.wiki/?username=johndoe&repo=my-config' | sh
-```
-
-Install Windows dotfiles from Bitbucket:
-
-```powershell
-iex "&{$(irm 'https://install.dotfiles.wiki/?username=janedoe&provider=bitbucket&os=windows')}"
-```
-
-### What happens during installation
-
-The installation process:
 <Steps>
-1. The Cloudflare Worker generates a customized script based on your operating system and parameters
+1. The [Cloudflare Worker](/management-tools/cloudflare) returns a shell script for the detected OS.
 
-2. Installs any prerequisites (e.g. Xcode Command Line Tools on macOS)
+2. The script installs the Xcode Command Line Tools if `git` is missing, then installs chezmoi into `~/.local/bin`.
 
-3. Downloads and installs [Chezmoi](/management-tools/chezmoi) as the dotfiles manager
+3. `chezmoi init --apply` clones the repository and renders every file into `~`.
 
-4. Initializes Chezmoi with your specified Git repository
+4. The age key is decrypted. This is the only prompt: the passphrase for `key.txt.age`.
+
+5. Homebrew is installed if missing, then `brew bundle` installs everything in the [Brewfile](/management-tools/homebrew). This is the slow step.
+
+6. Homebrew bash becomes the login shell. `sudo` asks for your password once to register it in `/etc/shells`.
 </Steps>
 
-<Aside type="note" title="Script security">
-The installation scripts are generated dynamically and sanitized to prevent injection attacks and other security issues. The source code is available in the repository under the `cloudflare` directory.
-</Aside>
+After it finishes, open a new terminal or start an agent. mise installs its tools on first use of each shim.
 
-### Installation Philosophy
+## After installation
 
-I believe in true "one-liner" installation experiences:
+Create `~/.config/secrets.env` with any API keys agents need, one `export NAME=value` per line, and `chmod 600` it. The shell sources it on every start. It is never tracked.
 
-- **Truly one command** - No manual preparation or prerequisites needed
-- **Complete automation** - Handles all dependency installation and configuration
-- **Cross-platform** - Works across different operating systems
-- **Reproducible** - Delivers consistent results every time
-- **No manual steps** - No need to edit files or run additional commands after installation
-- **User-friendly** - Designed to be as simple and intuitive as possible
+Register `~/.ssh/id_ed25519.pub` on GitHub as both an authentication and a signing key if the machine is new:
 
-<Aside type="tip" title="Why this is different">
-Many "one-liner" dotfiles installers actually require pre-installation setup or multiple commands. This solution aims to be a genuine one-command experience that handles everything for you.
-</Aside>
+```sh
+gh auth login
+gh ssh-key add ~/.ssh/id_ed25519.pub --type authentication --title "$(hostname -s)"
+gh ssh-key add ~/.ssh/id_ed25519.pub --type signing --title "$(hostname -s) signing"
+```
+
+## Your own repository
+
+The installer is generic. Query parameters pick the repository:
+
+| Parameter  | Default       | Values                                                   |
+| ---------- | ------------- | -------------------------------------------------------- |
+| `username` | `kiliantyler` | any account name                                         |
+| `provider` | `github`      | `github`, `gitlab`, `bitbucket`, or a bare domain        |
+| `repo`     | `dotfiles`    | repository name                                          |
+| `branch`   | `main`        | branch name                                              |
+| `os`       | user agent    | `macos`, `linux`, or `windows` for a PowerShell script   |
+
+```sh
+curl -fsSL 'https://install.dotfiles.wiki/?username=you&provider=gitlab&branch=dev' | sh
+```
+
+```powershell
+iex "&{$(irm 'https://install.dotfiles.wiki/?username=you&os=windows')}"
+```
+
+The script runs `chezmoi init --apply <repo-url> --branch <branch>`, so the target repository has to be a chezmoi source directory.

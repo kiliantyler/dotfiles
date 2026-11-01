@@ -1,0 +1,29 @@
+---
+title: Homebrew
+sidebar:
+  order: 2
+---
+
+Everything Homebrew installs is listed in `~/.config/homebrew/Brewfile`, tracked as `dotfiles/private_dot_config/homebrew/Brewfile`.
+
+`run_onchange_after_brew-bundle` runs `brew bundle install --no-upgrade` whenever the Brewfile changes. It installs what is missing and never removes anything. Removal is a manual `brew uninstall` after deleting the line.
+
+## What is in it
+
+The list was cut in October 2026 to packages with recent use in shell or agent history. Groups, as the file lays them out:
+
+- **shell and core**: bash, coreutils, diffutils, ripgrep, wget, tmux, mosh, gnupg, ffmpeg
+- **build toolchain**: make, cmake. `ninja`, `pkgconf`, `autoconf`, `automake`, and `libtool` were dropped; add one back if a build asks for it
+- **iOS**: cocoapods, xcodegen, swiftformat, swiftlint, ldid, ipatool
+- **repo hygiene and containers**: gitleaks, actionlint, just, oras, skopeo, flux-operator-mcp, moshi-hook
+- **apps**: 1Password, Raycast, Ghostty, Visual Studio Code, Docker Desktop, Discord, Fantastical, Rewind, Superwhisper, Shottr, Maccy, Rocket, CodexBar, Backblaze, Tailscale, two Nerd Fonts
+
+Third-party taps are declared at the top of the file. `brew bundle` refuses an untrusted tap, so a new tap needs `brew trust <tap>` once per machine.
+
+## Upgrading
+
+```sh
+brew update && brew upgrade && brew upgrade --cask --greedy && brew cleanup --prune=all
+```
+
+Nothing schedules this. An agent runs it when asked.
