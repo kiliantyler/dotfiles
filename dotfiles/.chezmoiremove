@@ -9,3 +9,4 @@
 .config/pip
 .config/ssh
 .config/starship.toml
+.config/topgrade

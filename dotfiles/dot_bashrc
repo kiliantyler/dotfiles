@@ -1,6 +1,6 @@
 # Agent-first shell. No prompt framework, no completions, no plugins.
 # mise shims first so every tool resolves without `mise activate`, even in `bash -c`.
-export PATH="$HOME/.local/share/mise/shims:$HOME/.local/bin:$HOME/.bun/bin:$HOME/.opencode/bin:$HOME/.krew/bin:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+export PATH="$HOME/.local/share/mise/shims:$HOME/.local/bin:$HOME/.bun/bin:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 export EDITOR="code --wait"
 export VISUAL="$EDITOR"
 export HOMEBREW_NO_ENV_HINTS=1
