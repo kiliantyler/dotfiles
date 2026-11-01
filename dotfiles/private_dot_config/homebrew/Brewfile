@@ -1,6 +1,7 @@
 # Applied by .chezmoiscripts/run_onchange_after_brew-bundle.sh.tmpl (install only, never cleanup).
 tap "controlplaneio-fluxcd/tap"
 tap "rjyo/moshi"
+tap "steipete/tap"   # codexbar
 
 # shell + core
 brew "bash"
