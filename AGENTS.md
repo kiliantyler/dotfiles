@@ -22,7 +22,8 @@ Personal macOS setup managed with [chezmoi](https://www.chezmoi.io/). macOS only
 │   │   ├── mise/config.toml                          # source of truth for CLI tools
 │   │   ├── git/{allowed-signers,ignore}
 │   │   ├── gh/, ghostty/, sops/age/
-│   ├── dot_claude/                                   # Claude Code settings + skills
+│   ├── dot_claude/                                   # Claude Code settings, CLAUDE.md, skills
+│   ├── dot_codex/AGENTS.md                           # global agent instructions (Codex + Claude Code)
 │   └── private_Library/Application Support/Code/User/settings.json
 ├── cloudflare/                    # Worker behind install.dotfiles.wiki (generic, serves any GitHub user)
 ├── docs/                          # Astro Starlight wiki at dotfiles.wiki (bun)

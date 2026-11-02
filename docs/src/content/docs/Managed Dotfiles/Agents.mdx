@@ -13,11 +13,13 @@ sidebar:
 - Plugins: ponytail, i-have-adhd, frontend-design.
 - `~/.claude/skills/nano-banana` generates images through the Gemini CLI, which mise installs. It needs `GEMINI_API_KEY` in `~/.config/secrets.env`.
 
+`~/.claude/CLAUDE.md` holds one line, `@~/.codex/AGENTS.md`, so Claude Code reads the same global instructions as Codex.
+
 Memory, history, and project state under `~/.claude` are not tracked.
 
 ## Codex
 
-Nothing under `~/.codex` is tracked. Codex reads the login shell from the user record and its own secrets from `~/.codex/secrets/`, which `~/.bashrc` also sources so both agents share variables.
+`~/.codex/AGENTS.md` is tracked: the global agent instructions both Codex and Claude Code load in every session. Edit it in place, then run `chezmoi re-add ~/.codex/AGENTS.md`. Nothing else under `~/.codex` is tracked. Codex reads the login shell from the user record and its own secrets from `~/.codex/secrets/`, which `~/.bashrc` also sources so both agents share variables.
 
 ## VS Code
 
