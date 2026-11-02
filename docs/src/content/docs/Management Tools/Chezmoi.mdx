@@ -50,7 +50,7 @@ Template functions that call a password manager (`onepasswordRead` and friends) 
 | --------------------------------------- | ----------------------------------------- | ----------------------------------------------------- |
 | `run_once_before_decrypt-age-key`       | first apply on a machine                  | decrypts `key.txt.age` with a passphrase prompt       |
 | `run_onchange_after_brew-bundle`        | whenever the Brewfile's hash changes      | installs Homebrew if needed, then `brew bundle install` |
-| `run_after_link-skills`                 | every apply                               | clones `kiliantyler/skills` if missing, links its skills into `~/.claude/skills`, `~/.codex/skills`, `~/.agents/skills` |
+| `run_onchange_after_link-skills`        | gh sign-in, the skills checkout, or its skill list changes | clones `kiliantyler/skills` if missing, links its skills into `~/.claude/skills`, `~/.codex/skills`, `~/.agents/skills` |
 | `run_once_after_set-login-shell`        | first apply, after bash exists            | adds Homebrew bash to `/etc/shells`, `chsh`, `launchctl setenv SHELL` |
 
 ## Removed targets

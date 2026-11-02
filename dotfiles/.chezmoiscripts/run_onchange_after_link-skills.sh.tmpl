@@ -1,7 +1,11 @@
 #!/bin/bash
-# Runs on every apply. Clones kiliantyler/skills if it is missing, links each of its skills into every agent's skill
-# folder, and unlinks repo skills that are gone. Entries that are not repo links (third-party installs, plugin links)
-# are left alone. It never pulls: that repo pushes straight to main from wherever it is edited.
+# Clones kiliantyler/skills if it is missing, links each of its skills into every agent's skill folder, and unlinks
+# repo skills that are gone. Entries that are not repo links (third-party installs, plugin links) are left alone. It
+# never pulls: that repo pushes straight to main from wherever it is edited.
+# Re-runs when any of these change. A fresh Mac has no gh sign-in, so the first clone waits for `gh auth login`.
+# gh signed in: {{ stat (joinPath .chezmoi.homeDir ".config/gh/hosts.yml") | not | not }}
+# checkout: {{ stat (joinPath .chezmoi.homeDir "git/kiliantyler/skills/.git") | not | not }}
+# skills: {{ glob (joinPath .chezmoi.homeDir "git/kiliantyler/skills/skills/*/SKILL.md") | join " " | sha256sum }}
 set -euo pipefail
 checkout="{{ .chezmoi.homeDir }}/git/kiliantyler/skills"
 repo="$checkout/skills"

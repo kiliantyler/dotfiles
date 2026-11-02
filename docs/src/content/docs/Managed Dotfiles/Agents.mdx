@@ -19,7 +19,7 @@ Memory, history, and project state under `~/.claude` are not tracked.
 
 ## Skills
 
-Shared skills live in [`kiliantyler/skills`](https://github.com/kiliantyler/skills), checked out at `~/git/kiliantyler/skills`. `run_after_link-skills` runs on every `chezmoi apply`: it clones that repo if it is missing, links each `skills/<name>/` into `~/.claude/skills`, `~/.codex/skills` and `~/.agents/skills`, and unlinks repo skills that were deleted. It never pulls the repo, and it leaves alone any entry that is not a link into it (third-party installs, plugin links), printing a note when one shadows a repo skill of the same name. A new skill appears on the next apply. Because the script runs every time, `chezmoi status` always lists `R .chezmoiscripts/link-skills.sh`.
+Shared skills live in [`kiliantyler/skills`](https://github.com/kiliantyler/skills), checked out at `~/git/kiliantyler/skills`. `run_onchange_after_link-skills` clones that repo if it is missing, links each `skills/<name>/` into `~/.claude/skills`, `~/.codex/skills` and `~/.agents/skills`, and unlinks repo skills that were deleted. It never pulls the repo, and it leaves alone any entry that is not a link into it (third-party installs, plugin links), printing a note when one shadows a repo skill of the same name. It re-runs when `gh` sign-in, the checkout's presence, or the repo's list of skills changes, so a new or deleted skill is linked or unlinked on the next apply and `chezmoi status` stays empty otherwise.
 
 ## Codex
 
