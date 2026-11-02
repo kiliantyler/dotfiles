@@ -28,11 +28,15 @@ Personal macOS setup managed with [chezmoi](https://www.chezmoi.io/). macOS only
 │   └── private_Library/Application Support/Code/User/settings.json
 ├── cloudflare/                    # Worker behind install.dotfiles.wiki (generic, serves any GitHub user)
 ├── docs/                          # Astro Starlight wiki at dotfiles.wiki (bun)
+├── references/chezmoi/            # chezmoi reference for agents: naming, scripts, templates, externals, commands
 ├── install.sh                     # macOS bootstrap: Xcode CLT -> chezmoi -> init --apply
 └── Taskfile.yaml                  # `task docs:serve`
 ```
 
 ## Conventions
+
+Before writing or changing a source name prefix, script, template or external, read the matching file in `references/chezmoi/`.
+
 
 - chezmoi naming: `dot_` = dotfile, `private_` = 0600/0700, `executable_` = +x, `.tmpl` = Go template, `.age` = age-encrypted.
 - Templates may use `.chezmoi.homeDir`. There is no OS or work branching; if a template needs a condition, question the need first.
