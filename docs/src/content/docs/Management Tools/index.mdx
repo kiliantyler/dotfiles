@@ -20,5 +20,6 @@ The [Cloudflare Worker](/management-tools/cloudflare) is not part of the machine
 
 1. chezmoi renders files and runs `run_once_before_decrypt-age-key`.
 2. chezmoi runs `run_onchange_after_brew-bundle`, which installs Homebrew and then the Brewfile.
-3. chezmoi runs `run_once_after_set-login-shell`, which needs the bash that step 2 installed.
-4. mise installs each tool the first time its shim is called.
+3. chezmoi runs `run_after_link-skills`, which clones `kiliantyler/skills` and links its skills. Before `gh auth login` the clone fails with a hint and apply carries on; the next apply after login links them.
+4. chezmoi runs `run_once_after_set-login-shell`, which needs the bash that step 2 installed.
+5. mise installs each tool the first time its shim is called.

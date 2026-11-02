@@ -1,0 +1,30 @@
+#!/bin/bash
+# Runs on every apply. Clones kiliantyler/skills if it is missing, links each of its skills into every agent's skill
+# folder, and unlinks repo skills that are gone. Entries that are not repo links (third-party installs, plugin links)
+# are left alone. It never pulls: that repo pushes straight to main from wherever it is edited.
+set -euo pipefail
+checkout="{{ .chezmoi.homeDir }}/git/kiliantyler/skills"
+repo="$checkout/skills"
+if [ ! -d "$checkout/.git" ]; then
+  if ! git clone --quiet https://github.com/kiliantyler/skills.git "$checkout"; then
+    echo "link-skills: could not clone kiliantyler/skills (run 'gh auth login', then 'chezmoi apply')" >&2
+    exit 0
+  fi
+fi
+for dir in "$HOME/.claude/skills" "$HOME/.codex/skills" "$HOME/.agents/skills"; do
+  mkdir -p "$dir"
+  for entry in "$dir"/*; do
+    if [ -L "$entry" ] && [[ "$(readlink "$entry")" == "$repo"/* ]] && [ ! -e "$entry" ]; then
+      unlink "$entry"
+    fi
+  done
+  for skill in "$repo"/*/; do
+    skill="${skill%/}"
+    dest="$dir/$(basename "$skill")"
+    if [ -e "$dest" ] || [ -L "$dest" ]; then
+      [ "$(readlink -f "$dest")" = "$skill" ] || echo "link-skills: $dest is not the repo skill; left as is" >&2
+    else
+      ln -s "$skill" "$dest"
+    fi
+  done
+done

@@ -8,10 +8,11 @@ Personal macOS setup managed with [chezmoi](https://www.chezmoi.io/). macOS only
 .
 ├── dotfiles/                      # chezmoi source (.chezmoiroot points here)
 │   ├── .chezmoi.yaml.tmpl         # age encryption + editor; nothing else
-│   ├── .chezmoiignore / .chezmoiremove
+│   ├── .chezmoiignore
 │   ├── .chezmoiscripts/
 │   │   ├── run_once_before_decrypt-age-key.sh.tmpl   # unlocks key.txt.age once per machine
 │   │   ├── run_onchange_after_brew-bundle.sh.tmpl    # brew bundle install when the Brewfile changes
+│   │   ├── run_after_link-skills.sh.tmpl             # every apply: clone kiliantyler/skills if missing, link its skills
 │   │   └── run_once_after_set-login-shell.sh.tmpl    # chsh to Homebrew bash, launchctl setenv SHELL
 │   ├── dot_bashrc, dot_bash_profile                  # the shell config
 │   ├── dot_zshenv                                    # shim: sources ~/.bashrc for stray zsh callers
