@@ -37,6 +37,10 @@ Introduce a new one only when the sibling cannot express the need without contor
 
 Every code change applies the `test-audit` skill (`/Users/kilian/git/kiliantyler/skills/skills/test-audit/SKILL.md`) before it is committed, and every code review applies it to the diff under review. Each added or changed test passes its authoring gate; one that fails is removed, or its assertion moves to the contract's owner test, in the same change. A change that adds no test names, in its PR or final report, the existing owner test that proves it or the reason no contract needs one. Pruning tests outside the change's own scope is an audit task of its own.
 
+# Dotfiles
+
+Before creating or editing any file under `~`, or installing or removing a package or CLI tool, apply the `dotfiles` skill (`/Users/kilian/git/kiliantyler/skills/skills/dotfiles/SKILL.md`). chezmoi owns the home directory.
+
 # Webpages and web UI
 
 Before building, editing, or reviewing a webpage or web UI, read `/Users/kilian/.codex/skills/codex-web-no-filler/SKILL.md` and apply it silently. It is the shared source for interface-copy and no-cards defaults. Skip it for backend-only work and prose outside an interface.

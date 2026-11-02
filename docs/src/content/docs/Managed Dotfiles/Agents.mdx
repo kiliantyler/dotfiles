@@ -19,7 +19,7 @@ Memory, history, and project state under `~/.claude` are not tracked.
 
 ## Codex
 
-`~/.codex/AGENTS.md` is tracked: the global agent instructions both Codex and Claude Code load in every session. Edit it in place, then run `chezmoi re-add ~/.codex/AGENTS.md`. Nothing else under `~/.codex` is tracked. Codex reads the login shell from the user record and its own secrets from `~/.codex/secrets/`, which `~/.bashrc` also sources so both agents share variables.
+`~/.codex/AGENTS.md` is tracked: the global agent instructions both Codex and Claude Code load in every session. They send every home-directory change through the `dotfiles` skill in `kiliantyler/skills`, which walks the chezmoi workflow in this repo. Edit it in place, then run `chezmoi re-add ~/.codex/AGENTS.md`. Nothing else under `~/.codex` is tracked. Codex reads the login shell from the user record and its own secrets from `~/.codex/secrets/`, which `~/.bashrc` also sources so both agents share variables.
 
 ## VS Code
 
