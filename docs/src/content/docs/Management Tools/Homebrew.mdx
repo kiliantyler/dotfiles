@@ -20,6 +20,12 @@ The list was cut in October 2026 to packages with recent use in shell or agent h
 
 Third-party taps are declared at the top of the file. `brew bundle` refuses an untrusted tap, so a new tap needs `brew trust <tap>` once per machine.
 
+## Tailscale startup
+
+`~/Library/LaunchAgents/com.tailscale.start-at-login.plist` opens the installed Tailscale app in the background at login. It provides a startup path when the app's bundled login helper is awaiting macOS authorization. Tailscale owns its connection preferences and device registration; those app-generated files stay outside chezmoi.
+
+After the first `chezmoi apply`, load it for the current session with `launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.tailscale.start-at-login.plist`. Later logins load it automatically. Removing it requires `launchctl bootout gui/$(id -u)/com.tailscale.start-at-login` and removal of the managed target.
+
 ## Upgrading
 
 ```sh
