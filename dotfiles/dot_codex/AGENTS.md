@@ -44,3 +44,5 @@ Before creating or editing any file under `~`, or installing or removing a packa
 # Webpages and web UI
 
 Before building, editing, or reviewing a webpage or web UI, read `/Users/kilian/.codex/skills/codex-web-no-filler/SKILL.md` and apply it silently. It is the shared source for interface-copy and no-cards defaults. Skip it for backend-only work and prose outside an interface.
+
+Before publishing any page or UI change that has a phone layout, apply the `foldable-web` skill (`/Users/kilian/git/kiliantyler/skills/skills/foldable-web/SKILL.md`): it holds the iPhone Duo viewports and the screenshot matrix to run. A phone layout is published only after every viewport in that matrix has been looked at.
