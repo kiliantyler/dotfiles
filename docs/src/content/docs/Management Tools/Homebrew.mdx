@@ -15,10 +15,12 @@ The list was cut in October 2026 to packages with recent use in shell or agent h
 - **shell and core**: bash, coreutils, diffutils, ripgrep, wget, tmux, mosh, gnupg, ffmpeg
 - **build toolchain**: make, cmake. `ninja`, `pkgconf`, `autoconf`, `automake`, and `libtool` were dropped; add one back if a build asks for it
 - **iOS**: cocoapods, xcodegen, swiftformat, swiftlint, ldid, ipatool
-- **repo hygiene and containers**: gitleaks, actionlint, just, oras, skopeo, flux-operator-mcp, moshi-hook
+- **repo hygiene and containers**: gitleaks, actionlint, just, oras, skopeo, tart, flux-operator-mcp, moshi-hook
 - **apps**: 1Password, Raycast, Ghostty, Visual Studio Code, Docker Desktop, Discord, Fantastical, Rewind, Superwhisper, Shottr, Maccy, Rocket, CodexBar, Backblaze, Tailscale, two Nerd Fonts
 
 Third-party taps are declared at the top of the file. `brew bundle` refuses an untrusted tap, so a new tap needs `brew trust <tap>` once per machine.
+
+Tart runs macOS build and simulator workloads in a separate guest. Keep checkouts, dependencies, temporary files, DerivedData and simulator state on the guest disk; host-shared build directories send filesystem churn back to the host. VM disks, downloaded images and runtime state are application data and are not tracked by chezmoi.
 
 ## Tailscale startup
 

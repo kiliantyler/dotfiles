@@ -2,6 +2,7 @@
 tap "controlplaneio-fluxcd/tap"
 tap "rjyo/moshi"
 tap "steipete/tap"   # codexbar
+tap "openai/tools"  # macOS build VMs
 
 # shell + core
 brew "bash"
@@ -32,6 +33,7 @@ brew "actionlint"
 brew "just"
 brew "oras"
 brew "skopeo"
+brew "openai/tools/tart"
 brew "controlplaneio-fluxcd/tap/flux-operator-mcp"
 brew "rjyo/moshi/moshi-hook"
 
