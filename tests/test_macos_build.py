@@ -13,24 +13,42 @@ import unittest
 RUNNER = Path(__file__).resolve().parents[1] / 'dotfiles/private_dot_local/bin/executable_macos-build'
 
 FAKE_TART = '''#!/usr/bin/env python3
-import json,os,pathlib,signal,subprocess,sys,time
+import json,os,pathlib,signal,subprocess,sys,time,tempfile,shutil
 state=pathlib.Path(os.environ['FAKE_TART_STATE'])
+registry=state.with_name('clones');registry.mkdir(exist_ok=True)
+running=state.with_name('running-name')
 args=sys.argv[1:]
 if args[0]=='list':
     mode=os.environ.get('FAKE_TART_MODE','')
-    print(json.dumps([] if mode=='missing' else [{'Name':'t3-macos-build','Running':mode=='running'}]))
+    items=[] if mode=='missing' else [{'Name':'t3-macos-build','Running':mode=='running'}]
+    items += [{'Name':p.name,'Running':state.exists() and running.exists() and running.read_text()==p.name} for p in registry.iterdir()]
+    print(json.dumps(items))
+elif args[0]=='clone':
+    assert args[1]=='t3-macos-build' and args[2].startswith('t3-macos-build-run-')
+    (registry/args[2]).mkdir()
+    if os.environ.get('FAKE_TART_MODE')=='clone-fails':
+        (registry/args[2]/'unowned').touch();sys.exit(1)
+elif args[0]=='delete':
+    assert args[1].startswith('t3-macos-build-run-'),'the prepared base must never be deleted'
+    if os.environ.get('FAKE_TART_FAIL_CLEANUP'):sys.exit(1)
+    shutil.rmtree(registry/args[1])
 elif args[0]=='run':
-    state.write_text(str(os.getpid()))
+    assert args[-1].startswith('t3-macos-build-run-'),'the prepared base must never boot for a job'
+    state.write_text(str(os.getpid()));running.write_text(args[-1])
     signal.signal(signal.SIGTERM,lambda *_:sys.exit(0))
     while True:time.sleep(1)
 elif args[0]=='stop':
-    os.kill(int(state.read_text()),signal.SIGTERM);state.unlink()
+    if os.environ.get('FAKE_TART_FAIL_STOP'):sys.exit(1)
+    assert running.read_text()==args[1]
+    os.kill(int(state.read_text()),signal.SIGTERM);state.unlink();running.unlink()
 elif args[0]=='exec':
     deadline=time.monotonic()+5
     while not state.exists() and time.monotonic()<deadline:time.sleep(.01)
     if not state.exists():sys.exit(1)
     offset=3 if args[1]=='-i' else 2
-    if os.environ.get('FAKE_TART_FAIL_CLEANUP') and args[offset]=='/bin/rm':sys.exit(1)
+    vm=args[offset-1]
+    if args[offset]=='/usr/bin/mktemp':
+        print(tempfile.mkdtemp(prefix='job-',dir=registry/vm));sys.exit(0)
     child=subprocess.Popen(args[offset:])
     def stop(signum,frame):
         child.terminate();sys.exit(128+signum)
@@ -55,6 +73,8 @@ class MacosBuildTests(unittest.TestCase):
         binary.mkdir()
         (binary / 'tart').write_text(FAKE_TART)
         (binary / 'tart').chmod(0o755)
+        (binary / 'tmutil').write_text('#!/bin/sh\nexit 0\n')
+        (binary / 'tmutil').chmod(0o755)
         self.env = {**os.environ, 'HOME': str(self.home), 'PATH': str(binary) + os.pathsep + os.environ['PATH'], 'FAKE_TART_STATE': str(self.base / 'vm.pid')}
         self.addCleanup(self.stop_fixture_vm)
         self.git('init', '-q')
@@ -112,6 +132,13 @@ p=pathlib.Path('..');(p/'build').mkdir()
         failure = self.invoke('--artifact', 'build/absent.json', '--', sys.executable, '-c', 'raise SystemExit(7)')
         self.assertEqual(failure.returncode, 7, failure.stderr)
         self.assertFalse((self.base / 'vm.pid').exists(), 'a failed job also stops its VM')
+        self.env['FAKE_TART_FAIL_STOP'] = '1'
+        failure = self.invoke('--', sys.executable, '-c', 'raise SystemExit(7)')
+        self.assertEqual(failure.returncode, 7, 'shutdown failure must retain the guest failure')
+        self.assertIn('shutdown deferred', failure.stderr)
+        self.assertTrue((self.base / 'vm.pid').exists(), 'a failed shutdown retains the live owner')
+        pending = self.home / '.local/state/macos-build/pending-vm'
+        self.assertTrue((self.base / 'clones' / pending.read_text()).exists(), 'a live clone must not be deleted')
 
     def test_preflight_refusals_never_run_on_the_host(self):
         for mode in ['missing', 'running', 'busy', 'submodule']:
@@ -128,6 +155,33 @@ p=pathlib.Path('..');(p/'build').mkdir()
                 self.assertNotEqual(result.returncode, 0)
                 self.assertFalse((self.repo / 'src/host-command-ran').exists())
                 self.assertFalse((self.base / 'vm.pid').exists())
+
+    def test_a_running_deferred_clone_keeps_its_owner_and_disk(self):
+        owner = subprocess.Popen(['/bin/sleep', '30'])
+        self.addCleanup(owner.wait)
+        self.addCleanup(owner.kill)
+        name = 't3-macos-build-run-12345'
+        clone = self.base / 'clones' / name
+        clone.mkdir(parents=True)
+        (self.base / 'vm.pid').write_text(str(owner.pid))
+        (self.base / 'running-name').write_text(name)
+        state = self.home / '.local/state/macos-build'
+        state.mkdir(parents=True)
+        pending = state / 'pending-vm'
+        pending.write_text(name)
+        result = self.invoke('--', sys.executable, '-c', 'raise SystemExit(0)')
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('is still running', result.stderr)
+        self.assertIsNone(owner.poll(), 'a deferred record never grants permission to stop a live owner')
+        self.assertTrue(clone.exists())
+        self.assertEqual(pending.read_text(), name)
+
+    def test_failed_clone_does_not_grant_deletion_ownership(self):
+        self.env['FAKE_TART_MODE'] = 'clone-fails'
+        result = self.invoke('--', sys.executable, '-c', 'raise SystemExit(0)')
+        self.assertNotEqual(result.returncode, 0)
+        self.assertEqual(len(list((self.base / 'clones').glob('*/unowned'))), 1)
+        self.assertFalse((self.home / '.local/state/macos-build/pending-vm').exists())
 
     def test_disk_pressure_stops_the_owned_job(self):
         pressure = self.base / 'pressure'
@@ -155,9 +209,9 @@ time.sleep(60)
         self.assertIn('20 GiB', result.stderr)
         self.assertTrue(cancelled.exists(), 'disk pressure cancels the command that this invocation started')
         self.assertFalse((self.base / 'vm.pid').exists(), 'disk pressure also stops the owned VM')
-        pending = self.home / '.local/state/macos-build/pending-job'
-        previous = Path(pending.read_text())
-        self.assertTrue(previous.exists(), 'a racing cleanup retains its owned guest path')
+        pending = self.home / '.local/state/macos-build/pending-vm'
+        previous = self.base / 'clones' / pending.read_text()
+        self.assertTrue(previous.exists(), 'a failed clone cleanup retains only its owned VM')
         self.env.pop('FAKE_TART_FAIL_CLEANUP')
         pressure.unlink()
         command = f'''import pathlib
@@ -169,7 +223,7 @@ pathlib.Path({str(pressure)!r}).touch()
         self.assertIn('20 GiB', result.stderr)
         self.assertFalse((self.repo / 'build/budget.bin').exists(), 'an export cannot consume the host reserve')
         self.assertFalse((self.base / 'vm.pid').exists())
-        self.assertFalse(previous.exists(), 'the next fresh boot reaps the recorded previous job')
+        self.assertFalse(previous.exists(), 'the next admission reaps the recorded stopped clone')
         self.assertFalse(pending.exists())
 
     def test_waiting_jobs_preserve_the_current_owner_and_can_be_cancelled(self):
