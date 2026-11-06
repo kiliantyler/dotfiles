@@ -1,0 +1,167 @@
+#!/usr/bin/env python3
+"""Run a Git working-copy snapshot in the dedicated macOS build VM."""
+import argparse
+import fcntl
+import json
+import os
+from pathlib import Path
+import re
+import shlex
+import shutil
+import subprocess
+import sys
+import tarfile
+import tempfile
+import time
+
+VM = 't3-macos-build'
+
+
+def run(*args, **kwargs):
+    return subprocess.run(args, check=True, **kwargs)
+
+
+def guest(*args, **kwargs):
+    return run('tart', 'exec', VM, *args, **kwargs)
+
+
+def reserve_space(path, required=0):
+    available = shutil.disk_usage(path).free
+    if available - required < 20 * 1024**3:
+        raise RuntimeError(f'Host has {available / 1024**3:.1f} GiB free; keep 20 GiB plus {required / 1024**3:.1f} GiB for this operation')
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--artifact', action='append', default=[], help='Export a repository-relative, Git-ignored output path')
+    parser.add_argument('command', nargs=argparse.REMAINDER)
+    args = parser.parse_args()
+    command = args.command[1:] if args.command[:1] == ['--'] else args.command
+    if not command:
+        parser.error('provide a command after --')
+    root = Path(run('git', 'rev-parse', '--show-toplevel', capture_output=True, text=True).stdout.strip()).resolve()
+    relative = Path.cwd().resolve().relative_to(root)
+    entries = run('git', '-C', str(root), 'ls-files', '--stage', '-z', capture_output=True).stdout.split(b'\0')
+    if any(entry.startswith(b'160000 ') for entry in entries):
+        raise RuntimeError('Submodule working copies are not supported by this snapshot runner')
+    for artifact in args.artifact:
+        path = Path(artifact)
+        if path.is_absolute() or '..' in path.parts or not path.parts:
+            parser.error('artifacts must be repository-relative paths')
+        run('git', '-C', str(root), 'check-ignore', '-q', '--', artifact)
+    state = Path.home() / '.local/state/macos-build'
+    state.mkdir(parents=True, exist_ok=True, mode=0o700)
+    with (state / 'lease').open('a+') as lease:
+        try:
+            fcntl.flock(lease, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError:
+            lease.seek(0)
+            owner = lease.readline().strip()
+            raise RuntimeError(f'The macOS build VM has an active job, owner PID {owner if owner.isdecimal() else "unknown"}; see {state / "lease"}')
+        lease.seek(0)
+        lease.truncate()
+        lease.write(f'{os.getpid()}\n{root}\n')
+        lease.flush()
+        reserve_space(state)
+        pending = state / 'pending-job'
+        vms = json.loads(run('tart', 'list', '--source', 'local', '--format', 'json', capture_output=True, text=True).stdout)
+        vm = next((v for v in vms if v['Name'] == VM), None)
+        if not vm:
+            raise RuntimeError(f'Provision {VM} before running macos-build')
+        if vm['Running']:
+            raise RuntimeError(f'{VM} is already running outside this build lease')
+        with (state / 'vm.log').open('w') as log:
+            process = subprocess.Popen(['tart', 'run', '--no-graphics', '--no-audio', '--no-clipboard', '--no-usb-accessories', VM], stdout=log, stderr=log, start_new_session=True)
+            job = None
+            try:
+                deadline = time.monotonic() + 180
+                while True:
+                    if process.poll() is not None:
+                        raise RuntimeError(f'VM startup failed; see {state / "vm.log"}')
+                    try:
+                        if guest('/usr/bin/uname', '-s', capture_output=True, text=True, timeout=10).stdout.strip() == 'Darwin':
+                            break
+                    except (subprocess.CalledProcessError, subprocess.TimeoutExpired):
+                        pass
+                    if time.monotonic() >= deadline:
+                        raise RuntimeError('The macOS guest did not become ready')
+                    time.sleep(1)
+                if pending.exists():
+                    previous = pending.read_text().strip()
+                    if not re.fullmatch(r'/tmp/macos-build\.[A-Za-z0-9]+', previous):
+                        raise RuntimeError('Invalid pending guest cleanup record')
+                    guest('/bin/rm', '-rf', '--', previous)
+                    pending.unlink()
+                job = guest('/usr/bin/mktemp', '-d', '/tmp/macos-build.XXXXXX', capture_output=True, text=True).stdout.strip()
+                pending.write_text(job)
+                with tempfile.TemporaryDirectory(prefix='macos-build-') as temporary:
+                    temporary = Path(temporary)
+                    run('git', '-C', str(root), 'bundle', 'create', str(temporary / 'repo.bundle'), 'HEAD')
+                    files = run('git', '-C', str(root), 'ls-files', '--cached', '--others', '--exclude-standard', '-z', capture_output=True).stdout.split(b'\0')
+                    with tarfile.open(temporary / 'source.tar', 'w') as archive:
+                        for name in filter(None, files):
+                            path = root / os.fsdecode(name)
+                            if os.path.lexists(path):
+                                archive.add(path, arcname=os.fsdecode(name), recursive=False)
+                    with tarfile.open(temporary / 'input.tar', 'w') as archive:
+                        for name in ['repo.bundle', 'source.tar']:
+                            archive.add(temporary / name, arcname=name)
+                    with (temporary / 'input.tar').open('rb') as archive:
+                        run('tart', 'exec', '-i', VM, '/usr/bin/tar', '-xf', '-', '-C', job, stdin=archive)
+                q = shlex.quote
+                guest('/bin/sh', '-c', f'git clone -q --no-checkout {q(job + "/repo.bundle")} {q(job + "/repo")} && cd {q(job + "/repo")} && git reset --mixed -q HEAD && tar -xf ../source.tar')
+                directory = str(Path(job) / 'repo' / relative)
+                with subprocess.Popen(['tart', 'exec', VM, '/bin/zsh', '-lc', f'cd {q(directory)} && exec {shlex.join(command)}']) as execution:
+                    while True:
+                        try:
+                            code = execution.wait(timeout=1)
+                            break
+                        except subprocess.TimeoutExpired:
+                            try:
+                                reserve_space(state)
+                            except RuntimeError:
+                                execution.terminate()
+                                execution.wait(timeout=10)
+                                raise
+                for artifact in args.artifact:
+                    try:
+                        with tempfile.TemporaryFile() as archive:
+                            with subprocess.Popen(['tart', 'exec', VM, '/usr/bin/tar', '-cf', '-', '-C', job + '/repo', '--', artifact], stdout=subprocess.PIPE) as transfer:
+                                while chunk := transfer.stdout.read(8 * 1024**2):
+                                    try:
+                                        reserve_space(root, len(chunk))
+                                    except RuntimeError:
+                                        transfer.terminate()
+                                        transfer.wait(timeout=10)
+                                        raise
+                                    archive.write(chunk)
+                                if status := transfer.wait():
+                                    raise subprocess.CalledProcessError(status, transfer.args)
+                            archive.seek(0)
+                            with tarfile.open(fileobj=archive) as outputs:
+                                reserve_space(root, sum(member.size for member in outputs.getmembers()))
+                                outputs.extractall(root, filter='data')
+                    except (RuntimeError, subprocess.SubprocessError, tarfile.TarError, OSError) as error:
+                        print(f'macos-build: could not export {artifact}: {error}', file=sys.stderr)
+                        code = code or 1
+                return code
+            finally:
+                if process.poll() is None:
+                    try:
+                        if job:
+                            try:
+                                guest('/bin/rm', '-rf', '--', job, timeout=15)
+                                pending.unlink(missing_ok=True)
+                            except subprocess.SubprocessError as error:
+                                print(f'macos-build: guest cleanup deferred until next boot: {error}', file=sys.stderr)
+                    finally:
+                        run('tart', 'stop', VM, timeout=60)
+                        process.wait(timeout=30)
+
+
+if __name__ == '__main__':
+    try:
+        sys.exit(main())
+    except (RuntimeError, subprocess.SubprocessError, OSError) as error:
+        print(f'macos-build: {error}', file=sys.stderr)
+        sys.exit(1)

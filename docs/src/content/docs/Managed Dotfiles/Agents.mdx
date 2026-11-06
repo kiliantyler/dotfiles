@@ -25,6 +25,19 @@ Shared skills live in [`kiliantyler/skills`](https://github.com/kiliantyler/skil
 
 `~/.codex/AGENTS.md` is tracked: the global agent instructions both Codex and Claude Code load in every session. They send every home-directory change through the `dotfiles` skill in `kiliantyler/skills`, which walks the chezmoi workflow in this repo. Edit it in place, then run `chezmoi re-add ~/.codex/AGENTS.md`. Nothing else under `~/.codex` is tracked. Codex reads the login shell from the user record and its own secrets from `~/.codex/secrets/`, which `~/.bashrc` also sources so both agents share variables.
 
+## macOS build isolation
+
+`~/.local/bin/macos-build` runs a command from the current Git working copy in the dedicated Tart VM `t3-macos-build`. The runner holds one lease, boots the VM without host directories or clipboard sharing, transfers a Git bundle and the actual tracked and untracked source bytes, runs the command at the matching subdirectory, and shuts down the guest after success or failure. Git-ignored files and host credentials are not copied. Submodule working copies are rejected rather than validated without their contents. Install dependencies inside the guest using the repository's existing setup commands.
+
+```sh
+macos-build -- swift test --jobs 4
+macos-build --artifact .build/test.log -- /bin/bash -o pipefail -c 'mkdir -p .build; swift test --jobs 4 2>&1 | tee .build/test.log'
+```
+
+Artifact paths are relative to the repository root and must be Git-ignored. They are the only build outputs copied back to the host. A missing or already-running VM, an occupied lease, or insufficient host disk space fails the request. The lease records its host PID and repository. The runner checks a 20 GiB host reserve before starting, during execution and during artifact export, and stops only its own job if the reserve is crossed. Cleanup races retain the owned guest path for the next fresh boot; they do not replace the original failure. The runner never runs the command locally as a fallback. Its disposable guest checkout preserves the source HEAD and pending edits. Repository commits, pushes, tracker writes and release signing stay on the host.
+
+The VM image, guest disk, lease and runtime log are application state. They stay outside chezmoi. The runner and its command policy are managed files. Run its fixture tests with `python3 -m unittest discover -s tests -p 'test_macos_build.py'` from the dotfiles repository.
+
 ## VS Code
 
 `~/Library/Application Support/Code/User/settings.json` is tracked. VS Code rewrites it when settings change in the UI, so after a change run:

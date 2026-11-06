@@ -28,6 +28,12 @@ Tart runs macOS build and simulator workloads in a separate guest. Keep checkout
 
 After the first `chezmoi apply`, load it for the current session with `launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.tailscale.start-at-login.plist`. Later logins load it automatically. Removing it requires `launchctl bootout gui/$(id -u)/com.tailscale.start-at-login` and removal of the managed target.
 
+## Filesystem event guard
+
+`run_onchange_after_fseventsd-watchdog.sh` installs the reviewed, pinned [fseventsd watchdog](https://github.com/Hixie/contraptions/tree/main/fseventsd-watchdog). It verifies the script and plist template checksums before installing a root-owned `/Library/LaunchDaemons/local.fseventsd-watchdog.plist`. The script is embedded in that plist; edits to user-writable downloads do not change the root process. Applying this installer requires noninteractive administrator access.
+
+The watchdog sends SIGTERM only when the system daemon logs its event-table warning and the message's PID matches launchd's current daemon. It records actions and errors in `/var/log/fseventsd-watchdog.log`. It is a warning-triggered recovery guard, not an OS patch or a memory monitor. A warning that has already aged out of the stored log will not be recovered by its startup search. VM build isolation remains independent of this guard.
+
 ## Upgrading
 
 ```sh

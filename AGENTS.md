@@ -12,6 +12,7 @@ Personal macOS setup managed with [chezmoi](https://www.chezmoi.io/). macOS only
 │   ├── .chezmoiscripts/
 │   │   ├── run_once_before_decrypt-age-key.sh.tmpl   # unlocks key.txt.age once per machine
 │   │   ├── run_onchange_after_brew-bundle.sh.tmpl    # brew bundle install when the Brewfile changes
+│   │   ├── run_onchange_after_fseventsd-watchdog.sh  # pinned root-owned filesystem event guard
 │   │   ├── run_onchange_after_link-skills.sh.tmpl    # clone kiliantyler/skills if missing, link its skills
 │   │   └── run_once_after_set-login-shell.sh.tmpl    # chsh to Homebrew bash, launchctl setenv SHELL
 │   ├── dot_bashrc, dot_bash_profile                  # the shell config
@@ -25,12 +26,14 @@ Personal macOS setup managed with [chezmoi](https://www.chezmoi.io/). macOS only
 │   │   ├── gh/, ghostty/, sops/age/
 │   ├── dot_claude/                                   # Claude Code settings, CLAUDE.md, skills
 │   ├── dot_codex/AGENTS.md                           # global agent instructions (Codex + Claude Code)
+│   ├── private_dot_local/bin/executable_macos-build   # isolated macOS build runner
 │   └── private_Library/
 │       ├── Application Support/Code/User/settings.json
 │       └── LaunchAgents/com.tailscale.start-at-login.plist
 ├── cloudflare/                    # Worker behind install.dotfiles.wiki (generic, serves any GitHub user)
 ├── docs/                          # Astro Starlight wiki at dotfiles.wiki (bun)
 ├── references/chezmoi/            # chezmoi reference for agents: naming, scripts, templates, externals, commands
+├── tests/                        # macOS build runner fixture tests
 ├── install.sh                     # macOS bootstrap: Xcode CLT -> chezmoi -> init --apply
 └── Taskfile.yaml                  # `task docs:serve`
 ```

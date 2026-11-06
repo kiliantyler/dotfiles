@@ -37,6 +37,12 @@ Introduce a new one only when the sibling cannot express the need without contor
 
 Every code change applies the `test-audit` skill (`/Users/kilian/git/kiliantyler/skills/skills/test-audit/SKILL.md`) before it is committed, and every code review applies it to the diff under review. Each added or changed test passes its authoring gate; one that fails is removed, or its assertion moves to the contract's owner test, in the same change. A change that adds no test names, in its PR or final report, the existing owner test that proves it or the reason no contract needs one. Pruning tests outside the change's own scope is an audit task of its own.
 
+# macOS validation isolation
+
+On macOS hosts with the local Tart VM `t3-macos-build`, run full local test suites, Swift/Xcode validation builds and simulator suites through `macos-build -- <the repository's existing command>` from the same working directory. Install dependencies with the repository's setup commands inside the guest. Use `--artifact <Git-ignored repository-relative path>` for required results. Focused synthetic tooling tests that neither build an App nor use a live simulator may run locally.
+
+An occupied lease or host-space refusal is an admission failure: inspect the recorded owner or capacity gate and resolve it before validation. Do not fall back to host execution. Repository publication, release signing, physical-device validation and human approval gates retain their existing workflows.
+
 # Dotfiles
 
 Before creating or editing any file under `~`, or installing or removing a package or CLI tool, apply the `dotfiles` skill (`/Users/kilian/git/kiliantyler/skills/skills/dotfiles/SKILL.md`). chezmoi owns the home directory.

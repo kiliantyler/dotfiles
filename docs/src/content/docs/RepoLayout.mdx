@@ -14,6 +14,7 @@ import { FileTree } from "@astrojs/starlight/components";
   - .chezmoiscripts/
     - run_once_before_decrypt-age-key.sh.tmpl
     - run_onchange_after_brew-bundle.sh.tmpl
+    - run_onchange_after_fseventsd-watchdog.sh
     - run_onchange_after_link-skills.sh.tmpl
     - run_once_after_set-login-shell.sh.tmpl
   - dot_bashrc
@@ -39,6 +40,7 @@ import { FileTree } from "@astrojs/starlight/components";
     - settings.json
     - skills/nano-banana/SKILL.md
   - dot_codex/AGENTS.md
+  - private_dot_local/bin/executable_macos-build
   - private_Library/Application Support/Code/User/settings.json
   - private_Library/LaunchAgents/com.tailscale.start-at-login.plist
 - cloudflare/ the install.dotfiles.wiki Worker
@@ -49,6 +51,7 @@ import { FileTree } from "@astrojs/starlight/components";
   - src/content/docs/
   - assets/Dottie/
 - references/chezmoi/ chezmoi notes agents read before changing names, scripts, templates or externals
+- tests/ macOS build runner fixture tests
 - .github/workflows/
   - docs-deploy.yaml
   - docs-test-deploy.yaml
