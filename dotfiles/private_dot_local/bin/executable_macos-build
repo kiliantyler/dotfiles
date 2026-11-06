@@ -34,6 +34,7 @@ def reserve_space(path, required=0):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--artifact', action='append', default=[], help='Export a repository-relative, Git-ignored output path')
+    parser.add_argument('--wait', action='store_true', help='Wait for the current build lease before admission')
     parser.add_argument('command', nargs=argparse.REMAINDER)
     args = parser.parse_args()
     command = args.command[1:] if args.command[:1] == ['--'] else args.command
@@ -57,7 +58,11 @@ def main():
         except BlockingIOError:
             lease.seek(0)
             owner = lease.readline().strip()
-            raise RuntimeError(f'The macOS build VM has an active job, owner PID {owner if owner.isdecimal() else "unknown"}; see {state / "lease"}')
+            message = f'The macOS build VM has an active job, owner PID {owner if owner.isdecimal() else "unknown"}; see {state / "lease"}'
+            if not args.wait:
+                raise RuntimeError(message)
+            print(f'Waiting: {message}', file=sys.stderr, flush=True)
+            fcntl.flock(lease, fcntl.LOCK_EX)
         lease.seek(0)
         lease.truncate()
         lease.write(f'{os.getpid()}\n{root}\n')

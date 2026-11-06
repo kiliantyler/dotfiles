@@ -7,6 +7,7 @@ from pathlib import Path
 import subprocess
 import sys
 import tempfile
+import time
 import unittest
 
 RUNNER = Path(__file__).resolve().parents[1] / 'dotfiles/private_dot_local/bin/executable_macos-build'
@@ -82,7 +83,7 @@ class MacosBuildTests(unittest.TestCase):
             except ProcessLookupError:
                 pass
 
-    def invoke(self, *args, bootstrap=None):
+    def invoke(self, *args, bootstrap=None, start=False):
         bootstrap = bootstrap or '''import shutil,runpy,sys
 original=shutil.disk_usage
 shutil.disk_usage=lambda path:original(path)._replace(free=40*1024**3)
@@ -90,6 +91,8 @@ sys.argv=sys.argv[1:]
 runpy.run_path(sys.argv[0],run_name='__main__')
 '''
         prefix = [sys.executable, '-c', bootstrap]
+        if start:
+            return subprocess.Popen([*prefix, str(RUNNER), *args], cwd=self.repo / 'src', env=self.env, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         return subprocess.run([*prefix, str(RUNNER), *args], cwd=self.repo / 'src', env=self.env, capture_output=True, text=True, timeout=30)
 
     def test_snapshot_artifact_and_guest_exit_status(self):
@@ -168,6 +171,44 @@ pathlib.Path({str(pressure)!r}).touch()
         self.assertFalse((self.base / 'vm.pid').exists())
         self.assertFalse(previous.exists(), 'the next fresh boot reaps the recorded previous job')
         self.assertFalse(pending.exists())
+
+    def test_waiting_jobs_preserve_the_current_owner_and_can_be_cancelled(self):
+        ready, release = self.base / 'ready', self.base / 'release'
+        cancelled = self.base / 'cancelled-waiter-ran'
+        order = self.base / 'order'
+        command = f'''import pathlib,time
+pathlib.Path({str(ready)!r}).touch()
+while not pathlib.Path({str(release)!r}).exists():time.sleep(.01)
+pathlib.Path({str(order)!r}).write_text('first\\n')
+'''
+        processes = [self.invoke('--', sys.executable, '-c', command, start=True)]
+        try:
+            deadline = time.monotonic() + 10
+            while not ready.exists():
+                self.assertIsNone(processes[0].poll())
+                self.assertLess(time.monotonic(), deadline)
+                time.sleep(.01)
+            waiter = self.invoke('--wait', '--', sys.executable, '-c', f"open({str(cancelled)!r},'w').close()", start=True)
+            processes.append(waiter)
+            self.assertTrue(waiter.stderr.readline().startswith('Waiting:'))
+            waiter.terminate(); waiter.communicate(timeout=5)
+            self.assertFalse(cancelled.exists())
+            self.assertIsNone(processes[0].poll(), 'cancelling a waiter leaves the owner alive')
+            second = self.invoke('--wait', '--', sys.executable, '-c', f"open({str(order)!r},'a').write('second\\n')", start=True)
+            processes.append(second)
+            self.assertTrue(second.stderr.readline().startswith('Waiting:'))
+            release.touch()
+            for process in [processes[0], second]:
+                _, stderr = process.communicate(timeout=30)
+                self.assertEqual(process.returncode, 0, stderr)
+            self.assertEqual(order.read_text().splitlines(), ['first', 'second'])
+            self.assertFalse((self.base / 'vm.pid').exists())
+        finally:
+            release.touch()
+            for process in processes:
+                if process.poll() is None:
+                    process.terminate()
+                process.communicate(timeout=10)
 
 
 if __name__ == '__main__':
