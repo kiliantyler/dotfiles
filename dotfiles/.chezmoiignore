@@ -2,6 +2,8 @@
 key.txt.age
 
 {{ if .isWork }}
+.chezmoiscripts/fseventsd-watchdog.sh
+.local/bin/macos-build
 Library/LaunchAgents/com.tailscale.start-at-login.plist
 {{ else }}
 .aws
