@@ -20,12 +20,14 @@ Personal macOS setup managed with [chezmoi](https://www.chezmoi.io/). macOS only
 │   ├── private_dot_gitconfig.tmpl                    # one file, ssh signing with ~/.ssh/id_ed25519
 │   ├── private_dot_ssh/private_config                # Apple ssh-agent + Keychain; 1Password only for unifi-dm
 │   ├── private_dot_config/
-│   │   ├── homebrew/Brewfile                         # source of truth for brew formulae and casks
-│   │   ├── mise/config.toml                          # source of truth for CLI tools
+│   │   ├── homebrew/Brewfile.tmpl                    # source of truth for brew formulae and casks
+│   │   ├── mise/config.toml.tmpl                     # source of truth for CLI tools ([[ ]] delimiters)
+│   │   ├── private_work/                             # work-only ssh, git, bash includes (encrypted)
 │   │   ├── git/{allowed-signers,ignore}
 │   │   ├── gh/, ghostty/, sops/age/
 │   ├── dot_claude/                                   # Claude Code settings, CLAUDE.md, skills
-│   ├── dot_codex/AGENTS.md                           # global agent instructions (Codex + Claude Code)
+│   ├── dot_codex/AGENTS.md.tmpl                      # global agent instructions (Codex + Claude Code)
+│   ├── .work/                                        # encrypted work variants of the Claude/Codex files
 │   ├── private_dot_local/bin/executable_macos-build   # isolated macOS build runner
 │   └── private_Library/
 │       ├── Application Support/Code/User/settings.json
@@ -44,7 +46,8 @@ Before writing or changing a source name prefix, script, template or external, r
 
 
 - chezmoi naming: `dot_` = dotfile, `private_` = 0600/0700, `executable_` = +x, `.tmpl` = Go template, `.age` = age-encrypted.
-- Templates may use `.chezmoi.homeDir`. There is no OS or work branching; if a template needs a condition, question the need first.
+- Templates may use `.chezmoi.homeDir` and `.isWork` (hostname matches `^L\d+-`). There is no OS branching; if a template needs a condition, question the need first.
+- Work profile: work-only files are age-encrypted and listed under `{{ else }}` in `.chezmoiignore`. The shared ssh, git and bash configs pick up `~/.config/work/{ssh_config,gitconfig,env.sh}` through an include that is a no-op where the file is absent. `dot_claude/CLAUDE.md`, `dot_claude/private_settings.json` and `dot_codex/AGENTS.md` are templates whose work branch decrypts `dotfiles/.work/*.age`; after changing the live work file, refresh it with `chezmoi encrypt <live file> > dotfiles/.work/<name>.age`. `Brewfile` and `mise/config.toml` are templates, so `chezmoi re-add` does not update them; edit the source.
 - Secrets never render from a template. Runtime secrets live in `~/.config/secrets.env` (untracked, 0600), sourced by `~/.bashrc`. Do not call `onepassword*` template functions; they prompt 1Password on every `chezmoi status`.
 - Packages: edit `Brewfile` or `mise/config.toml`, then `chezmoi apply`. The brew script installs only; removals are `brew uninstall` by hand.
 - Shell: bash 5 from Homebrew. PATH puts mise shims first so tools resolve in `bash -c` without `mise activate`.

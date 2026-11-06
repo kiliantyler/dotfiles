@@ -1,0 +1,5 @@
+{{ if .isWork -}}
+{{ include ".work/claude-CLAUDE.md.age" | decrypt }}
+{{- else -}}
+@~/.codex/AGENTS.md
+{{ end -}}

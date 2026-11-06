@@ -13,3 +13,6 @@ status:
   pathStyle: relative
 template:
   options: [missingkey=error]
+data:
+  # Work laptops are named L<digits>-<name>
+  isWork: {{ regexMatch "^L\\d+-" .chezmoi.hostname }}

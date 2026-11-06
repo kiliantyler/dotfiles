@@ -1,3 +1,6 @@
+{{ if .isWork -}}
+{{ include ".work/claude-settings.json.age" | decrypt }}
+{{- else -}}
 {
   "includeCoAuthoredBy": false,
   "enabledPlugins": {
@@ -27,3 +30,4 @@
     "CLAUDE_CODE_SHELL": "/opt/homebrew/bin/bash"
   }
 }
+{{ end -}}

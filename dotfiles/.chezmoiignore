@@ -1,2 +1,14 @@
 .DS_Store
 key.txt.age
+
+{{ if .isWork }}
+Library/LaunchAgents/com.tailscale.start-at-login.plist
+{{ else }}
+.aws
+.config/1Password
+.config/.gitconfig
+.config/pip
+.config/ssh
+.config/work
+.ssh/ni.ssh
+{{ end }}

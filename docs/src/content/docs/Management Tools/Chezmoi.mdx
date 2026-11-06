@@ -27,7 +27,7 @@ sidebar:
 
 ## Templates
 
-Only four files are templates, and each uses one value: `.chezmoi.homeDir`. There is no OS, hostname, or work branching. The config template itself is fifteen lines.
+Templates use two values: `.chezmoi.homeDir` and `.isWork`, which is true when the hostname matches `^L\d+-`. Work machines get extra encrypted files and a reduced Brewfile; there is no OS branching.
 
 ```yaml
 encryption: age

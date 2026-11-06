@@ -1,3 +1,6 @@
+{{ if .isWork -}}
+{{ include ".work/codex-AGENTS.md.age" | decrypt }}
+{{- else -}}
 Apply applicable skills silently. Keep commentary focused on task progress, decisions, and results. Refer to a skill only when I ask, the skill blocks continuation, or it requires user action.
 
 When I ask a follow-up such as "Did you open a ticket?", "Did you run the tests?", or "Why haven't you done X?", use the task context to recognize a request to correct an omitted step. Verify whether it was done; if missing, complete it in the same turn and report the result. For example, check for existing ticket coverage before creating the missing ticket. A bare "No" or an offer to do it later is insufficient. Treat a clear corrective question as authorization for that step, while preserving explicit approval gates and duplicate-ticket rules. If I explicitly ask only for status or explanation, answer without taking action. If a real blocker prevents completion, state the blocker and the specific input needed.
@@ -52,3 +55,4 @@ Before creating or editing any file under `~`, or installing or removing a packa
 Before building, editing, or reviewing a webpage or web UI, read `/Users/kilian/.codex/skills/codex-web-no-filler/SKILL.md` and apply it silently. It is the shared source for interface-copy and no-cards defaults. Skip it for backend-only work and prose outside an interface.
 
 Before publishing any page or UI change that has a phone layout, apply the `foldable-web` skill (`/Users/kilian/git/kiliantyler/skills/skills/foldable-web/SKILL.md`): it holds the iPhone Duo viewports and the screenshot matrix to run. A phone layout is published only after every viewport in that matrix has been looked at.
+{{ end -}}

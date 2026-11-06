@@ -1,3 +1,4 @@
+# chezmoi:template:left-delimiter="[[" right-delimiter="]]"
 [settings]
 experimental = true
 yes = true
@@ -26,7 +27,7 @@ jq = "latest"
 kubectl = "latest"
 kubectx = "latest"
 kustomize = "latest"
-node = "24"
+node = "[[ if .isWork ]]22[[ else ]]24[[ end ]]"
 pnpm = "12.16.1"
 python = "latest"
 rust = { version = "latest", install_env = { ASDF_RUST_PROFILE = "minimal" }, postinstall = 'RUSTUP_HOME="$MISE_TOOL_INSTALL_PATH" CARGO_HOME="$MISE_TOOL_INSTALL_PATH" rustup component add rustfmt clippy' }
@@ -41,6 +42,16 @@ terragrunt = "latest"
 usage = "latest"
 uv = "latest"
 yamlfmt = "latest"
-yarn = "latest"
+yarn = "[[ if .isWork ]]1.22.22[[ else ]]latest[[ end ]]"
 yq = "latest"
 "npm:@google/gemini-cli" = "latest"
+[[- if .isWork ]]
+awscli = "latest"
+k9s = "latest"
+krew = "latest"
+kubecolor = "latest"
+ktlint = "latest"
+powershell = "7.6.6"
+ruff = "latest"
+shfmt = "latest"
+[[- end ]]

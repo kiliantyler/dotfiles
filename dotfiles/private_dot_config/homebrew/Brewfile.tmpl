@@ -1,8 +1,10 @@
 # Applied by .chezmoiscripts/run_onchange_after_brew-bundle.sh.tmpl (install only, never cleanup).
 tap "controlplaneio-fluxcd/tap"
+{{- if not .isWork }}
 tap "rjyo/moshi"
 tap "steipete/tap"   # codexbar
 tap "openai/tools"  # macOS build VMs
+{{- end }}
 
 # shell + core
 brew "bash"
@@ -11,13 +13,41 @@ brew "diffutils"
 brew "ripgrep"
 brew "wget"
 brew "tmux"
-brew "mosh"
 brew "gnupg"
 brew "ffmpeg"
 
 # build toolchain
 brew "make"
 brew "cmake"
+
+# repo hygiene + containers
+brew "gitleaks"
+brew "actionlint"
+brew "just"
+brew "oras"
+brew "skopeo"
+brew "controlplaneio-fluxcd/tap/flux-operator-mcp"
+
+# apps
+cask "docker-desktop"
+cask "fantastical"
+cask "font-fira-code-nerd-font"
+cask "font-opendyslexic-nerd-font"
+cask "ghostty"
+cask "raycast"
+cask "shottr"
+cask "visual-studio-code"
+{{- if .isWork }}
+
+# work
+brew "libpq"   # psql, pg_dump; keg-only, PATH set in ~/.config/work/env.sh
+cask "1password"
+{{- else }}
+
+# personal
+brew "mosh"
+brew "rjyo/moshi/moshi-hook"
+brew "openai/tools/tart"
 
 # ios
 brew "cocoapods"
@@ -27,31 +57,13 @@ brew "swiftlint"
 brew "ldid"
 brew "ipatool"
 
-# repo hygiene + containers
-brew "gitleaks"
-brew "actionlint"
-brew "just"
-brew "oras"
-brew "skopeo"
-brew "openai/tools/tart"
-brew "controlplaneio-fluxcd/tap/flux-operator-mcp"
-brew "rjyo/moshi/moshi-hook"
-
-# apps
 cask "1password@beta"
 cask "backblaze"
 cask "codexbar"
 cask "discord"
-cask "docker-desktop"
-cask "fantastical"
-cask "font-fira-code-nerd-font"
-cask "font-opendyslexic-nerd-font"
-cask "ghostty"
 cask "maccy"
-cask "raycast"
 cask "rewind"
 cask "rocket"
-cask "shottr"
 cask "superwhisper"
 cask "tailscale-app"
-cask "visual-studio-code"
+{{- end }}

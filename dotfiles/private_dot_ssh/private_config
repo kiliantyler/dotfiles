@@ -1,3 +1,5 @@
+Include ~/.config/work/ssh_config
+
 # Apple's ssh-agent (launchd) plus Keychain. No 1Password agent by default.
 Host *
   AddKeysToAgent yes
