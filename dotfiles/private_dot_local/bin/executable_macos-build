@@ -33,6 +33,21 @@ def reserve_space(path, required=0):
         raise RuntimeError(f'Host has {available / 1024**3:.1f} GiB free; keep 20 GiB plus {required / 1024**3:.1f} GiB for this operation')
 
 
+def start_postgres(job):
+    prefix = guest('/bin/zsh', '-lc', 'brew --prefix postgresql@18', capture_output=True, text=True).stdout.strip()
+    binary = prefix + '/bin/'
+    data = job + '/postgres'
+    locale = ['/usr/bin/env', 'LC_ALL=en_US.UTF-8']
+    guest(*locale, binary + 'initdb', '-D', data, '-U', 'build', '-A', 'trust', '-E', 'UTF8', stdout=subprocess.DEVNULL)
+    options = shlex.join(['-h', '127.0.0.1', '-p', '5432', '-k', job])
+    try:
+        guest(*locale, binary + 'pg_ctl', '-D', data, '-l', job + '/postgres.log', '-o', options, '-w', 'start', stdout=subprocess.DEVNULL)
+    except subprocess.CalledProcessError:
+        subprocess.run(['tart', 'exec', VM, '/usr/bin/tail', '-n', '50', job + '/postgres.log'])
+        raise
+    return 'postgres://build@127.0.0.1:5432/postgres'
+
+
 @contextmanager
 def build_vm(state):
     if (state / 'pending-job').exists():
@@ -101,6 +116,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--artifact', action='append', default=[], help='Export a repository-relative, Git-ignored output path')
     parser.add_argument('--wait', action='store_true', help='Wait for the current build lease before admission')
+    parser.add_argument('--postgres', action='store_true', help='Start a private guest PostgreSQL 18 cluster and set TEST_DATABASE_URL')
     parser.add_argument('command', nargs=argparse.REMAINDER)
     args = parser.parse_args()
     command = args.command[1:] if args.command[:1] == ['--'] else args.command
@@ -152,7 +168,8 @@ def main():
             q = shlex.quote
             guest('/bin/sh', '-c', f'git clone -q --no-checkout {q(job + "/repo.bundle")} {q(job + "/repo")} && cd {q(job + "/repo")} && git reset --mixed -q HEAD && tar -xf ../source.tar')
             directory = str(Path(job) / 'repo' / relative)
-            with subprocess.Popen(['tart', 'exec', VM, '/bin/zsh', '-lc', f'cd {q(directory)} && exec {shlex.join(command)}']) as execution:
+            environment = ['/usr/bin/env', 'TEST_DATABASE_URL=' + start_postgres(job)] if args.postgres else []
+            with subprocess.Popen(['tart', 'exec', VM, *environment, '/bin/zsh', '-lc', f'cd {q(directory)} && exec {shlex.join(command)}']) as execution:
                 while True:
                     try:
                         code = execution.wait(timeout=1)

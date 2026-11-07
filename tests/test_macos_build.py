@@ -75,7 +75,24 @@ class MacosBuildTests(unittest.TestCase):
         (binary / 'tart').chmod(0o755)
         (binary / 'tmutil').write_text('#!/bin/sh\nexit 0\n')
         (binary / 'tmutil').chmod(0o755)
+        (binary / 'brew').write_text('#!/bin/sh\nprintf "%s\\n" "$FAKE_POSTGRES_PREFIX"\n')
+        (binary / 'brew').chmod(0o755)
+        postgres = self.base / 'postgres-tools' / 'bin'
+        postgres.mkdir(parents=True)
+        for name in ['initdb', 'pg_ctl']:
+            (postgres / name).write_text('''#!/usr/bin/env python3
+import os,pathlib,sys
+assert os.environ.get('LC_ALL')=='en_US.UTF-8','PostgreSQL needs an explicit valid guest locale'
+data=pathlib.Path(sys.argv[sys.argv.index('-D')+1])
+if os.environ.get('FAKE_POSTGRES_FAIL')==pathlib.Path(sys.argv[0]).name:
+    (data.parent/'postgres.log').write_text('fixture PostgreSQL startup failed')
+    sys.exit(8)
+if pathlib.Path(sys.argv[0]).name=='initdb':data.mkdir()
+else:(data/'started').touch()
+''')
+            (postgres / name).chmod(0o755)
         self.env = {**os.environ, 'HOME': str(self.home), 'PATH': str(binary) + os.pathsep + os.environ['PATH'], 'FAKE_TART_STATE': str(self.base / 'vm.pid')}
+        self.env['FAKE_POSTGRES_PREFIX'] = str(postgres.parent)
         self.addCleanup(self.stop_fixture_vm)
         self.git('init', '-q')
         self.git('config', 'user.email', 'fixture@example.invalid')
@@ -155,6 +172,26 @@ p=pathlib.Path('..');(p/'build').mkdir()
                 self.assertNotEqual(result.returncode, 0)
                 self.assertFalse((self.repo / 'src/host-command-ran').exists())
                 self.assertFalse((self.base / 'vm.pid').exists())
+
+    def test_postgres_service_precedes_the_command_and_stays_in_its_clone(self):
+        self.env['TEST_DATABASE_URL'] = 'host-value-must-not-be-reused'
+        command = '''import json,os,pathlib
+p=pathlib.Path('../build');p.mkdir()
+(p/'postgres.json').write_text(json.dumps({'url':os.environ['TEST_DATABASE_URL'],'started':(pathlib.Path.cwd().parents[1]/'postgres/started').exists()}))
+'''
+        result = self.invoke('--postgres', '--artifact', 'build/postgres.json', '--', sys.executable, '-c', command)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(json.loads((self.repo / 'build/postgres.json').read_text()), {'url': 'postgres://build@127.0.0.1:5432/postgres', 'started': True})
+        self.assertEqual(list((self.base / 'clones').iterdir()), [], 'service data is discarded with the owned VM')
+        for stage in ['initdb', 'pg_ctl']:
+            with self.subTest(stage=stage):
+                self.env['FAKE_POSTGRES_FAIL'] = stage
+                result = self.invoke('--postgres', '--', sys.executable, '-c', "open('service-failure-command-ran','w').close()")
+                self.assertNotEqual(result.returncode, 0)
+                self.assertFalse((self.repo / 'src/service-failure-command-ran').exists())
+                self.assertFalse((self.base / 'vm.pid').exists())
+                if stage == 'pg_ctl':
+                    self.assertIn('fixture PostgreSQL startup failed', result.stdout)
 
     def test_a_running_deferred_clone_keeps_its_owner_and_disk(self):
         owner = subprocess.Popen(['/bin/sleep', '30'])

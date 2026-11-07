@@ -33,7 +33,10 @@ Shared skills live in [`kiliantyler/skills`](https://github.com/kiliantyler/skil
 macos-build -- swift test --jobs 4
 macos-build --wait -- swift test --jobs 4
 macos-build --artifact .build/test.log -- /bin/bash -o pipefail -c 'mkdir -p .build; swift test --jobs 4 2>&1 | tee .build/test.log'
+macos-build --postgres -- /bin/bash -c 'pnpm install --frozen-lockfile && pnpm check'
 ```
+
+`--postgres` creates a fresh PostgreSQL 18 cluster for that job, waits for it to start, and sets `TEST_DATABASE_URL` for the command. It listens only on guest loopback, uses the job's private directory for data and logs, and is discarded with the owned VM. Prepare the base image with `brew install postgresql@18` inside the guest; the host needs no PostgreSQL service. Install the repository's pinned Node and package-manager versions inside the guest too. This option supplies a database for test suites that support `TEST_DATABASE_URL`; Docker-specific tests still require a Docker-capable runner.
 
 Artifact paths are relative to the repository root and must be Git-ignored. They are the only build outputs copied back to the host. A missing or already-running base, an occupied lease, or insufficient host disk space fails the request. `--wait` instead waits for the recorded lease owner; cancelling a waiter leaves the owner's job alone. The lease records its host PID and repository. The runner checks a 20 GiB host reserve before starting, during execution and during artifact export, and stops only its own clone if the reserve is crossed. Failed deletion retains the exact job VM for later cleanup; a still-running deferred VM requires owner inspection and is never taken over. Cleanup errors do not replace the original failure. Job clones are excluded from Time Machine backup copies. The runner never runs the command locally as a fallback. Its disposable guest checkout preserves the source HEAD and pending edits. Repository commits, pushes, tracker writes and release signing stay on the host.
 

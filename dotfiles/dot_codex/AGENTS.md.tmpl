@@ -44,6 +44,8 @@ Every code change applies the `test-audit` skill (`/Users/kilian/git/kiliantyler
 
 On macOS hosts with the local Tart VM `t3-macos-build`, run full local test suites, Swift/Xcode validation builds and simulator suites through `macos-build -- <the repository's existing command>` from the same working directory. Install dependencies with the repository's setup commands inside the guest. Use `--artifact <Git-ignored repository-relative path>` for required results. Focused synthetic tooling tests that neither build an App nor use a live simulator may run locally.
 
+For PostgreSQL-dependent suites that support `TEST_DATABASE_URL`, use `macos-build --postgres -- <command>` for a fresh PostgreSQL 18 service inside the job VM. Prepare the repository's pinned toolchain and required services before its full check. A missing dependency leaves local validation unfinished; required CI does not replace that check.
+
 An occupied lease or host-space refusal is an admission failure: inspect the recorded owner or capacity gate and resolve it before validation. Do not fall back to host execution. Repository publication, release signing, physical-device validation and human approval gates retain their existing workflows.
 
 # Dotfiles
