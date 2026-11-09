@@ -10,3 +10,4 @@
 *.agekey
 *.pem
 *.decrypted~*
+__pycache__/

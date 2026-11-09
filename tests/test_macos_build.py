@@ -13,15 +13,17 @@ import unittest
 RUNNER = Path(__file__).resolve().parents[1] / 'dotfiles/private_dot_local/bin/executable_macos-build'
 
 FAKE_TART = '''#!/usr/bin/env python3
-import json,os,pathlib,signal,subprocess,sys,time,tempfile,shutil
+import json,os,pathlib,signal,subprocess,sys,time,tempfile,shutil,fcntl
 state=pathlib.Path(os.environ['FAKE_TART_STATE'])
 registry=state.with_name('clones');registry.mkdir(exist_ok=True)
 running=state.with_name('running-name')
 args=sys.argv[1:]
+control=state.with_name('control').open('a+')
+fcntl.flock(control,fcntl.LOCK_EX)
 if args[0]=='list':
     mode=os.environ.get('FAKE_TART_MODE','')
     items=[] if mode=='missing' else [{'Name':'t3-macos-build','Running':mode=='running'}]
-    items += [{'Name':p.name,'Running':state.exists() and running.exists() and running.read_text()==p.name} for p in registry.iterdir()]
+    items += [{'Name':p.name,'Running':(p/'pid').exists() or (state.exists() and running.exists() and running.read_text()==p.name)} for p in registry.iterdir()]
     print(json.dumps(items))
 elif args[0]=='clone':
     assert args[1]=='t3-macos-build' and args[2].startswith('t3-macos-build-run-')
@@ -34,19 +36,27 @@ elif args[0]=='delete':
     shutil.rmtree(registry/args[1])
 elif args[0]=='run':
     assert args[-1].startswith('t3-macos-build-run-'),'the prepared base must never boot for a job'
+    (registry/args[-1]/'pid').write_text(str(os.getpid()))
     state.write_text(str(os.getpid()));running.write_text(args[-1])
     signal.signal(signal.SIGTERM,lambda *_:sys.exit(0))
+    fcntl.flock(control,fcntl.LOCK_UN)
     while True:time.sleep(1)
 elif args[0]=='stop':
     if os.environ.get('FAKE_TART_FAIL_STOP'):sys.exit(1)
-    assert running.read_text()==args[1]
-    os.kill(int(state.read_text()),signal.SIGTERM);state.unlink();running.unlink()
+    pid=registry/args[1]/'pid'
+    os.kill(int(pid.read_text()),signal.SIGTERM);pid.unlink()
+    other=list(registry.glob('*/pid'))
+    if other:state.write_text(other[0].read_text());running.write_text(other[0].parent.name)
+    else:state.unlink();running.unlink()
+elif args[0]=='set':
+    assert args[1].startswith('t3-macos-build-run-') and args[2:]==['--cpu','4','--memory','8192']
 elif args[0]=='exec':
-    deadline=time.monotonic()+5
-    while not state.exists() and time.monotonic()<deadline:time.sleep(.01)
-    if not state.exists():sys.exit(1)
+    fcntl.flock(control,fcntl.LOCK_UN)
     offset=3 if args[1]=='-i' else 2
     vm=args[offset-1]
+    deadline=time.monotonic()+5
+    while not (registry/vm/'pid').exists() and time.monotonic()<deadline:time.sleep(.01)
+    if not (registry/vm/'pid').exists():sys.exit(1)
     if args[offset]=='/usr/bin/mktemp':
         print(tempfile.mkdtemp(prefix='job-',dir=registry/vm));sys.exit(0)
     child=subprocess.Popen(args[offset:])
@@ -75,6 +85,14 @@ class MacosBuildTests(unittest.TestCase):
         (binary / 'tart').chmod(0o755)
         (binary / 'tmutil').write_text('#!/bin/sh\nexit 0\n')
         (binary / 'tmutil').chmod(0o755)
+        (binary / 'sysctl').write_text('''#!/usr/bin/env python3
+import os
+mode=os.environ.get('FAKE_TART_MODE')
+print(20*1024**3 if mode=='small-host' else 36*1024**3)
+print(14)
+print(2 if mode=='pressure' else 1)
+''')
+        (binary / 'sysctl').chmod(0o755)
         (binary / 'brew').write_text('#!/bin/sh\nprintf "%s\\n" "$FAKE_POSTGRES_PREFIX"\n')
         (binary / 'brew').chmod(0o755)
         postgres = self.base / 'postgres-tools' / 'bin'
@@ -114,7 +132,9 @@ else:(data/'started').touch()
 
     def stop_fixture_vm(self):
         state = self.base / 'vm.pid'
-        if state.exists():
+        for state in [state, *self.base.glob('clones/*/pid')]:
+            if not state.exists():
+                continue
             try:
                 os.kill(int(state.read_text()), signal.SIGTERM)
             except ProcessLookupError:
@@ -154,11 +174,11 @@ p=pathlib.Path('..');(p/'build').mkdir()
         self.assertEqual(failure.returncode, 7, 'shutdown failure must retain the guest failure')
         self.assertIn('shutdown deferred', failure.stderr)
         self.assertTrue((self.base / 'vm.pid').exists(), 'a failed shutdown retains the live owner')
-        pending = self.home / '.local/state/macos-build/pending-vm'
+        pending = next((self.home / '.local/state/macos-build').glob('slot-*/pending-vm'))
         self.assertTrue((self.base / 'clones' / pending.read_text()).exists(), 'a live clone must not be deleted')
 
     def test_preflight_refusals_never_run_on_the_host(self):
-        for mode in ['missing', 'running', 'busy', 'submodule']:
+        for mode in ['missing', 'running', 'busy', 'submodule', 'pressure', 'small-host']:
             with self.subTest(mode=mode):
                 self.env['FAKE_TART_MODE'] = mode
                 if mode == 'submodule':
@@ -218,7 +238,7 @@ p=pathlib.Path('../build');p.mkdir()
         result = self.invoke('--', sys.executable, '-c', 'raise SystemExit(0)')
         self.assertNotEqual(result.returncode, 0)
         self.assertEqual(len(list((self.base / 'clones').glob('*/unowned'))), 1)
-        self.assertFalse((self.home / '.local/state/macos-build/pending-vm').exists())
+        self.assertFalse(list((self.home / '.local/state/macos-build').rglob('pending-vm')))
 
     def test_disk_pressure_stops_the_owned_job(self):
         pressure = self.base / 'pressure'
@@ -246,7 +266,7 @@ time.sleep(60)
         self.assertIn('20 GiB', result.stderr)
         self.assertTrue(cancelled.exists(), 'disk pressure cancels the command that this invocation started')
         self.assertFalse((self.base / 'vm.pid').exists(), 'disk pressure also stops the owned VM')
-        pending = self.home / '.local/state/macos-build/pending-vm'
+        pending = next((self.home / '.local/state/macos-build').glob('slot-*/pending-vm'))
         previous = self.base / 'clones' / pending.read_text()
         self.assertTrue(previous.exists(), 'a failed clone cleanup retains only its owned VM')
         self.env.pop('FAKE_TART_FAIL_CLEANUP')
@@ -263,41 +283,59 @@ pathlib.Path({str(pressure)!r}).touch()
         self.assertFalse(previous.exists(), 'the next admission reaps the recorded stopped clone')
         self.assertFalse(pending.exists())
 
-    def test_waiting_jobs_preserve_the_current_owner_and_can_be_cancelled(self):
-        ready, release = self.base / 'ready', self.base / 'release'
-        cancelled = self.base / 'cancelled-waiter-ran'
+    def test_parallel_jobs_queue_only_when_full_and_cancel_without_harming_owners(self):
+        ready = [self.base / f'ready-{i}' for i in range(2)]
+        release = [self.base / f'release-{i}' for i in range(2)]
         order = self.base / 'order'
-        command = f'''import pathlib,time
-pathlib.Path({str(ready)!r}).touch()
-while not pathlib.Path({str(release)!r}).exists():time.sleep(.01)
-pathlib.Path({str(order)!r}).write_text('first\\n')
-'''
-        processes = [self.invoke('--', sys.executable, '-c', command, start=True)]
+        cancelled = self.base / 'cancelled-waiter-ran'
+        processes = []
         try:
-            deadline = time.monotonic() + 10
-            while not ready.exists():
-                self.assertIsNone(processes[0].poll())
-                self.assertLess(time.monotonic(), deadline)
-                time.sleep(.01)
+            for index in range(2):
+                command = f"""import pathlib,time
+pathlib.Path({str(ready[index])!r}).touch()
+while not pathlib.Path({str(release[index])!r}).exists():time.sleep(.01)
+with open({str(order)!r},'a') as output:output.write('{index}\\n')
+raise SystemExit({7 if index == 0 else 0})
+"""
+                process = self.invoke('--wait', '--', sys.executable, '-c', command, start=True)
+                processes.append(process)
+                deadline = time.monotonic() + 10
+                while not ready[index].exists():
+                    self.assertIsNone(process.poll())
+                    self.assertLess(time.monotonic(), deadline, 'both jobs must begin before either owner is released')
+                    time.sleep(.01)
             waiter = self.invoke('--wait', '--', sys.executable, '-c', f"open({str(cancelled)!r},'w').close()", start=True)
             processes.append(waiter)
             self.assertTrue(waiter.stderr.readline().startswith('Waiting:'))
-            waiter.terminate(); waiter.communicate(timeout=5)
+            waiter.terminate();waiter.communicate(timeout=5)
             self.assertFalse(cancelled.exists())
-            self.assertIsNone(processes[0].poll(), 'cancelling a waiter leaves the owner alive')
-            second = self.invoke('--wait', '--', sys.executable, '-c', f"open({str(order)!r},'a').write('second\\n')", start=True)
-            processes.append(second)
-            self.assertTrue(second.stderr.readline().startswith('Waiting:'))
-            release.touch()
-            for process in [processes[0], second]:
-                _, stderr = process.communicate(timeout=30)
-                self.assertEqual(process.returncode, 0, stderr)
-            self.assertEqual(order.read_text().splitlines(), ['first', 'second'])
+            for process in processes[:2]:
+                self.assertIsNone(process.poll(), 'cancelling a waiter preserves both active owners')
+            next_job = self.invoke('--wait', '--', sys.executable, '-c', f"open({str(order)!r},'a').write('next\\n')", start=True)
+            processes.append(next_job)
+            self.assertTrue(next_job.stderr.readline().startswith('Waiting:'))
+            next_job.send_signal(signal.SIGSTOP)
+            os.waitpid(next_job.pid, os.WUNTRACED)
+            release[0].touch()
+            _, stderr = processes[0].communicate(timeout=30)
+            self.assertEqual(processes[0].returncode, 7, stderr)
+            late = self.invoke('--', sys.executable, '-c', f"open({str(cancelled)!r},'w').close()")
+            self.assertNotEqual(late.returncode, 0, 'a new arrival must not bypass the older admission waiter')
+            self.assertFalse(cancelled.exists())
+            next_job.send_signal(signal.SIGCONT)
+            _, stderr = next_job.communicate(timeout=30)
+            self.assertEqual(next_job.returncode, 0, stderr)
+            self.assertIsNone(processes[1].poll(), 'a freed slot refills while its sibling stays active')
+            release[1].touch()
+            _, stderr = processes[1].communicate(timeout=30)
+            self.assertEqual(processes[1].returncode, 0, stderr)
+            self.assertEqual(order.read_text().splitlines(), ['0', 'next', '1'])
             self.assertFalse((self.base / 'vm.pid').exists())
         finally:
-            release.touch()
+            for marker in release:marker.touch()
             for process in processes:
                 if process.poll() is None:
+                    process.send_signal(signal.SIGCONT)
                     process.terminate()
                 process.communicate(timeout=10)
 

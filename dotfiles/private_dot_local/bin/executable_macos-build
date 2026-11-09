@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Run a Git working-copy snapshot in the dedicated macOS build VM."""
 import argparse
-from contextlib import contextmanager
+from contextlib import ExitStack, contextmanager
 import fcntl
 import json
 import os
@@ -17,6 +17,12 @@ import time
 
 BASE_VM = 't3-macos-build'
 VM = f'{BASE_VM}-run-{os.getpid()}'
+JOB_CPUS = 4
+JOB_MEMORY_MIB = 8192
+HOST_MEMORY_GIB = 12
+HOST_CPUS = 4
+VM_OVERHEAD_GIB = 2
+MAX_MACOS_VMS = 2
 
 
 def run(*args, **kwargs):
@@ -48,22 +54,89 @@ def start_postgres(job):
     return 'postgres://build@127.0.0.1:5432/postgres'
 
 
+def reap_pending(state):
+    pending = state / 'pending-vm'
+    if not pending.exists():
+        return
+    previous = pending.read_text().strip()
+    if not re.fullmatch(re.escape(BASE_VM) + r'-run-[0-9]+', previous):
+        raise RuntimeError('Invalid pending VM cleanup record')
+    vms = json.loads(run('tart', 'list', '--source', 'local', '--format', 'json', capture_output=True, text=True).stdout)
+    orphan = next((v for v in vms if v['Name'] == previous), None)
+    if orphan and orphan['Running']:
+        raise RuntimeError(f'{previous} is still running; inspect its owner before cleanup')
+    if orphan:
+        run('tart', 'delete', previous)
+    pending.unlink()
+
+
+@contextmanager
+def build_slot(state, root, wait):
+    last_message = None
+    with (state / 'admission').open('a+') as admission:
+        try:
+            fcntl.flock(admission, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError:
+            admission.seek(0)
+            message = f'An earlier build is waiting for admission: PID {admission.readline().strip() or "unknown"}'
+            if not wait:
+                raise RuntimeError(message)
+            print(f'Waiting: {message}', file=sys.stderr, flush=True)
+            fcntl.flock(admission, fcntl.LOCK_EX)
+        admission.seek(0); admission.truncate()
+        admission.write(f'{os.getpid()}\n{root}\n'); admission.flush()
+        while True:
+            with ExitStack() as locks:
+                # Shared for jobs, exclusive for legacy runners and prepared-image maintenance.
+                legacy = locks.enter_context((state / 'lease').open('a+'))
+                try:
+                    fcntl.flock(legacy, fcntl.LOCK_SH | fcntl.LOCK_NB)
+                except BlockingIOError:
+                    legacy.seek(0)
+                    message = f'Legacy build or image maintenance owns PID {legacy.readline().strip() or "unknown"}; see {state / "lease"}'
+                else:
+                    if (state / 'pending-job').exists():
+                        raise RuntimeError('The prepared base has deferred legacy cleanup; resolve it before cloning')
+                    reap_pending(state)
+                    memory, cpus, pressure = map(int, run('sysctl', '-n', 'hw.memsize', 'hw.logicalcpu', 'kern.memorystatus_vm_pressure_level', capture_output=True, text=True).stdout.split())
+                    capacity = min(MAX_MACOS_VMS, (memory // 1024**3 - HOST_MEMORY_GIB) // (JOB_MEMORY_MIB // 1024 + VM_OVERHEAD_GIB), (cpus - HOST_CPUS) // JOB_CPUS)
+                    if capacity < 1:
+                        raise RuntimeError('Host cannot reserve an 8 GiB/4 CPU build VM while retaining host resources')
+                    selected = None
+                    message = f'All {capacity} macOS build slots are occupied; inspect {state}/slot-*/lease'
+                    if pressure != 1:
+                        message = f'Host memory pressure is {pressure}; builds require normal memory pressure'
+                    else:
+                        for index in range(capacity):
+                            slot = state / f'slot-{index}'
+                            slot.mkdir(exist_ok=True)
+                            owner = (slot / 'lease').open('a+')
+                            try:
+                                fcntl.flock(owner, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                            except BlockingIOError:
+                                owner.close()
+                                continue
+                            locks.enter_context(owner)
+                            reap_pending(slot)
+                            owner.seek(0); owner.truncate()
+                            owner.write(f'{os.getpid()}\n{root}\n'); owner.flush()
+                            selected = slot
+                            break
+                    if selected is not None:
+                        fcntl.flock(admission, fcntl.LOCK_UN)
+                        yield selected
+                        return
+            if not wait:
+                raise RuntimeError(message)
+            if message != last_message:
+                print(f'Waiting: {message}', file=sys.stderr, flush=True)
+                last_message = message
+            time.sleep(1)
+
 @contextmanager
 def build_vm(state):
-    if (state / 'pending-job').exists():
-        raise RuntimeError('The prepared base has deferred legacy cleanup; resolve it before cloning')
     pending = state / 'pending-vm'
     vms = json.loads(run('tart', 'list', '--source', 'local', '--format', 'json', capture_output=True, text=True).stdout)
-    if pending.exists():
-        previous = pending.read_text().strip()
-        if not re.fullmatch(re.escape(BASE_VM) + r'-run-[0-9]+', previous):
-            raise RuntimeError('Invalid pending VM cleanup record')
-        orphan = next((v for v in vms if v['Name'] == previous), None)
-        if orphan and orphan['Running']:
-            raise RuntimeError(f'{previous} is still running; inspect its owner before cleanup')
-        if orphan:
-            run('tart', 'delete', previous)
-        pending.unlink()
     base = next((v for v in vms if v['Name'] == BASE_VM), None)
     if not base:
         raise RuntimeError(f'Provision {BASE_VM} before running macos-build')
@@ -76,6 +149,7 @@ def build_vm(state):
         run('tart', 'clone', BASE_VM, VM, env={**os.environ, 'TART_NO_AUTO_PRUNE': '1'})
         created = True
         pending.write_text(VM)
+        run('tart', 'set', VM, '--cpu', str(JOB_CPUS), '--memory', str(JOB_MEMORY_MIB))
         tart_home = Path(os.environ.get('TART_HOME', str(Path.home() / '.tart')))
         run('tmutil', 'addexclusion', str(tart_home / 'vms' / VM))
         with (state / 'vm.log').open('w') as log:
@@ -115,7 +189,7 @@ def build_vm(state):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--artifact', action='append', default=[], help='Export a repository-relative, Git-ignored output path')
-    parser.add_argument('--wait', action='store_true', help='Wait for the current build lease before admission')
+    parser.add_argument('--wait', action='store_true', help='Wait for a build slot and normal host memory pressure')
     parser.add_argument('--postgres', action='store_true', help='Start a private guest PostgreSQL 18 cluster and set TEST_DATABASE_URL')
     parser.add_argument('command', nargs=argparse.REMAINDER)
     args = parser.parse_args()
@@ -134,22 +208,8 @@ def main():
         run('git', '-C', str(root), 'check-ignore', '-q', '--', artifact)
     state = Path.home() / '.local/state/macos-build'
     state.mkdir(parents=True, exist_ok=True, mode=0o700)
-    with (state / 'lease').open('a+') as lease:
-        try:
-            fcntl.flock(lease, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        except BlockingIOError:
-            lease.seek(0)
-            owner = lease.readline().strip()
-            message = f'The macOS build VM has an active job, owner PID {owner if owner.isdecimal() else "unknown"}; see {state / "lease"}'
-            if not args.wait:
-                raise RuntimeError(message)
-            print(f'Waiting: {message}', file=sys.stderr, flush=True)
-            fcntl.flock(lease, fcntl.LOCK_EX)
-        lease.seek(0)
-        lease.truncate()
-        lease.write(f'{os.getpid()}\n{root}\n')
-        lease.flush()
-        with build_vm(state):
+    with build_slot(state, root, args.wait) as slot:
+        with build_vm(slot):
             job = guest('/usr/bin/mktemp', '-d', '/tmp/macos-build.XXXXXX', capture_output=True, text=True).stdout.strip()
             with tempfile.TemporaryDirectory(prefix='macos-build-') as temporary:
                 temporary = Path(temporary)

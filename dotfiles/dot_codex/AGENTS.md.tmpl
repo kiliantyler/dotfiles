@@ -46,7 +46,7 @@ On macOS hosts with the local Tart VM `t3-macos-build`, run full local test suit
 
 For PostgreSQL-dependent suites that support `TEST_DATABASE_URL`, use `macos-build --postgres -- <command>` for a fresh PostgreSQL 18 service inside the job VM. Prepare the repository's pinned toolchain and required services before its full check. A missing dependency leaves local validation unfinished; required CI does not replace that check.
 
-An occupied lease or host-space refusal is an admission failure: inspect the recorded owner or capacity gate and resolve it before validation. Do not fall back to host execution. Repository publication, release signing, physical-device validation and human approval gates retain their existing workflows.
+A full build pool, host memory pressure, or host-space refusal is an admission failure: inspect the recorded slot owners or capacity gate and resolve it before validation. Use `--wait` to queue for a free slot; cancelling a waiter leaves running jobs alone. Do not fall back to host execution. Repository publication, release signing, physical-device validation and human approval gates retain their existing workflows.
 
 # Dotfiles
 
