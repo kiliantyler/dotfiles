@@ -1,0 +1,28 @@
+#!/bin/sh
+set -eu
+
+# Watchdog hash: {{ include ".chezmoitemplates/fseventsd-watchdog.py" | sha256sum }}
+temporary=$(mktemp -d)
+trap 'rm -rf "$temporary"' EXIT
+cat > "$temporary/watchdog.py" <<'WATCHDOG_PYTHON'
+{{ include ".chezmoitemplates/fseventsd-watchdog.py" }}
+WATCHDOG_PYTHON
+cat > "$temporary/watchdog.plist" <<'PLIST'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+<key>Label</key><string>local.fseventsd-watchdog</string>
+<key>ProgramArguments</key><array><string>/usr/bin/python3</string><string>-I</string><string>-u</string><string>-c</string></array>
+<key>RunAtLoad</key><true/>
+<key>KeepAlive</key><true/>
+<key>ThrottleInterval</key><integer>60</integer>
+<key>StandardOutPath</key><string>/var/log/fseventsd-watchdog.log</string>
+<key>StandardErrorPath</key><string>/var/log/fseventsd-watchdog.log</string>
+</dict></plist>
+PLIST
+/usr/bin/plutil -insert ProgramArguments.4 -string "$(cat "$temporary/watchdog.py")" "$temporary/watchdog.plist"
+/usr/bin/plutil -lint "$temporary/watchdog.plist"
+target=/Library/LaunchDaemons/local.fseventsd-watchdog.plist
+sudo -n /usr/bin/install -o root -g wheel -m 644 "$temporary/watchdog.plist" "$target"
+sudo -n /bin/launchctl bootout system/local.fseventsd-watchdog 2>/dev/null || true
+sudo -n /bin/launchctl bootstrap system "$target"

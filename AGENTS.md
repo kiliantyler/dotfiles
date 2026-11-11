@@ -8,11 +8,13 @@ Personal macOS setup managed with [chezmoi](https://www.chezmoi.io/). macOS only
 .
 ├── dotfiles/                      # chezmoi source (.chezmoiroot points here)
 │   ├── .chezmoi.yaml.tmpl         # age encryption + editor; nothing else
+│   ├── .chezmoiremove              # retired managed targets
+│   ├── .chezmoitemplates/fseventsd-watchdog.py  # memory recovery policy
 │   ├── .chezmoiignore
 │   ├── .chezmoiscripts/
 │   │   ├── run_once_before_decrypt-age-key.sh.tmpl   # unlocks key.txt.age once per machine
 │   │   ├── run_onchange_after_brew-bundle.sh.tmpl    # brew bundle install when the Brewfile changes
-│   │   ├── run_onchange_after_fseventsd-watchdog.sh  # pinned root-owned filesystem event guard
+│   │   ├── run_onchange_after_fseventsd-watchdog.sh.tmpl  # root-owned memory guard
 │   │   ├── run_onchange_after_link-skills.sh.tmpl    # clone kiliantyler/skills if missing, link its skills
 │   │   └── run_once_after_set-login-shell.sh.tmpl    # chsh to Homebrew bash, launchctl setenv SHELL
 │   ├── dot_bashrc, dot_bash_profile                  # the shell config
@@ -28,14 +30,13 @@ Personal macOS setup managed with [chezmoi](https://www.chezmoi.io/). macOS only
 │   ├── dot_claude/                                   # Claude Code settings, CLAUDE.md, skills
 │   ├── dot_codex/AGENTS.md.tmpl                      # global agent instructions (Codex + Claude Code)
 │   ├── .work/                                        # encrypted work variants of the Claude/Codex files
-│   ├── private_dot_local/bin/executable_macos-build   # isolated macOS build runner
 │   └── private_Library/
 │       ├── Application Support/Code/User/settings.json
 │       └── LaunchAgents/com.tailscale.start-at-login.plist
 ├── cloudflare/                    # Worker behind install.dotfiles.wiki (generic, serves any GitHub user)
 ├── docs/                          # Astro Starlight wiki at dotfiles.wiki (bun)
 ├── references/chezmoi/            # chezmoi reference for agents: naming, scripts, templates, externals, commands
-├── tests/                        # macOS build runner fixture tests
+├── tests/                        # filesystem event watchdog tests
 ├── install.sh                     # macOS bootstrap: Xcode CLT -> chezmoi -> init --apply
 └── Taskfile.yaml                  # `task docs:serve`
 ```

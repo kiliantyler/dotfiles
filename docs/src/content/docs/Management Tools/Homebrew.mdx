@@ -15,12 +15,10 @@ The list was cut in October 2026 to packages with recent use in shell or agent h
 - **shell and core**: bash, coreutils, diffutils, ripgrep, wget, tmux, mosh, gnupg, ffmpeg
 - **build toolchain**: make, cmake. `ninja`, `pkgconf`, `autoconf`, `automake`, and `libtool` were dropped; add one back if a build asks for it
 - **iOS**: cocoapods, xcodegen, swiftformat, swiftlint, ldid, ipatool
-- **repo hygiene and containers**: gitleaks, actionlint, just, oras, skopeo, tart, flux-operator-mcp, moshi-hook
+- **repo hygiene and containers**: gitleaks, actionlint, just, oras, skopeo, flux-operator-mcp, moshi-hook
 - **apps**: 1Password, Raycast, Ghostty, Visual Studio Code, Docker Desktop, Discord, Fantastical, Rewind, Superwhisper, Shottr, Maccy, Rocket, CodexBar, Backblaze, Tailscale, two Nerd Fonts
 
 Third-party taps are declared at the top of the file. `brew bundle` refuses an untrusted tap, so a new tap needs `brew trust <tap>` once per machine.
-
-Tart runs macOS build and simulator workloads in a separate guest. Keep checkouts, dependencies, temporary files, DerivedData and simulator state on the guest disk; host-shared build directories send filesystem churn back to the host. VM disks, downloaded images and runtime state are application data and are not tracked by chezmoi.
 
 ## Tailscale startup
 
@@ -30,9 +28,11 @@ After the first `chezmoi apply`, load it for the current session with `launchctl
 
 ## Filesystem event guard
 
-`run_onchange_after_fseventsd-watchdog.sh` installs the reviewed, pinned [fseventsd watchdog](https://github.com/Hixie/contraptions/tree/main/fseventsd-watchdog). It verifies the script and plist template checksums before installing a root-owned `/Library/LaunchDaemons/local.fseventsd-watchdog.plist`. The script is embedded in that plist; edits to user-writable downloads do not change the root process. Applying this installer requires noninteractive administrator access.
+`run_onchange_after_fseventsd-watchdog.sh.tmpl` installs a memory watchdog in the root-owned `/Library/LaunchDaemons/local.fseventsd-watchdog.plist`. The Python standard-library script lives in `.chezmoitemplates/fseventsd-watchdog.py` and is embedded in the plist. It runs with Apple's `/usr/bin/python3`; edits to user-writable source do not change the running root process until the installer is applied with administrator access.
 
-The watchdog sends SIGTERM only when the system daemon logs its event-table warning and the message's PID matches launchd's current daemon. It records actions and errors in `/var/log/fseventsd-watchdog.log`. It is a warning-triggered recovery guard, not an OS patch or a memory monitor. A warning that has already aged out of the stored log will not be recovered by its startup search. VM build isolation remains independent of this guard.
+Every 60 seconds it reads the current system daemon's total physical footprint with `vmmap`, which accounts for swapped allocations that RSS misses. Two consecutive readings at or above 2 GiB trigger SIGTERM after verifying launchd's current PID, root ownership and the executable path. launchd starts the replacement daemon. Recovery requests are at least 600 seconds apart, and the watchdog never signals the same PID twice or escalates to SIGKILL. Failed measurements reset the consecutive-reading count and cannot trigger recovery. Actions, observed replacements and errors go to `/var/log/fseventsd-watchdog.log`.
+
+This replaces the earlier warning-only watchdog, so recovery does not depend on a retained event-table warning. It is automatic recovery from excessive memory use, not a patch to Apple's daemon. Run its policy and measurement tests with `python3 -m unittest discover -s tests -p 'test_fseventsd_watchdog.py'`.
 
 ## Upgrading
 
