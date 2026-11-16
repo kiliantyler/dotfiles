@@ -1,4 +1,4 @@
-# Agent-first shell. No prompt framework, no completions, no plugins.
+# Agent-first shell. No completions, no plugins; starship draws the prompt for humans only.
 # mise shims first so every tool resolves without `mise activate`, even in `bash -c`.
 export PATH="$HOME/.local/share/mise/shims:$HOME/.local/bin:$HOME/.bun/bin:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 export EDITOR="code --wait"
@@ -15,5 +15,22 @@ done
 case $- in *i*)
   alias claude='command claude --dangerously-skip-permissions'
   alias maude='clear; ssh -t maude cc'
+
+  # .zshenv sources this file in sh emulation; zsh cannot run the bash prompt code
+  if [ -n "$BASH_VERSION" ]; then
+    if [ -n "$CLAUDECODE" ] || [ "$TERM_PROGRAM" = claude-desktop ]; then
+      PS1='\w \$ '
+    elif starship=$(command -v starship); then
+      # `starship init` costs a process per shell; cache its output, keyed to the installed binary
+      starship=$(readlink -f "$starship")
+      init="$HOME/.cache/starship/init.bash"
+      if [ "$(head -n 1 "$init" 2>/dev/null)" != "# $starship" ]; then
+        mkdir -p "${init%/*}"
+        { echo "# $starship"; "$starship" init bash --print-full-init; } > "$init"
+      fi
+      . "$init"
+    fi
+    unset starship init
+  fi
   ;;
 esac

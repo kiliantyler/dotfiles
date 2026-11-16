@@ -1,0 +1,19 @@
+"$schema" = "https://starship.rs/config-schema.json"
+
+# Only the modules named here are computed; git and language scans never run.
+format = "$directory$cmd_duration$character"
+add_newline = false
+
+[directory]
+style = "bold purple"
+truncation_length = 3
+truncate_to_repo = false
+
+[cmd_duration]
+min_time = 2_000
+style = "yellow"
+format = "[$duration]($style) "
+
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"

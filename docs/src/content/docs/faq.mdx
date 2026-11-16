@@ -8,9 +8,9 @@ sidebar:
 
 Agents spawn shells constantly and assume POSIX syntax. fish broke `( … ) && …` one-liners, and zsh's glob expansion turned URLs with `?` into "no matches found" errors. Homebrew bash 5 runs everything agents write, and macOS's own bash 3.2 is too old to be worth configuring.
 
-### Why is there no prompt, completion, or history tool?
+### Why is the prompt so small, and why no completion or history tool?
 
-Nobody looks at the prompt. Starship, atuin, zoxide, fzf, and eza were removed in October 2026 after shell and agent history showed no direct use for months.
+The prompt is for the occasional human at a terminal: it shows the folder, how long a slow command took, and whether the last command failed. Agents get a plain `folder $` prompt, and their tool shells are non-interactive, so they never load it. Atuin, zoxide, fzf, and eza were removed in October 2026 after shell and agent history showed no direct use for months.
 
 ### Why not 1Password for SSH and signing?
 

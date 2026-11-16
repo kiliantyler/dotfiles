@@ -1,6 +1,6 @@
 # Dotfiles
 
-Personal macOS setup managed with [chezmoi](https://www.chezmoi.io/). macOS only. The machine is set up for coding agents, not for a human at a terminal: bash is the login shell, there is no prompt framework, and nothing prompts 1Password during normal work.
+Personal macOS setup managed with [chezmoi](https://www.chezmoi.io/). macOS only. The machine is set up for coding agents, not for a human at a terminal: bash is the login shell, starship draws the prompt only when a human is at the terminal, and nothing prompts 1Password during normal work.
 
 ## Layout
 
@@ -25,6 +25,7 @@ Personal macOS setup managed with [chezmoi](https://www.chezmoi.io/). macOS only
 │   │   ├── homebrew/Brewfile.tmpl                    # source of truth for brew formulae and casks
 │   │   ├── mise/config.toml.tmpl                     # source of truth for CLI tools ([[ ]] delimiters)
 │   │   ├── private_work/                             # work-only ssh, git, bash includes (encrypted)
+│   │   ├── starship.toml                             # human prompt: folder, slow-command duration, status
 │   │   ├── git/{allowed-signers,ignore}
 │   │   ├── gh/, ghostty/, sops/age/
 │   ├── dot_claude/                                   # Claude Code settings, CLAUDE.md, skills
@@ -52,6 +53,7 @@ Before writing or changing a source name prefix, script, template or external, r
 - Secrets never render from a template. Runtime secrets live in `~/.config/secrets.env` (untracked, 0600), sourced by `~/.bashrc`. Do not call `onepassword*` template functions; they prompt 1Password on every `chezmoi status`.
 - Packages: edit `Brewfile` or `mise/config.toml`, then `chezmoi apply`. The brew script installs only; removals are `brew uninstall` by hand.
 - Shell: bash 5 from Homebrew. PATH puts mise shims first so tools resolve in `bash -c` without `mise activate`.
+- Prompt: interactive bash only. `CLAUDECODE` set or `TERM_PROGRAM=claude-desktop` gets plain `PS1='\w \$ '`; every other interactive shell gets starship from Homebrew, with its init cached in `~/.cache/starship/init.bash` keyed to the binary path. Non-interactive shells get no prompt code.
 - Git signing: ssh format, `~/.ssh/id_ed25519`, verified via `~/.config/git/allowed-signers`. GitHub access is https through `gh auth git-credential`.
 - Edit configs that apps rewrite (VS Code, mise after `mise use`) in place, then `chezmoi re-add`.
 

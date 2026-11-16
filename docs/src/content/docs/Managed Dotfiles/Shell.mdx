@@ -9,26 +9,63 @@ Homebrew bash 5 is the login shell. The whole configuration is one file.
 ## `~/.bashrc`
 
 ```bash
+# Agent-first shell. No completions, no plugins; starship draws the prompt for humans only.
+# mise shims first so every tool resolves without `mise activate`, even in `bash -c`.
 export PATH="$HOME/.local/share/mise/shims:$HOME/.local/bin:$HOME/.bun/bin:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 export EDITOR="code --wait"
 export VISUAL="$EDITOR"
 export HOMEBREW_NO_ENV_HINTS=1
+# Shared iOS simulator pool size on this Mac (was in the old .zshenv).
 export IOS_SIMULATOR_POOL_SIZE="${IOS_SIMULATOR_POOL_SIZE:-3}"
 
-for f in "$HOME/.config/secrets.env" "$HOME/.codex/secrets/linear.env"; do
+# Secrets stay out of the repo. Create ~/.config/secrets.env (chmod 600) with `export NAME=value` lines.
+for f in "$HOME/.config/secrets.env" "$HOME/.codex/secrets/linear.env" "$HOME/.config/work/env.sh"; do
   [ -r "$f" ] && . "$f"
 done
 
 case $- in *i*)
   alias claude='command claude --dangerously-skip-permissions'
   alias maude='clear; ssh -t maude cc'
+
+  # .zshenv sources this file in sh emulation; zsh cannot run the bash prompt code
+  if [ -n "$BASH_VERSION" ]; then
+    if [ -n "$CLAUDECODE" ] || [ "$TERM_PROGRAM" = claude-desktop ]; then
+      PS1='\w \$ '
+    elif starship=$(command -v starship); then
+      # `starship init` costs a process per shell; cache its output, keyed to the installed binary
+      starship=$(readlink -f "$starship")
+      init="$HOME/.cache/starship/init.bash"
+      if [ "$(head -n 1 "$init" 2>/dev/null)" != "# $starship" ]; then
+        mkdir -p "${init%/*}"
+        { echo "# $starship"; "$starship" init bash --print-full-init; } > "$init"
+      fi
+      . "$init"
+    fi
+    unset starship init
+  fi
   ;;
 esac
 ```
 
 - mise shims come first so every tool resolves without `mise activate`, including in `bash -c`.
 - `~/.config/secrets.env` is where API keys go. It is untracked and mode 600. The Codex secrets file is sourced too so both agents see the same variables.
-- The two aliases are the only interactive-only lines.
+- `~/.config/work/env.sh` exists only on work machines; see the work profile in `AGENTS.md`.
+- Everything under `case $- in *i*)` runs only in interactive shells. `bash -c` and agent tool calls never reach it.
+
+## Prompt
+
+Interactive bash picks one of two prompts:
+
+| Shell | Prompt |
+|---|---|
+| `CLAUDECODE` set, or the Claude desktop Terminal panel (`TERM_PROGRAM=claude-desktop`) | `\w \$ `, no colors |
+| Any other interactive bash (Ghostty) | starship |
+
+`~/.config/starship.toml` renders only three modules: the folder (last three segments, bold purple), the duration of commands that ran 2 s or longer, and a `❯` that is green after success and red after a failure. Git, language, and cloud modules are not in `format`, so starship never scans for them.
+
+`starship init bash` would cost a process per new shell, so `~/.bashrc` writes its output to `~/.cache/starship/init.bash` once. The first line records the resolved starship binary path; when `brew upgrade` moves starship to a new Cellar path, the next shell regenerates the cache. Starship comes from Homebrew rather than mise so each prompt runs the binary directly instead of through a shim.
+
+Measured on a work Mac: a new interactive shell takes about 53 ms with the cached starship init, 27 ms with the plain prompt, and 104 ms with an uncached `eval "$(starship init bash)"`. Each prompt render takes about 10 ms.
 
 `~/.bash_profile` sources `~/.bashrc`, so login shells and interactive shells are identical.
 
