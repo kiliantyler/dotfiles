@@ -27,7 +27,7 @@ jq = "latest"
 kubectl = "latest"
 kubectx = "latest"
 kustomize = "latest"
-node = "[[ if .isWork ]]22[[ else ]]24[[ end ]]"
+node = "24"
 pnpm = "12.16.1"
 python = "latest"
 rust = { version = "latest", install_env = { ASDF_RUST_PROFILE = "minimal" }, postinstall = 'RUSTUP_HOME="$MISE_TOOL_INSTALL_PATH" CARGO_HOME="$MISE_TOOL_INSTALL_PATH" rustup component add rustfmt clippy' }
