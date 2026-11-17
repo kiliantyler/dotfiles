@@ -46,7 +46,11 @@ Run builds and tests directly with each repository's documented commands on the 
 
 # Releases: tag last
 
-A version tag marks a release that shipped. A release starts by dispatching the repository's release workflow on its default branch with the version and the commit (`tag`, `sha`); the workflow publishes, then creates the `vX.Y.Z` tag as its last step. Start one through the `github-scheduler` skill, and only when I asked for that release. When a release fails, fix the cause and release the same version again.
+A version tag marks a release that shipped. A release starts by dispatching the repository's release workflow on its default branch with the version and the commit (`tag`, `sha`). The commit is any commit on the default branch after the last release, and the release stays on it whatever is merged afterwards. The workflow verifies, publishes, then creates the `vX.Y.Z` tag as its last step. Start one through the `github-scheduler` skill, and only when I asked for that release. When a release fails, fix the cause and release the same version again.
+
+A release accepts a check that already passed on its commit and runs it otherwise. It never waits on another workflow's run, and it adds no token, deploy key or App of its own. Pull request CI is not slowed down for a release's sake.
+
+Shared release logic lives in the public `MaudeCode/.github` repository. When a release rule or step would apply to more than one repository, change it there and have each repository adopt it, not in one repository's workflow.
 
 Build every new or changed release workflow to the contract in `RELEASES.md` of the public `MaudeCode/.github` repository, with its `release-preflight` and `release-tag` actions pinned to a commit. A new repository that publishes versions adopts the contract from its first release. A repository that still releases from a pushed tag moves to the contract in the change that next touches its release workflow.
 
