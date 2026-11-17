@@ -44,6 +44,12 @@ Every code change applies the `test-audit` skill (`/Users/kilian/git/kiliantyler
 
 Run builds and tests directly with each repository's documented commands on the host. Prepare its pinned toolchain and required services locally. The macOS build VM and `macos-build` wrapper are retired. Repository publication, release signing, physical-device validation and human approval gates retain their existing workflows.
 
+# Releases: tag last
+
+A version tag marks a release that shipped. A release starts by dispatching the repository's release workflow on its default branch with the version and the commit (`tag`, `sha`); the workflow publishes, then creates the `vX.Y.Z` tag as its last step. Start one through the `github-scheduler` skill, and only when I asked for that release. When a release fails, fix the cause and release the same version again.
+
+Build every new or changed release workflow to the contract in `RELEASES.md` of the public `MaudeCode/.github` repository, with its `release-preflight` and `release-tag` actions pinned to a commit. A new repository that publishes versions adopts the contract from its first release. A repository that still releases from a pushed tag moves to the contract in the change that next touches its release workflow.
+
 # Dotfiles
 
 Before creating or editing any file under `~`, or installing or removing a package or CLI tool, apply the `dotfiles` skill (`/Users/kilian/git/kiliantyler/skills/skills/dotfiles/SKILL.md`). chezmoi owns the home directory.
