@@ -6,6 +6,9 @@ import subprocess
 import unittest
 from unittest.mock import patch
 
+SIMULATOR_LOGD = ('/Library/Developer/CoreSimulator/Volumes/iOS_24A434/Library/Developer/CoreSimulator/'
+                  'Profiles/Runtimes/iOS 27.0.simruntime/Contents/Resources/RuntimeRoot/usr/libexec/logd')
+
 SOURCE = Path(__file__).resolve().parents[1] / 'dotfiles/.chezmoitemplates/fseventsd-watchdog.py'
 spec = importlib.util.spec_from_file_location('watchdog', SOURCE)
 watchdog = importlib.util.module_from_spec(spec)
@@ -18,6 +21,8 @@ class WatchdogTests(unittest.TestCase):
         self.size = '2G'
         self.identity = '0 ' + watchdog.DAEMON + '\n'
         self.now = 1000
+        self.processes = {501: '0 /usr/libexec/logd'}
+        self.sizes = {}
         self.run = patch.object(watchdog.subprocess, 'run', side_effect=self.command).start()
         self.kill = patch.object(watchdog.os, 'kill').start()
         patch.object(watchdog.time, 'monotonic', side_effect=lambda: self.now).start()
@@ -31,7 +36,10 @@ class WatchdogTests(unittest.TestCase):
         if args[0] == '/bin/launchctl':
             text = f'system/com.apple.fseventsd = {{\n\tpid = {self.pid}\n}}\n'
         elif args[0] == '/usr/bin/vmmap':
-            text = f'Physical footprint: {self.size}\nPhysical footprint (peak): 99G\n'
+            size = self.sizes.get(int(args[2]), self.size)
+            text = f'Physical footprint: {size}\nPhysical footprint (peak): 99G\n'
+        elif args[:2] == ('/bin/ps', '-Ao'):
+            text = ''.join(f'{pid:>6} {identity}\n' for pid, identity in self.processes.items())
         elif args[0] == '/bin/ps':
             text = self.identity
         else:
@@ -107,6 +115,30 @@ class WatchdogTests(unittest.TestCase):
                 self.size = text
                 with self.assertRaises(ValueError):
                     watchdog.footprint(self.pid)
+        self.kill.assert_not_called()
+
+    def test_simulator_logd_over_limit_twice_is_signalled(self):
+        leaking, exiting, small = 4242, 4243, 4244
+        self.processes.update({leaking: '501 ' + SIMULATOR_LOGD, exiting: '501 ' + SIMULATOR_LOGD,
+                               small: '501 ' + SIMULATOR_LOGD})
+        self.sizes = {501: '78G', leaking: '78G', exiting: 'unknown', small: '2047M'}
+        self.guard.poll_simulators()
+        self.kill.assert_not_called()
+        self.guard.poll_simulators()
+        self.kill.assert_called_once_with(leaking, signal.SIGTERM)
+
+    def test_reused_simulator_logd_pid_is_not_signalled(self):
+        self.processes[4242] = '501 ' + SIMULATOR_LOGD
+        self.sizes[4242] = '3G'
+        self.guard.poll_simulators()
+        original = self.command
+        def reused(args, **kwargs):
+            result = original(args, **kwargs)
+            if args[0] == '/usr/bin/vmmap':  # the PID is reused right after it was measured
+                self.processes[4242] = '501 /usr/bin/other-process'
+            return result
+        self.run.side_effect = reused
+        self.guard.poll_simulators()
         self.kill.assert_not_called()
 
     def test_failed_check_breaks_consecutive_measurements(self):

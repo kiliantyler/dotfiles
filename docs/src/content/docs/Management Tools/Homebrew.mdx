@@ -26,11 +26,13 @@ Third-party taps are declared at the top of the file. `brew bundle` refuses an u
 
 After the first `chezmoi apply`, load it for the current session with `launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.tailscale.start-at-login.plist`. Later logins load it automatically. Removing it requires `launchctl bootout gui/$(id -u)/com.tailscale.start-at-login` and removal of the managed target.
 
-## Filesystem event guard
+## Memory guard
 
 `run_onchange_after_fseventsd-watchdog.sh.tmpl` installs a memory watchdog in the root-owned `/Library/LaunchDaemons/local.fseventsd-watchdog.plist`. The Python standard-library script lives in `.chezmoitemplates/fseventsd-watchdog.py` and is embedded in the plist. It runs with Apple's `/usr/bin/python3`; edits to user-writable source do not change the running root process until the installer is applied with administrator access.
 
 Every 60 seconds it reads the current system daemon's total physical footprint with `vmmap`, which accounts for swapped allocations that RSS misses. Two consecutive readings at or above 2 GiB trigger SIGTERM after verifying launchd's current PID, root ownership and the executable path. launchd starts the replacement daemon. Recovery requests are at least 600 seconds apart, and the watchdog never signals the same PID twice or escalates to SIGKILL. Failed measurements reset the consecutive-reading count and cannot trigger recovery. Actions, observed replacements and errors go to `/var/log/fseventsd-watchdog.log`.
+
+The same loop also checks every iOS Simulator `logd`, found by its `.simruntime/…/usr/libexec/logd` path. A simulator's `logd` can outlive its shut-down device and leak; one reached 78 GB in seven hours and pushed the Mac into swap. Two consecutive readings at or above 2 GiB send SIGTERM after rechecking that the PID still belongs to the same user and executable. `launchd_sim` restarts `logd` if its device is still booted. A process that exits between listing and measurement is skipped, and a failed listing resets every simulator count. `vmmap` needs root here: as a normal user it takes about 45 seconds on a simulator process.
 
 This replaces the earlier warning-only watchdog, so recovery does not depend on a retained event-table warning. It is automatic recovery from excessive memory use, not a patch to Apple's daemon. Run its policy and measurement tests with `python3 -m unittest discover -s tests -p 'test_fseventsd_watchdog.py'`.
 

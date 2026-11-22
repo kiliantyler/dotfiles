@@ -37,7 +37,7 @@ Personal macOS setup managed with [chezmoi](https://www.chezmoi.io/). macOS only
 ├── cloudflare/                    # Worker behind install.dotfiles.wiki (generic, serves any GitHub user)
 ├── docs/                          # Astro Starlight wiki at dotfiles.wiki (bun)
 ├── references/chezmoi/            # chezmoi reference for agents: naming, scripts, templates, externals, commands
-├── tests/                        # filesystem event watchdog tests
+├── tests/                        # memory watchdog tests
 ├── install.sh                     # macOS bootstrap: Xcode CLT -> chezmoi -> init --apply
 └── Taskfile.yaml                  # `task docs:serve`
 ```

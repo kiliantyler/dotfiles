@@ -1,4 +1,4 @@
-"""Recover the system FSEvents daemon after sustained excessive memory use."""
+"""Recover fseventsd and iOS simulator logd processes after sustained excessive memory use."""
 import datetime
 import math
 import os
@@ -11,6 +11,8 @@ DAEMON = '/System/Library/Frameworks/CoreServices.framework/Versions/A/Framework
 LIMIT_BYTES = 2 * 1024**3
 INTERVAL_SECONDS = 60
 COOLDOWN_SECONDS = 600
+# A simulator's logd can outlive its device and leak; one reached 78 GB in seven hours.
+SIMULATOR_LOGD = re.compile(r'\.simruntime/Contents/Resources/RuntimeRoot/usr/libexec/logd$')
 
 
 def output(*args):
@@ -41,6 +43,16 @@ def footprint(pid):
     return size
 
 
+def simulator_logds():
+    """Map each running simulator logd PID to its (uid, command) identity."""
+    found = {}
+    for line in output('/bin/ps', '-Ao', 'pid=,uid=,comm=').splitlines():
+        fields = line.split(maxsplit=2)
+        if len(fields) == 3 and SIMULATOR_LOGD.search(fields[2]):
+            found[int(fields[0])] = (fields[1], fields[2])
+    return found
+
+
 def log(message):
     print(datetime.datetime.now().astimezone().isoformat(timespec='seconds'),
           message, flush=True)
@@ -52,6 +64,7 @@ class Watchdog:
         self.over_limit = 0
         self.signalled_pid = None
         self.last_signal = -math.inf
+        self.simulator_over_limit = {}
 
     def poll(self):
         pid = current_pid()
@@ -74,16 +87,42 @@ class Watchdog:
         log(f'sent SIGTERM to fseventsd PID {pid}: footprint {size / 1024**3:.2f} GiB '
             'exceeded 2 GiB on two consecutive checks')
 
+    def poll_simulators(self):
+        counts = {}
+        for pid, identity in simulator_logds().items():
+            try:
+                size = footprint(pid)
+            except (ValueError, subprocess.SubprocessError):
+                continue  # exited between ps and vmmap; its count starts over
+            counts[pid] = self.simulator_over_limit.get(pid, 0) + 1 if size >= LIMIT_BYTES else 0
+            if counts[pid] < 2:
+                continue
+            del counts[pid]
+            # Recheck identity immediately before signalling: the PID may have been reused.
+            if simulator_logds().get(pid) != identity:
+                log(f'simulator logd PID {pid} changed identity; no recovery requested')
+                continue
+            os.kill(pid, signal.SIGTERM)
+            log(f'sent SIGTERM to simulator logd PID {pid}: footprint {size / 1024**3:.2f} GiB '
+                'exceeded 2 GiB on two consecutive checks')
+        self.simulator_over_limit = counts
+
 
 def main():
     watchdog = Watchdog()
-    log('watching fseventsd every 60 seconds; 2 GiB limit, two checks, 600-second cooldown')
+    log('watching fseventsd and simulator logd every 60 seconds; 2 GiB limit, two checks, '
+        '600-second fseventsd cooldown')
     while True:
         try:
             watchdog.poll()
         except (OSError, ValueError, subprocess.SubprocessError) as error:
             watchdog.over_limit = 0
-            log(f'check failed; no recovery requested: {error}')
+            log(f'fseventsd check failed; no recovery requested: {error}')
+        try:
+            watchdog.poll_simulators()
+        except (OSError, ValueError, subprocess.SubprocessError) as error:
+            watchdog.simulator_over_limit = {}
+            log(f'simulator logd check failed; no recovery requested: {error}')
         time.sleep(INTERVAL_SECONDS)
 
 
