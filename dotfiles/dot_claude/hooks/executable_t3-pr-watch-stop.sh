@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Claude Code Stop hook: in a T3 thread, refuse to end a turn once while an
+# open PR linked to the thread is not watched. T3 drops watches silently and
+# its wake text says "do not list it again", so the check has to be mechanical.
+# It blocks once per stop; a deliberate hand-back (PR unwatched on purpose)
+# just ends the turn again.
+[ -n "$T3CODE_THREAD_ID" ] || exit 0
+input=$(cat)
+[ "$(jq -r '.stop_hook_active // false' <<<"$input" 2>/dev/null)" = "true" ] && exit 0
+
+t3=${T3CODE_CLI_PATH:-$(command -v t3)}
+[ -x "$t3" ] || exit 0
+show=$(timeout 20 "$t3" thread show "$T3CODE_THREAD_ID" --json --messages 0 2>/dev/null) || exit 0
+
+unwatched=$(jq -r '[.thread.pullRequests[]? | select(.state == "open" and .watching != true) | "#\(.number) (\(.url))"] | join(", ")' <<<"$show" 2>/dev/null)
+[ -n "$unwatched" ] || exit 0
+
+jq -n --arg prs "$unwatched" '{
+  decision: "block",
+  reason: ("T3 PR watch check: open PR " + $prs + " is linked to this thread but not watched, so no check failure, review or merge will wake you. If you are still waiting on it or will act on it, call mcp__t3-code__watch_pull_request (until: merged), read its checks with pull_request_read, and act on what is already finished. If you handed it back to the user on purpose, end the turn again.")
+}'

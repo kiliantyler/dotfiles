@@ -28,7 +28,7 @@ Personal macOS setup managed with [chezmoi](https://www.chezmoi.io/). macOS only
 │   │   ├── starship.toml                             # human prompt: folder, slow-command duration, status
 │   │   ├── git/{allowed-signers,ignore}
 │   │   ├── gh/, ghostty/, sops/age/
-│   ├── dot_claude/                                   # Claude Code settings, CLAUDE.md, skills
+│   ├── dot_claude/                                   # Claude Code settings, CLAUDE.md, hooks, skills
 │   ├── dot_codex/AGENTS.md.tmpl                      # global agent instructions (Codex + Claude Code)
 │   ├── .work/                                        # encrypted work variants of the Claude/Codex files
 │   └── private_Library/

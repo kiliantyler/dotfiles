@@ -12,6 +12,7 @@ sidebar:
 - `skipDangerousModePermissionPrompt` is on; the shell alias adds `--dangerously-skip-permissions`.
 - Plugins: ponytail, i-have-adhd, frontend-design.
 - A `SessionStart` hook runs on `compact` and `resume`. In a T3 Code thread (`T3CODE_THREAD_ID` set), it tells the agent to call `list_thread_pull_requests` and re-arm any PR it still waits on that shows `watching: false`. A T3 PR watch can drop without notice, and a summary that says a PR is still watched is not proof that it is.
+- A `Stop` hook, `~/.claude/hooks/t3-pr-watch-stop.sh`, runs when a turn ends in a T3 Code thread. It reads the thread with `t3 thread show --json`, and when an open PR linked to the thread is not watched it blocks the stop once with a reason that names the PR. The agent then re-arms the watch, or ends the turn again if it handed the PR back on purpose. T3's own wake text tells the agent not to list a PR again, so the end-of-turn check cannot rely on instructions alone.
 - `~/.claude/skills/nano-banana` generates images through the Gemini CLI, which mise installs. It needs `GEMINI_API_KEY` in `~/.config/secrets.env`.
 
 `~/.claude/CLAUDE.md` holds one line, `@~/.codex/AGENTS.md`, so Claude Code reads the same global instructions as Codex.
