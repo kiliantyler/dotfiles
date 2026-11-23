@@ -29,6 +29,19 @@
   "switchModelsOnFlag": false,
   "env": {
     "CLAUDE_CODE_SHELL": "/opt/homebrew/bin/bash"
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "compact|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -z \"$T3CODE_THREAD_ID\" ] || echo 'T3 PR watch check: a T3 PR watch can drop silently, a dropped watch never wakes you, and a summary saying a PR is watched is not proof. Before anything else this turn, load mcp__t3-code__list_thread_pull_requests and mcp__t3-code__watch_pull_request with ToolSearch, call list_thread_pull_requests, and for every open PR you still wait on that shows watching: false call watch_pull_request with until merged. Then read the checks on each such head yourself instead of treating silence as pending.'"
+          }
+        ]
+      }
+    ]
   }
 }
 {{ end -}}
