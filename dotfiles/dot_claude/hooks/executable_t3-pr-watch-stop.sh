@@ -16,7 +16,13 @@ t3=${T3CODE_CLI_PATH:-$(command -v t3)}
 [ -x "$t3" ] || exit 0
 show=$(timeout 20 "$t3" thread show "$T3CODE_THREAD_ID" --json --messages 0 2>/dev/null) || exit 0
 
-unwatched=$(jq -r '[.thread.pullRequests[]? | select(.state == "open" and .watching != true) | "#\(.number) (\(.url))"] | join(", ")' <<<"$show" 2>/dev/null)
+# T3's PR snapshot lags a merge, so confirm each candidate is still open on GitHub.
+unwatched=""
+while IFS= read -r url; do
+  [ -n "$url" ] || continue
+  state=$(timeout 10 gh pr view "$url" --json state -q .state 2>/dev/null) || state=OPEN
+  [ "$state" = OPEN ] && unwatched="${unwatched:+$unwatched, }$url"
+done < <(jq -r '.thread.pullRequests[]? | select(.state == "open" and .watching != true) | .url' <<<"$show" 2>/dev/null)
 [ -n "$unwatched" ] || exit 0
 
 if [ "$event" = "UserPromptSubmit" ]; then
