@@ -9,6 +9,8 @@
 # PR (client-runtime commands.ts), so a Stop before a message drops the watch.
 [ -n "$T3CODE_THREAD_ID" ] || exit 0
 input=$(cat)
+# The next message is too late after a Stop press: each turn end leaves a guard that re-arms on its own.
+[ "$(jq -r '.hook_event_name // "Stop"' <<<"$input" 2>/dev/null)" = Stop ] && "$HOME/.claude/hooks/t3-pr-watch-guard.sh" start "$T3CODE_THREAD_ID"
 [ "$(jq -r '.stop_hook_active // false' <<<"$input" 2>/dev/null)" = "true" ] && exit 0
 event=$(jq -r '.hook_event_name // "Stop"' <<<"$input" 2>/dev/null)
 
