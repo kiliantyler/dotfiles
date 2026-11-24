@@ -42,6 +42,10 @@ Every code change applies the `test-audit` skill (`/Users/kilian/git/kiliantyler
 
 Fixing a bad test (flaky, over budget, oversized or proving nothing) **must** write its rule: the imperative clause in the skill's defect rules that would have stopped that test being written. Commit it to the skills repo in the same change or one the fix's PR links, and add a CI pattern when a diff can show the cause. Do this even when an existing rule's name already fits. A test fix without its rule is unfinished.
 
+# Commits: commit-messages before every commit
+
+Before every `git commit` (amend and reword included) and before creating or retitling a pull request, apply the `commit-messages` skill (`/Users/kilian/git/kiliantyler/skills/skills/commit-messages/SKILL.md`). A subject's type decides the next version: GitHub Scheduler suggests a major, minor or patch release from the subjects since the last one.
+
 # Local validation
 
 Run builds and tests directly with each repository's documented commands on the host. Prepare its pinned toolchain and required services locally. The macOS build VM and `macos-build` wrapper are retired. Repository publication, release signing, physical-device validation and human approval gates retain their existing workflows.
