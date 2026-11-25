@@ -64,6 +64,10 @@ Build every new or changed release workflow to the contract in `RELEASES.md` of 
 
 Before creating or editing any file under `~`, or installing or removing a package or CLI tool, apply the `dotfiles` skill (`/Users/kilian/git/kiliantyler/skills/skills/dotfiles/SKILL.md`). chezmoi owns the home directory.
 
+# 1Password
+
+`op` in an agent shell reads and writes every 1Password vault without Touch ID. Hand secrets to processes by reference, `op://<vault>/<item>/<field>`, through `op run`, `op inject` or `$(op read ...)`, so values stay out of chat, logs and repositories. Reads are unlimited; writes, listings and `op item get` without `--format json` share a 1,000-request daily cap, so look items up with `op read` or `op item get --format json`.
+
 # Webpages and web UI
 
 Before building, editing, or reviewing a webpage or web UI, read `/Users/kilian/.codex/skills/codex-web-no-filler/SKILL.md` and apply it silently. It is the shared source for interface-copy and no-cards defaults. Skip it for backend-only work and prose outside an interface.

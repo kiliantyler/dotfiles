@@ -27,7 +27,7 @@ Shared skills live in [`kiliantyler/skills`](https://github.com/kiliantyler/skil
 
 ## Codex
 
-`~/.codex/AGENTS.md` is tracked: the global agent instructions both Codex and Claude Code load in every session. They send every home-directory change through the `dotfiles` skill in `kiliantyler/skills`, which walks the chezmoi workflow in this repo. Edit it in place, then run `chezmoi re-add ~/.codex/AGENTS.md`. Nothing else under `~/.codex` is tracked. Codex reads the login shell from the user record and its own secrets from `~/.codex/secrets/`, which `~/.bashrc` also sources so both agents share variables.
+`~/.codex/AGENTS.md` is tracked: the global agent instructions both Codex and Claude Code load in every session. They send every home-directory change through the `dotfiles` skill in `kiliantyler/skills`, which walks the chezmoi workflow in this repo. They also tell agents to pass secrets by `op://` reference through `op run`, `op inject` or `op read`, which the [agent `op`](/managed-dotfiles/shell#1password-for-agents) serves without Touch ID. Edit it in place, then run `chezmoi re-add ~/.codex/AGENTS.md`. Nothing else under `~/.codex` is tracked. Codex reads the login shell from the user record and its own secrets from `~/.codex/secrets/`, which `~/.bashrc` also sources so both agents share variables.
 
 ## Local validation
 
