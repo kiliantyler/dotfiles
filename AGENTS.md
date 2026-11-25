@@ -21,6 +21,7 @@ Personal macOS setup managed with [chezmoi](https://www.chezmoi.io/). macOS only
 │   ├── dot_bashrc, dot_bash_profile                  # the shell config
 │   ├── dot_zshenv                                    # shim: sources ~/.bashrc for stray zsh callers
 │   ├── private_dot_local/agent-bin/executable_op     # agent-only op: Connect for reads, service account otherwise
+│   ├── private_dot_local/bin/executable_mcp-bridge   # Secret Drop token -> stdio MCP bridge for Gemini CLI and Antigravity
 │   ├── private_dot_gitconfig.tmpl                    # one file, ssh signing with ~/.ssh/id_ed25519
 │   ├── private_dot_ssh/private_config                # Apple ssh-agent + Keychain; 1Password only for unifi-dm
 │   ├── private_dot_config/

@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# stdio bridge to an HTTP MCP server whose token lives in Secret Drop, for agents with no
+# header helper (Gemini CLI, Antigravity). Usage: mcp-bridge <secret-drop name> <url>
+set -euo pipefail
+export PATH="$HOME/.local/share/mise/shims:$PATH"
+# mcp-remote expands ${MCP_AUTH} itself, so the token stays out of argv and agent config.
+MCP_AUTH=$(python3 "$HOME/.codex/skills/secret-drop/scripts/secret_drop.py" headers --name "$1" |
+  python3 -c 'import json, sys; print(json.load(sys.stdin)["Authorization"])')
+export MCP_AUTH
+exec npx -y mcp-remote@0.16.7 "$2" --transport http-only --header 'Authorization:${MCP_AUTH}'

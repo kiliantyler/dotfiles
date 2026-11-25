@@ -17,6 +17,12 @@ sidebar:
 - The same script runs as a `UserPromptSubmit` hook. T3's Stop button on a thread that is only watching sends `watching: false` for every watched PR on it, so a Stop before a message silently drops the watch. When the prompt arrives and an open linked PR is unwatched, the hook adds context telling the turn to re-arm `watch_pull_request` (until merged) and read the PR's checks first.
 - `~/.claude/skills/nano-banana` generates images through the Gemini CLI, which mise installs. It needs `GEMINI_API_KEY` in `~/.config/secrets.env`.
 
+## MCP servers and skills
+
+Every agent gets the same three MCP servers: kanvil, github-scheduler and t3-factory. Their tokens live in Secret Drop files. Claude Code and Codex read them through a header helper. Gemini CLI and Antigravity have no header helper, so their configs run `~/.local/bin/mcp-bridge <secret name> <url>`: a stdio bridge (`mcp-remote`) that reads the token from Secret Drop and keeps it out of argv and agent config. Register a server with `gemini mcp add -s user` and `agy mcp add`. Gemini CLI turns off MCP servers in untrusted folders, so `~/.gemini/trustedFolders.json` trusts the home folder. These agent configs are app-owned and untracked, like `~/.codex/config.toml`.
+
+`run_onchange_after_link-skills` links every skill into `~/.claude/skills` (Claude Code), `~/.codex/skills` (Codex) and `~/.agents/skills` (Gemini CLI and Antigravity).
+
 ## Global instructions
 
 One source, `dotfiles/.chezmoitemplates/agent-instructions.md`, renders a copy for each agent:
@@ -27,7 +33,7 @@ One source, `dotfiles/.chezmoitemplates/agent-instructions.md`, renders a copy f
 | `~/.codex/AGENTS.md` | Codex | `codex` |
 | `~/.gemini/GEMINI.md` | Gemini CLI and Antigravity | `gemini` |
 
-The table at the top of the template records what each agent has, so far only whether it has the kanvil, github-scheduler and t3-factory MCP servers. A section that needs a tool wraps itself in `{{ if $mcp }}…{{ else }}…{{ end }}`. When an agent gains or loses a tool, change its entry there; a new agent gets an entry and a file that passes its name, and an unknown name fails `chezmoi apply`. Edit the template, then `chezmoi apply`; edits to the rendered files are overwritten. Work machines render the encrypted work copy into all three files instead.
+The table at the top of the template records what each agent has, so far only whether it has the kanvil, github-scheduler and t3-factory MCP servers; today all of them do. A section that needs a tool wraps itself in `{{ if $mcp }}…{{ else }}…{{ end }}`. When an agent gains or loses a tool, change its entry there; a new agent gets an entry and a file that passes its name, and an unknown name fails `chezmoi apply`. Edit the template, then `chezmoi apply`; edits to the rendered files are overwritten. Work machines render the encrypted work copy into all three files instead.
 
 Memory, history, and project state under `~/.claude` are not tracked.
 
