@@ -85,7 +85,7 @@ Agents read and write 1Password without Touch ID; your own `op` still uses the d
 
 | Command | Credentials | Why |
 |---|---|---|
-| `op read`, `op inject`, `op run`, `op item get` | 1Password Connect | The commands Connect supports; no rate limit |
+| `op read`, `op inject`, `op run`, `op item get --format json` | 1Password Connect | The only commands the CLI runs over Connect; no rate limit |
 | everything else | service account | Full CLI; counts toward the plan's daily request cap |
 
 The wrapper reads `OP_AGENT_CONNECT_HOST`, `OP_AGENT_CONNECT_TOKEN` and `OP_AGENT_SA_TOKEN` from `~/.config/op/agent.env` (untracked, mode 600). It is not `~/.config/secrets.env`, because that file is sourced into human shells too, and `OP_SERVICE_ACCOUNT_TOKEN` there would take over your own `op`. Without the file the wrapper runs the real `op` unchanged. `tests/test_agent_op.py` covers the routing.

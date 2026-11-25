@@ -36,7 +36,8 @@ class AgentOpTests(unittest.TestCase):
 
     def test_reads_use_connect(self):
         self.write_config()
-        for args in (['read', 'op://v/i/f'], ['inject', '-i', 'x'], ['run', '--', 'true'], ['item', 'get', 'x']):
+        for args in (['read', 'op://v/i/f'], ['inject', '-i', 'x'], ['run', '--', 'true'],
+                     ['item', 'get', 'x', '--format', 'json'], ['item', 'get', 'x', '--format=json']):
             with self.subTest(args=args):
                 self.assertEqual(self.op(*args), {'OP_CONNECT_HOST': 'https://connect.test',
                                                   'OP_CONNECT_TOKEN': 'connect-token',
@@ -44,7 +45,8 @@ class AgentOpTests(unittest.TestCase):
 
     def test_other_commands_use_the_service_account(self):
         self.write_config()
-        for args in (['item', 'create'], ['item', 'list'], ['vault', 'list'], ['document', 'get', 'x']):
+        for args in (['item', 'create'], ['item', 'list'], ['vault', 'list'], ['document', 'get', 'x'],
+                     ['item', 'get', 'x']):
             with self.subTest(args=args):
                 self.assertEqual(self.op(*args), {'OP_CONNECT_HOST': '', 'OP_CONNECT_TOKEN': '',
                                                   'OP_SERVICE_ACCOUNT_TOKEN': 'sa-token'})
