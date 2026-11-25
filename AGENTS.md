@@ -25,6 +25,7 @@ Personal macOS setup managed with [chezmoi](https://www.chezmoi.io/). macOS only
 │   ├── private_dot_gitconfig.tmpl                    # one file, ssh signing with ~/.ssh/id_ed25519
 │   ├── private_dot_ssh/private_config                # Apple ssh-agent + Keychain; 1Password only for unifi-dm
 │   ├── private_dot_config/
+│   │   ├── deployer/conf.d/                          # deployer app registrations; add new ones with `chezmoi add`
 │   │   ├── homebrew/Brewfile.tmpl                    # source of truth for brew formulae and casks
 │   │   ├── mise/config.toml.tmpl                     # source of truth for CLI tools ([[ ]] delimiters)
 │   │   ├── private_work/                             # work-only ssh, git, bash includes (encrypted)

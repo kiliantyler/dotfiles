@@ -73,6 +73,18 @@ chezmoi re-add "$HOME/Library/Application Support/Code/User/settings.json"
 
 Extensions are not tracked.
 
+## Deployer registrations
+
+The Mac's deployer installs releases for every app with a file in `~/.config/deployer/conf.d/<app>.env`; each holds the app's `REPOSITORY=`. chezmoi tracks these files so a rebuilt Mac keeps every registration. `t3-factory.env.tmpl` writes its home-directory paths through `{{ .chezmoi.homeDir }}`.
+
+Register a new app by writing its file, then track it:
+
+```sh
+chezmoi add ~/.config/deployer/conf.d/<app>.env
+```
+
+The directory is not `exact_`, so a registration that is not tracked yet survives `chezmoi apply`. `~/.config/deployer/webhook-secret` is a secret and stays untracked. Caddy's `~/.config/caddy/conf.d/*.caddy` stays untracked too: each app's `install-release` writes its own site file there.
+
 ## Ghostty
 
 `~/.config/ghostty/config` and the Dracula theme. Ghostty runs the login shell, so it opens bash with no further setup.

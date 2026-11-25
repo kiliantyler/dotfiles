@@ -25,8 +25,9 @@ Every file chezmoi writes into `~`, grouped by what it configures.
 | `~/Library/Application Support/Code/User/settings.json` | `private_Library/Application Support/Code/User/`     | [Agents](/managed-dotfiles/agents)     |
 | `~/Library/LaunchAgents/com.tailscale.start-at-login.plist` | `private_Library/LaunchAgents/` | [Homebrew](/management-tools/homebrew) |
 | `~/.config/ghostty/`                                | `private_dot_config/ghostty/`                            | [Agents](/managed-dotfiles/agents)     |
+| `~/.config/deployer/conf.d/*.env`                   | `private_dot_config/deployer/conf.d/`                    | [Agents](/managed-dotfiles/agents#deployer-registrations) |
 | `~/.config/homebrew/Brewfile`                       | `private_dot_config/homebrew/Brewfile`                   | [Homebrew](/management-tools/homebrew) |
 | `~/.config/mise/config.toml`                        | `private_dot_config/mise/config.toml`                    | [mise](/management-tools/mise)         |
 | `~/.config/sops/age/private_keys.txt`               | `private_dot_config/sops/age/…​.age`                      | [age](/management-tools/age)           |
 
-Not managed, by design: `~/.config/secrets.env`, `~/.config/op/agent.env`, the rest of `~/.codex/` (Codex keeps its own state), shell history, and anything an app writes under `~/Library` other than VS Code settings.
+Not managed, by design: `~/.config/secrets.env`, `~/.config/op/agent.env`, `~/.config/deployer/webhook-secret`, Caddy's `~/.config/caddy/conf.d/*.caddy` (each app's installer writes its own), the rest of `~/.codex/` (Codex keeps its own state), shell history, and anything an app writes under `~/Library` other than VS Code settings.
