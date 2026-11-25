@@ -12,7 +12,6 @@ sidebar:
 - `skipDangerousModePermissionPrompt` is on; the shell alias adds `--dangerously-skip-permissions`.
 - Plugins: ponytail, i-have-adhd, frontend-design.
 - Hooks: the T3 PR watch hooks below.
-- `~/.claude/skills/nano-banana` generates images through the Gemini CLI, which mise installs. It needs `GEMINI_API_KEY` in `~/.config/secrets.env`.
 
 ## T3 PR watch hooks
 
@@ -33,9 +32,9 @@ T3 Code runs Claude Code, Codex and Antigravity. In a T3 thread (`T3CODE_THREAD_
 
 ## MCP servers and skills
 
-Every agent gets the same three MCP servers: kanvil, github-scheduler and t3-factory. Their tokens live in Secret Drop files. Claude Code and Codex read them through a header helper. Gemini CLI and Antigravity have no header helper, so their configs run `~/.local/bin/mcp-bridge <secret name> <url>`: a stdio bridge (`mcp-remote`) that reads the token from Secret Drop and keeps it out of argv and agent config. Register a server with `gemini mcp add -s user` and `agy mcp add`. Gemini CLI turns off MCP servers in untrusted folders, so `~/.gemini/trustedFolders.json` trusts the home folder. These agent configs are app-owned and untracked, like `~/.codex/config.toml`.
+Every agent gets the same three MCP servers: kanvil, github-scheduler and t3-factory. Their tokens live in Secret Drop files. Claude Code and Codex read them through a header helper. Antigravity has no header helper, so its config runs `~/.local/bin/mcp-bridge <secret name> <url>`: a stdio bridge (`mcp-remote`) that reads the token from Secret Drop and keeps it out of argv and agent config. Register a server with `agy mcp add`. Its config, `~/.gemini/config/mcp_config.json`, is app-owned and untracked, like `~/.codex/config.toml`.
 
-`run_onchange_after_link-skills` links every skill into `~/.claude/skills` (Claude Code), `~/.codex/skills` (Codex) and `~/.agents/skills` (Gemini CLI and Antigravity).
+`run_onchange_after_link-skills` links every skill into `~/.claude/skills` (Claude Code), `~/.codex/skills` (Codex) and `~/.agents/skills` (Antigravity).
 
 ## Global instructions
 
@@ -45,7 +44,7 @@ One source, `dotfiles/.chezmoitemplates/agent-instructions.md`, renders a copy f
 |---|---|---|
 | `~/.claude/CLAUDE.md` | Claude Code | `claude` |
 | `~/.codex/AGENTS.md` | Codex | `codex` |
-| `~/.gemini/GEMINI.md` | Gemini CLI and Antigravity | `gemini` |
+| `~/.gemini/GEMINI.md` | Antigravity | `antigravity` |
 
 The table at the top of the template records what each agent has, so far only whether it has the kanvil, github-scheduler and t3-factory MCP servers; today all of them do. A section that needs a tool wraps itself in `{{ if $mcp }}…{{ else }}…{{ end }}`. When an agent gains or loses a tool, change its entry there; a new agent gets an entry and a file that passes its name, and an unknown name fails `chezmoi apply`. Edit the template, then `chezmoi apply`; edits to the rendered files are overwritten. Work machines render the encrypted work copy into all three files instead.
 

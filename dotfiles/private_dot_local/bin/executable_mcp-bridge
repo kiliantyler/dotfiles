@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # stdio bridge to an HTTP MCP server whose token lives in Secret Drop, for agents with no
-# header helper (Gemini CLI, Antigravity). Usage: mcp-bridge <secret-drop name> <url>
+# header helper (Antigravity). Usage: mcp-bridge <secret-drop name> <url>
 set -euo pipefail
 export PATH="$HOME/.local/share/mise/shims:$PATH"
 # mcp-remote expands ${MCP_AUTH} itself, so the token stays out of argv and agent config.

@@ -21,7 +21,7 @@ Personal macOS setup managed with [chezmoi](https://www.chezmoi.io/). macOS only
 │   ├── dot_bashrc, dot_bash_profile                  # the shell config
 │   ├── dot_zshenv                                    # shim: sources ~/.bashrc for stray zsh callers
 │   ├── private_dot_local/agent-bin/executable_op     # agent-only op: Connect for reads, service account otherwise
-│   ├── private_dot_local/bin/executable_mcp-bridge   # Secret Drop token -> stdio MCP bridge for Gemini CLI and Antigravity
+│   ├── private_dot_local/bin/executable_mcp-bridge   # Secret Drop token -> stdio MCP bridge for Antigravity
 │   ├── private_dot_gitconfig.tmpl                    # one file, ssh signing with ~/.ssh/id_ed25519
 │   ├── private_dot_ssh/private_config                # Apple ssh-agent + Keychain; 1Password only for unifi-dm
 │   ├── private_dot_config/
@@ -36,7 +36,7 @@ Personal macOS setup managed with [chezmoi](https://www.chezmoi.io/). macOS only
 │   ├── dot_claude/                                   # Claude Code settings, CLAUDE.md, skills
 │   ├── dot_codex/AGENTS.md.tmpl                      # Codex copy of agent-instructions.md
 │   ├── dot_codex/hooks.json, dot_gemini/config/hooks.json  # Codex and Antigravity hook registrations
-│   ├── dot_gemini/GEMINI.md.tmpl                     # Gemini CLI and Antigravity copy of agent-instructions.md
+│   ├── dot_gemini/GEMINI.md.tmpl                     # Antigravity copy of agent-instructions.md
 │   ├── .work/                                        # encrypted work variants of the Claude/Codex files
 │   └── private_Library/
 │       ├── Application Support/Code/User/settings.json

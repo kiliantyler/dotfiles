@@ -1,6 +1,6 @@
-{{- /* Global agent instructions, rendered per agent by dot_claude/CLAUDE.md, dot_codex/AGENTS.md and dot_gemini/GEMINI.md (Gemini CLI and Antigravity). */ -}}
+{{- /* Global agent instructions, rendered per agent by dot_claude/CLAUDE.md, dot_codex/AGENTS.md and dot_gemini/GEMINI.md (Antigravity). */ -}}
 {{- /* What each agent has: change it here when an agent gains or loses a tool. mcp = the kanvil, github-scheduler and t3-factory servers. */ -}}
-{{- $mcp := dict "claude" true "codex" true "gemini" true -}}
+{{- $mcp := dict "claude" true "codex" true "antigravity" true -}}
 {{- if not (hasKey $mcp .agent) }}{{ fail (printf "agent-instructions.md: unknown agent %q" .agent) }}{{ end -}}
 {{- $mcp = index $mcp .agent -}}
 Apply applicable skills silently. Keep commentary focused on task progress, decisions, and results. Refer to a skill only when I ask, the skill blocks continuation, or it requires user action.
