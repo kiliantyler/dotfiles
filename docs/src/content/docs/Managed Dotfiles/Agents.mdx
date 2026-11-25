@@ -21,7 +21,7 @@ T3 Code runs Claude Code, Codex and Antigravity. In a T3 thread (`T3CODE_THREAD_
 | Agent | Registered in | Events |
 |---|---|---|
 | Claude Code | `~/.claude/settings.json` | `SessionStart` (compact, resume), `Stop`, `UserPromptSubmit` |
-| Codex | `~/.codex/hooks.json`, beside Herdr's hook | `SessionStart`, `Stop`, `UserPromptSubmit` |
+| Codex | `~/.codex/hooks.json` | `SessionStart`, `Stop`, `UserPromptSubmit` |
 | Antigravity | `~/.gemini/config/hooks.json` | `SessionStart`, `Stop` |
 
 - **Stop**: the script reads the thread with `t3 thread show --json`. When an open PR linked to the thread is not watched, and `gh pr view` confirms it is still open (T3's snapshot lags a merge), it keeps the turn going once with a reason that names the PR. The agent then re-arms the watch, or ends the turn again if it handed the PR back on purpose. T3's own wake text tells the agent not to list a PR again, so the end-of-turn check cannot rely on instructions alone. A turn the hook already extended stops: Claude Code and Codex send `stop_hook_active`; Antigravity documents `continuationActive` but leaves it false, so the script reads `executionNum > 0` instead. An Antigravity stop the user cancelled or an error caused is left alone.

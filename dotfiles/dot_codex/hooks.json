@@ -4,15 +4,6 @@
       {
         "hooks": [
           {
-            "command": "bash '/Users/kilian/.codex/herdr-agent-state.sh' session",
-            "timeout": 10,
-            "type": "command"
-          }
-        ]
-      },
-      {
-        "hooks": [
-          {
             "type": "command",
             "command": "\"$HOME/.agents/hooks/t3-pr-watch.sh\"",
             "timeout": 30
