@@ -17,9 +17,17 @@ sidebar:
 - The same script runs as a `UserPromptSubmit` hook. T3's Stop button on a thread that is only watching sends `watching: false` for every watched PR on it, so a Stop before a message silently drops the watch. When the prompt arrives and an open linked PR is unwatched, the hook adds context telling the turn to re-arm `watch_pull_request` (until merged) and read the PR's checks first.
 - `~/.claude/skills/nano-banana` generates images through the Gemini CLI, which mise installs. It needs `GEMINI_API_KEY` in `~/.config/secrets.env`.
 
-`~/.claude/CLAUDE.md` holds one line, `@~/.codex/AGENTS.md`, so Claude Code reads the same global instructions as Codex.
+## Global instructions
 
-`~/.gemini/GEMINI.md` is a symlink to `~/.codex/AGENTS.md`, so Gemini CLI and Antigravity read them too.
+One source, `dotfiles/.chezmoitemplates/agent-instructions.md`, renders a copy for each agent:
+
+| File | Read by | Agent |
+|---|---|---|
+| `~/.claude/CLAUDE.md` | Claude Code | `claude` |
+| `~/.codex/AGENTS.md` | Codex | `codex` |
+| `~/.gemini/GEMINI.md` | Gemini CLI and Antigravity | `gemini` |
+
+The table at the top of the template records what each agent has, so far only whether it has the kanvil, github-scheduler and t3-factory MCP servers. A section that needs a tool wraps itself in `{{ if $mcp }}…{{ else }}…{{ end }}`. When an agent gains or loses a tool, change its entry there; a new agent gets an entry and a file that passes its name, and an unknown name fails `chezmoi apply`. Edit the template, then `chezmoi apply`; edits to the rendered files are overwritten. Work machines render the encrypted work copy into all three files instead.
 
 Memory, history, and project state under `~/.claude` are not tracked.
 
@@ -29,7 +37,7 @@ Shared skills live in [`kiliantyler/skills`](https://github.com/kiliantyler/skil
 
 ## Codex
 
-`~/.codex/AGENTS.md` is tracked: the global agent instructions both Codex and Claude Code load in every session. They send every home-directory change through the `dotfiles` skill in `kiliantyler/skills`, which walks the chezmoi workflow in this repo. They also tell agents to pass secrets by `op://` reference through `op run`, `op inject` or `op read`, which the [agent `op`](/managed-dotfiles/shell#1password-for-agents) serves without Touch ID. Edit it in place, then run `chezmoi re-add ~/.codex/AGENTS.md`. Nothing else under `~/.codex` is tracked. Codex reads the login shell from the user record and its own secrets from `~/.codex/secrets/`, which `~/.bashrc` also sources so both agents share variables.
+The global instructions send every home-directory change through the `dotfiles` skill in `kiliantyler/skills`, which walks the chezmoi workflow in this repo. They also tell agents to pass secrets by `op://` reference through `op run`, `op inject` or `op read`, which the [agent `op`](/managed-dotfiles/shell#1password-for-agents) serves without Touch ID. Nothing else under `~/.codex` is tracked. Codex reads the login shell from the user record and its own secrets from `~/.codex/secrets/`, which `~/.bashrc` also sources so both agents share variables.
 
 ## Local validation
 

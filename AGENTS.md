@@ -10,6 +10,7 @@ Personal macOS setup managed with [chezmoi](https://www.chezmoi.io/). macOS only
 │   ├── .chezmoi.yaml.tmpl         # age encryption + editor; nothing else
 │   ├── .chezmoiremove              # retired managed targets
 │   ├── .chezmoitemplates/fseventsd-watchdog.py  # memory recovery policy
+│   ├── .chezmoitemplates/agent-instructions.md  # global agent instructions, one source rendered per agent
 │   ├── .chezmoiignore
 │   ├── .chezmoiscripts/
 │   │   ├── run_once_before_decrypt-age-key.sh.tmpl   # unlocks key.txt.age once per machine
@@ -30,8 +31,8 @@ Personal macOS setup managed with [chezmoi](https://www.chezmoi.io/). macOS only
 │   │   ├── git/{allowed-signers,ignore}
 │   │   ├── gh/, ghostty/, sops/age/
 │   ├── dot_claude/                                   # Claude Code settings, CLAUDE.md, hooks, skills
-│   ├── dot_codex/AGENTS.md.tmpl                      # global agent instructions (Codex, Claude Code, Gemini, Antigravity)
-│   ├── dot_gemini/symlink_GEMINI.md                  # Gemini CLI and Antigravity read the same file
+│   ├── dot_codex/AGENTS.md.tmpl                      # Codex copy of agent-instructions.md
+│   ├── dot_gemini/GEMINI.md.tmpl                     # Gemini CLI and Antigravity copy of agent-instructions.md
 │   ├── .work/                                        # encrypted work variants of the Claude/Codex files
 │   └── private_Library/
 │       ├── Application Support/Code/User/settings.json
@@ -51,10 +52,11 @@ Before writing or changing a source name prefix, script, template or external, r
 
 - chezmoi naming: `dot_` = dotfile, `private_` = 0600/0700, `executable_` = +x, `.tmpl` = Go template, `.age` = age-encrypted.
 - Templates may use `.chezmoi.homeDir` and `.isWork` (hostname matches `^L\d+-`). There is no OS branching; if a template needs a condition, question the need first.
-- Work profile: work-only files are age-encrypted and listed under `{{ else }}` in `.chezmoiignore`. The shared ssh, git and bash configs pick up `~/.config/work/{ssh_config,gitconfig,env.sh}` through an include that is a no-op where the file is absent. `dot_claude/CLAUDE.md`, `dot_claude/private_settings.json` and `dot_codex/AGENTS.md` are templates whose work branch decrypts `dotfiles/.work/*.age`; after changing the live work file, refresh it with `chezmoi encrypt <live file> > dotfiles/.work/<name>.age`. `Brewfile` and `mise/config.toml` are templates, so `chezmoi re-add` does not update them; edit the source.
+- Work profile: work-only files are age-encrypted and listed under `{{ else }}` in `.chezmoiignore`. The shared ssh, git and bash configs pick up `~/.config/work/{ssh_config,gitconfig,env.sh}` through an include that is a no-op where the file is absent. `dot_claude/CLAUDE.md`, `dot_claude/private_settings.json`, `dot_codex/AGENTS.md` and `dot_gemini/GEMINI.md` are templates whose work branch decrypts `dotfiles/.work/*.age`; after changing the live work file, refresh it with `chezmoi encrypt <live file> > dotfiles/.work/<name>.age`. `Brewfile` and `mise/config.toml` are templates, so `chezmoi re-add` does not update them; edit the source.
 - Secrets never render from a template. Runtime secrets live in `~/.config/secrets.env` (untracked, 0600), sourced by `~/.bashrc`. Do not call `onepassword*` template functions; they prompt 1Password on every `chezmoi status`.
 - Packages: edit `Brewfile` or `mise/config.toml`, then `chezmoi apply`. The brew script installs only; removals are `brew uninstall` by hand.
 - Shell: bash 5 from Homebrew. PATH puts mise shims first so tools resolve in `bash -c` without `mise activate`.
+- Global agent instructions: edit `dotfiles/.chezmoitemplates/agent-instructions.md`, then `chezmoi apply`. It renders `~/.claude/CLAUDE.md`, `~/.codex/AGENTS.md` and `~/.gemini/GEMINI.md`, varying sections by the per-agent tool table at its top; the rendered files are output, never sources.
 - Agent detection: `is_agent` in `dot_bashrc` is the only check for an agent shell; add new agents there. Agent shells get `~/.local/agent-bin` first on PATH.
 - Prompt: interactive bash only. `is_agent` or `TERM_PROGRAM=claude-desktop` gets plain `PS1='\w \$ '`; every other interactive shell gets starship from Homebrew, with its init cached in `~/.cache/starship/init.bash` keyed to the binary path. Non-interactive shells get no prompt code.
 - Git signing: ssh format, `~/.ssh/id_ed25519`, verified via `~/.config/git/allowed-signers`. GitHub access is https through `gh auth git-credential`.
