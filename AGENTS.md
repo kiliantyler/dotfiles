@@ -30,7 +30,8 @@ Personal macOS setup managed with [chezmoi](https://www.chezmoi.io/). macOS only
 │   │   ├── git/{allowed-signers,ignore}
 │   │   ├── gh/, ghostty/, sops/age/
 │   ├── dot_claude/                                   # Claude Code settings, CLAUDE.md, hooks, skills
-│   ├── dot_codex/AGENTS.md.tmpl                      # global agent instructions (Codex + Claude Code)
+│   ├── dot_codex/AGENTS.md.tmpl                      # global agent instructions (Codex, Claude Code, Gemini, Antigravity)
+│   ├── dot_gemini/symlink_GEMINI.md                  # Gemini CLI and Antigravity read the same file
 │   ├── .work/                                        # encrypted work variants of the Claude/Codex files
 │   └── private_Library/
 │       ├── Application Support/Code/User/settings.json
