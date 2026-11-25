@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Agent-only `op`: reads go to 1Password Connect (no rate limit), everything else to the service account.
+# ~/.bashrc puts this folder first on PATH only in agent shells, so a human's `op` keeps Touch ID.
+set -euo pipefail
+self=$(cd "$(dirname "$0")" && pwd)
+real=$(PATH=$(tr ':' '\n' <<<"$PATH" | grep -vxF "$self" | paste -sd: -) command -v op)
+
+# OP_AGENT_CONNECT_HOST, OP_AGENT_CONNECT_TOKEN, OP_AGENT_SA_TOKEN. Mode 600, never in the repo.
+env="$HOME/.config/op/agent.env"
+[ -r "$env" ] || exec "$real" "$@"
+. "$env"
+
+# Reset what a parent `op run` exported, so a nested call routes by its own command.
+unset OP_CONNECT_HOST OP_CONNECT_TOKEN OP_SERVICE_ACCOUNT_TOKEN
+# ponytail: routes on the first two words; a global flag first (`op --account x read`) falls to the service account.
+case "${1:-} ${2:-}" in
+  read\ * | inject\ * | run\ * | "item get")
+    export OP_CONNECT_HOST="$OP_AGENT_CONNECT_HOST" OP_CONNECT_TOKEN="$OP_AGENT_CONNECT_TOKEN" ;;
+  *) export OP_SERVICE_ACCOUNT_TOKEN="$OP_AGENT_SA_TOKEN" ;;
+esac
+unset OP_AGENT_CONNECT_HOST OP_AGENT_CONNECT_TOKEN OP_AGENT_SA_TOKEN
+exec "$real" "$@"

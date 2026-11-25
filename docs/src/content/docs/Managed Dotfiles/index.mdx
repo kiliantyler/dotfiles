@@ -10,6 +10,7 @@ Every file chezmoi writes into `~`, grouped by what it configures.
 | Target                                              | Source in `dotfiles/`                                    | Page                                   |
 | --------------------------------------------------- | -------------------------------------------------------- | -------------------------------------- |
 | `~/.bash_profile`, `~/.bashrc`, `~/.zshenv`         | `dot_bash_profile`, `dot_bashrc`, `dot_zshenv`           | [Shell](/managed-dotfiles/shell)       |
+| `~/.local/agent-bin/op`                            | `private_dot_local/agent-bin/executable_op`              | [Shell](/managed-dotfiles/shell#1password-for-agents) |
 | `~/.hushlogin`                                      | `empty_dot_hushlogin`                                    | [Shell](/managed-dotfiles/shell)       |
 | `~/.default-python-packages`                        | `dot_default-python-packages`                            | [mise](/management-tools/mise)         |
 | `~/.gitconfig`                                      | `private_dot_gitconfig.tmpl`                             | [Git and SSH](/managed-dotfiles/git-and-ssh) |
@@ -25,4 +26,4 @@ Every file chezmoi writes into `~`, grouped by what it configures.
 | `~/.config/mise/config.toml`                        | `private_dot_config/mise/config.toml`                    | [mise](/management-tools/mise)         |
 | `~/.config/sops/age/private_keys.txt`               | `private_dot_config/sops/age/…​.age`                      | [age](/management-tools/age)           |
 
-Not managed, by design: `~/.config/secrets.env`, the rest of `~/.codex/` (Codex keeps its own state), shell history, and anything an app writes under `~/Library` other than VS Code settings.
+Not managed, by design: `~/.config/secrets.env`, `~/.config/op/agent.env`, the rest of `~/.codex/` (Codex keeps its own state), shell history, and anything an app writes under `~/Library` other than VS Code settings.

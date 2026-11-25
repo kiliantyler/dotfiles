@@ -12,6 +12,12 @@ Homebrew bash 5 is the login shell. The whole configuration is one file.
 # Agent-first shell. No completions, no plugins; starship draws the prompt for humans only.
 # mise shims first so every tool resolves without `mise activate`, even in `bash -c`.
 export PATH="$HOME/.local/share/mise/shims:$HOME/.local/bin:$HOME/.bun/bin:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+
+# The one place that knows how coding agents mark their shells. Add or fix agents here only.
+is_agent() { [ -n "${CLAUDECODE:-}${CODEX_THREAD_ID:-}${GEMINI_CLI:-}${ANTIGRAVITY_AGENT:-}" ]; }
+# Agents get ~/.local/agent-bin first: an `op` that uses Connect and a service account instead of Touch ID.
+is_agent && PATH="$HOME/.local/agent-bin:$PATH"
+
 export EDITOR="code --wait"
 export VISUAL="$EDITOR"
 export HOMEBREW_NO_ENV_HINTS=1
@@ -29,7 +35,7 @@ case $- in *i*)
 
   # .zshenv sources this file in sh emulation; zsh cannot run the bash prompt code
   if [ -n "$BASH_VERSION" ]; then
-    if [ -n "$CLAUDECODE" ] || [ "$TERM_PROGRAM" = claude-desktop ]; then
+    if is_agent || [ "$TERM_PROGRAM" = claude-desktop ]; then
       PS1='\w \$ '
     elif starship=$(command -v starship); then
       # `starship init` costs a process per shell; cache its output, keyed to the installed binary
@@ -48,6 +54,8 @@ esac
 ```
 
 - mise shims come first so every tool resolves without `mise activate`, including in `bash -c`.
+- `is_agent` is the one check for "a coding agent runs this shell". It reads the variable each agent sets in its tool shells: `CLAUDECODE` (Claude Code), `CODEX_THREAD_ID` (Codex), `GEMINI_CLI` (Gemini CLI), `ANTIGRAVITY_AGENT` (Antigravity). Add or fix an agent there only.
+- Agent shells get `~/.local/agent-bin` first on `PATH`. See [1Password for agents](#1password-for-agents).
 - `~/.config/secrets.env` is where API keys go. It is untracked and mode 600. The Codex secrets file is sourced too so both agents see the same variables.
 - `~/.config/work/env.sh` exists only on work machines; see the work profile in `AGENTS.md`.
 - Everything under `case $- in *i*)` runs only in interactive shells. `bash -c` and agent tool calls never reach it.
@@ -58,7 +66,7 @@ Interactive bash picks one of two prompts:
 
 | Shell | Prompt |
 |---|---|
-| `CLAUDECODE` set, or the Claude desktop Terminal panel (`TERM_PROGRAM=claude-desktop`) | `\w \$ `, no colors |
+| `is_agent`, or the Claude desktop Terminal panel (`TERM_PROGRAM=claude-desktop`) | `\w \$ `, no colors |
 | Any other interactive bash (Ghostty) | starship |
 
 `~/.config/starship.toml` renders only three modules: the folder (last three segments, bold purple), the duration of commands that ran 2 s or longer, and a `❯` that is green after success and red after a failure. Git, language, and cloud modules are not in `format`, so starship never scans for them.
@@ -68,6 +76,19 @@ Interactive bash picks one of two prompts:
 Measured on a work Mac: a new interactive shell takes about 53 ms with the cached starship init, 27 ms with the plain prompt, and 104 ms with an uncached `eval "$(starship init bash)"`. Each prompt render takes about 10 ms.
 
 `~/.bash_profile` sources `~/.bashrc`, so login shells and interactive shells are identical.
+
+## 1Password for agents
+
+Agents read and write 1Password without Touch ID; your own `op` still uses the desktop app and Touch ID.
+
+`~/.local/agent-bin/op` sits ahead of the real `op` only in agent shells. It picks the credentials per command:
+
+| Command | Credentials | Why |
+|---|---|---|
+| `op read`, `op inject`, `op run`, `op item get` | 1Password Connect | The commands Connect supports; no rate limit |
+| everything else | service account | Full CLI; counts toward the plan's daily request cap |
+
+The wrapper reads `OP_AGENT_CONNECT_HOST`, `OP_AGENT_CONNECT_TOKEN` and `OP_AGENT_SA_TOKEN` from `~/.config/op/agent.env` (untracked, mode 600). It is not `~/.config/secrets.env`, because that file is sourced into human shells too, and `OP_SERVICE_ACCOUNT_TOKEN` there would take over your own `op`. Without the file the wrapper runs the real `op` unchanged. `tests/test_agent_op.py` covers the routing.
 
 ## `~/.zshenv`
 

@@ -1,6 +1,12 @@
 # Agent-first shell. No completions, no plugins; starship draws the prompt for humans only.
 # mise shims first so every tool resolves without `mise activate`, even in `bash -c`.
 export PATH="$HOME/.local/share/mise/shims:$HOME/.local/bin:$HOME/.bun/bin:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+
+# The one place that knows how coding agents mark their shells. Add or fix agents here only.
+is_agent() { [ -n "${CLAUDECODE:-}${CODEX_THREAD_ID:-}${GEMINI_CLI:-}${ANTIGRAVITY_AGENT:-}" ]; }
+# Agents get ~/.local/agent-bin first: an `op` that uses Connect and a service account instead of Touch ID.
+is_agent && PATH="$HOME/.local/agent-bin:$PATH"
+
 export EDITOR="code --wait"
 export VISUAL="$EDITOR"
 export HOMEBREW_NO_ENV_HINTS=1
@@ -18,7 +24,7 @@ case $- in *i*)
 
   # .zshenv sources this file in sh emulation; zsh cannot run the bash prompt code
   if [ -n "$BASH_VERSION" ]; then
-    if [ -n "$CLAUDECODE" ] || [ "$TERM_PROGRAM" = claude-desktop ]; then
+    if is_agent || [ "$TERM_PROGRAM" = claude-desktop ]; then
       PS1='\w \$ '
     elif starship=$(command -v starship); then
       # `starship init` costs a process per shell; cache its output, keyed to the installed binary

@@ -19,6 +19,7 @@ Personal macOS setup managed with [chezmoi](https://www.chezmoi.io/). macOS only
 │   │   └── run_once_after_set-login-shell.sh.tmpl    # chsh to Homebrew bash, launchctl setenv SHELL
 │   ├── dot_bashrc, dot_bash_profile                  # the shell config
 │   ├── dot_zshenv                                    # shim: sources ~/.bashrc for stray zsh callers
+│   ├── private_dot_local/agent-bin/executable_op     # agent-only op: Connect for reads, service account otherwise
 │   ├── private_dot_gitconfig.tmpl                    # one file, ssh signing with ~/.ssh/id_ed25519
 │   ├── private_dot_ssh/private_config                # Apple ssh-agent + Keychain; 1Password only for unifi-dm
 │   ├── private_dot_config/
@@ -37,7 +38,7 @@ Personal macOS setup managed with [chezmoi](https://www.chezmoi.io/). macOS only
 ├── cloudflare/                    # Worker behind install.dotfiles.wiki (generic, serves any GitHub user)
 ├── docs/                          # Astro Starlight wiki at dotfiles.wiki (bun)
 ├── references/chezmoi/            # chezmoi reference for agents: naming, scripts, templates, externals, commands
-├── tests/                        # memory watchdog tests
+├── tests/                        # memory watchdog and agent op tests
 ├── install.sh                     # macOS bootstrap: Xcode CLT -> chezmoi -> init --apply
 └── Taskfile.yaml                  # `task docs:serve`
 ```
@@ -53,7 +54,8 @@ Before writing or changing a source name prefix, script, template or external, r
 - Secrets never render from a template. Runtime secrets live in `~/.config/secrets.env` (untracked, 0600), sourced by `~/.bashrc`. Do not call `onepassword*` template functions; they prompt 1Password on every `chezmoi status`.
 - Packages: edit `Brewfile` or `mise/config.toml`, then `chezmoi apply`. The brew script installs only; removals are `brew uninstall` by hand.
 - Shell: bash 5 from Homebrew. PATH puts mise shims first so tools resolve in `bash -c` without `mise activate`.
-- Prompt: interactive bash only. `CLAUDECODE` set or `TERM_PROGRAM=claude-desktop` gets plain `PS1='\w \$ '`; every other interactive shell gets starship from Homebrew, with its init cached in `~/.cache/starship/init.bash` keyed to the binary path. Non-interactive shells get no prompt code.
+- Agent detection: `is_agent` in `dot_bashrc` is the only check for an agent shell; add new agents there. Agent shells get `~/.local/agent-bin` first on PATH.
+- Prompt: interactive bash only. `is_agent` or `TERM_PROGRAM=claude-desktop` gets plain `PS1='\w \$ '`; every other interactive shell gets starship from Homebrew, with its init cached in `~/.cache/starship/init.bash` keyed to the binary path. Non-interactive shells get no prompt code.
 - Git signing: ssh format, `~/.ssh/id_ed25519`, verified via `~/.config/git/allowed-signers`. GitHub access is https through `gh auth git-credential`.
 - Edit configs that apps rewrite (VS Code, mise after `mise use`) in place, then `chezmoi re-add`.
 
