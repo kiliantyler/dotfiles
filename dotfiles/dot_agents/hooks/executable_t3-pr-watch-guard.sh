@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # T3 PR watch guard. A Stop press on an idle T3 thread sends watching:false for every PR it watches
 # (client-runtime commands.ts), and no hook runs until the next message, so the PR sits unwatched.
-# `start THREAD` (from t3-pr-watch-stop.sh at each turn end) replaces the thread's guard with a detached
+# `start THREAD` (from t3-pr-watch.sh at each turn end) replaces the thread's guard with a detached
 # `run`. The run polls the thread: when a PR it saw watched is still open but unwatched and no turn has run
 # since, it messages the thread to re-arm it. An unwatch the agent makes happens inside a turn, which
 # changes the run and ends the guard. It also exits when the thread settles or archives, nothing open

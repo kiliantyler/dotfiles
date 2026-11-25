@@ -31,8 +31,10 @@ Personal macOS setup managed with [chezmoi](https://www.chezmoi.io/). macOS only
 │   │   ├── starship.toml                             # human prompt: folder, slow-command duration, status
 │   │   ├── git/{allowed-signers,ignore}
 │   │   ├── gh/, ghostty/, sops/age/
-│   ├── dot_claude/                                   # Claude Code settings, CLAUDE.md, hooks, skills
+│   ├── dot_agents/hooks/                             # T3 PR watch hooks, run by Claude Code, Codex and Antigravity
+│   ├── dot_claude/                                   # Claude Code settings, CLAUDE.md, skills
 │   ├── dot_codex/AGENTS.md.tmpl                      # Codex copy of agent-instructions.md
+│   ├── dot_codex/hooks.json, dot_gemini/config/hooks.json  # Codex and Antigravity hook registrations
 │   ├── dot_gemini/GEMINI.md.tmpl                     # Gemini CLI and Antigravity copy of agent-instructions.md
 │   ├── .work/                                        # encrypted work variants of the Claude/Codex files
 │   └── private_Library/
@@ -41,7 +43,7 @@ Personal macOS setup managed with [chezmoi](https://www.chezmoi.io/). macOS only
 ├── cloudflare/                    # Worker behind install.dotfiles.wiki (generic, serves any GitHub user)
 ├── docs/                          # Astro Starlight wiki at dotfiles.wiki (bun)
 ├── references/chezmoi/            # chezmoi reference for agents: naming, scripts, templates, externals, commands
-├── tests/                        # memory watchdog and agent op tests
+├── tests/                        # memory watchdog, agent op and T3 PR watch tests
 ├── install.sh                     # macOS bootstrap: Xcode CLT -> chezmoi -> init --apply
 └── Taskfile.yaml                  # `task docs:serve`
 ```

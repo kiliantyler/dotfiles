@@ -11,6 +11,7 @@ Every file chezmoi writes into `~`, grouped by what it configures.
 | --------------------------------------------------- | -------------------------------------------------------- | -------------------------------------- |
 | `~/.bash_profile`, `~/.bashrc`, `~/.zshenv`         | `dot_bash_profile`, `dot_bashrc`, `dot_zshenv`           | [Shell](/managed-dotfiles/shell)       |
 | `~/.local/agent-bin/op`                            | `private_dot_local/agent-bin/executable_op`              | [Shell](/managed-dotfiles/shell#1password-for-agents) |
+| `~/.agents/hooks/`, `~/.codex/hooks.json`, `~/.gemini/config/hooks.json` | `dot_agents/hooks/`, `dot_codex/hooks.json`, `dot_gemini/config/hooks.json` | [Agents](/managed-dotfiles/agents#t3-pr-watch-hooks) |
 | `~/.local/bin/mcp-bridge`                          | `private_dot_local/bin/executable_mcp-bridge`            | [Agents](/managed-dotfiles/agents#mcp-servers-and-skills) |
 | `~/.hushlogin`                                      | `empty_dot_hushlogin`                                    | [Shell](/managed-dotfiles/shell)       |
 | `~/.default-python-packages`                        | `dot_default-python-packages`                            | [mise](/management-tools/mise)         |
@@ -18,7 +19,7 @@ Every file chezmoi writes into `~`, grouped by what it configures.
 | `~/.config/git/allowed-signers`, `~/.config/git/ignore` | `private_dot_config/git/`                            | [Git and SSH](/managed-dotfiles/git-and-ssh) |
 | `~/.ssh/config`                                     | `private_dot_ssh/private_config`                         | [Git and SSH](/managed-dotfiles/git-and-ssh) |
 | `~/.config/gh/config.yml`                           | `private_dot_config/gh/config.yml`                       | [Git and SSH](/managed-dotfiles/git-and-ssh) |
-| `~/.claude/settings.json`, `~/.claude/CLAUDE.md`, `~/.claude/hooks/`, `~/.claude/skills/` | `dot_claude/`                          | [Agents](/managed-dotfiles/agents)     |
+| `~/.claude/settings.json`, `~/.claude/CLAUDE.md`, `~/.claude/skills/` | `dot_claude/`                          | [Agents](/managed-dotfiles/agents)     |
 | `~/.gemini/GEMINI.md`                               | `dot_gemini/GEMINI.md.tmpl`                              | [Agents](/managed-dotfiles/agents)     |
 | `~/.codex/AGENTS.md`                                | `dot_codex/AGENTS.md`                                    | [Agents](/managed-dotfiles/agents)     |
 | `~/Library/Application Support/Code/User/settings.json` | `private_Library/Application Support/Code/User/`     | [Agents](/managed-dotfiles/agents)     |

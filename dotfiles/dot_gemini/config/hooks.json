@@ -1,0 +1,18 @@
+{
+  "t3-pr-watch": {
+    "SessionStart": [
+      {
+        "type": "command",
+        "command": "~/.agents/hooks/t3-pr-watch.sh",
+        "timeout": 30
+      }
+    ],
+    "Stop": [
+      {
+        "type": "command",
+        "command": "~/.agents/hooks/t3-pr-watch.sh",
+        "timeout": 30
+      }
+    ]
+  }
+}
