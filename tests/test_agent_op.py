@@ -6,6 +6,7 @@ import tempfile
 import unittest
 
 WRAPPER = Path(__file__).resolve().parents[1] / 'dotfiles/private_dot_local/agent-bin/executable_op'
+BASHRC = Path(__file__).resolve().parents[1] / 'dotfiles/dot_bashrc'
 TOKENS = ('OP_CONNECT_HOST', 'OP_CONNECT_TOKEN', 'OP_SERVICE_ACCOUNT_TOKEN')
 
 
@@ -59,6 +60,27 @@ class AgentOpTests(unittest.TestCase):
 
     def test_without_config_the_real_op_runs_untouched(self):
         self.assertEqual(self.op('vault', 'list'), dict.fromkeys(TOKENS, ''))
+
+
+class AgentShellTests(unittest.TestCase):
+    """`~/.bashrc` puts the wrapper's folder first on PATH for an agent, and nowhere for a person."""
+
+    def path(self, **marker):
+        with tempfile.TemporaryDirectory() as home:
+            env = {'HOME': home, 'PATH': '/usr/bin:/bin', **marker}
+            out = subprocess.run(['bash', '--noprofile', '--norc', '-c', f'. "{BASHRC}"; echo "$PATH"'],
+                                 env=env, capture_output=True, text=True, check=True)
+            return out.stdout.strip().replace(home, '~').split(':')
+
+    def test_each_agent_marker_puts_the_wrapper_first(self):
+        # CLAUDE_CODE_ENTRYPOINT is all Claude Code has set when it reads the profile to fix its tool shells' PATH;
+        # CLAUDECODE only appears in the tool shells themselves, which do not read the profile again.
+        for marker in ('CLAUDECODE', 'CLAUDE_CODE_ENTRYPOINT', 'CODEX_THREAD_ID', 'ANTIGRAVITY_AGENT'):
+            with self.subTest(marker=marker):
+                self.assertEqual(self.path(**{marker: '1'})[0], '~/.local/agent-bin')
+
+    def test_a_shell_with_no_marker_keeps_the_real_op(self):
+        self.assertNotIn('~/.local/agent-bin', self.path())
 
 
 if __name__ == '__main__':

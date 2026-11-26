@@ -3,7 +3,9 @@
 export PATH="$HOME/.local/share/mise/shims:$HOME/.local/bin:$HOME/.bun/bin:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 
 # The one place that knows how coding agents mark their shells. Add or fix agents here only.
-is_agent() { [ -n "${CLAUDECODE:-}${CODEX_THREAD_ID:-}${ANTIGRAVITY_AGENT:-}" ]; }
+# Claude Code reads this file once, before its tool shells exist, to fix their PATH: all it has set then is
+# CLAUDE_CODE_ENTRYPOINT. CLAUDECODE comes later, in the tool shells, which do not read this file again.
+is_agent() { [ -n "${CLAUDECODE:-}${CLAUDE_CODE_ENTRYPOINT:-}${CODEX_THREAD_ID:-}${ANTIGRAVITY_AGENT:-}" ]; }
 # Agents get ~/.local/agent-bin first: an `op` that uses Connect and a service account instead of Touch ID.
 is_agent && PATH="$HOME/.local/agent-bin:$PATH"
 
