@@ -84,6 +84,8 @@ Register a new app by writing its file, then track it:
 chezmoi add ~/.config/deployer/conf.d/<app>.env
 ```
 
+Use `chezmoi add --encrypt` for registrations that include private deployment hostnames.
+
 The directory is not `exact_`, so a registration that is not tracked yet survives `chezmoi apply`. `~/.config/deployer/webhook-secret` is a secret and stays untracked. Caddy's `~/.config/caddy/conf.d/*.caddy` stays untracked too: each app's `install-release` writes its own site file there.
 
 ## Ghostty

@@ -25,7 +25,7 @@ Every file chezmoi writes into `~`, grouped by what it configures.
 | `~/Library/Application Support/Code/User/settings.json` | `private_Library/Application Support/Code/User/`     | [Agents](/managed-dotfiles/agents)     |
 | `~/Library/LaunchAgents/com.tailscale.start-at-login.plist` | `private_Library/LaunchAgents/` | [Homebrew](/management-tools/homebrew) |
 | `~/.config/ghostty/`                                | `private_dot_config/ghostty/`                            | [Agents](/managed-dotfiles/agents)     |
-| `~/.config/deployer/conf.d/*.env`                   | `private_dot_config/deployer/conf.d/`                    | [Agents](/managed-dotfiles/agents#deployer-registrations) |
+| `~/.config/deployer/conf.d/*.env`                   | `private_dot_config/deployer/conf.d/` (private values encrypted) | [Agents](/managed-dotfiles/agents#deployer-registrations) |
 | `~/.config/homebrew/Brewfile`                       | `private_dot_config/homebrew/Brewfile`                   | [Homebrew](/management-tools/homebrew) |
 | `~/.config/mise/config.toml`                        | `private_dot_config/mise/config.toml`                    | [mise](/management-tools/mise)         |
 | `~/.config/sops/age/private_keys.txt`               | `private_dot_config/sops/age/…​.age`                      | [age](/management-tools/age)           |
