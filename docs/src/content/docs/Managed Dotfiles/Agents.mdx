@@ -48,6 +48,8 @@ One source, `dotfiles/.chezmoitemplates/agent-instructions.md`, renders a copy f
 
 The table at the top of the template records what each agent has, so far only whether it has the kanvil, github-scheduler and t3-factory MCP servers; today all of them do. A section that needs a tool wraps itself in `{{ if $mcp }}…{{ else }}…{{ end }}`. When an agent gains or loses a tool, change its entry there; a new agent gets an entry and a file that passes its name, and an unknown name fails `chezmoi apply`. Edit the template, then `chezmoi apply`; edits to the rendered files are overwritten. Work machines render the encrypted work copy into all three files instead.
 
+Agents link Kanvil tickets directly in chat and skip T3 Code's issue sidebar for those tickets.
+
 Memory, history, and project state under `~/.claude` are not tracked.
 
 ## Skills

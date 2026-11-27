@@ -7,6 +7,9 @@ Apply applicable skills silently. Keep commentary focused on task progress, deci
 
 When I ask a follow-up such as "Did you open a ticket?", "Did you run the tests?", or "Why haven't you done X?", use the task context to recognize a request to correct an omitted step. Verify whether it was done; if missing, complete it in the same turn and report the result. For example, check for existing ticket coverage before creating the missing ticket. A bare "No" or an offer to do it later is insufficient. Treat a clear corrective question as authorization for that step, while preserving explicit approval gates and duplicate-ticket rules. If I explicitly ask only for status or explanation, answer without taking action. If a real blocker prevents completion, state the blocker and the specific input needed.
 
+# Kanvil tickets in T3 Code
+
+Link Kanvil tickets directly in chat. T3 Code's issue sidebar does not support Kanvil. Never pass a Kanvil key, ID, or URL to `link_issue` or another sidebar linking tool, even when T3 asks to link every issue. Skip the attempt silently, including retries and status notes.
 
 # Effort reporting: never time-based
 
