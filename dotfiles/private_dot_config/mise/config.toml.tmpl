@@ -9,7 +9,7 @@ idiomatic_version_file_enable_tools = ["node"]
 
 [tools]
 [[- if not .isWork ]]
-"github:vectorize-io/hindsight" = { version = "1.3.0", asset_pattern = 'hindsight-darwin-{{ arch(x64="amd64", arm64="arm64") }}', rename_exe = "hindsight" }
+"github:vectorize-io/hindsight" = { version = "1", auto_update = "24h", asset_pattern = 'hindsight-darwin-{{ arch(x64="amd64", arm64="arm64") }}', rename_exe = "hindsight" }
 [[- end ]]
 1password-cli = "latest"
 act = "latest"

@@ -6,7 +6,7 @@ sidebar:
 
 [mise](https://mise.jdx.dev/) installs CLI tools and language runtimes. The global list is `~/.config/mise/config.toml`, rendered from `dotfiles/private_dot_config/mise/config.toml.tmpl`. Projects pin their own versions in their own `.mise.toml`.
 
-The personal profile pins the Hindsight CLI used for [shared project lessons](/managed-dotfiles/agents#hindsight). The daily **Update Hindsight CLI** workflow verifies the two Darwin release digests and tests the native executable before committing a same-major pin change. A fresh setup or a dotfiles sync picks up the verified pin. Storage, embedding and extraction run on the configured server.
+The personal profile uses mise to update the Hindsight CLI on this Mac. When its daily check is due, running `hindsight` through the mise shim installs the newest eligible 1.x release before starting the command. The [shared lessons helper](/managed-dotfiles/agents#hindsight) uses that CLI.
 
 ## Shims, not activation
 
