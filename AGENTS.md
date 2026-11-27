@@ -34,7 +34,8 @@ Personal macOS setup managed with [chezmoi](https://www.chezmoi.io/). macOS only
 │   │   ├── starship.toml                             # human prompt: folder, slow-command duration, status
 │   │   ├── git/{allowed-signers,ignore}
 │   │   ├── gh/, ghostty/, sops/age/
-│   ├── dot_agents/hooks/                             # T3 PR watch hooks, run by Claude Code, Codex and Antigravity
+│   ├── private_dot_local/bin/executable_hindsight-shared # explicit cross-project recall and updates
+│   ├── dot_agents/hooks/                             # PR watch and per-repo memory hooks for the three clients
 │   ├── dot_claude/                                   # Claude Code settings, CLAUDE.md, skills
 │   ├── dot_codex/AGENTS.md.tmpl                      # Codex copy of agent-instructions.md
 │   ├── dot_codex/hooks.json, dot_gemini/config/hooks.json  # Codex and Antigravity hook registrations

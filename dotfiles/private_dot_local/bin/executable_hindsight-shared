@@ -1,0 +1,18 @@
+#!/usr/bin/env python3
+"""Query or update an explicitly cross-project lesson using the installed Hindsight CLI."""
+import json
+import os
+import sys
+from pathlib import Path
+
+args = sys.argv[1:]
+if len(args) == 2 and args[0] == "recall":
+    cmd = ["recall", "--budget", "low", "--", "shared-workflows", args[1]]
+elif len(args) == 3 and args[0] == "save":
+    cmd = ["retain", "--doc-id", args[1], "--", "shared-workflows", args[2]]
+else:
+    sys.exit('Usage: hindsight-shared recall "question" | save stable-topic "verified general lesson"')
+config = json.loads((Path.home() / ".hindsight/coding-agent.json").read_text())
+os.execvpe("hindsight", ["hindsight", "memory", *cmd], {
+    **os.environ, "HINDSIGHT_API_URL": config["apiUrl"], "HINDSIGHT_API_KEY": config["apiToken"],
+})

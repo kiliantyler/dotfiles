@@ -13,7 +13,7 @@ Link Kanvil tickets directly in chat. T3 Code's issue sidebar does not support K
 
 # Shared lessons and skills
 
-When Hindsight is available for the current project, use relevant memories as leads and check mutable facts against current evidence. Keep project-specific lessons in the project bank. Keep secrets and private user data out of lessons. Respect read-only requests.
+When Hindsight is available for the current project, use relevant memories as leads and check mutable facts against current evidence. Keep project-specific lessons in the project bank. For a workflow that spans repositories, consult `hindsight-shared recall "question"` when the helper is installed. Save a verified cross-project lesson with `hindsight-shared save stable-topic "lesson"`; reuse the topic to correct it. Keep secrets and private user data out of lessons. Respect read-only requests.
 
 When a correction or verified discovery changes a reusable procedure, search the canonical skills collection for its owner. Fix the existing skill where the advice belongs. Create a skill only for a repeatable workflow with a recognizable trigger, a verifiable outcome and no existing owner. Verify the change against a representative task and share it through the collection's normal workflow. Routine one-off work needs no skill.
 

@@ -1,5 +1,8 @@
 {{- $file := joinPath .home ".hindsight/coding-agents/dist" (printf "%s-%s.js" .agent .hook) -}}
 {{- if stat $file -}}
 {{- $cmd := printf "node %q" $file -}}
+{{- if eq .hook "sessionstart-hook" -}}
+{{- $cmd = printf "%q %s-sessionstart-hook" (joinPath .home ".agents/hooks/hindsight-repo") .agent -}}
+{{- end -}}
 {{- dict "hooks" (list (dict "type" "command" "command" $cmd "timeout" .timeout)) | toJson | printf ",%s" -}}
 {{- end -}}

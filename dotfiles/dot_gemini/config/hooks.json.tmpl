@@ -18,7 +18,7 @@
 {{- $dist := joinPath .chezmoi.homeDir ".hindsight/coding-agents/dist" }}
 {{- if stat (joinPath $dist "antigravity-hook.js") }},
   "coding-agents": {
-    "PreInvocation": [{"command": {{ printf "node %s/antigravity-hook.js" $dist | toJson }}, "timeout": 30}],
+    "PreInvocation": [{"command": {{ printf "%q antigravity-hook" (joinPath .chezmoi.homeDir ".agents/hooks/hindsight-repo") | toJson }}, "timeout": 30}],
     "Stop": [{"command": {{ printf "node %s/antigravity-stop-hook.js" $dist | toJson }}, "timeout": 30}]
   }
 {{- end }}

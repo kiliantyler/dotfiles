@@ -4,7 +4,9 @@ sidebar:
   order: 3
 ---
 
-[mise](https://mise.jdx.dev/) installs CLI tools and language runtimes. The global list is `~/.config/mise/config.toml`, tracked as a plain file at `dotfiles/private_dot_config/mise/config.toml`. Projects pin their own versions in their own `.mise.toml`.
+[mise](https://mise.jdx.dev/) installs CLI tools and language runtimes. The global list is `~/.config/mise/config.toml`, rendered from `dotfiles/private_dot_config/mise/config.toml.tmpl`. Projects pin their own versions in their own `.mise.toml`.
+
+The personal profile pins the Hindsight CLI used for [shared project lessons](/managed-dotfiles/agents#hindsight). Storage, embedding and extraction run on the configured server.
 
 ## Shims, not activation
 

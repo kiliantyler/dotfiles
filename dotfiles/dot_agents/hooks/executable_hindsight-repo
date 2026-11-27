@@ -1,0 +1,110 @@
+#!/usr/bin/env python3
+"""Enroll the Git repo behind a Hindsight hook, then forward its native event."""
+import fcntl
+import hashlib
+import json
+import os
+from pathlib import Path
+import re
+import subprocess
+import sys
+import tempfile
+from urllib.parse import urlsplit
+
+
+def git(directory, *args):
+    result = subprocess.run(
+        ["git", "-C", str(directory), *args], capture_output=True, text=True, timeout=2
+    )
+    return result.stdout.strip() if result.returncode == 0 else ""
+
+
+def repository(cwd):
+    parts = git(cwd, "rev-parse", "--path-format=absolute", "--show-toplevel", "--git-common-dir").splitlines()
+    if len(parts) != 2:
+        return None
+    tree, common = map(Path, parts)
+    return (common.parent if common.name == ".git" else tree).resolve()
+
+
+def bank_for(root):
+    remote = git(root, "remote", "get-url", "origin")
+    if "://" not in remote and re.match(r"^(?:[^/@:]+@)?[\w.-]+:", remote):
+        remote = "ssh://" + remote.replace(":", "/", 1)
+    url = urlsplit(remote)
+    if url.hostname and url.path.strip("/"):
+        identity = url.hostname.lower() + "/" + url.path.strip("/").removesuffix(".git")
+    else:
+        identity = str(root)
+    # The digest keeps distinct origins apart even when their display names collide.
+    short = re.sub(r"[^a-zA-Z0-9._-]", "-", identity.split("/")[-1])[:48]
+    return f"coding-agent::{short}--{hashlib.sha256(identity.encode()).hexdigest()[:16]}"
+
+
+def enroll(cwd, home, *, explicit=False):
+    directory = home / ".hindsight"
+    config = directory / "coding-agent.json"
+    alternate = os.environ.get("HINDSIGHT_CONFIG")
+    if alternate and Path(alternate).expanduser().resolve() != config.resolve():
+        return
+    if os.environ.get("HINDSIGHT_DISABLE_HOOKS"):
+        return
+    if not (directory / "auto-enroll-repositories").is_file() or not config.is_file():
+        return
+    root = repository(cwd)
+    if root is None or root == home or root == Path("/"):
+        return
+    # Temporary fixtures are enabled explicitly through the native opt-in list.
+    if not explicit:
+        temporary_roots = (Path("/private/tmp"), Path("/tmp"), Path("/private/var/folders"))
+        if not root.is_relative_to(home) and any(root.is_relative_to(path) for path in temporary_roots):
+            return
+        if root.is_relative_to(home):
+            top = root.relative_to(home).parts[0]
+            if top.startswith(".") and not root.is_relative_to(home / ".t3/projects"):
+                return
+        if any(part in ("node_modules", ".cache") for part in root.parts):
+            return
+    def target(settings):
+        return (
+            settings.get("optInOnly") is True
+            and not settings.get("disabled")
+            and str(root) not in settings.get("mapPathToBank", {})
+        )
+    if not target(json.loads(config.read_text())):
+        return
+    bank = bank_for(root)
+    with (directory / ".repo-enrollment.lock").open("a") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        settings = json.loads(config.read_text())
+        if not target(settings):
+            return
+        settings.setdefault("mapPathToBank", {})[str(root)] = bank
+        with tempfile.NamedTemporaryFile(mode="w", dir=directory, delete=False) as output:
+            json.dump(settings, output, indent=2)
+            output.write("\n")
+        os.replace(output.name, config)
+
+
+def main():
+    home = Path.home()
+    if len(sys.argv) == 3 and sys.argv[1] == "--register":
+        enroll(Path(sys.argv[2]), home, explicit=True)
+        return 0
+    hook = sys.argv[1]
+    if hook not in ("claude-sessionstart-hook", "codex-sessionstart-hook", "antigravity-hook"):
+        raise SystemExit("Unknown Hindsight startup hook")
+    payload = sys.stdin.buffer.read()
+    try:
+        event = json.loads(payload)
+        cwd = event.get("cwd") or next(iter(event.get("workspacePaths") or []), None)
+        if cwd:
+            enroll(Path(cwd), home)
+    except (OSError, ValueError, subprocess.TimeoutExpired) as exc:
+        print(f"Hindsight repo enrollment skipped ({type(exc).__name__})", file=sys.stderr)
+    script = home / ".hindsight/coding-agents/dist" / (hook + ".js")
+    return subprocess.run(["node", str(script)], input=payload).returncode
+
+
+if __name__ == "__main__":
+    sys.exit(main())
