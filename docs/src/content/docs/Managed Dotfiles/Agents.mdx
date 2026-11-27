@@ -38,7 +38,7 @@ Every agent gets the same three MCP servers: kanvil, github-scheduler and t3-fac
 
 ## Hindsight
 
-Hindsight shares project memory across Claude Code, Codex and Antigravity. The coding-agent package owns its MCP registrations and hook executables. Chezmoi includes those hooks alongside the PR watcher when the executables exist. Its global agent instructions route reusable corrections into the shared skills collection.
+Hindsight shares project memory across Claude Code, Codex and Antigravity. The coding-agent package owns its MCP registrations and hook executables. Chezmoi includes those hooks alongside the PR watcher when the executables exist. T3 gives Antigravity a private configuration directory. On apply, `run_after_sync-agy-memory.py` copies the installed Hindsight hook group into profiles linked to the personal Gemini instructions. Other hook groups and MCP credentials stay under their existing owners. Run chezmoi apply after T3 creates a new Antigravity profile. The global agent instructions route reusable corrections into the shared skills collection.
 
 For the pilot, configure the private `~/.hindsight/coding-agent.json` before installing. Set the self-hosted API URL and token, `optInOnly: true`, and list only disposable project directories under `optInPaths`. Keep git ingestion off (`gitIngest: "none"`), `autoSeed`, `codebaseSurvey` and `autoUpdate` false. Set `autoInject: "recall"`, `injectTimeoutMs: 1000` and `autoInjectEveryTurns: 0`. The integration writes opted-in session text to the server. Its hosted extraction model receives text for processing. Keep that configuration file private and mode 0600.
 
