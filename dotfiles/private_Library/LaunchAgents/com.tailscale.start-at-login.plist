@@ -6,13 +6,15 @@
   <string>com.tailscale.start-at-login</string>
   <key>ProgramArguments</key>
   <array>
-    <string>/usr/bin/open</string>
-    <string>-gja</string>
-    <string>/Applications/Tailscale.app</string>
+    <string>/Applications/Tailscale.app/Contents/Library/LoginItems/TailscaleLoginItemHelper-macsys.app/Contents/MacOS/TailscaleLoginItemHelper-macsys</string>
   </array>
   <key>RunAtLoad</key>
   <true/>
   <key>LimitLoadToSessionType</key>
   <string>Aqua</string>
+  <key>AssociatedBundleIdentifiers</key>
+  <array>
+    <string>io.tailscale.ipn.macsys</string>
+  </array>
 </dict>
 </plist>
