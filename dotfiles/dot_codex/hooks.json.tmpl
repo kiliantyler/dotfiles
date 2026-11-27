@@ -9,7 +9,7 @@
             "timeout": 30
           }
         ]
-      }
+      }{{ template "hindsight-hook" (dict "home" .chezmoi.homeDir "agent" "codex" "hook" "sessionstart-hook" "timeout" 30) }}
     ],
     "UserPromptSubmit": [
       {
@@ -20,7 +20,7 @@
             "timeout": 30
           }
         ]
-      }
+      }{{ template "hindsight-hook" (dict "home" .chezmoi.homeDir "agent" "codex" "hook" "hook" "timeout" 30) }}
     ],
     "Stop": [
       {
@@ -31,7 +31,7 @@
             "timeout": 30
           }
         ]
-      }
+      }{{ template "hindsight-hook" (dict "home" .chezmoi.homeDir "agent" "codex" "hook" "stop-hook" "timeout" 60) }}
     ]
   }
 }

@@ -10,6 +10,7 @@ Personal macOS setup managed with [chezmoi](https://www.chezmoi.io/). macOS only
 │   ├── .chezmoi.yaml.tmpl         # age encryption + editor; nothing else
 │   ├── .chezmoiremove              # retired managed targets
 │   ├── .chezmoitemplates/fseventsd-watchdog.py  # memory recovery policy
+│   ├── .chezmoitemplates/hindsight-hook        # optional Claude and Codex memory hooks
 │   ├── .chezmoitemplates/agent-instructions.md  # global agent instructions, one source rendered per agent
 │   ├── .chezmoiignore
 │   ├── .chezmoiscripts/

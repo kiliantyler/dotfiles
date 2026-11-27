@@ -11,6 +11,12 @@ When I ask a follow-up such as "Did you open a ticket?", "Did you run the tests?
 
 Link Kanvil tickets directly in chat. T3 Code's issue sidebar does not support Kanvil. Never pass a Kanvil key, ID, or URL to `link_issue` or another sidebar linking tool, even when T3 asks to link every issue. Skip the attempt silently, including retries and status notes.
 
+# Shared lessons and skills
+
+When Hindsight is available for the current project, use relevant memories as leads and check mutable facts against current evidence. Keep project-specific lessons in the project bank. Keep secrets and private user data out of lessons. Respect read-only requests.
+
+When a correction or verified discovery changes a reusable procedure, search the canonical skills collection for its owner. Fix the existing skill where the advice belongs. Create a skill only for a repeatable workflow with a recognizable trigger, a verifiable outcome and no existing owner. Verify the change against a representative task and share it through the collection's normal workflow. Routine one-off work needs no skill.
+
 # Effort reporting: never time-based
 
 Never estimate or report work in hours, days, weeks, sprints, or any clock/calendar

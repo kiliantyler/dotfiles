@@ -1,0 +1,25 @@
+{
+  "t3-pr-watch": {
+    "SessionStart": [
+      {
+        "type": "command",
+        "command": "~/.agents/hooks/t3-pr-watch.sh",
+        "timeout": 30
+      }
+    ],
+    "Stop": [
+      {
+        "type": "command",
+        "command": "~/.agents/hooks/t3-pr-watch.sh",
+        "timeout": 30
+      }
+    ]
+  }
+{{- $dist := joinPath .chezmoi.homeDir ".hindsight/coding-agents/dist" }}
+{{- if stat (joinPath $dist "antigravity-hook.js") }},
+  "coding-agents": {
+    "PreInvocation": [{"command": {{ printf "node %s/antigravity-hook.js" $dist | toJson }}, "timeout": 30}],
+    "Stop": [{"command": {{ printf "node %s/antigravity-stop-hook.js" $dist | toJson }}, "timeout": 30}]
+  }
+{{- end }}
+}

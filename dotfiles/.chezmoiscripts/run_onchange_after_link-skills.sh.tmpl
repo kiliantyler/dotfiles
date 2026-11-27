@@ -15,7 +15,7 @@ if [ ! -d "$checkout/.git" ]; then
     exit 0
   fi
 fi
-for dir in "$HOME/.claude/skills" "$HOME/.codex/skills" "$HOME/.agents/skills"; do
+for dir in "$HOME/.claude/skills" "$HOME/.codex/skills" "$HOME/.agents/skills" "$HOME/.gemini/config/skills"; do
   mkdir -p "$dir"
   for entry in "$dir"/*; do
     if [ -L "$entry" ] && [[ "$(readlink "$entry")" == "$repo"/* ]] && [ ! -e "$entry" ]; then

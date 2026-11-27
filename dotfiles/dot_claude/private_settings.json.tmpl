@@ -40,7 +40,7 @@
             "command": "\"$HOME/.agents/hooks/t3-pr-watch.sh\""
           }
         ]
-      }
+      }{{ template "hindsight-hook" (dict "home" .chezmoi.homeDir "agent" "claude" "hook" "sessionstart-hook" "timeout" 30) }}
     ],
     "Stop": [
       {
@@ -51,7 +51,7 @@
             "timeout": 30
           }
         ]
-      }
+      }{{ template "hindsight-hook" (dict "home" .chezmoi.homeDir "agent" "claude" "hook" "stop-hook" "timeout" 60) }}
     ],
     "UserPromptSubmit": [
       {
@@ -62,7 +62,7 @@
             "timeout": 30
           }
         ]
-      }
+      }{{ template "hindsight-hook" (dict "home" .chezmoi.homeDir "agent" "claude" "hook" "hook" "timeout" 30) }}
     ]
   }
 }

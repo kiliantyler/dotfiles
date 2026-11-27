@@ -34,7 +34,15 @@ T3 Code runs Claude Code, Codex and Antigravity. In a T3 thread (`T3CODE_THREAD_
 
 Every agent gets the same three MCP servers: kanvil, github-scheduler and t3-factory. Their tokens live in Secret Drop files. Claude Code and Codex read them through a header helper. Antigravity has no header helper, so its config runs `~/.local/bin/mcp-bridge <secret name> <url>`: a stdio bridge (`mcp-remote`) that reads the token from Secret Drop and keeps it out of argv and agent config. Register a server with `agy mcp add`. Its config, `~/.gemini/config/mcp_config.json`, is app-owned and untracked, like `~/.codex/config.toml`.
 
-`run_onchange_after_link-skills` links every skill into `~/.claude/skills` (Claude Code), `~/.codex/skills` (Codex) and `~/.agents/skills` (Antigravity).
+`run_onchange_after_link-skills` links every skill into `~/.claude/skills` (Claude Code), `~/.codex/skills` (Codex), `~/.agents/skills` (shared) and `~/.gemini/config/skills` (Antigravity).
+
+## Hindsight
+
+Hindsight shares project memory across Claude Code, Codex and Antigravity. The coding-agent package owns its MCP registrations and hook executables. Chezmoi includes those hooks alongside the PR watcher when the executables exist. Its global agent instructions route reusable corrections into the shared skills collection.
+
+For the pilot, configure the private `~/.hindsight/coding-agent.json` before installing. Set the self-hosted API URL and token, `optInOnly: true`, and list only disposable project directories under `optInPaths`. Keep git ingestion off (`gitIngest: "none"`), `autoSeed`, `codebaseSurvey` and `autoUpdate` false. Set `autoInject: "recall"`, `injectTimeoutMs: 1000` and `autoInjectEveryTurns: 0`. The integration writes opted-in session text to the server. Its hosted extraction model receives text for processing. Keep that configuration file private and mode 0600.
+
+Install the tested clients with `npx @vectorize-io/hindsight-coding-agents@0.8.8 install claude-code codex agy --server self-hosted --api-url "$endpoint"`. Use fresh sessions to verify capture and recall. Keep normal projects outside the pilot until concurrent startup and useful recall have been measured. Remove a project from the opt-in list to stop future capture and recall there.
 
 ## Global instructions
 
